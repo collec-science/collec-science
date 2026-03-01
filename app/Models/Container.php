@@ -12,7 +12,7 @@ class Container extends PpciModel
                     o.change_date::timestamp(0), o.uuid, o.trashed, o.location_accuracy, o.object_comment,
 					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
-					storage_product, clp_classification, storage_condition_name,
+					product_name, risk_name, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
           lines, columns, first_line, first_column, line_in_char, column_in_char,
@@ -37,6 +37,8 @@ class Container extends PpciModel
           left outer join borrower using (borrower_id)
           left outer join slots_used su on (c.container_id = su.container_id)
           left outer join collection using (collection_id)
+          left outer join risk using (risk_id)
+          left outer join product using (product_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 

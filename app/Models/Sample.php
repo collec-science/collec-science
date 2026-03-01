@@ -33,7 +33,7 @@ class Sample extends PpciModel
           so.object_login,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
-					ct.container_type_name, ct.clp_classification,
+					ct.container_type_name, product_name,risk_name,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
@@ -92,6 +92,8 @@ class Sample extends PpciModel
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           left outer join v_derivated_number vdn on (vdn.uid = s.uid)
           left outer join v_sample_parents vsp on (vsp.sample_id = s.sample_id)
+          left outer join risk on (st.risk_id = risk.risk_id)
+          left outer join product on (st.product_id = product.product_id)
           ";
     private $where = "";
     private $paramSearch = array();

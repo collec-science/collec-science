@@ -404,12 +404,13 @@ class ObjectClass extends PpciModel
             $trashed = 0;
         }
         $trashed == 0 ? $trashed = " is not true" : $trashed = " is true";
-        $sql = "select o.uid, o.identifier, container_type_name as type_name,
-		clp_classification as clp,
+        $sql = "SELECT o.uid, o.identifier, container_type_name as type_name,
+		risk_name as clp,
 		label_id, 'container' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		o.wgs84_x as x, o.wgs84_y as y,
-		'' as prj, '' as col,storage_product as prod,
+		'' as prj, '' as col,
+        product_name as prod,
         null as metadata,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
@@ -418,18 +419,22 @@ class ObjectClass extends PpciModel
         ,trim (referent_name || ' ' || coalesce(referent_firstname, ' ')) as referent
 		from object o
 		join container using (uid)
-		join container_type using (container_type_id)
+		join container_type cont using (container_type_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
         left outer join object oc on (container_uid = oc.uid)
         left outer join referent r on (o.referent_id = r.referent_id)
+        left outer join risk on (cont.risk_id = risk.risk_id)
+        left outer join product p on (cont.product_id = p.product_id)
 		where o.uid in ($uids) and o.trashed$trashed
 		UNION
-		select o.uid, o.identifier, sample_type_name as type_name, clp_classification as clp,
+		select o.uid, o.identifier, sample_type_name as type_name, 
+        risk_name as clp,
 		label_id, 'sample' as object_type,
 		movement_date, movement_type_name, movement_type_id,
 		o.wgs84_x as x, o.wgs84_y as y,
-		collection_name as prj, collection_name as col, storage_product as prod,
+		collection_name as prj, collection_name as col, 
+        product_name as prod,
         metadata::varchar,
         oc.identifier as container_identifier, container_uid, line_number, column_number,
         o.uuid, o.location_accuracy, o.object_comment
@@ -445,7 +450,9 @@ class ObjectClass extends PpciModel
 		join collection c using (collection_id)
 		join sample_type using (sample_type_id)
     left outer join sampling_place using (sampling_place_id)
-		left outer join container_type using (container_type_id)
+		--left outer join container_type using (container_type_id)
+        left outer join risk using (risk_id)
+        left outer join pruduct using (product_id)
 		left outer join last_movement using (uid)
 		left outer join movement_type using (movement_type_id)
     left outer join object oc on (container_uid = oc.uid)
@@ -567,9 +574,11 @@ class ObjectClass extends PpciModel
             /**
              * Recuperation des informations generales
              */
-            $sql = "select o.uid, identifier as id, clp_classification as clp, '' as pn,
+            $sql = "SELECT o.uid, identifier as id, 
+                            risk_name as clp, '' as pn,
                             '$APPLI_code' as db,
-                            '' as col, '' as prj, storage_product as prod,
+                            '' as col, '' as prj, 
+                            product_name as prod,
                             wgs84_x as x, wgs84_y as y, movement_date as cd,
                             null as sd, null as ed,
 					        null as metadata, null as loc,
@@ -584,11 +593,15 @@ class ObjectClass extends PpciModel
                             join object_status using (object_status_id)
                             left outer join last_movement lm on (o.last_movement_id = lm.movement_id)
                             left outer join referent using (referent_id)
+                            left outer join risk using (risk_id)
+                            left outer join product using (product_id)
                         where o.uid in ($uids)
                     UNION
-                        select o.uid, o.identifier as id, clp_classification as clp, protocol_name as pn,
+                        select o.uid, o.identifier as id, 
+                            risk_name as clp, protocol_name as pn,
                             '$APPLI_code' as db,
-                            collection_name as col, collection_name as prj, storage_product as prod,
+                            collection_name as col, collection_name as prj, 
+                            product_name as prod,
                             o.wgs84_x as x, o.wgs84_y as y, s.sample_creation_date as cd,
                             s.sampling_date as sd,
                             s.expiration_date as ed,
@@ -608,7 +621,7 @@ class ObjectClass extends PpciModel
                                 join collection c on (s.collection_id = c.collection_id)
 					            join object_status os on (os.object_status_id = o.object_status_id)
 					            left outer join sampling_place sp on (s.sampling_place_id = sp.sampling_place_id)
-                                left outer join container_type using (container_type_id)
+                                --left outer join container_type using (container_type_id)
                                 left outer join operation using (operation_id)
                                 left outer join protocol using (protocol_id)
                                 left outer join sample ps on (s.parent_sample_id = ps.sample_id)
@@ -617,6 +630,8 @@ class ObjectClass extends PpciModel
                                 left outer join referent sr on (o.referent_id = sr.referent_id)
                                 left outer join referent cr on (c.referent_id = cr.referent_id)
                                 left outer join last_movement lm on (o.uid = lm.uid)
+                                left outer join product using (product_id)
+                                left outer join risk using (risk_id)
                         where o.uid in ($uids)
                         ";
 

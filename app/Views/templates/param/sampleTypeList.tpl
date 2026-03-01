@@ -14,6 +14,8 @@
 <th>{t}Id{/t}</th>
 <th>{t}Code utilisé pour les échanges{/t}</th>
 <th>{t}Type de contenant{/t}</th>
+<th>{t}Produit utilisé{/t}</th>
+<th>{t}Risque{/t}</th>
 <th>{t}Protocole / operation{/t}</th>
 <th>{t}Sous-échantillonnage{/t}</th>
 <th>{t}Modèle de métadonnées{/t}</th>
@@ -36,6 +38,8 @@
 <td class="center">{$data[lst].sample_type_id}</td>
 <td>{$data[lst].sample_type_code}</td>
 <td>{$data[lst].container_type_name}</td>
+<td>{$data[lst].product_name}</td>
+<td>{$data[lst].risk_name}</td>
 <td>
 {$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version} {$data[lst].operation_name} {$data[lst].operation_version}
 </td>

@@ -508,15 +508,15 @@
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="product">{t}Produit utilisé :{/t}</dt>
-					<dd>{$data.storage_product}</dd>
+					<dd>{$data.product_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="storage_condition">{t}Conditions de stockage :{/t}</dt>
 					<dd>{$data.storage_condition_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
-					<dt class="lexical" data-lexical="clp">{t}Classification CLP :{/t}</dt>
-					<dd>{$data.clp_classification}</dd>
+					<dt class="lexical" data-lexical="clp">{t}Risque (classification CLP) :{/t}</dt>
+					<dd>{$data.risk_name}</dd>
 				</dl>
 				{if $data.collection_id > 0}
 					<dl class="dl-horizontal">

@@ -306,8 +306,8 @@
 										if ( d.container_type_name ) {
 											content += " / " + encodeHtml( d.container_type_name );
 										}
-										if ( d.clp_classification ) {
-											content += " / {t}clp :{/t} " + encodeHtml( d.clp_classification );
+										if ( d.risk_name ) {
+											content += " / {t}clp :{/t} " + encodeHtml( d.risk_name );
 										}
 										if ( d.campaign_id > 0 ) {
 											content += "<br>{t}Campagne :{/t} " + encodeHtml( d.campaign_name );

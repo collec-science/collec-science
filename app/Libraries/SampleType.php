@@ -6,6 +6,8 @@ use App\Models\ContainerType;
 use App\Models\Metadata;
 use App\Models\MultipleType;
 use App\Models\Operation;
+use App\Models\Product;
+use App\Models\Risk;
 use App\Models\SampleType as ModelsSampleType;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
@@ -18,7 +20,7 @@ class SampleType extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -53,11 +55,23 @@ class SampleType extends PpciLibrary
         $this->vue->set($multipleType->getListe(1), "multiple_type");
         $metadata = new Metadata();
         $this->vue->set($metadata->getListe(2), "metadata");
+        $risk = new Risk;
+        $product = new Product;
+        $this->vue->set($risk->getList(2), "risks");
+        $this->vue->set($product->getList(2), "products");
         return $this->vue->send();
     }
     function write()
     {
         try {
+            if (!empty($_POST["productNew"])) {
+                $product = new Product;
+                $_REQUEST["product_id"] = $product->write(["product_id" => 0, "product_name" => $_POST["productNew"]]);
+            }
+            if (!empty($_POST["riskNew"])) {
+                $risk = new Risk;
+                $_REQUEST["risk_id"] = $risk->write(["risk_id" => 0, "risk_name" => $_POST["riskNew"]]);
+            }
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;
@@ -109,8 +123,8 @@ class SampleType extends PpciLibrary
     {
         $this->vue = service("AjaxView");
         if (!empty($_REQUEST["collection_id"]) && is_numeric($_REQUEST["collection_id"])) {
-             $this->vue->set($this->dataclass->getListFromCollection($_REQUEST["collection_id"]));
-        return $this->vue->send();
+            $this->vue->set($this->dataclass->getListFromCollection($_REQUEST["collection_id"]));
+            return $this->vue->send();
         }
     }
 }

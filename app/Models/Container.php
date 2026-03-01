@@ -214,8 +214,8 @@ class Container extends PpciModel
         $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
                 container_family_id, container_family_name, o.object_status_id, o.trashed,
                 o.location_accuracy, o.uuid, o.object_comment,
-                storage_product, storage_condition_name,
-                object_status_name, clp_classification,
+                product_name, storage_condition_name,
+                object_status_name, risk_name,
                 movement_date, movement_type_id, column_number, line_number,
                 document_id
                 ,lm.container_uid
@@ -231,6 +231,8 @@ class Container extends PpciModel
                 left outer join  last_photo on (o.uid = last_photo.uid)
                 left outer join slots_used su on (co.container_id = su.container_id)
                 left outer join collection using (collection_id)
+                left outer join product using (product_id)
+                left outer join risk using (risk_id)
                 where lm.movement_type_id = 1
                 order by o.identifier, o.uid
 				";

@@ -306,6 +306,9 @@
 										if ( d.container_type_name ) {
 											content += " / " + encodeHtml( d.container_type_name );
 										}
+										if ( d.product_name ) {
+											content += " / {t}produit :{/t} " + encodeHtml( d.product_name );
+										}
 										if ( d.risk_name ) {
 											content += " / {t}clp :{/t} " + encodeHtml( d.risk_name );
 										}

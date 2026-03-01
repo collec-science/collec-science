@@ -391,7 +391,7 @@ $(document).ready(function () {
 							}
 							row += '">'+containers[lst].nb_slots_used + '&nbsp;/&nbsp;'+containers[lst].nb_slots_max + '</td>';
 							row += '<td>'+containers[lst].storage_condition_name+'</td>';
-							row += '<td>'+containers[lst].storage_product+'</td>';
+							row += '<td>'+containers[lst].product_name+'</td>';
 							row += '<td>'+containers[lst].risk_name+'</td>';
 							row += '<td class="center">';
 							if (containers[lst].document_id > 0) {
@@ -519,7 +519,7 @@ $(document).ready(function () {
 						</td>
 						<td class="center {if $containers[lst].nb_slots_used < $containers[lst].nb_slots_max || $containers[lst].nb_slots_max == 0}green{else}red{/if}">{$containers[lst].nb_slots_used}&nbsp;/&nbsp;{$containers[lst].nb_slots_max}</td>
 						<td>{$containers[lst].storage_condition_name}</td>
-						<td>{$containers[lst].storage_product}</td>
+						<td>{$containers[lst].product_name}</td>
 						<td>{$containers[lst].risk_name}</td>
 						<td class="center">
 							{if $containers[lst].document_id > 0}

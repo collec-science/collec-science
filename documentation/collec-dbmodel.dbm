@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="79"
+<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="81"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="357,846" last-zoom="0.8" scene-rect="-8,-10,3571.12,2812.52"
+	 last-position="119,1429" last-zoom="0.8" scene-rect="-8,-10,3571.12,2812.52"
 	 default-schema="col" default-owner="collec"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -256,7 +256,7 @@ Mobilier]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="container_type" layers="0" collapse-mode="1" max-obj-count="19" z-value="0">
+<table name="container_type" layers="0" collapse-mode="1" max-obj-count="21" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of types of containers]]> </comment>
@@ -1280,7 +1280,7 @@ Autre]]>
 	<role name="collec"/>
 </sequence>
 
-<table name="sample_type" layers="0" collapse-mode="1" max-obj-count="12" z-value="0">
+<table name="sample_type" layers="0" collapse-mode="1" max-obj-count="14" z-value="0">
 	<schema name="col"/>
 	<role name="collec"/>
 	<comment> <![CDATA[Table of the types of samples]]> </comment>
@@ -3907,6 +3907,82 @@ group by ss.createdsample_id]]> </definition>
 		</idxelement>
 </index>
 
+<table name="risk" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment> <![CDATA[Risks attached to a sample or a container]]> </comment>
+	<tag name="objects"/>
+	<position x="1280" y="2420"/>
+	<column name="risk_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="risk_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Risk classification according to the European CLP directive]]> </comment>
+	</column>
+	<constraint name="risk_pk" type="pk-constr" table="col.risk">
+		<columns names="risk_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="risk_has_many_sample_type" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#00557f"
+	 src-table="col.risk"
+	 dst-table="col.sample_type"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="risk_has_many_container_type" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#aa5500"
+	 src-table="col.risk"
+	 dst-table="col.container_type"
+	 src-required="false" dst-required="false"/>
+
+<table name="product" layers="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="col"/>
+	<role name="collec"/>
+	<comment> <![CDATA[List of products used with samples or containers]]> </comment>
+	<tag name="objects"/>
+	<position x="1680" y="2420"/>
+	<column name="product_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="product_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Name of the product]]> </comment>
+	</column>
+	<constraint name="product_pk" type="pk-constr" table="col.product">
+		<columns names="product_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="product_has_many_container_type" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#aa5500"
+	 src-table="col.product"
+	 dst-table="col.container_type"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="product_has_many_sample_type" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#00557f"
+	 src-table="col.product"
+	 dst-table="col.sample_type"
+	 src-required="false" dst-required="false"/>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -4159,18 +4235,6 @@ group by ss.createdsample_id]]> </definition>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="object_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="RESTRICT" ref-table="col.object" table="col.borrowing">
-	<columns names="uid" ref-type="src-columns"/>
-	<columns names="uid" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="borrower_fk" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="CASCADE" del-action="RESTRICT" ref-table="col.borrower" table="col.borrowing">
-	<columns names="borrower_id" ref-type="src-columns"/>
-	<columns names="borrower_id" ref-type="dst-columns"/>
-</constraint>
-
 <constraint name="object_status_object_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object_status" table="col.object">
 	<columns names="object_status_id" ref-type="src-columns"/>
@@ -4187,6 +4251,18 @@ group by ss.createdsample_id]]> </definition>
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.movement" table="col.object">
 	<columns names="last_movement_id" ref-type="src-columns"/>
 	<columns names="movement_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="object_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="col.object" table="col.borrowing">
+	<columns names="uid" ref-type="src-columns"/>
+	<columns names="uid" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="borrower_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="CASCADE" del-action="RESTRICT" ref-table="col.borrower" table="col.borrowing">
+	<columns names="borrower_id" ref-type="src-columns"/>
+	<columns names="borrower_id" ref-type="dst-columns"/>
 </constraint>
 
 <constraint name="collection_sampletype_collection_fk" type="fk-constr" comparison-type="MATCH SIMPLE"

@@ -46,6 +46,8 @@
 			<item module="regulationList" droits="consult" label="Réglementations" tooltip="Types de réglementations" />
 		</item>
 		<item divider='1' />
+		<item module="productList" droits="consult" label="Produits" tooltip="Produits utilisés dans les contenants ou les échantillons"/>
+		<item module="riskList" droits="consult" label="Risques" tooltip="Risques liés à la manipulation des contenants ou des échantillons"/>
 		<item module="containerType" droits="consult" label="Contenants" tooltip="Paramètres des types de contenants">
 			<item module="containerFamilyList" droits="consult" label="Familles de contenants" tooltip="Familles de contenants (armoires, éprouvettes...)" />
 			<item module="containerTypeList" droits="consult" label="Types de contenants" tooltip="Liste des types de contenants" />

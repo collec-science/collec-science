@@ -185,7 +185,7 @@
 		$( "#samplelabels" ).on( "keypress click", function () {
 			//$( "#samplemodule" ).val( "samplePrintLabel" );
 			$(this.form).attr("action", "samplePrintLabel");
-			$( this.form ).submit();
+			$( this.form ).prop('target','labels').submit();
 		} );
 		$( "#sampledirect" ).on( "keypress click", function () {
 			//$( "#samplemodule" ).val( "samplePrintDirect" );
@@ -306,8 +306,11 @@
 										if ( d.container_type_name ) {
 											content += " / " + encodeHtml( d.container_type_name );
 										}
-										if ( d.clp_classification ) {
-											content += " / {t}clp :{/t} " + encodeHtml( d.clp_classification );
+										if ( d.product_name ) {
+											content += " / {t}produit :{/t} " + encodeHtml( d.product_name );
+										}
+										if ( d.risk_name ) {
+											content += " / {t}clp :{/t} " + encodeHtml( d.risk_name );
 										}
 										if ( d.campaign_id > 0 ) {
 											content += "<br>{t}Campagne :{/t} " + encodeHtml( d.campaign_name );

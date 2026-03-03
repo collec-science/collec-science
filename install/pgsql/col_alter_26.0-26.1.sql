@@ -93,7 +93,7 @@ USING btree
 
 -- object: campaign_id_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.campaign_id_idx CASCADE;
-CREATE INDEX campaign_id_idx ON col.document
+CREATE INDEX IF NOT EXISTS campaign_id_idx ON col.document
 USING btree
 (
 	campaign_id
@@ -313,8 +313,6 @@ SELECT s.uid,
 	JOIN col.sample d ON d.parent_sample_id = s.sample_id
 	GROUP BY s.uid;
 -- ddl-end --
-ALTER VIEW col.v_derivated_number OWNER TO collec;
--- ddl-end --
 
 -- object: col.v_sample_parents | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_sample_parents CASCADE;
@@ -327,10 +325,6 @@ join sample p on (ss.sample_id = p.sample_id)
 join object po on (p.uid = po.uid)
 group by ss.createdsample_id;
 -- ddl-end --
-ALTER VIEW col.v_sample_parents OWNER TO collec;
--- ddl-end --
-
-
 
 -- ** [ Created constraints ]
 
@@ -343,8 +337,6 @@ ALTER TABLE col.collection_eventtype ADD CONSTRAINT collection_eventtype_pk PRIM
 -- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS collection_sampletype_pk CASCADE;
 ALTER TABLE col.collection_sampletype ADD CONSTRAINT collection_sampletype_pk PRIMARY KEY (collection_id,sample_type_id);
 -- ddl-end --
-
-
 
 -- ** [ Created foreign keys ]
 

@@ -68,8 +68,8 @@
 						<td class="center">{$data[lst].nb_slots_max}</td>
 						<td class="center">{$data[lst].nbobject_by_slot}</td>
 						<td>{$data[lst].storage_condition_name}</td>
-						<td>{$data[lst].storage_product}</td>
-						<td>{$data[lst].clp_classification}</td>
+						<td>{$data[lst].product_name}</td>
+						<td>{$data[lst].risk_name}</td>
 						<td>{$data[lst].label_name}</td>
 					</tr>
 				{/section}

@@ -23,13 +23,16 @@ class SampleType extends PpciModel
 					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
-                    identifier_generator_js
-					from sample_type
+                    identifier_generator_js,
+                    product_name,risk_name
+					from sample_type s
 					left outer join container_type using (container_type_id)
 					left outer join operation using (operation_id)
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type using (multiple_type_id)
                     left outer join metadata using (metadata_id)
+                    left outer join product p on (s.product_id = p.product_id)
+                    left outer join risk r on (r.risk_id = s.risk_id)
 			";
 
     function __construct()
@@ -67,7 +70,9 @@ class SampleType extends PpciModel
             "sample_type_description" => array(
                 "type" => 0
             ),
-            "sample_type_code" => ["type" => 0]
+            "sample_type_code" => ["type" => 0],
+            "risk_id" => ["type" => 1],
+            "product_id" => ["type" => 1]
         );
         parent::__construct();
     }
@@ -161,7 +166,8 @@ class SampleType extends PpciModel
      * @param int $sample_type_id
      * @return array
      */
-    function getMetadataAsArray(int $sample_type_id):array {
+    function getMetadataAsArray(int $sample_type_id): array
+    {
         $metadata = $this->getMetadataForm($sample_type_id);
         $res = [];
         if (!empty($metadata)) {

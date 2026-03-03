@@ -613,11 +613,15 @@
 					<dd>{$data.sample_type_name}
 						{if strlen($data.container_type_name) > 0}
 						<br>
-						{$data.container_type_name}
+						{t}Contenant associé :{/t} {$data.container_type_name}
 						{/if}
-						{if strlen($data.clp_classification) > 0}
+						{if strlen($data.risk_name) > 0}
 						<br>
-						{t}clp :{/t} {$data.clp_classification}
+						{t}Risque :{/t} {$data.risk_name}
+						{/if}
+						{if strlen($data.product_name) > 0}
+						<br>
+						{t}Produit utilisé :{/t} {$data.product_name}
 						{/if}
 					</dd>
 				</dl>

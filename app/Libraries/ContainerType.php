@@ -5,6 +5,8 @@ namespace App\Libraries;
 use App\Models\ContainerFamily;
 use App\Models\ContainerType as ModelsContainerType;
 use App\Models\Label;
+use App\Models\Product;
+use App\Models\Risk;
 use App\Models\StorageCondition;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
@@ -17,7 +19,7 @@ class ContainerType extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -52,15 +54,27 @@ class ContainerType extends PpciLibrary
          */
         $containerFamily = new ContainerFamily();
         $storageCondition = new StorageCondition();
+        $risk = new Risk;
+        $product = new Product;
         $label = new Label();
         $this->vue->set($storageCondition->getListe(2), "storageCondition");
         $this->vue->set($containerFamily->getListe(2), "containerFamily");
         $this->vue->set($label->getListe(2), "labels");
+        $this->vue->set($risk->getList(2), "risks");
+        $this->vue->set($product->getList(2), "products");
         return $this->vue->send();
     }
     function write()
     {
         try {
+            if (!empty($_POST["productNew"])) {
+                $product = new Product;
+                $_REQUEST["product_id"] = $product->write(["product_id" => 0, "product_name" => $_POST["productNew"]]);
+            }
+            if (!empty($_POST["riskNew"])) {
+                $risk = new Risk;
+                $_REQUEST["risk_id"] = $risk->write(["risk_id" => 0, "risk_name" => $_POST["riskNew"]]);
+            }
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
                 $_REQUEST[$this->keyName] = $this->id;

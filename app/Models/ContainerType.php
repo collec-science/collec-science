@@ -15,7 +15,9 @@ class ContainerType extends PpciModel
 			from container_type
 			join container_family using (container_family_id)
 			left outer join storage_condition using (storage_condition_id)
-			left outer join label using (label_id)";
+			left outer join label using (label_id)
+            left outer join product using (product_id)
+            left outer join risk using (risk_id)";
 
     /**
      *
@@ -47,11 +49,11 @@ class ContainerType extends PpciModel
             "storage_condition_id" => array(
                 "type" => 1
             ),
-            "storage_product" => array(
-                "type" => 0
+            "product_id" => array(
+                "type" => 1
             ),
-            "clp_classification" => array(
-                "type" => 0
+            "risk_id" => array(
+                "type" => 1
             ),
             "label_id" => array(
                 "type" => 1

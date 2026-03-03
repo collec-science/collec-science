@@ -280,6 +280,11 @@ class Sample extends PpciModel
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
         }
+        if (!empty($data["parent_sample_id"])) {
+            if (!$this->verifyCyclic($data["parent_sample_id"], $data["sample_id"])) {
+                throw new PpciException(_("Le parent sélectionné a pour parent l'échantillon courant"));
+            }
+        }
         if ($ok) {
             if (!isset($this->samplehisto)) {
                 $this->samplehisto = new Samplehisto;
@@ -1784,5 +1789,31 @@ class Sample extends PpciModel
         $sql = "UPDATE sample set metadata = replace(metadata::text,'\"" . $old . "\":','\"" . $new . "\":')::json
                 where metadata::text like '%\"" . $old . "\":%'";
         $this->executeQuery($sql, null, true);
+    }
+    /**
+     * Verify if the sample_id is not used as parent
+     */
+    function verifyCyclic(int $sample_id, int $parent_sample_id)
+    {
+        $back = true;
+        $sql = "with recursive samples as (
+            select s.uid, s.parent_sample_id, s.sample_id
+            from sample s
+            where s.sample_id = :id:
+            union all
+            select ss.uid, ss.parent_sample_id, ss.sample_id
+            from sample ss
+            join samples on (samples.parent_sample_id = ss.sample_id)
+            )
+            select sample_id from samples
+            where sample_id <> :id:";
+        $parents = $this->executeQuery($sql, ["id" => $sample_id]);
+        foreach ($parents as $parent) {
+            if ($parent["sample_id"] == $parent_sample_id) {
+                $back = false;
+                break;
+            }
+        }
+        return $back;
     }
 }

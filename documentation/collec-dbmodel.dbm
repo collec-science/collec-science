@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="81"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1085,657" last-zoom="0.8" scene-rect="-8,-10,3571.12,2812.52"
+	 last-position="1085,-8" last-zoom="0.8" scene-rect="-8,-10,3571.12,2812.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -31,11 +31,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </schema>
 
 <schema name="col" layers="0" fill-color="#589eee" name-color="#000000">
-	
 </schema>
 
 <schema name="gacl" layers="1" rect-visible="true" fill-color="#7e32c6" name-color="#000000">
-	
 </schema>
 
 <tag name="collection">
@@ -136,7 +134,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <sequence name="booking_booking_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="booking" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
@@ -177,7 +174,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <sequence name="project_project_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="collection_group" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -198,7 +194,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <sequence name="container_container_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="container" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
@@ -222,7 +217,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <sequence name="container_family_container_family_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="container_family" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
@@ -248,7 +242,6 @@ Mobilier]]>
 
 <sequence name="container_type_container_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="container_type" layers="0" collapse-mode="1" max-obj-count="21" z-value="0">
@@ -374,7 +367,6 @@ Congélateur;2]]>
 
 <sequence name="dbversion_dbversion_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="dbversion" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -404,7 +396,6 @@ Congélateur;2]]>
 
 <sequence name="document_document_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="document" layers="0" collapse-mode="1" max-obj-count="19" z-value="0">
@@ -477,7 +468,6 @@ Congélateur;2]]>
 
 <sequence name="event_event_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="event" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
@@ -517,7 +507,6 @@ Congélateur;2]]>
 
 <sequence name="event_type_event_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="event_type" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
@@ -555,7 +544,6 @@ Prélèvement pour analyse;true;false
 
 <sequence name="identifier_type_identifier_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="identifier_type" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
@@ -585,7 +573,6 @@ Prélèvement pour analyse;true;false
 
 <sequence name="label_label_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="label" layers="0" collapse-mode="1" max-obj-count="6" z-value="0">
@@ -701,7 +688,6 @@ Prélèvement pour analyse;true;false
 
 <sequence name="storage_storage_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <view name="last_photo" layers="0" collapse-mode="1" max-obj-count="0" z-value="0">
@@ -725,7 +711,6 @@ Prélèvement pour analyse;true;false
 
 <sequence name="metadata_metadata_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="metadata" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -751,7 +736,6 @@ Prélèvement pour analyse;true;false
 
 <sequence name="mime_type_mime_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="mime_type" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -799,12 +783,10 @@ xml;application/xml]]>
 
 <sequence name="storage_reason_storage_reason_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <sequence name="movement_type_movement_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="movement_type" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
@@ -830,7 +812,6 @@ xml;application/xml]]>
 
 <sequence name="multiple_type_multiple_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="multiple_type" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
@@ -858,12 +839,10 @@ Autre]]>
 
 <sequence name="object_uid_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <sequence name="object_identifier_object_identifier_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="object_identifier" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
@@ -891,7 +870,6 @@ Autre]]>
 
 <sequence name="object_status_object_status_id_seq" cycle="false" start="7" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="object_status" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
@@ -925,7 +903,6 @@ Autre]]>
 
 <sequence name="operation_operation_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="operation" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
@@ -964,7 +941,6 @@ Autre]]>
 
 <sequence name="printer_printer_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="printer" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
@@ -1083,7 +1059,6 @@ Autre]]>
 
 <sequence name="protocol_protocol_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="protocol" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
@@ -1128,7 +1103,6 @@ Autre]]>
 
 <sequence name="referent_referent_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="referent" layers="0" collapse-mode="1" max-obj-count="15" z-value="0">
@@ -1195,7 +1169,6 @@ Autre]]>
 
 <sequence name="sample_sample_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="sample" layers="0" collapse-mode="1" max-obj-count="18" z-value="0">
@@ -1251,7 +1224,6 @@ Autre]]>
 
 <sequence name="sample_type_sample_type_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="sample_type" layers="0" collapse-mode="1" max-obj-count="14" z-value="0">
@@ -1301,7 +1273,6 @@ Autre]]>
 
 <sequence name="sampling_place_sampling_place_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="sampling_place" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
@@ -1339,7 +1310,6 @@ Autre]]>
 
 <sequence name="storage_condition_storage_condition_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="storage_condition" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
@@ -1425,7 +1395,6 @@ Autre]]>
 
 <sequence name="subsample_subsample_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="subsample" layers="0" collapse-mode="1" max-obj-count="10" z-value="0">
@@ -1496,7 +1465,6 @@ Autre]]>
 
 <sequence name="aclgroup_aclgroup_id_seq" cycle="false" start="7" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="aclacl" layers="1" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -1526,7 +1494,6 @@ Autre]]>
 
 <sequence name="aclaco_aclaco_id_seq" cycle="false" start="7" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="aclaco" layers="1" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -1561,7 +1528,6 @@ Autre]]>
 
 <sequence name="aclappli_aclappli_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="aclappli" layers="1" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -1622,7 +1588,6 @@ Autre]]>
 
 <sequence name="acllogin_acllogin_id_seq" cycle="false" start="2" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="acllogin" layers="1" collapse-mode="1" max-obj-count="6" z-value="0">
@@ -1680,7 +1645,6 @@ Autre]]>
 
 <sequence name="log_log_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="log" layers="1" collapse-mode="1" max-obj-count="7" z-value="0">
@@ -1718,7 +1682,6 @@ Autre]]>
 
 <sequence name="seq_logingestion_id" cycle="false" start="2" increment="1" min-value="1" max-value="999999" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="logingestion" layers="1" collapse-mode="1" max-obj-count="16" z-value="0">
@@ -1791,7 +1754,6 @@ Autre]]>
 
 <sequence name="passwordlost_passwordlost_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="gacl"/>
-	
 </sequence>
 
 <table name="passwordlost" layers="1" collapse-mode="1" max-obj-count="6" z-value="0">
@@ -1962,7 +1924,6 @@ Autre]]>
 
 <sequence name="borrower_borrower_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="borrower" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
@@ -1999,7 +1960,6 @@ Autre]]>
 
 <sequence name="borrowing_borrowing_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="borrowing" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
@@ -2119,7 +2079,6 @@ Autre]]>
 
 <sequence name="request_request_id_seq" cycle="false" start="1" increment="1" min-value="1" max-value="9223372036854775807" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="request" layers="0" collapse-mode="1" max-obj-count="9" z-value="0">
@@ -2168,7 +2127,6 @@ group by collection_name;admin;]]>
 
 <sequence name="export_model_export_model_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="export_model" layers="0" collapse-mode="1" max-obj-count="4" z-value="0">
@@ -2293,7 +2251,6 @@ Structure:
 
 <sequence name="campaign_campaign_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="campaign" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
@@ -2331,7 +2288,6 @@ Structure:
 
 <sequence name="regulation_regulation_id_seq" cycle="false" start="1" increment="1" min-value="0" max-value="2147483647" cache="1">
 	<schema name="col"/>
-	
 </sequence>
 
 <table name="regulation" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
@@ -2812,7 +2768,7 @@ Structure:
 	</constraint>
 	<initial-data>
 <![CDATA["dataset_type_id";"dataset_type_name";"fields"
-"1";"sample";"[""uid"",""uuid"",""identifier"",""wgs84_x"",""wgs84_y"",""location_accuracy"",""object_status_name"",""referent_name"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""referent_firstname"",""academic_directory"",""academic_link"",""object_comment"",""identifiers"",""sample_creation_date"",""sampling_date"",""multiple_value"",""sampling_place_name"",""expiration_date"",""sample_type_name"",""storage_product"",""clp_classification"",""multiple_type_name"",""collection_name"",""metadata"",""metadata_unit"",""parent_uid"",""parent_uuid"",""parent_identifiers"",""web_address"",""content_type"",""container_uid"",""container_identifier"",""container_uuid"",""storage_type_name"",""fixed_value"",""country_code"",""country_origin_code"",""trashed"",""campaign_id"",""campaign_name"",""campaign_uuid""]"
+"1";"sample";"[""uid"",""uuid"",""identifier"",""wgs84_x"",""wgs84_y"",""location_accuracy"",""object_status_name"",""referent_name"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""referent_firstname"",""academic_directory"",""academic_link"",""object_comment"",""identifiers"",""sample_creation_date"",""sampling_date"",""multiple_value"",""sampling_place_name"",""expiration_date"",""sample_type_name"",""product_name"",""risk_name"",""multiple_type_name"",""collection_name"",""metadata"",""metadata_unit"",""parent_uid"",""parent_uuid"",""parent_identifiers"",""web_address"",""content_type"",""container_uid"",""container_identifier"",""container_uuid"",""storage_type_name"",""fixed_value"",""country_code"",""country_origin_code"",""trashed"",""campaign_id"",""campaign_name"",""campaign_uuid""]"
 "2";"collection";"[""collection_name"",""collection_displayname"",""collection_keywords"",""referent_name"",""referent_firstname"",""academical_directory"",""academical_link"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""fixed_value""]"
 "3";"document";"[""document_name"",""document_uuid"",""uid"",""sample_uuid"",""identifier"",""content_type"",""extension"",""size"",""document_creation_date"",""fixed_value"", ""web_address""]"
 "4";"arbitrary content";"[""content""]"

@@ -59,14 +59,14 @@ class DatasetColumn extends PpciModel
              * Search for last order
              */
             $sql = "select count(*) as number from dataset_column where dataset_template_id = :parent:";
-            $res = $this->lireParamAsPrepared($sql, array("parent" => $parentValue));
+            $res = $this->readParam($sql, array("parent" => $parentValue));
             if (!$res["number"] > 0) {
                 $res["number"] = 0;
             }
             $data["column_order"] = ($res["number"] + 1) * 10;
             return ($data);
         } else {
-            return parent::lire($id);
+            return parent::read($id);
         }
     }
     /**

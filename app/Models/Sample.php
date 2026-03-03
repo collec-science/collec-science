@@ -1507,7 +1507,7 @@ class Sample extends PpciModel
         if (empty($parent["sample_id"])) {
             throw new PpciException(_("Le parent n'existe pas"));
         }
-        $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid:";
+        $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid: and sample_id <> :parent_id:";
         foreach ($uids as $uid) {
             $this->executeSql($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
         }

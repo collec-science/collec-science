@@ -147,6 +147,9 @@
                   <li><b>sample_comment</b> : {t}Commentaire libre sur l'échantillon{/t}</li>
                   <li><b>sample_parent_uid</b> : {t}UID du parent (création d'échantillons rattachés){/t}</li>
                   <li><b>sample_parent_identifier</b> : {t}identifiant métier du parent (doit être créé avant l'échantillon courant ou figurer plus haut dans le fichier, et l'identifiant doit être unique){/t}</li>
+                  <li><b>composite_parents_uid</b> : {t}liste des uid, séparés par une virgule, des parents utilisés pour créer un échantillon composé. Les parents doivent avoir été créés préalablement ou figurer plus haut dans le fichier{/t}</li>
+                  <li><b>composite_parents_identifier</b> : {t}liste des identifiants métiers, séparés par une virgule, des parents utilisés pour créer un échantillon composé. Les parents doivent avoir été créés préalablement ou figurer plus haut dans le fichier, les identifiants doivent être uniques{/t}</li>
+                  <li><b>composite_multiple_value</b> : {t}quantité prélevée dans chaque parent pour créer l'échantillon composé. La quantité doit être identique pour chaque parent{/t}</li>
                   <li><b>dbuid_origin</b> : {t}Identifiant technique dans la base de données d'origine (de préférence sous la forme : nom_base:id){/t}</li>
                   <li><b>sample_uuid</b> :  {t}UID Universel de l'échantillon (UUID){/t}</li>
                   <li><b>container_parent_uid</b> : {t}l'UID du contenant où l'échantillon ou le contenant est rangé{/t}</li>

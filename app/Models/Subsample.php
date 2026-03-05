@@ -196,7 +196,7 @@ class Subsample extends PpciModel
      * @param string $subSampleDate
      * @return void
      */
-    function addSubsample(int $sample_id, float $qty, int $movement_type_id = 2, $subSampleDate = null)
+    function addSubsample(int $sample_id, float $qty, int $movement_type_id = 2, $subSampleDate = null, int $createdSampleId = 0)
     {
         if (is_null($subSampleDate)) {
             $subSampleDate = date($_SESSION["date"]["maskdatelong"]);
@@ -209,6 +209,9 @@ class Subsample extends PpciModel
             "movement_type_id" => $movement_type_id,
             "subsample_login" => $_SESSION["login"]
         ];
+        if ($createdSampleId > 0) {
+            $data["createdsample_id"] = $createdSampleId;
+        }
         $this->write($data);
     }
 }

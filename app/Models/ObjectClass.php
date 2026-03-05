@@ -1139,4 +1139,21 @@ class ObjectClass extends PpciModel
         }
         return $retour;
     }
+    
+    /**
+     * Method getUidFromIdentifier
+     *
+     * @param string $id identifier of the object
+     *
+     * @return int : uid of the object
+     */
+    function getUidFromIdentifier(string $id):?int {
+        $sql = "SELECT uid from object where identifier = :id:";
+        $res = $this->readParam($sql, ["id"=>$id]);
+        if (!empty($res)) {
+            return $res["uid"];
+        } else {
+            return null;
+        }
+    }
 }

@@ -253,6 +253,7 @@ class Container extends PpciLibrary
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $db = $this->dataclass->db;
+            $uid = "";
             try {
                 $db->transBegin();
                 foreach ($uids as $uid) {

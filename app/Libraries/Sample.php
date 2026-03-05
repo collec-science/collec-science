@@ -411,12 +411,6 @@ class Sample extends PpciLibrary
             $db = $this->dataclass->db;
             $db->transBegin();
             /**
-             * add parent_sample_id if not present
-             */
-            if (!isset($_REQUEST["parent_sample_id"])) {
-                $_REQUEST["parent_sample_id"] = "";
-            }
-            /**
              * generate metadata
              */
             $metadata = [];

@@ -258,7 +258,7 @@
 		* Delete parent
 		*/
 		$("#parent_erase").on("click keyup", function () {
-			$("#parent_sample_id").html("");
+			$("#parent_sample_id").html("<option></option>");
 			$("#parent_collection").val("");
 			$("#parent_type").val("");
 			parent_uid = "";

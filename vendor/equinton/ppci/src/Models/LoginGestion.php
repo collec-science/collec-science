@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Models;
 
 use Config\App;
@@ -177,6 +178,10 @@ class LoginGestion extends PpciModel
              */
             $newHash = hash("sha256", $password . $login);
             if ($newHash == $hash) {
+                /**
+                 * rewrite the password with bcrypt
+                 */
+                $this->writeNewPassword($login, $password, false);
                 $ok = true;
             }
         }
@@ -281,7 +286,7 @@ class LoginGestion extends PpciModel
                     $data["tokenws"] = base64_encode($crypted);
                 } else {
                     $this->message->set(_("Une erreur est survenue pendant le chiffrement du jeton d'identification, qui n'a pas pu être mis à jour"), true);
-                    unset ($data["tokenws"]);
+                    unset($data["tokenws"]);
                 }
             } else {
                 /**
@@ -335,7 +340,7 @@ class LoginGestion extends PpciModel
             if (openssl_private_decrypt(base64_decode($data["tokenws"]), $decrypted, $this->getKey("priv"), OPENSSL_PKCS1_OAEP_PADDING)) {
                 $data["tokenws"] = $decrypted;
             } else {
-                $this->message->set(_("Une erreur est survenue pendant le déchiffrement du jeton d'identification"),true);
+                $this->message->set(_("Une erreur est survenue pendant le déchiffrement du jeton d'identification"), true);
                 $data["tokenws"] = "";
             }
         }
@@ -476,12 +481,13 @@ class LoginGestion extends PpciModel
      * @param string $pass
      * @return boolean
      */
-    private function writeNewPassword($login, $pass)
+    private function writeNewPassword($login, $pass, $withMessage = true)
     {
-
+        /**
+         * @var Log
+         */
         $log = service("Log");
         $message = service("MessagePpci");
-        $APPLI_address = "https://" . $_SERVER["HTTP_HOST"];
         $login = strtolower($login);
         $retour = false;
         $oldData = $this->lireByLogin($login);
@@ -491,10 +497,14 @@ class LoginGestion extends PpciModel
             $data["is_expired"] = 0;
             if ($this->write($data) > 0) {
                 $retour = true;
-                $log->setLog($login, "password_change", "ip:" . $_SESSION["remoteIP"]);
-                $message->set(_("Le mot de passe a été modifié"));
+                $log->setLog($login, "password_change");
+                if ($withMessage) {
+                    $message->set(_("Le mot de passe a été modifié"));
+                }
             } else {
-                $message->set(_("Echec de la modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"), true);
+                if ($withMessage) {
+                    $message->set(_("Echec de la modification du mot de passe pour une raison inconnue. Si le problème persiste, contactez l'assistance"), true);
+                }
             }
         } else {
             $message->set(_("Le mode d'identification utilisé pour votre compte n'autorise pas la modification du mot de passe depuis cette application"), true);
@@ -604,7 +614,7 @@ class LoginGestion extends PpciModel
     {
         $sql = "select * from logingestion
 				where lower(login) = lower(:login:)";
-        return $this->lireParam($sql, ["login"=>$login]);
+        return $this->lireParam($sql, ["login" => $login]);
     }
 
     /**

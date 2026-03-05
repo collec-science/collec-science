@@ -9,7 +9,10 @@ Corrections de bugs :
 - l'appel à certaines actions ouvrait un nouvel onglet
 - il était possible de créer des échantillons alors que des métadonnées obligatoires n'étaient pas renseignées
 - dans les API, la variable "locale" n'était pas prise en compte, et les messages restaient systématiquement en français
-- la recherche par zone géographique ne fonctionnait pas
+- la recherche par zone géographique ne fonctionnait plus
+- la suppression du parent d'un échantillon ne fonctionnait plus
+- il était possible de rattacher un échantillon à un parent qui était lui-même enfant de l'échantillon traité
+- il était possible de ranger un contenant dans un contenant qu'il' contenait
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail
@@ -18,6 +21,7 @@ Nouveautés :
 - les modifications apportées aux échantillons sont maintenant tracées
 - la page de modification d'un échantillon a été réorganisée en utilisant une boite d'onglets
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
+- technique : les mots de passe encodés en sha256 sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
 
 Version v26.0.1 du 08/01/2026
 -----------------------------

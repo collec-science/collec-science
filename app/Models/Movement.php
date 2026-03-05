@@ -157,7 +157,7 @@ class Movement extends PpciModel
      * @param string $comment
      * @return int
      */
-    function addMovement($uid, $date, $type, $container_uid = 0, $login = null, $storage_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
+    function addMovement(int $uid, $date, $type, int $container_uid = 0, $login = null, $storage_location = null, $comment = null, $movement_reason_id = null, $column_number = 1, $line_number = 1)
     {
         /*
          * Verifications
@@ -186,6 +186,12 @@ class Movement extends PpciModel
             }
         }
         if ($type == 1) {
+            /**
+             * Verify if there is a risk of cyclic (a container contains a container which contains the first)
+             */
+            if ($this->verifyCyclic($uid, $container_uid)) {
+                throw new PpciException(_("Le contenant à ranger contient le contenant qui doit le contenir"));
+            }
             /*
              * Recherche de container_id a partir de uid
              */
@@ -314,5 +320,41 @@ class Movement extends PpciModel
             $this->message->setSyslog($e->getMessage(), true);
             throw new PpciException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
         }
+    }
+    
+    /**
+     * Method verifyCyclic
+     * 
+     * Return true if the movement is cyclic
+     *
+     * @param int $uid 
+     *
+     * @return bool
+     */
+    function verifyCyclic(int $uid, int $container_uid):bool
+    {
+        $verify = false;
+        $sql = "WITH recursive containers as (
+             select uid,container_uid
+            from last_movement 
+            where uid = :uid:
+            and movement_type_id = 1
+            union all
+            select lm.uid, lm.container_uid
+            from last_movement lm
+             join containers on (containers.container_uid = lm.uid)
+             )
+             select uid
+              from containers
+              where uid <> :uid:
+              ";
+        $containers = $this->getListeParam($sql, ["uid" => $container_uid]);
+        foreach ($containers as $container) {
+            if ($container["uid"] == $uid) {
+                $verify = true;
+                break;
+            }
+        }
+        return $verify;
     }
 }

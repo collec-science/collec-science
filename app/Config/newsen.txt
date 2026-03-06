@@ -2,6 +2,11 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.0.2 of 6/3/2026
+-----------------------------
+Bug fixes:
+- QR code generation was not working correctly: when generating multiple labels, subsequent labels contained the text from previous QR codes.
+
 Version v26.0.1 of 08/01/2026
 -----------------------------
 Bug fixes:

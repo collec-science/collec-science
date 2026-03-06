@@ -1,5 +1,10 @@
 Nouveautés
 ============
+Version v26.0.2 du 6/3/2026
+-----------------------------
+Correction de bugs :
+- la génération des qrcodes ne fonctionnait pas correctement : dès lors qu'on générait plusieurs étiquettes, les suivantes contenaient le texte des qrcodes précédents
+
 Version v26.0.1 du 08/01/2026
 -----------------------------
 Corrections de bugs :

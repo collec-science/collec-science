@@ -557,9 +557,9 @@ class ObjectClass extends PpciModel
              * Instanciate code generators
              * QRcode
              */
-            $qrcode = new QRCode;
+            /*$qrcode = new QRCode;
             $qrcode2 = new QRCode;
-            $options = new QROptions;
+            $options = new QROptions;*/
             /*$options->version             = 7;
             $options->outputInterface = \chillerlan\QRCode\Output\QRGdImagePNG::class;
             $options->outputBase64        = false;*/
@@ -705,18 +705,22 @@ class ObjectClass extends PpciModel
                     if ($opt["barcode_id"] == 1) {
                         //QRCODE
                         if (!$second) {
+                            $qrcode = new QRCode;
                             if ($opt["content_type"] == 2) {
                                 $qrcode->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
                             } else {
                                 $qrcode->render(json_encode($rowq), $filename);
                             }
+                            unset($qrcode);
                         } else {
+                            $qrcode2 = new QRCode;
                             if ($opt["content_type"] == 2) {
 
                                 $qrcode2->render($opt["radical"] . $rowq[$opt["optical_content"]], $filename);
                             } else {
                                 $qrcode2->render(json_encode($rowq), $filename);
                             }
+                            unset($qrcode2);
                         }
 
                         /*$imagick = new \Imagick;

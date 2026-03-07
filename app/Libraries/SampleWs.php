@@ -150,6 +150,9 @@ class SampleWs extends PpciLibrary
         if (!isset($this->sample)) {
             $this->sample = new Sample;
         }
+        if (!isset($this->object)) {
+            $this->object = new ObjectClass;
+        }
         if (!empty($dataset)) {
             $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
         }
@@ -173,7 +176,7 @@ class SampleWs extends PpciLibrary
          * Generate subsamplings for composite sample
          * only when the sample is created
          */
-        if (!$this->samplews->lastItemIsUpdate && ( !empty($dataSent["composite_parents_identifier"]) || !empty($dataSent["composite_parents_uid"]))) {
+        if ( !empty($dataSent["composite_parents_identifier"]) || !empty($dataSent["composite_parents_uid"])) {
             if (!isset($this->subsample)) {
                 $this->subsample = new Subsample;
             }
@@ -194,6 +197,9 @@ class SampleWs extends PpciLibrary
                         $parentsUid[] = $puid;
                     }
                 }
+            }
+            if (empty($dataSent["composite_multiple_value"])) {
+                $dataSent["composite_multiple_value"] = 0;
             }
             foreach ($parentsUid as $puid) {
                 /**

@@ -409,6 +409,11 @@ class Sample extends PpciModel
                 $sql = "delete from subsample where sample_id = :sample_id:";
                 $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
                 /**
+                 * delete from subsample if it's a composite sample
+                 */
+                $sql = "DELETE from subsample where createdsample_id = :sample_id:";
+                $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
+                /**
                  * delete from samplehisto
                  */
                 $sql = "delete from samplehisto where sample_id = :sample_id:";

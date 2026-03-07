@@ -196,22 +196,41 @@ class Subsample extends PpciModel
      * @param string $subSampleDate
      * @return void
      */
-    function addSubsample(int $sample_id, float $qty, int $movement_type_id = 2, $subSampleDate = null, int $createdSampleId = 0)
+    function addSubsample(int $sample_id, float $qty = 0, int $movement_type_id = 2, $subSampleDate = null, int $createdSampleId = 0)
     {
+        $create = true;
         if (is_null($subSampleDate)) {
             $subSampleDate = date($_SESSION["date"]["maskdatelong"]);
         }
-        $data =  [
-            "subsample_id" => 0,
-            "sample_id" => $sample_id,
-            "subsample_date" => $subSampleDate,
-            "subsample_quantity" => $qty,
-            "movement_type_id" => $movement_type_id,
-            "subsample_login" => $_SESSION["login"]
-        ];
         if ($createdSampleId > 0) {
-            $data["createdsample_id"] = $createdSampleId;
+            /**
+             * Search from existent subsampling
+             */
+            $sql = "SELECT subsample_id, sample_id, movement_type_id, createdsample_id
+                    from subsample
+                    where sample_id = :id:
+                    and createdsample_id = :created:";
+            $dataExists = $this->readParam($sql, ["id" => $sample_id, "created" => $createdSampleId]);
+            if ($dataExists["subsample_id"] > 0) {
+                $data = $dataExists;
+                $create = false;
+            }
         }
+        if ($create) {
+            $data =  [
+                "subsample_id" => 0,
+                "sample_id" => $sample_id,
+                "movement_type_id" => $movement_type_id,
+            ];
+            if ($createdSampleId > 0) {
+                $data["createdsample_id"] = $createdSampleId;
+            }
+        }
+        if ($qty > 0) {
+            $data["subsample_quantity"] = $qty;
+        }
+        $data["subsample_login"] = $_SESSION["login"];
+        $data["subsample_date"] = $subSampleDate;
         $this->write($data);
     }
 }

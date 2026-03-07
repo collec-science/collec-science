@@ -13,6 +13,8 @@ Corrections de bugs :
 - la suppression du parent d'un échantillon ne fonctionnait plus
 - il était possible de rattacher un échantillon à un parent qui était lui-même enfant de l'échantillon traité
 - il était possible de ranger un contenant dans un contenant qu'il' contenait
+- la création des modèles d'export ne fonctionnait pas correctement
+- technique : le script de création de la base de données a été corrigé en supprimant la référence au compte collec, pour faciliter l'installation dans des contextes particuliers
 
 Nouveautés :
 - l'affichage des collections a été restructuré, avec l'ajout d'une page détail
@@ -20,8 +22,15 @@ Nouveautés :
 - il est maintenant possible de rajouter une description à une campagne. La description est affichée au survol du nom de la campagne dans le détail d'un échantillon
 - les modifications apportées aux échantillons sont maintenant tracées
 - la page de modification d'un échantillon a été réorganisée en utilisant une boite d'onglets
+- il est maintenant possible d'indiquer les produits utilisés et les risques associés à un type d'échantillon. Auparavant, il fallait systématiquement associer le type d'échantillon à un type de contenant
+- en import de masse, il est maintenant possible d'indiquer tous les parents d'un échantillon composé
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
-- technique : les mots de passe encodés en sha256 sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
+- technique : les mots de passe auparavant encodés en sha256 (comptes anciens) sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
+
+Version v26.0.2 du 6/3/2026
+-----------------------------
+Correction de bugs :
+- la génération des qrcodes ne fonctionnait pas correctement : dès lors qu'on générait plusieurs étiquettes, les suivantes contenaient le texte des qrcodes précédents
 
 Version v26.0.1 du 08/01/2026
 -----------------------------

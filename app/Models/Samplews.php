@@ -17,6 +17,7 @@ class Samplews
     public Referent $referent;
     public SampleType $sampleType;
     public $result;
+    public $lastItemIsUpdate = false;
 
     /**
      * Constructor
@@ -57,6 +58,7 @@ class Samplews
     {
         $this->sample->autoFormatDate = false;
         $collection_id = 0;
+        $this->lastItemIsUpdate = false;
         /**
          * Replace null by empty
          */
@@ -118,6 +120,7 @@ class Samplews
         if (empty($dataSent["object_status_id"]) && !$isUpdate) {
             $dataSent["object_status_id"] = 1;
         }
+            $this->lastItemIsUpdate = $isUpdate;
         /**
          * Search for the parent
          */

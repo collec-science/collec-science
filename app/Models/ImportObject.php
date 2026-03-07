@@ -428,7 +428,6 @@ class ImportObject
                         $dataSample["uid"] = 0;
                     }
                     $sample_uid = $this->sample->ecrire($dataSample);
-                    $sampleData = $this->sample->read($sample_uid);
                     /**
                      * Traitement des identifiants complementaires
                      */
@@ -443,49 +442,51 @@ class ImportObject
                             $this->objectIdentifier->ecrire($dataCode);
                         }
                     }
+                    $sample_id = $this->sample->getIdFromUid($sample_uid);
                     /**
                      * management of subsampling
                      */
                     if (!empty($values["sample_multiple_value"]) && !empty($values["sample_multiple_real"]) && (float) $values["sample_multiple_real"] < (float)$values["sample_multiple_value"]) {
                         $qty = (float) $values["sample_multiple_value"] - (float) $values["sample_multiple_real"];
-                        $sample_id = $this->sample->getIdFromUid($sample_uid);
                         $this->subSample->addSubsample($sample_id, $qty, 2);
                     }
                     /**
                      * Treatment of composite samples
                      */
-                    if (!empty($values["composite_parents_uid"])) {
-                        $parentsUid = explode(",", $values["composite_parents_uid"]);
-                    } else {
-                        $parentsUid = [];                    }
-                    
-                    if (!empty($values["composite_parents_identifier"])) {
-                        $parents = explode(",", $values["composite_parents_identifier"]);
-                        foreach ($parents as $parent) {
-                            $puid = $this->object->getUidFromIdentifier($parent);
-                            if (!$puid > 0) {
-                                throw new PpciException("Line $num : the identifier $parent (composite parent) is unknown in the database");
+                    if (!empty($values["composite_parents_uid"]) || !empty($values["composite_parents_identifier"])) {
+                        if (!empty($values["composite_parents_uid"])) {
+                            $parentsUid = explode(",", $values["composite_parents_uid"]);
+                        } else {
+                            $parentsUid = [];
+                        }
+                        if (!empty($values["composite_parents_identifier"])) {
+                            $parents = explode(",", $values["composite_parents_identifier"]);
+                            foreach ($parents as $parent) {
+                                $puid = $this->object->getUidFromIdentifier($parent);
+                                if (!$puid > 0) {
+                                    throw new PpciException("Line $num : the identifier $parent (composite parent) is unknown in the database");
+                                }
+                                if (!in_array($puid, $parentsUid)) {
+                                    $parentsUid[] = $puid;
+                                }
                             }
-                            if (!in_array($puid, $parentsUid)) {
-                                $parentsUid[] = $puid;
+                        }
+                        foreach ($parentsUid as $puid) {
+                            /**
+                             * search if exists sample composite parent and if its collection is allowed
+                             */
+                            $parentData = $this->sample->read($puid, false);
+                            if (empty($parentData)) {
+                                throw new PpciException("Line $num : the composite parent $puid do not exists");
                             }
+                            if (!$this->sample->verifyCollection($parentData)) {
+                                throw new PpciException("Line $num : the composite parent $puid is not allowed to be change");
+                            }
+                            /**
+                             * generate the subsample
+                             */
+                            $this->subSample->addSubsample($parentData["sample_id"], $values["composite_multiple_value"], 2, null, $sample_id);
                         }
-                    }
-                    foreach ($parentsUid as $puid) {
-                        /**
-                         * search if exists sample composite parent and if its collection is allowed
-                         */
-                        $parentData = $this->sample->read($puid, false);
-                        if (empty($parentData)) {
-                            throw new PpciException("Line $num : the composite parent $puid do not exists");
-                        }
-                        if (!$this->sample->verifyCollection($parentData)) {
-                            throw new PpciException("Line $num : the composite parent $puid is not allowed to be change");
-                        }
-                        /**
-                         * generate the subsample
-                         */
-                        $this->subSample->addSubsample($parentData["sample_id"], $values["composite_multiple_value"], 2, null, $sampleData["sample_id"]);
                     }
 
                     /**

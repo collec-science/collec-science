@@ -6,8 +6,11 @@ use App\Models\Collection;
 use App\Models\Container;
 use App\Models\DatasetTemplate;
 use App\Models\Movement;
+use App\Models\ObjectClass;
 use App\Models\ObjectIdentifier;
+use App\Models\Sample;
 use App\Models\Samplews as ModelsSamplews;
+use App\Models\Subsample;
 use Ppci\Libraries\Locale;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
@@ -30,6 +33,18 @@ class SampleWs extends PpciLibrary
      * @var Container
      */
     private $container;
+    /**
+     * @var Sample
+     */
+    private $sample;
+    /**
+     * @var Subsample
+     */
+    private $subsample;
+    /**
+     * @var ObjectClass
+     */
+    private $object;
     function __construct()
     {
         parent::__construct();
@@ -113,13 +128,13 @@ class SampleWs extends PpciLibrary
             $this->vue->setJson(json_encode($retour));
             return $this->vue->send();
         }*/
-            if (empty($retour)) {
-                $retour = array(
+        if (empty($retour)) {
+            $retour = array(
                 "error_code" => 520,
                 "error_message" => _("Erreur inconnue"),
                 "error_detail" => ""
             );
-            }
+        }
         return $retour;
     }
     /**
@@ -132,10 +147,14 @@ class SampleWs extends PpciLibrary
      */
     function writeUniqueSample(array $dataSent, $searchOrder, $dataset = []) //:int
     {
+        if (!isset($this->sample)) {
+            $this->sample = new Sample;
+        }
         if (!empty($dataset)) {
             $dataSent = $this->datasetTemplate->formatDataForImport($dataset["dataset_template_id"], $dataSent);
         }
         $uid = $this->samplews->write($dataSent, $searchOrder);
+        $sample_id = $this->sample->getIdFromUid($uid);
         /**
          * Add or update a secondary identifier
          */
@@ -148,6 +167,49 @@ class SampleWs extends PpciLibrary
                 $dataIdentifier["identifier_type_code"] = $i[0];
                 $dataIdentifier["object_identifier_value"] = $i[1];
                 $identifier->writeOrReplace($dataIdentifier);
+            }
+        }
+        /**
+         * Generate subsamplings for composite sample
+         * only when the sample is created
+         */
+        if (!$this->samplews->lastItemIsUpdate && ( !empty($dataSent["composite_parents_identifier"]) || !empty($dataSent["composite_parents_uid"]))) {
+            if (!isset($this->subsample)) {
+                $this->subsample = new Subsample;
+            }
+            if (!empty($dataSent["composite_parents_uid"])) {
+                $parentsUid = explode(",", $dataSent["composite_parents_uid"]);
+            } else {
+                $parentsUid = [];
+            }
+
+            if (!empty($dataSent["composite_parents_identifier"])) {
+                $parents = explode(",", $dataSent["composite_parents_identifier"]);
+                foreach ($parents as $parent) {
+                    $puid = $this->object->getUidFromIdentifier($parent);
+                    if (!$puid > 0) {
+                        throw new PpciException("The identifier $parent (composite parent) is unknown in the database");
+                    }
+                    if (!in_array($puid, $parentsUid)) {
+                        $parentsUid[] = $puid;
+                    }
+                }
+            }
+            foreach ($parentsUid as $puid) {
+                /**
+                 * search if exists sample composite parent and if its collection is allowed
+                 */
+                $parentData = $this->sample->read($puid, false);
+                if (empty($parentData)) {
+                    throw new PpciException("The composite parent $puid do not exists");
+                }
+                if (!$this->sample->verifyCollection($parentData)) {
+                    throw new PpciException("The composite parent $puid is not allowed to be change");
+                }
+                /**
+                 * generate the subsample
+                 */
+                $this->subsample->addSubsample($parentData["sample_id"], $dataSent["composite_multiple_value"], 2, null, $sample_id);
             }
         }
         /* check for the creation of a movement */

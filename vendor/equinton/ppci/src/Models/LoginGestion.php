@@ -181,7 +181,7 @@ class LoginGestion extends PpciModel
                 /**
                  * rewrite the password with bcrypt
                  */
-                $this->writeNewPassword($login, $password, false);
+                $this->writeNewPassword($login, $password, false, true);
                 $ok = true;
             }
         }
@@ -479,9 +479,11 @@ class LoginGestion extends PpciModel
      *
      * @param string $login
      * @param string $pass
+     * @param boolean $withMessage : display the message after operation
+     * @param boolean $force : if true, the test of last type of connection is not processed
      * @return boolean
      */
-    private function writeNewPassword($login, $pass, $withMessage = true)
+    private function writeNewPassword($login, $pass, $withMessage = true, $force = false)
     {
         /**
          * @var Log
@@ -491,7 +493,7 @@ class LoginGestion extends PpciModel
         $login = strtolower($login);
         $retour = false;
         $oldData = $this->lireByLogin($login);
-        if ($log->getLastConnexionType($login) == "db") {
+        if ($force || $log->getLastConnexionType($login) == "db") {
             $data = $oldData;
             $data["password"] = $this->_encryptPassword($pass);
             $data["is_expired"] = 0;

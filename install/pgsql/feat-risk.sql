@@ -59,7 +59,7 @@ set risk_id = (
     select risk_id from col.risk
     where clp_classification = risk_name
 )
-from container_type c
+from col.container_type c
 where s.container_type_id = c.container_type_id
 and clp_classification is not null;
 
@@ -68,7 +68,7 @@ set product_id = (
     select product_id from col.product
     where storage_product = product_name
 )
-from container_type c
+from col.container_type c
 where s.container_type_id = c.container_type_id
 and storage_product is not null;
 

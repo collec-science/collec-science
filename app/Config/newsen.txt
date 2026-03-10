@@ -2,6 +2,34 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.1.0 of 10/3/2026
+-----------------------------
+Bug fixes:
+- From the sample list, information boxes tended to remain open.
+- In ‘multi-instance’ mode, it was possible to hijack another instance's session and elevate its privilege level.
+- Sample location information was no longer hidden if the collection had been configured not to manage locations.
+- Calling certain actions opened a new tab.
+- It was possible to create samples even though mandatory metadata had not been entered.
+- In the APIs, the ‘locale’ variable was not taken into account, and messages remained systematically in French.
+- Searching by geographical area no longer worked.
+- Deleting the parent of a sample no longer worked.
+- It was possible to attach a sample to a parent that was itself a child of the sample being processed.
+- It was possible to store a container in a container that it contained.
+- The creation of export templates did not work correctly.
+- Technical: the database creation script was corrected by removing the reference to the collec account, to facilitate installation in specific contexts.
+
+New features:
+- The display of collections has been restructured, with the addition of a details page.
+- It is now possible to add a description to a collection, as well as associated documents. The description is displayed when hovering over the collection name in the sample or container details and on the home panel with the number of samples per collection
+- It is now possible to add a description to a campaign. The description is displayed when hovering over the campaign name in the sample details
+- Changes made to samples are now tracked
+- The sample modification page has been reorganised using a tab box
+- It is now possible to indicate the products used and the risks associated with a sample type. Previously, the sample type had to be systematically associated with a container type.
+- During bulk import, it is now possible to indicate all the parents of a composite sample.
+- The API for creating/modifying a sample now allows you to indicate the parents in the case of a composite sample.
+- Technical: PHP session files are stored in a subfolder of TEMP and are now systematically purged.
+- Technical: Passwords previously encoded in sha256 (old accounts) are now re-encoded in bcrypt when the user logs in.
+
 Version v26.0.2 of 6/3/2026
 -----------------------------
 Bug fixes:

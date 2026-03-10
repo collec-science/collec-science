@@ -1,6 +1,6 @@
 Nouveautés
 ============
-Version v26.1.0 du
+Version v26.1.0 du 10/3/2026
 -----------------------------
 Corrections de bugs :
 - depuis la liste des échantillons, les boites d'information avaient tendance à rester ouvertes
@@ -12,7 +12,7 @@ Corrections de bugs :
 - la recherche par zone géographique ne fonctionnait plus
 - la suppression du parent d'un échantillon ne fonctionnait plus
 - il était possible de rattacher un échantillon à un parent qui était lui-même enfant de l'échantillon traité
-- il était possible de ranger un contenant dans un contenant qu'il' contenait
+- il était possible de ranger un contenant dans un contenant qu'il contenait
 - la création des modèles d'export ne fonctionnait pas correctement
 - technique : le script de création de la base de données a été corrigé en supprimant la référence au compte collec, pour faciliter l'installation dans des contextes particuliers
 
@@ -24,6 +24,7 @@ Nouveautés :
 - la page de modification d'un échantillon a été réorganisée en utilisant une boite d'onglets
 - il est maintenant possible d'indiquer les produits utilisés et les risques associés à un type d'échantillon. Auparavant, il fallait systématiquement associer le type d'échantillon à un type de contenant
 - en import de masse, il est maintenant possible d'indiquer tous les parents d'un échantillon composé
+- l'api de création/modification d'un échantillon permet maintenant d'indiquer les parents dans le cas d'un échantillon composé
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
 - technique : les mots de passe auparavant encodés en sha256 (comptes anciens) sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
 

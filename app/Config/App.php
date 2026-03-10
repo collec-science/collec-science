@@ -185,13 +185,13 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.1.0c";
+    public string $version = "v26.1.0d";
     /**
      * Date of version
      *
      * @var string
      */
-    public string $versionDate = "16/02/2026";
+    public string $versionDate = "10/03/2026";
     /**
      * Number of the database version
      *

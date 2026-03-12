@@ -40,6 +40,7 @@ class SampleType extends PpciLibrary
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("param/sampleTypeList.tpl", "corps");
+        $this->vue->help("parametres/les-types-d'échantillons.html");
         return $this->vue->send();
     }
     function change()
@@ -59,6 +60,7 @@ class SampleType extends PpciLibrary
         $product = new Product;
         $this->vue->set($risk->getList(2), "risks");
         $this->vue->set($product->getList(2), "products");
+        $this->vue->help("parametres/les-types-d'échantillons.html");
         return $this->vue->send();
     }
     function write()

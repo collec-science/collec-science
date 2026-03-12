@@ -28,7 +28,7 @@ class Metadata extends PpciController
     }
     function change()
     {
-        if (!empty($_REQUEST["metadata_id"])) {
+        if (isset($_REQUEST["metadata_id"])) {
             return $this->lib->change();
         } else {
             return $this->lib->list();

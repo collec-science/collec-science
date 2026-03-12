@@ -1505,6 +1505,22 @@ class Sample extends PpciModel
         }
     }
     /**
+     * Method setSampleType
+     *
+     * @param array $uids list of uid to treat
+     * @param int $sample_type_id new sample type
+     *
+     * @return void
+     */
+    function setSampleType (array $uids, int $sample_type_id) {
+        $sql = "update sample set sample_type_id = :sample_type_id: where uid = :uid:";
+        $data = array("sample_type_id" => $sample_type_id);
+        foreach ($uids as $uid) {
+            $data["uid"] = $uid;
+            $this->executeSql($sql, $data, true);
+        }
+    }
+    /**
      * Change parent for all furnished uid
      * @param array $uids
      * @param int $parent_id

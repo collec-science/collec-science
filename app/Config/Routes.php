@@ -168,6 +168,7 @@ $routes->add('samplesSetStatus', 'Sample::setStatus');
 $routes->add('samplesSetParent', 'Sample::setParent');
 $routes->add('samplesCreateComposite', 'Sample::createComposite');
 $routes->add('sampleGetChildren', 'Sample::getChildren');
+$routes->add("samplesTypeChange", "Sample::setSampleType");
 $routes->add('movementList', 'Movement::list');
 $routes->add('fastInputChange', 'Movement::fastInputChange');
 $routes->add('fastInputWrite', 'Movement::fastInputWrite');

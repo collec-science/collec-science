@@ -1,7 +1,7 @@
 <h2>{t}Création - Modification d'un type d'échantillon{/t}</h2>
 <div class="row">
       <div class="col-md-6">
-            <a href="sampleTypeList">{t}Retour à la liste{/t}</a>
+            <a href="sampleTypeList">{t}Retour à la liste{/t}</a>&nbsp;{$help}
 
             <form class="form-horizontal " id="sampleTypeForm" method="post" action="sampleTypeWrite">
                   <input type="hidden" name="moduleBase" value="sampleType">

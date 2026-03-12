@@ -241,6 +241,7 @@
 			"samplesSetCollection": "collection",
 			"samplesSetCampaign": "campaign",
 			"samplesSetStatus": "status",
+			"samplesTypeChange": "samplestype",
 			"samplesSetParent": "parentid",
 			"samplesDocument": "document",
 			"samplesExit": "samplesExit",
@@ -887,6 +888,7 @@
 					<option value="samplesSetCountry">{t}Affecter un pays de collecte{/t}</option>
 					<option value="samplesSetCampaign">{t}Attacher à une campagne de prélèvement{/t}</option>
 					<option value="samplesSetStatus">{t}Modifier le statut{/t}</option>
+					<option value="samplesTypeChange">{t}Changer le type d'échantillon{/t}</option>
 					<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 					<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
 					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
@@ -1118,6 +1120,24 @@
 						</div>
 					</div>
 				</div>
+				<!-- change sampleType-->
+				 <div class="samplestype" hidden>
+					<div class="form-group">
+						<label for="samplesTypeId" class="col-sm-4 control-label">
+							{t}Nouveau type d'échantillon :{/t}
+						</label>
+						<div class="col-sm-8">
+							<select id="samplesTypeId" name="sample_type_id" class="form-control">
+							<option value="" selected>{t}Choisissez...{/t}</option>
+							{foreach $sample_type as $st}
+							<option value="{$st.sample_type_id}">
+								{$st.sample_type_name}
+							</option>
+							{/foreach}
+						</select>
+						</div>
+					</div>
+				 </div>
 				<!-- set parent -->
 				<div class="parentid" hidden>
 					<div class="form-group">

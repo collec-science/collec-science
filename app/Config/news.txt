@@ -25,6 +25,7 @@ Nouveautés :
 - il est maintenant possible d'indiquer les produits utilisés et les risques associés à un type d'échantillon. Auparavant, il fallait systématiquement associer le type d'échantillon à un type de contenant
 - en import de masse, il est maintenant possible d'indiquer tous les parents d'un échantillon composé
 - l'api de création/modification d'un échantillon permet maintenant d'indiquer les parents dans le cas d'un échantillon composé
+- à partir de la liste des échantillons, il est maintenant possible de changer le type de ceux qui sont sélectionnés
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
 - technique : les mots de passe auparavant encodés en sha256 (comptes anciens) sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
 

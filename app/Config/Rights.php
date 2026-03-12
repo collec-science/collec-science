@@ -170,6 +170,7 @@ class Rights extends RightsPpci
         "samplesSetStatus" => ["collection"],
         "samplesSetParent" => ["collection"],
         "sampleGetChildren" => ["consult"],
+        "samplesTypeChange" => ["collection"],
         "movementList" => ["collection"],
         "fastInputChange" => ["manage"],
         "fastInputWrite" => ["manage"],

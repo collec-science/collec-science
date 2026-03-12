@@ -27,6 +27,7 @@ New features:
 - It is now possible to indicate the products used and the risks associated with a sample type. Previously, the sample type had to be systematically associated with a container type.
 - During bulk import, it is now possible to indicate all the parents of a composite sample.
 - The API for creating/modifying a sample now allows you to indicate the parents in the case of a composite sample.
+- From the list of samples, it is now possible to change the type of those selected.
 - Technical: PHP session files are stored in a subfolder of TEMP and are now systematically purged.
 - Technical: Passwords previously encoded in sha256 (old accounts) are now re-encoded in bcrypt when the user logs in.
 

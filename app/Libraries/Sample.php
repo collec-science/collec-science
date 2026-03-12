@@ -882,6 +882,24 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
+    function setSampleType() {
+        try {
+            if (count($_POST["uids"]) == 0) {
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
+            }
+            if (empty($_POST["sample_type_id"])) {
+                throw new PpciException(_("Pas de type d'échantillon sélectionné"));
+            }
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+
+            $this->dataclass->setSampleType($_POST["uids"], $_POST["sample_type_id"]);
+            $this->message->set(_("Opération effectuée"));
+        } catch (PpciException $oe) {
+            $this->message->setSyslog($oe->getMessage(), true);
+            $this->message->set(_("Une erreur est survenue pendant la mise à jour du type d'échantillon"), true);
+            $this->message->set($oe->getMessage());
+        }
+    }
     function setStatus()
     {
         try {

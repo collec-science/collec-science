@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Ppci\Controllers\PpciController;
 use App\Libraries\ImportTemplate as LibrariesImportTemplate;
 
-class Import extends PpciController
+class ImportTemplate extends PpciController
 {
     protected $lib;
     function __construct()

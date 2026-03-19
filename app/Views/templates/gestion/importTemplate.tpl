@@ -1,35 +1,40 @@
 <script>
     $(document).ready(function () {
         $("#containerEnable").change( function() {
-            if ($(this).checked() ){
+            if ($(this).is(':checked') ){
                 $(".containers").prop("disabled",false);
             } else {
                 $(".containers").prop("disabled",true);
             }
+            setSubmit();
         });
         $("#sampleEnable").change( function() {
-            if ($(this).checked() ){
-                $(".sample").prop("disabled",false);
+            if ($(this).is(':checked') ){
+                $(".samples").prop("disabled",false);
             } else {
-                $(".sample").prop("disabled",true);
+                $(".samples").prop("disabled",true);
             }
+            setSubmit();
         });
         function getSampletype() {
 			var collection_id = $("#sampleCollection").val();
-			$.ajax({
+            if (collection_id > 0) {
+                $.ajax({
 				url: "sampleTypeGetListAjax",
 				data: { "collection_id": collection_id }
-			})
-            .done(function (value) {
-                d = JSON.parse(value);
-                var options = '';
-                for (var i = 0; i < d.length; i++) {
-                    options += '<option value="' + d[i].sample_type_id + '"';
-                    options += '>' + d[i].sample_type_name;
-                    options += '</option>';
-                };
-                $("#sampleTypes").html(options);
-            });
+                })
+                .done(function (value) {
+                    d = JSON.parse(value);
+                    var options = '';
+                    for (var i = 0; i < d.length; i++) {
+                        options += '<option value="' + d[i].sample_type_id + '"';
+                        options += '>' + d[i].sample_type_name;
+                        options += '</option>';
+                    };
+                    $("#sampleTypes").html(options);
+                });
+            }
+			
 		}
         function getSamplingPlace() {
 			/*
@@ -52,15 +57,28 @@
 					}
 				});
 		}
+        function setSubmit() {
+            /**
+             * Activation/désactivation du bouton
+             */
+            if ($("#containerEnable").is(":checked") || $("#sampleEnable").is(":checked")) {
+                $("#submit").attr("disabled", false);
+            } else {
+                $("#submit").attr("disabled", true);
+            }
+        }
         $("#sampleCollection").change(function() {
             getSampletype();
             getSamplingPlace();
         });
         /**
-         * initiate ajax contents
+         * Settings
          */
+        $(".containers").attr("disabled", true);
+        $(".samples").attr("disabled", true);
         getSampletype(); 
         getSamplingPlace();
+        setSubmit();
     });
 </script>
 <h2>{t}Générer un modèle d'import de masse{/t}</h2>
@@ -70,7 +88,7 @@
         <form class="form-horizontal" id="template" action="importTemplateGenerate" method="post">
             <fieldset id="containersFieldset">
                 <legend>
-                    {t}Importer des containers : {/t}
+                    {t}Importer des contenants : {/t}
                     <input type="checkbox" id="containerEnable" name="containerEnable" value="1">
                 </legend>
                  <div class="form-group">
@@ -78,12 +96,13 @@
                         {t}Collection de destination :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="containerCollection" name="containerCollection" class="form-control">
+                        <select id="containerCollection" name="containerCollection" class="form-control containers">
                             <option value="" selected></option>
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_name}">
                                 {$collection.collection_name}
                             </option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -92,11 +111,16 @@
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
                     <div class="col-md-8">
-                        {t}Rangement du contenant dans un autre contenant :{/t}
-                        <input type="checkbox" class="containers" name="containerFields[]" value="containerLocation" disabled>
-                        <br>
-                        {t}UUID connu :{/t}
-                        <input type="checkbox" class="containers" name="containerFields[]" value="containerUuid" disabled>
+                        <table class="col-md-11">
+                            <tr>
+                                <td>{t}Rangement du contenant dans un autre contenant :{/t}</td>
+                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerLocation" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}UUID connu :{/t}</td>
+                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerUuid" ></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </fieldset>
@@ -110,11 +134,12 @@
                         {t}Collection de destination :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="sampleCollection" name="sampleCollection">
+                        <select id="sampleCollection" name="sampleCollection" class="form-control containers">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">
                                 {$collection.collection_name}
                             </option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -140,6 +165,7 @@
                             <option value="{$referent_name} {$referent_firstname}">
                                 {$referent_name} {$referent_firstname}
                             </option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -149,7 +175,7 @@
                     </label>
                     <div class="col-md-8">
                         <select id="country" name="country" class="form-control samples">
-                            <option value="" selected{/if>
+                            <option value="" selected>
                             </option>
                             {foreach $countries as $country}
                             <option value="{$country.country_name}">
@@ -164,7 +190,7 @@
                         {t}Pays de provenance :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="countryOrigin" name="countryOrigin" class="form-control">
+                        <select id="countryOrigin" name="countryOrigin" class="form-control samples">
                             <option value="" selected></option>
                             {foreach $countries as $country}
                             <option value="{$country.country_name}">
@@ -183,6 +209,7 @@
                             <option value="" selected></option>
                             {foreach $campaigns as $campaign}
                             <option value="{$campaign.campaign_name}">{$campaign.campaign_name}</option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -197,6 +224,7 @@
                             <option value="{$samplingPlace.sampling_place_name}">
                                 {$samplingPlace.sampling_place_name}
                             </option>
+                            {/foreach}
                         </select>
                     </div>
                 </div>
@@ -205,49 +233,41 @@
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
                     <div class="col-md-8">
-                        {t}Date d'expiration de l'échantillon :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleDateExpiration" disabled>
-                        <br>
-                        {t}Identifiant dans la base de données d'origine :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleDbuidOrigin" disabled>
-                        <br>
-                        {t}Rangement de l'échantillon dans un contenant :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleLocation" disabled>
-                        <br>
-                        {t}Échantillon dérivé (ajout du parent) :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleParent" disabled>
-                        <br>
-                        {t}Échantillon composé (plusieurs parents) :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleComposite" disabled>
-                        <br>
-                        {t}Localisation GPS :{t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleGps" disabled>
-                        <br>
-                        {t}UUID connu :{/t}
-                        <input type="checkbox" class="samples" name="sampleFields[]" value="sampleUuid" disabled>
-                        <br>
+                        <table class="col-md-11">
+                            <tr>
+                                <td>{t}Date d'expiration de l'échantillon :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleDateExpiration" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}Identifiant dans la base de données d'origine :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleDbuidOrigin" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}Rangement de l'échantillon dans un contenant :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleLocation" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}Échantillon dérivé (ajout du parent) :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleParent" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}Échantillon composé (plusieurs parents) :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleComposite" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}Localisation GPS :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleGps" ></td>
+                            </tr>
+                            <tr>
+                                <td>{t}UUID connu :{/t}</td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleUuid" ></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </fieldset>
             <fieldset id="identifiers">
                 <legend>{t}Informations communes aux contenants et aux échantillons{/t}</legend>
-                <div class="form-group ">
-						<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">
-							{t}Pays de collecte :{/t}
-						</label>
-						<div class="col-md-8">
-							<select id="country_id" name="country_id" class="form-control">
-								<option value="" {if $data.country_id=="" }selected{/if}>{t}Choisissez...{/t}
-								</option>
-								{foreach $countries as $country}
-								<option value="{$country.country_id}" {if
-									$data.country_id==$country.country_id}selected{/if}>
-									{$country.country_name}
-								</option>
-								{/foreach}
-							</select>
-						</div>
-					</div>
 					<div class="form-group ">
 						<label for="identifiers" class="control-label col-md-4">
 							{t}Identifiants complémentaires :{/t}
@@ -262,11 +282,15 @@
 								<option value="{$identifier.identifier_type_code}">
 									{$identifier.identifier_type_code} ({$identifier.identifier_type_name})
 								</option>
+                                {/if}
 								{/foreach}
 							</select>
 						</div>
 					</div>
             </fieldset>
+            <div class="form-group center">
+                        <button type="submit" class="btn btn-primary" id="submit">{t}Générer le fichier{/t}</button>
+                  </div>
             {$csrf}
         </form>
     </div>

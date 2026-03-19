@@ -134,7 +134,7 @@
                         {t}Collection de destination :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="sampleCollection" name="sampleCollection" class="form-control containers">
+                        <select id="sampleCollection" name="sampleCollection" class="form-control samples">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">
                                 {$collection.collection_name}
@@ -148,7 +148,7 @@
                         {t}Types d'échantillons à importer :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="samplesType" class="samples form-control" name="samplesType" multiple 
+                        <select id="sampleTypes" class="samples form-control" name="sampleTypes[]" multiple 
                         title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                         >
                         </select>
@@ -162,8 +162,8 @@
                         <select id="referent" name="referent" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $referents as $referent}
-                            <option value="{$referent_name} {$referent_firstname}">
-                                {$referent_name} {$referent_firstname}
+                            <option value="{$referent.referent_name} {$referent.referent_firstname}">
+                                {$referent.referent_name} {$referent.referent_firstname}
                             </option>
                             {/foreach}
                         </select>
@@ -273,11 +273,10 @@
 							{t}Identifiants complémentaires :{/t}
 						</label>
 						<div class="col-md-8">
-							<select id="identifiers" name="identifiers" class="form-control" multiple
+							<select id="identifiers" name="identifiers[]" class="form-control" multiple
                             title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                             >
-								<option value="" {if $data.country_origin_id=="" }selected{/if}></option>
-								{foreach $identfiers as $identifier}
+								{foreach $identifiers as $identifier}
                                 {if !empty($identifier.identifier_type_code)}
 								<option value="{$identifier.identifier_type_code}">
 									{$identifier.identifier_type_code} ({$identifier.identifier_type_name})

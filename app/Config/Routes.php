@@ -350,6 +350,8 @@ $routes->post('apiv1movementWrite', 'MovementWs::write');
 $routes->add('apiv1sampleDisplay', 'SampleWs::detail');
 $routes->add('apiv1sampleUids', 'SampleWs::getListUIDS');
 $routes->add('apiv1sampleList', 'SampleWs::getList');
+$routes->add('importTemplateChange', 'ImportTemplate::change');
+$routes->post('importTemplateGenerate', 'ImportTemplate::generate');
 /**
  * Documentation
  */

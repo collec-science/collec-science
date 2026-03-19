@@ -63,7 +63,8 @@ class Filters extends BaseConfig
                 'containerExportGlobal',
                 'smallMovementWriteAjax',
                 'smallMovementChange',
-                'apiv1documentWrite'
+                'apiv1documentWrite',
+                'importTemplateGenerate'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

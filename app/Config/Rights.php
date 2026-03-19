@@ -359,5 +359,7 @@ class Rights extends RightsPpci
         "containerType" => ["consult"],
         "dbstructure" => ["consult"],
         "administration" => ["admin"],
+        "importTemplateChange" => ["import"],
+        "importTemplateGenerate" => ["import"]
     ];
 }

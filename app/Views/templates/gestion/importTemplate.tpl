@@ -67,6 +67,25 @@
                 $("#submit").attr("disabled", true);
             }
         }
+        function searchType() {
+            var family = $("#container_family_id").val();
+            var url = "containerTypeGetFromFamily";
+            $.getJSON ( url, { "container_family_id":family } , function( data ) {
+                if (data != null) {
+                    options = '';
+                    for (var i = 0; i < data.length; i++) {
+                            options += '<option value="' + data[i].container_type_name + '"';
+                            options += '>' + data[i].container_type_name + '</option>';
+                        };
+                    $("#containerTypeName").html(options);
+                    }
+                } ) ;
+	    }
+	$("#container_family_id").change(function (){
+	searchType();
+	 });
+	searchType();
+
         $("#sampleCollection").change(function() {
             getSampletype();
             getSamplingPlace();
@@ -107,6 +126,25 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="container_family_id" class="control-label col-md-4"><span class="red">*</span> {t}Famille :{/t}</label>
+                    <div class="col-md-8">
+                        <select id="container_family_id" name="container_family_id" class="form-control containers">
+                            {section name=lst loop=$containerFamily}
+                                <option value="{$containerFamily[lst].container_family_id}">
+                                {$containerFamily[lst].container_family_name}
+                                </option>
+                            {/section}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="containerTypeName" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
+                    <div class="col-md-8">
+                        <select id="containerTypeName" name="containerTypeName" class="form-control containers">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="containerFields" class="col-md-4 control-label">
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
@@ -117,8 +155,12 @@
                                 <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerLocation" ></td>
                             </tr>
                             <tr>
+                                <td>{t}Commentaire :{/t}</td>
+                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="container_comment" ></td>
+                            </tr>
+                            <tr>
                                 <td>{t}UUID connu :{/t}</td>
-                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerUuid" ></td>
+                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="container_uuid" ></td>
                             </tr>
                         </table>
                     </div>
@@ -155,11 +197,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="referent" class="col-md-4 control-label">
+                    <label for="referent_name" class="col-md-4 control-label">
                         {t}Référent :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="referent" name="referent" class="samples form-control">
+                        <select id="referent_name" name="referent_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $referents as $referent}
                             <option value="{$referent.referent_name} {$referent.referent_firstname}">
@@ -170,11 +212,11 @@
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="country_id" class="control-label col-md-4">
+                    <label for="country_name" class="control-label col-md-4">
                         {t}Pays de collecte :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="country" name="country" class="form-control samples">
+                        <select id="country_name" name="country_name" class="form-control samples">
                             <option value="" selected>
                             </option>
                             {foreach $countries as $country}
@@ -186,11 +228,11 @@
                     </div>
                 </div>
                 <div class="form-group ">
-                    <label for="countryOrigin" class="control-label col-md-4" >
+                    <label for="country_origin_name" class="control-label col-md-4" >
                         {t}Pays de provenance :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="countryOrigin" name="countryOrigin" class="form-control samples">
+                        <select id="country_origin_name" name="country_origin_name" class="form-control samples">
                             <option value="" selected></option>
                             {foreach $countries as $country}
                             <option value="{$country.country_name}">
@@ -201,11 +243,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="campaign" class="col-md-4 control-label">
+                    <label for="campaign_name" class="col-md-4 control-label">
                         {t}Campagne de prélèvement :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="campaign" name="campaign" class="samples form-control">
+                        <select id="campaign_name" name="campaign_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $campaigns as $campaign}
                             <option value="{$campaign.campaign_name}">{$campaign.campaign_name}</option>
@@ -214,11 +256,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="samplingPlace" class="col-md-4 control-label">
+                    <label for="sampling_place_name" class="col-md-4 control-label">
                         {t}Lieu de prélèvement :{/t}
                     </label>
                     <div class="col-md-8">
-                        <select id="samplingPlace" name="samplingPlace" class="samples form-control">
+                        <select id="sampling_place_name" name="sampling_place_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $samplingPlaces as $samplingPlace}
                             <option value="{$samplingPlace.sampling_place_name}">
@@ -236,11 +278,11 @@
                         <table class="col-md-11">
                             <tr>
                                 <td>{t}Date d'expiration de l'échantillon :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleDateExpiration" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="expiration_date" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Identifiant dans la base de données d'origine :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleDbuidOrigin" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="dbuid_origin" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Rangement de l'échantillon dans un contenant :{/t}</td>
@@ -248,7 +290,7 @@
                             </tr>
                             <tr>
                                 <td>{t}Échantillon dérivé (ajout du parent) :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleParent" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sample_parent_identifier" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Échantillon composé (plusieurs parents) :{/t}</td>
@@ -260,7 +302,7 @@
                             </tr>
                             <tr>
                                 <td>{t}UUID connu :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleUuid" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sample_uuid" ></td>
                             </tr>
                         </table>
                     </div>

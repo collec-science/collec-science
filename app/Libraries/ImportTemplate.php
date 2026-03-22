@@ -70,9 +70,13 @@ class ImportTemplate extends PpciLibrary
             $metadata = new Metadata;
             $selectFields = ["referent_name", "country_name", "country_origin_name", "campaign_name", "sampling_place_name"];
             $i = 1;
+            $sampleParent = "";
             foreach ($_POST["sampleTypes"] as $sampleTypeId) {
                 $sample = [];
                 $sample["sample_identifier"] = _("Échantillon exemple") . " $i";
+                if ($i == 1) {
+                    $sampleParent = $sample["sample_identifier"];
+                }
                 $sample["collection_name"] = $_SESSION["collections"][$_POST["sampleCollection"]]["collection_name"];
                 $sample["sample_status_id"] = 1;
                 $sample["sampling_date"] = date($_SESSION["date"]["maskdate"]);
@@ -83,12 +87,14 @@ class ImportTemplate extends PpciLibrary
                 }
                 foreach ($_POST["sampleFields"] as $field) {
                     if ($field == "sampleLocation") {
-                        $sample["container_parent_identifier"] = "";
+                        $sample["container_parent_identifier"] = $container["container_identifier"];
                         $sample["sample_column"] = "";
                         $sample["sample_line"] = "";
                     } elseif ($field == "sampleGps") {
                         $sample["wgs84_x"] = "";
                         $sample["wgs84_y"] = "";
+                    } elseif ($field == "sample_parent_identifier" && $i > 1) {
+                        $sample["sample_parent_identifier"] = $sampleParent;
                     } elseif ($field == "sampleComposite") {
                         $sample["composite_parents_identifiers"] = "parent1,parent2";
                         $sample["composite_multiple_value"] = "";
@@ -115,22 +121,24 @@ class ImportTemplate extends PpciLibrary
                     }
                 }
                 $content[] = $sample;
+                $i++;
             }
-            $i++;
         }
         /**
          * Generate the file and send it
          */
         $vue = new CsvView;
+        $vue->setDelimiter(",");
         $vue->set($content);
         $vue->regenerateHeader();
         $filename = $_SESSION["dbparams"]["APPLI_code"] . "-importTemplate-" . date('Y-m-d-His') . ".csv";
         return $vue->send($filename);
     }
-    private function addSecondaryIdentifiers(array $row): array {
+    private function addSecondaryIdentifiers(array $row): array
+    {
         foreach ($_POST["identifiers"] as $id) {
             $row[$id] = "";
         }
-    return $row;
+        return $row;
     }
 }

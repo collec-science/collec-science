@@ -280,7 +280,7 @@ class Sample extends PpciModel
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
         }
-        if (!empty($data["parent_sample_id"])) {
+        if ($data["parent_sample_id"] > 0 && $data["sample_id"] > 0) {
             if (!$this->verifyCyclic($data["parent_sample_id"], $data["sample_id"])) {
                 throw new PpciException(_("Le parent sélectionné a pour parent l'échantillon courant"));
             }
@@ -1512,7 +1512,8 @@ class Sample extends PpciModel
      *
      * @return void
      */
-    function setSampleType (array $uids, int $sample_type_id) {
+    function setSampleType(array $uids, int $sample_type_id)
+    {
         $sql = "update sample set sample_type_id = :sample_type_id: where uid = :uid:";
         $data = array("sample_type_id" => $sample_type_id);
         foreach ($uids as $uid) {

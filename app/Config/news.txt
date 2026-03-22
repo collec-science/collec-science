@@ -30,6 +30,7 @@ Nouveautés :
 - à partir de la liste des échantillons, il est maintenant possible de changer le type de ceux qui sont sélectionnés
 - technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
 - technique : les mots de passe auparavant encodés en sha256 (comptes anciens) sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
+- technique : les messages d'erreur générés par l'application sont maintenant enregistrés dans les logs CodeIgniter
 
 Version v26.0.2 du 6/3/2026
 -----------------------------

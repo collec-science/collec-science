@@ -539,8 +539,9 @@ class ImportObject
                         if (!empty($values[$idcode])) {
                             $dataCode = array(
                                 "object_identifier_id" => 0,
-                                "uid" => $sample_uid,
-                                "identifier_type_id" => $typeid
+                                "uid" => $container_uid,
+                                "identifier_type_id" => $typeid,
+                                "object_identifier_value" => $values[$idcode]
                             );
                             $this->objectIdentifier->ecrire($dataCode);
                         }

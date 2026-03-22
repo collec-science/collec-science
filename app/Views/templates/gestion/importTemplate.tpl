@@ -338,7 +338,7 @@
     <div class="col-lg-6 bg-info">
         {t}Ce module permet de générer un modèle de fichier pour réaliser une importation de masse. Le modèle ne contient que les colonnes principales, basées sur les libellés plutôt que sur les numéros informatiques. Vous pourrez le compléter si nécessaire avec les colonnes décrites ci-dessous.{/t}
         <br>
-        {t}Voici la liste descolonnes qui sont autorisées dans le fichier :{/t}
+        {t}Voici la liste des colonnes qui sont autorisées dans le fichier :{/t}
         <br>
         <ul>
             <li>{t}Pour importer des contenants :{/t}
@@ -414,8 +414,7 @@
             <li>{t escape=no}si <i>sample_identifier</i> est renseigné : création de l'échantillon{/t}</li>
             <li>{t escape=no}si <i>container_identifier</i> est renseigné : création du contenant{/t}</li>
             <li>{t escape=no}si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du contenant{/t}</li>
-            <li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le
-                contenant{/t}</li>
+            <li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le contenant{/t}</li>
             <li>{t escape=no}si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le contenant indiqué{/t}</li>
         </ol>
     </div>

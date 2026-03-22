@@ -16,6 +16,7 @@ Bug fixes:
 - It was possible to attach a sample to a parent that was itself a child of the sample being processed.
 - It was possible to store a container in a container that it contained.
 - The creation of export templates did not work correctly.
+- During bulk imports, adding secondary identifiers for containers triggered an error.
 - Technical: the database creation script was corrected by removing the reference to the collec account, to facilitate installation in specific contexts.
 
 New features:
@@ -28,6 +29,7 @@ New features:
 - During bulk import, it is now possible to indicate all the parents of a composite sample.
 - The API for creating/modifying a sample now allows you to indicate the parents in the case of a composite sample.
 - From the list of samples, it is now possible to change the type of those selected.
+- It is now possible to create a bulk import template containing the required columns, based on the specified requirements.
 - Technical: PHP session files are stored in a subfolder of TEMP and are now systematically purged.
 - Technical: Passwords previously encoded in sha256 (old accounts) are now re-encoded in bcrypt when the user logs in.
 

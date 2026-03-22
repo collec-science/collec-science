@@ -30,8 +30,9 @@
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="containerTypeDescription" class="control-label col-md-4">{t}Description
-                              :{/t}</label>
+                        <label for="containerTypeDescription" class="control-label col-md-4">
+                              {t}Description :{/t}
+                        </label>
                         <div class="col-md-8">
                               <textarea class="form-control" rows="3" name="container_type_description"
                                     id="containerTypeDescription">{$data.container_type_description}</textarea>

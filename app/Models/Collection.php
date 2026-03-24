@@ -62,7 +62,7 @@ class Collection extends PpciModel
             "no_localization" => array("type" => 0),
             "external_storage_enabled" => array("type" => 0),
             "external_storage_root" => array("type" => 0),
-            "sample_name_unique" => array("type" => 0),
+            "sample_name_unique" => array("type" => 0, "defaultValue" => 't'),
             "notification_enabled" => array("type" => 0, "defaultValue" => 0),
             "notification_mails" => array("type" => 0),
             "expiration_delay" => array("type" => 1),

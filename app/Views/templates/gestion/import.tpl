@@ -20,6 +20,7 @@
       });
 </script>
 <h2>{t}Import d'échantillons ou de contenants à partir d'un fichier CSV{/t}</h2>
+{$help}
 <!-- Lancement de l'import -->
 {if $controleOk == 1}
 <div class="row col-md-8">

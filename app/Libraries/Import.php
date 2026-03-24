@@ -76,6 +76,7 @@ class Import extends PpciLibrary
          * Affichage du masque de selection du fichier a importer
          */
         $this->vue->set(1, "onlyCollectionSearch");
+        $this->vue->help("gestion/l'import-de-masse.html");
         return $this->vue->send();
     }
 
@@ -129,6 +130,7 @@ class Import extends PpciLibrary
         $this->vue->set($_REQUEST["separator"], "separator");
         $this->vue->set($_REQUEST["utf8_encode"], "utf8_encode");
         $this->vue->set($_REQUEST["onlyCollectionSearch"], "onlyCollectionSearch");
+        $this->vue->help("gestion/l'import-de-masse.html");
         return $this->vue->send();
     }
     function import()

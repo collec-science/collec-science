@@ -779,6 +779,12 @@ class ImportObject
                 }
             }
         }
+        if (empty($values["sample_status_id"]))  {
+            $values["sample_status_id"] = 1;
+        }
+           if (empty($values["container_status_id"]))  {
+            $values["container_status_id"] = 1;
+        } 
         return $values;
     }
 

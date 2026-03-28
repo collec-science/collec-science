@@ -44,7 +44,7 @@ $(document).ready(function() {
 			{t}Retour à la liste{/t}
 		</a>
 		&nbsp;
-		<a href="dbstructureSchema" target="_blank">
+		<a href="dbstructureSchema" target="online-help">
 			<img src="display/images/pdf.png" height="25">
 			{t}Structure de la base de données{/t}</a>
 

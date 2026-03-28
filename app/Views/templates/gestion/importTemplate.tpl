@@ -100,7 +100,7 @@
         setSubmit();
     });
 </script>
-<h2>{t}Générer un modèle d'import de masse{/t}</h2>
+<h2>{t}Générer un modèle d'import de masse{/t}</h2> {$help}
 
 <div class="row">
     <div class="col-lg-6">
@@ -126,7 +126,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="container_family_id" class="control-label col-md-4"><span class="red">*</span> {t}Famille :{/t}</label>
+                    <label for="container_family_id" class="control-label col-md-4">
+                        {t}Famille :{/t}
+                    </label>
                     <div class="col-md-8">
                         <select id="container_family_id" name="container_family_id" class="form-control containers">
                             {section name=lst loop=$containerFamily}
@@ -138,7 +140,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="containerTypeName" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
+                    <label for="containerTypeName" class="control-label col-md-4">
+                        {t}Type :{/t}
+                    </label>
                     <div class="col-md-8">
                         <select id="containerTypeName" name="containerTypeName" class="form-control containers">
                         </select>
@@ -173,7 +177,7 @@
                 </legend>
                 <div class="form-group">
                     <label for="sampleCollection" class="col-md-4 control-label">
-                        {t}Collection de destination :{/t}
+                        <span class="red">*</span> {t}Collection de destination :{/t}
                     </label>
                     <div class="col-md-8">
                         <select id="sampleCollection" name="sampleCollection" class="form-control samples">
@@ -187,7 +191,7 @@
                 </div>
                 <div class="form-group">
                     <label for="sampleTypes" class="col-md-4 control-label">
-                        {t}Types d'échantillons à importer :{/t}
+                        <span class="red">*</span> {t}Types d'échantillons à importer :{/t}
                     </label>
                     <div class="col-md-8">
                         <select id="sampleTypes" class="samples form-control" name="sampleTypes[]" multiple 

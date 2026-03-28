@@ -2,7 +2,7 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.1.0 of 10/3/2026
+Version v26.1.0 of 1/4/2026
 -----------------------------
 Bug fixes:
 - From the sample list, information boxes tended to remain open.
@@ -27,6 +27,7 @@ New features:
 - The sample modification page has been reorganised using a tab box
 - It is now possible to indicate the products used and the risks associated with a sample type. Previously, the sample type had to be systematically associated with a container type.
 - During bulk import, it is now possible to indicate all the parents of a composite sample.
+- In bulk imports, if the status is not provided, it is automatically set to 1
 - The API for creating/modifying a sample now allows you to indicate the parents in the case of a composite sample.
 - From the list of samples, it is now possible to change the type of those selected.
 - It is now possible to create a bulk import template containing the required columns, based on the specified requirements.

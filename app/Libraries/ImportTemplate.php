@@ -32,6 +32,7 @@ class ImportTemplate extends PpciLibrary
         $this->vue->set($identifiers->getList("identifier_type_name"), "identifiers");
         $cf = new ContainerFamily;
         $this->vue->set($cf->getListe(2), "containerFamily");
+        $this->vue->help("gestion/générer-le-modèle-pour-les-importations-de-masse.html");
         return $this->vue->send();
     }
 

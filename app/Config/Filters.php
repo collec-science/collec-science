@@ -64,7 +64,8 @@ class Filters extends BaseConfig
                 'smallMovementWriteAjax',
                 'smallMovementChange',
                 'apiv1documentWrite',
-                'importTemplateGenerate'
+                'importTemplateGenerate',
+                'metadataExport'
             ]],
             'invalidchars',
             /*'legacyRoute',*/

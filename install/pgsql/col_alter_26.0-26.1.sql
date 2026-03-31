@@ -472,4 +472,4 @@ set fields = E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy
 where dataset_type_id = 1;
 
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.1', E'2026-03-10');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.1', E'2026-04-01');

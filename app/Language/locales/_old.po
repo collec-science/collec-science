@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-22 17:55+0100\n"
+"POT-Creation-Date: 2026-03-22 18:04+0100\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2965,6 +2965,7 @@ msgstr "File(s) to import (max size: %1 Mb):"
 #: ../../../app/Views/templates/gestion/documentChange.tpl:45
 #: ../../../app/Views/templates/gestion/documentExternalAdd.tpl:128
 #: ../../../app/Views/templates/param/campaignDisplay.tpl:70
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:34
 #: ../../../app/Views/templates/param/regulationChange.tpl:18
 #: ../../../app/Views/templates/param/sampleTypeChange.tpl:64
 #: ../../../app/Views/templates/param/collectionDisplay.tpl:78
@@ -3248,10 +3249,10 @@ msgstr "Events:"
 #: ../../../app/Views/templates/gestion/movementChange.tpl:265
 #: ../../../app/Views/templates/gestion/movementChange.tpl:320
 #: ../../../app/Views/templates/param/samplingPlaceList.tpl:76
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:157
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:175
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:201
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:225
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:158
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:176
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:202
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:226
 #: ../../../app/Views/templates/param/collectionChange.tpl:90
 #: ../../../app/Views/templates/param/labelChange.tpl:135
 #: ../../../app/Views/templates/param/samplingPlaceChange.tpl:39
@@ -3830,7 +3831,7 @@ msgstr "Reinit the fields"
 #: ../../../app/Views/templates/param/metadataDisplay.tpl:71
 #: ../../../app/Views/templates/param/borrowerChange.tpl:51
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:252
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:237
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:238
 #: ../../../app/Views/templates/param/objectStatusChange.tpl:19
 #: ../../../app/Views/templates/param/movementReasonChange.tpl:18
 #: ../../../app/Views/templates/param/riskChange.tpl:19
@@ -3889,7 +3890,7 @@ msgstr "Save and return"
 #: ../../../app/Views/templates/exportmodel/exportModelChange.tpl:50
 #: ../../../app/Views/templates/param/metadataDisplay.tpl:75
 #: ../../../app/Views/templates/param/borrowerChange.tpl:53
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:239
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:240
 #: ../../../app/Views/templates/param/movementReasonChange.tpl:20
 #: ../../../app/Views/templates/param/riskChange.tpl:21
 #: ../../../app/Views/templates/param/multipleTypeChange.tpl:18
@@ -4145,8 +4146,8 @@ msgstr "Sample awaiting deletion (trashed):"
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:208
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:220
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:240
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:103
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:122
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:104
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:123
 #: ../../../app/Views/templates/param/collectionChange.tpl:51
 #: ../../../app/Views/templates/param/collectionChange.tpl:66
 #: ../../../app/Views/templates/param/collectionChange.tpl:81
@@ -4206,8 +4207,8 @@ msgstr "yes"
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:206
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:218
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:238
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:108
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:127
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:109
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:128
 #: ../../../app/Views/templates/param/collectionChange.tpl:47
 #: ../../../app/Views/templates/param/collectionChange.tpl:62
 #: ../../../app/Views/templates/param/collectionChange.tpl:77
@@ -4256,7 +4257,7 @@ msgstr "no"
 #: ../../../app/Views/templates/exportmodel/exportModelChange.tpl:86
 #: ../../../app/Views/templates/param/borrowerChange.tpl:59
 #: ../../../app/Views/templates/param/metadataFieldChange.tpl:256
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:246
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:247
 #: ../../../app/Views/templates/param/objectStatusChange.tpl:25
 #: ../../../app/Views/templates/param/movementReasonChange.tpl:26
 #: ../../../app/Views/templates/param/riskChange.tpl:28
@@ -5567,7 +5568,7 @@ msgstr ""
 "the sample in the container"
 
 #: ../../../app/Views/templates/gestion/import.tpl:192
-#: ../../../app/Views/templates/gestion/importTemplate.tpl:419
+#: ../../../app/Views/templates/gestion/importTemplate.tpl:418
 msgid ""
 "si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et "
 "que <i>container_identifier</i> n'est pas rempli, création du mouvement "
@@ -6160,7 +6161,7 @@ msgstr "Hazard:"
 
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:624
 #: ../../../app/Views/templates/gestion/containerDisplay.tpl:510
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:170
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:171
 msgid "Produit utilisé :"
 msgstr "Used product:"
 
@@ -6390,11 +6391,9 @@ msgid "Voici la liste des colonnes qui sont autorisées dans le fichier :"
 msgstr "Here is the list of columns permitted in the file "
 
 #: ../../../app/Views/templates/gestion/importTemplate.tpl:417
-#, fuzzy
 msgid ""
 "si l'échantillon et le contenant ont été créés, création du mouvement "
-"d'entrée de l'échantillon dans le\n"
-"                contenant"
+"d'entrée de l'échantillon dans le contenant"
 msgstr ""
 "if the sample and the container were created, create the entry movement of "
 "the sample in the container"
@@ -7604,78 +7603,71 @@ msgstr ""
 msgid "Création - Modification d'un type de contenant"
 msgstr "Create / Edit a container type"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:33
-#, fuzzy
-msgid ""
-"Description\n"
-"                              :"
-msgstr "Name of the file to import (CSV):"
-
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:42
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:43
 msgid "Nombre de lignes :"
 msgstr "Number of lines:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:50
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:51
 msgid "Nombre de colonnes :"
 msgstr "Number of columns:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:58
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:59
 msgid "Position de la première ligne :"
 msgstr "Position of the first line:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:65
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:66
 msgid "En haut"
 msgstr "Up"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:70
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:71
 msgid "En bas"
 msgstr "Down"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:77
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:78
 msgid "Position de la première colonne :"
 msgstr "Position of the first column:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:84
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:85
 msgid "À gauche"
 msgstr "At left"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:89
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:90
 msgid "À droite"
 msgstr "At right"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:96
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:97
 msgid "Lignes identifiées par une lettre ?"
 msgstr "Lines identified by a letter?"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:115
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:116
 msgid "Colonnes identifiées par une lettre ?"
 msgstr "Columns identified by a letter?"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:134
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:135
 msgid "Nombre d'emplacements maximum :"
 msgstr "Maximum number of slots:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:143
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:144
 msgid "Nombre maxi d'objets par emplacement (ligne/colonne) :"
 msgstr "Maximum number of objects per location (row/column):"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:152
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:153
 msgid "Condition de stockage :"
 msgstr "Storage condition:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:188
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:189
 msgid "ou nouveau produit :"
 msgstr "or new product:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:196
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:197
 msgid "Risque (code CLP) :"
 msgstr "Risk (CLP code):"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:213
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:214
 msgid "ou nouveau risque :"
 msgstr "or new hazard:"
 
-#: ../../../app/Views/templates/param/containerTypeChange.tpl:220
+#: ../../../app/Views/templates/param/containerTypeChange.tpl:221
 msgid "Modèle d'étiquette :"
 msgstr "Label template:"
 
@@ -10241,6 +10233,21 @@ msgstr "Setting"
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/dbparamListChange.tpl:10
 msgid "Valeur"
 msgstr "Value"
+
+#, fuzzy
+#~ msgid ""
+#~ "si l'échantillon et le contenant ont été créés, création du mouvement "
+#~ "d'entrée de l'échantillon dans le\n"
+#~ "                contenant"
+#~ msgstr ""
+#~ "if the sample and the container were created, create the entry movement "
+#~ "of the sample in the container"
+
+#, fuzzy
+#~ msgid ""
+#~ "Description\n"
+#~ "                              :"
+#~ msgstr "Name of the file to import (CSV):"
 
 #~ msgid "Valeurs actuelles"
 #~ msgstr "Actual values"

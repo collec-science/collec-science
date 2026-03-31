@@ -21,7 +21,7 @@ use CodeIgniter\Commands\Utilities\Routes\FilterCollector;
  *
  * @see \CodeIgniter\Commands\Utilities\Routes\AutoRouterImproved\AutoRouteCollectorTest
  */
-final class AutoRouteCollector
+final readonly class AutoRouteCollector
 {
     /**
      * @param string             $namespace            namespace to search
@@ -31,12 +31,12 @@ final class AutoRouteCollector
      * @param string             $prefix               URI prefix for Module Routing
      */
     public function __construct(
-        private readonly string $namespace,
-        private readonly string $defaultController,
-        private readonly string $defaultMethod,
-        private readonly array $httpMethods,
-        private readonly array $protectedControllers,
-        private readonly string $prefix = '',
+        private string $namespace,
+        private string $defaultController,
+        private string $defaultMethod,
+        private array $httpMethods,
+        private array $protectedControllers,
+        private string $prefix = '',
     ) {
     }
 
@@ -99,7 +99,7 @@ final class AutoRouteCollector
      *
      * @return list<array<string, array|string>>
      */
-    private function addFilters($routes)
+    private function addFilters(array $routes): array
     {
         $filterCollector = new FilterCollector(true);
 

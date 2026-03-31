@@ -13,13 +13,17 @@ declare(strict_types=1);
 
 namespace CodeIgniter\Test;
 
+use Closure;
 use CodeIgniter\Events\Events;
+use CodeIgniter\Exceptions\RuntimeException;
 use CodeIgniter\HTTP\Exceptions\RedirectException;
 use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\Method;
 use CodeIgniter\HTTP\Request;
+use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\HTTP\SiteURI;
 use CodeIgniter\HTTP\URI;
+use CodeIgniter\Router\RouteCollection;
 use Config\App;
 use Config\Services;
 use Exception;
@@ -30,6 +34,12 @@ use ReflectionException;
  *
  * Provides additional utilities for doing full HTTP testing
  * against your application in trait format.
+ *
+ * @property array<int|string, mixed>           $session
+ * @property array<string, list<string>|string> $headers
+ * @property RouteCollection|null               $routes
+ *
+ * @mixin CIUnitTestCase
  */
 trait FeatureTestTrait
 {
@@ -42,7 +52,12 @@ trait FeatureTestTrait
      *    ['GET', 'home', 'Home::index'],
      * ]
      *
-     * @param array|null $routes Array to set routes
+     * @param array<int, array{
+     *      0: string,
+     *      1: string,
+     *      2: ((Closure(mixed...): (ResponseInterface|string|void)))|string,
+     *      3?: array<string, mixed>
+     *  }>|null $routes Array to set routes
      *
      * @return $this
      */
@@ -62,11 +77,16 @@ trait FeatureTestTrait
                     );
                 }
 
-                /**
-                 * @TODO For backward compatibility. Remove strtolower() in the future.
-                 * @deprecated 4.5.0
-                 */
-                $method = strtolower($route[0]);
+                // @todo v4.7.1 Remove the strtoupper() and use 'add' in v4.8.0
+                if (! in_array(strtoupper($route[0]), ['ADD', 'CLI', ...Method::all()], true)) {
+                    throw new RuntimeException(sprintf(
+                        'Invalid HTTP method "%s" provided for route "%s".',
+                        $route[0],
+                        $route[1],
+                    ));
+                }
+
+                $method = strtolower($route[0]); // convert to method of RouteCollection
 
                 if (isset($route[3])) {
                     $collection->{$method}($route[1], $route[2], $route[3]);
@@ -84,7 +104,7 @@ trait FeatureTestTrait
     /**
      * Sets any values that should exist during this session.
      *
-     * @param array|null $values Array of values, or null to use the current $_SESSION
+     * @param array<int|string, mixed>|null $values Array of values, or null to use the current $_SESSION
      *
      * @return $this
      */
@@ -100,10 +120,11 @@ trait FeatureTestTrait
      *
      * Example of use
      * withHeaders([
-     *  'Authorization' => 'Token'
+     *     'Authorization' => 'Token',
+     *     'Cache-Control' => ['no-cache', 'no-store'],
      * ])
      *
-     * @param array $headers Array of headers
+     * @param array<string, list<string>|string> $headers Array of headers
      *
      * @return $this
      */
@@ -213,7 +234,7 @@ trait FeatureTestTrait
             ->run($routes, true);
 
         // Reset directory if it has been set
-        service('router')->setDirectory(null);
+        service('router')->setDirectory();
 
         return new TestResponse($response);
     }
@@ -382,14 +403,14 @@ trait FeatureTestTrait
         }
 
         if ($name === 'post') {
-            $request->setGlobal($name, $params);
+            $request->setGlobal($name, $params ?? []);
             $request->setGlobal(
                 'request',
-                $request->fetchGlobal('post') + $request->fetchGlobal('get'),
+                (array) $request->fetchGlobal('post') + (array) $request->fetchGlobal('get'),
             );
         }
 
-        $_SESSION = $this->session ?? [];
+        $_SESSION = $this->session;
 
         return $request;
     }

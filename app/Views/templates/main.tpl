@@ -94,7 +94,7 @@
             <tbody>
                 {foreach $collections as $col}
                 <tr>
-                    <td class="nowrap">{$col.collection_name}</td>
+                    <td class="nowrap" title="{$col.collection_description}">{$col.collection_name}</td>
                     <td class="center">{$col.samples_number}</td>
                     <td class="center">{$col.last_change}</td>
                 </tr>

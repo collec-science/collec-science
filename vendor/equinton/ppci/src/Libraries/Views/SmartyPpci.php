@@ -202,20 +202,20 @@ class SmartyPpci
      *
      * @return void
      */
-    function help(string $address)
+    function help(string $address, $varname = "help")
     {
         if (!empty($address)) {
 
-            $link = '<a href="' . $this->app->docroot . "/" . $address . '" target="_blank">' .
-                '<img src="display/images/framework/help.png" height="25">' .
+            $link = '<a href="' . $this->app->docroot . "/" . $address . '" target="online-help">' .
+                '<img src="display/images/framework/help.png" height="25">&nbsp;' .
                 _("Aide en ligne") .
                 '</a>';
             /**
              * var SmartyPpci
              */
 
-            $this->htmlVars[] = "help";
-            $this->smarty->assign("help", $link);
+            $this->htmlVars[] = $varname;
+            $this->smarty->assign($varname, $link);
         }
     }
 }

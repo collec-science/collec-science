@@ -151,19 +151,6 @@ class IdentificationConfig extends BaseConfig
      */
     public $adminSessionDuration = 600;
     /**
-     * If false, disable the secondary identification with TOTP
-     *
-     * @var boolean
-     */
-    public $adminMustUseTotp = true;
-    /**
-     * Time to resend an email to the administrator if an account is blocked
-     *
-     * @var integer
-     */
-    public $APPLI_mailToAdminPeriod = 7200;
-
-    /**
      * Miscellaneous
      */
     /**

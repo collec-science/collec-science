@@ -39,6 +39,7 @@ class Campaign extends PpciLibrary
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("param/campaignList.tpl", "corps");
+        $this->vue->help(_("objets/les-campagnes.html"));
         return $this->vue->send();
     }
     function display()
@@ -137,7 +138,8 @@ class Campaign extends PpciLibrary
                         "campaign_to",
                         "referent_name",
                         "referent_firstname",
-                        "uuid"
+                        "uuid",
+                        "campaign_description"
                     )
                 );
                 $rows = $import->getContentAsArray();

@@ -610,7 +610,7 @@ class PpciModel extends Model
         $newdate = "";
         $date = date_create_from_format($this->dateFormatMask, $value);
         if ($date) {
-            $newdate = date_format($date, 'Y-m-d H:i:s');
+            $newdate = date_format($date, 'Y-m-d');
         }
         return $newdate;
     }

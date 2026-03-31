@@ -34,7 +34,11 @@ class Sample extends PpciController
     }
     function change()
     {
-        return $this->lib->change();
+        return $this->lib->change(1);
+    }
+    function changeTab()
+    {
+        return $this->lib->change(1);
     }
     function write()
     {
@@ -130,6 +134,10 @@ class Sample extends PpciController
     function setParent()
     {
         $this->lib->setParent();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
+    }
+    function setSampleType() {
+        $this->lib->setSampleType();
         return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function getChildren()

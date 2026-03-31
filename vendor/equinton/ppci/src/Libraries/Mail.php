@@ -91,6 +91,15 @@ class Mail
          */
         $this->smarty->assign("logo", "data:image/png;base64," . chunk_split(base64_encode(file_get_contents(FCPATH."favicon.png"))));
         $content = $this->smarty->fetch($this->param["mailTemplate"]);
+        /**
+         * Generate logs
+         */
+        $log = service("Log");
+        empty($_SESSION["login"]) ? $login = "system" : $login = $_SESSION["login"];
+        $log->setLog($login, "sendMail", "$dest / $subject");
+        /**
+         * Send mail
+         */
         if ($this->paramApp->MAIL_param["mailDebug"] == 0) {
             $status = mail($this->param["dest"], $this->param["subject"], $content, $this->getHeaders());
         } else {
@@ -110,12 +119,6 @@ class Mail
         if ($locale != $currentLocale) {
             $localeClass->setLocale($currentLocale);
         }
-        /**
-         * Generate logs
-         */
-        $log = service("Log");
-        empty($_SESSION["login"]) ? $login = "system" : $login = $_SESSION["login"];
-        $log->setLog($login, "sendMail", "$dest / $subject");
         if (!$status) {
             throw new PpciException(_("Un problème a été rencontré lors de l'envoi du mail"));
         }

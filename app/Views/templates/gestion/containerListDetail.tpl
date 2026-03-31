@@ -108,7 +108,7 @@ $(document).ready(function () {
 	$("#containerlabels").on('click keypress', function() {
 		//$(this.form).find("input[name='module']").val("containerPrintLabel");
 		$(this.form).attr("action", "containerPrintLabel");
-		$(this.form).prop('target', '_self').submit();
+		$(this.form).prop('target', 'labels').submit();
 	});
 	$("#containerdirect").on('keypress click', function() {
 		//$(this.form).find("input[name='module']").val("containerPrintDirect");
@@ -355,8 +355,8 @@ $(document).ready(function () {
 							var localId = parseFloat(9000000) + parseFloat( containers[lst].uid);
 								row += '<img class="plus hover" id="' + id + '-' + localId.toString() +'" data-uid="'+containers[lst].uid+'" src="display/images/plus.png" height="15">';
 							row += '</td>';
-							row += '<td class="container" data-uid="'+containers[lst].uid+'" title="">';
-							row += '<a class="tooltiplink"  href="containerDisplay?uid='+containers[lst].uid+'" title="">';
+							row += '<td title="">';
+							row += '<a class="tooltiplink container" data-uid="'+containers[lst].uid+'" href="containerDisplay?uid='+containers[lst].uid+'" title="">';
 							row += containers[lst].identifier;
 							row += '</a></td>';
 							row += '<td>'+containers[lst].identifiers+'</td>';	
@@ -391,15 +391,15 @@ $(document).ready(function () {
 							}
 							row += '">'+containers[lst].nb_slots_used + '&nbsp;/&nbsp;'+containers[lst].nb_slots_max + '</td>';
 							row += '<td>'+containers[lst].storage_condition_name+'</td>';
-							row += '<td>'+containers[lst].storage_product+'</td>';
-							row += '<td>'+containers[lst].clp_classification+'</td>';
+							row += '<td>'+containers[lst].product_name+'</td>';
+							row += '<td>'+containers[lst].risk_name+'</td>';
 							row += '<td class="center">';
 							if (containers[lst].document_id > 0) {
 								row += '<a class="image-popup-no-margins" href="documentGet?document_id='+containers[lst].document_id+'&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">';
 								row += '<img src="documentGet?document_id='+containers[lst].document_id+'&attached=0&phototype=2" height="30"></a>';
 							}
 							row += '</td>';
-							row += '<td>'+containers[lst].collection_name + '</td>';
+							row += '<td title="'+containers[lst].collection_description+'">'+containers[lst].collection_name + '</td>';
 							row +='<td>'+containers[lst].referent_name+' ' +containers[lst].referent_firstname + '</td>' ;
 							row += '<td class="textareaDisplay">'+containers[lst].object_comment+'</td>';
 							row += '<td>'+ id + '-' + (9000000 + parseFloat(containers[lst].uid))+'</td>';
@@ -487,8 +487,8 @@ $(document).ready(function () {
 							</a>
 						<img class="plus hover" id="{$containers[lst].uid + 9000000}" data-uid="{$containers[lst].uid}" src="display/images/plus.png" height="15">
 						</td>
-						<td class="container" data-uid="{$containers[lst].uid}" title="">
-							<a class="tooltiplink"  href="containerDisplay?uid={$containers[lst].uid}" title="">
+						<td title="">
+							<a class="tooltiplink container"  href="containerDisplay?uid={$containers[lst].uid}" data-uid="{$containers[lst].uid}" title="">
 								{$containers[lst].identifier}
 							</a>
 						</td>
@@ -519,8 +519,8 @@ $(document).ready(function () {
 						</td>
 						<td class="center {if $containers[lst].nb_slots_used < $containers[lst].nb_slots_max || $containers[lst].nb_slots_max == 0}green{else}red{/if}">{$containers[lst].nb_slots_used}&nbsp;/&nbsp;{$containers[lst].nb_slots_max}</td>
 						<td>{$containers[lst].storage_condition_name}</td>
-						<td>{$containers[lst].storage_product}</td>
-						<td>{$containers[lst].clp_classification}</td>
+						<td>{$containers[lst].product_name}</td>
+						<td>{$containers[lst].risk_name}</td>
 						<td class="center">
 							{if $containers[lst].document_id > 0}
 								<a class="image-popup-no-margins" href="documentGet?document_id={$containers[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}">
@@ -528,7 +528,7 @@ $(document).ready(function () {
 								</a>
 							{/if}
 						</td>
-						<td>{$containers[lst].collection_name}</td>
+						<td title="{$containers[lst].collection_description}">{$containers[lst].collection_name}</td>
 						<td>{$containers[lst].referent_name} {$containers[lst].referent_firstname}</td>
 						<td class="textareaDisplay">{$containers[lst].object_comment}</td>
 						<td>{$containers[lst].uid + 9000000}</td>

@@ -6,6 +6,7 @@
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
+		{$help}
 		<table id="labelList" class="table table-bordered table-hover datatable display">
 			<thead>
 				<tr>

@@ -14,9 +14,7 @@ class ErrorLogs extends PpciLibrary
     {
         /*if (isset($_SERVER["envPath"])) {
             $this->path = $_SERVER["envPath"] . "/writable/logs";
-        } else {
-           
-            
+        } else {           
         }*/
         $ciPaths = new Paths;
         $this->path = $ciPaths->writableDirectory . "/logs";

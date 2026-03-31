@@ -73,7 +73,10 @@ class ImportObject
         "container_parent_identifier",
         "dbuid_origin",
         "container_collection_id",
-        "container_collection_name"
+        "container_collection_name",
+        "composite_parents_identifier",
+        "composite_parents_uid",
+        "composite_multiple_value"
     );
 
     private $colnum = array(
@@ -87,7 +90,8 @@ class ImportObject
         "sample_parent_uid",
         "referent_id",
         "campaign_id",
-        "container_collection_id"
+        "container_collection_id",
+        "composite_multiple_value"
     );
 
     private $handle;
@@ -120,6 +124,10 @@ class ImportObject
      * @var Container
      */
     private $container;
+    /**
+     * @var ObjectClass
+     */
+    private $object;
 
     /**
      *
@@ -240,6 +248,7 @@ class ImportObject
         $this->country = new Country;
         $this->objectIdentifier = new ObjectIdentifier;
         $this->subSample = new Subsample;
+        $this->object = new ObjectClass;
     }
 
 
@@ -419,7 +428,6 @@ class ImportObject
                         $dataSample["uid"] = 0;
                     }
                     $sample_uid = $this->sample->ecrire($dataSample);
-
                     /**
                      * Traitement des identifiants complementaires
                      */
@@ -434,14 +442,53 @@ class ImportObject
                             $this->objectIdentifier->ecrire($dataCode);
                         }
                     }
+                    $sample_id = $this->sample->getIdFromUid($sample_uid);
                     /**
                      * management of subsampling
                      */
                     if (!empty($values["sample_multiple_value"]) && !empty($values["sample_multiple_real"]) && (float) $values["sample_multiple_real"] < (float)$values["sample_multiple_value"]) {
                         $qty = (float) $values["sample_multiple_value"] - (float) $values["sample_multiple_real"];
-                        $sample_id = $this->sample->getIdFromUid($sample_uid);
                         $this->subSample->addSubsample($sample_id, $qty, 2);
                     }
+                    /**
+                     * Treatment of composite samples
+                     */
+                    if (!empty($values["composite_parents_uid"]) || !empty($values["composite_parents_identifier"])) {
+                        if (!empty($values["composite_parents_uid"])) {
+                            $parentsUid = explode(",", $values["composite_parents_uid"]);
+                        } else {
+                            $parentsUid = [];
+                        }
+                        if (!empty($values["composite_parents_identifier"])) {
+                            $parents = explode(",", $values["composite_parents_identifier"]);
+                            foreach ($parents as $parent) {
+                                $puid = $this->object->getUidFromIdentifier($parent);
+                                if (!$puid > 0) {
+                                    throw new PpciException("Line $num : the identifier $parent (composite parent) is unknown in the database");
+                                }
+                                if (!in_array($puid, $parentsUid)) {
+                                    $parentsUid[] = $puid;
+                                }
+                            }
+                        }
+                        foreach ($parentsUid as $puid) {
+                            /**
+                             * search if exists sample composite parent and if its collection is allowed
+                             */
+                            $parentData = $this->sample->read($puid, false);
+                            if (empty($parentData)) {
+                                throw new PpciException("Line $num : the composite parent $puid do not exists");
+                            }
+                            if (!$this->sample->verifyCollection($parentData)) {
+                                throw new PpciException("Line $num : the composite parent $puid is not allowed to be change");
+                            }
+                            /**
+                             * generate the subsample
+                             */
+                            $this->subSample->addSubsample($parentData["sample_id"], $values["composite_multiple_value"], 2, null, $sample_id);
+                        }
+                    }
+
                     /**
                      * Mise a jour des bornes de l'uid
                      */
@@ -492,8 +539,9 @@ class ImportObject
                         if (!empty($values[$idcode])) {
                             $dataCode = array(
                                 "object_identifier_id" => 0,
-                                "uid" => $sample_uid,
-                                "identifier_type_id" => $typeid
+                                "uid" => $container_uid,
+                                "identifier_type_id" => $typeid,
+                                "object_identifier_value" => $values[$idcode]
                             );
                             $this->objectIdentifier->ecrire($dataCode);
                         }
@@ -731,6 +779,12 @@ class ImportObject
                 }
             }
         }
+        if (empty($values["sample_status_id"]))  {
+            $values["sample_status_id"] = 1;
+        }
+           if (empty($values["container_status_id"]))  {
+            $values["container_status_id"] = 1;
+        } 
         return $values;
     }
 
@@ -800,22 +854,28 @@ class ImportObject
              * Verification de la collection
              */
             $ok = false;
-            foreach ($this->collection as $value) {
-                if ($data["collection_id"] == $value["collection_id"]) {
-                    $ok = true;
-                    break;
+            if (!empty($data["collection_id"]) && !is_numeric($data["collection_id"])) {
+                $retour["code"] = false;
+                $retour["message"] .= _("Le numéro de la collection n'a pas été correctement renseigné dans la colonne collection_id. ");
+            } else {
+                foreach ($this->collection as $value) {
+                    if ($data["collection_id"] == $value["collection_id"]) {
+                        $ok = true;
+                        break;
+                    }
                 }
-            }
-            /**
-             * Verify if the identifier is unique from the collection
-             */
-            if (!$this->sample->is_unique(0, $data["sample_identifier"], $data["collection_id"])) {
-                $retour["code"] = false;
-                $retour["message"] .= _("L'identifiant de l'échantillon existe déjà dans la collection.");
-            }
-            if (!$ok) {
-                $retour["code"] = false;
-                $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
+                /**
+                 * Verify if the identifier is unique from the collection
+                 */
+                if (!$this->sample->is_unique(0, $data["sample_identifier"], $data["collection_id"])) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("L'identifiant de l'échantillon existe déjà dans la collection.");
+                }
+
+                if (!$ok) {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Le numéro de la collection indiqué n'est pas reconnu ou autorisé.");
+                }
             }
             /**
              * Verification du type d'echantillon
@@ -991,7 +1051,7 @@ class ImportObject
                 /**
                  * Verification de la colonne metadata
                  */
-                if (count($valuesMetadataJson) == 0) {
+                if (is_null($valuesMetadataJson) || count($valuesMetadataJson) == 0) {
                     $retour["code"] = false;
                     $retour["message"] .= _("Les métadonnées ne sont pas correctement formatées (champ sample_metadata_json)");
                 }

@@ -62,11 +62,12 @@ class Collection extends PpciModel
             "no_localization" => array("type" => 0),
             "external_storage_enabled" => array("type" => 0),
             "external_storage_root" => array("type" => 0),
-            "sample_name_unique" => array("type" => 0),
+            "sample_name_unique" => array("type" => 0, "defaultValue" => 't'),
             "notification_enabled" => array("type" => 0, "defaultValue" => 0),
             "notification_mails" => array("type" => 0),
             "expiration_delay" => array("type" => 1),
-            "event_due_delay" => array("type" => 1)
+            "event_due_delay" => array("type" => 1),
+            "collection_description" => ["type" => 0]
         );
         parent::__construct();
     }
@@ -91,12 +92,29 @@ class Collection extends PpciModel
                 ,external_storage_enabled, external_storage_root
                 ,notification_enabled, notification_mails, expiration_delay, event_due_delay
                 ,sample_name_unique
+                ,collection_description
 				    from collection
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
 				    order by $order";
         return $this->getListeParam($sql);
     }
+
+    function getDetail(int $collection_id):array {
+        $sql = "select collection_id, collection_name, referent_name,
+                allowed_import_flow, allowed_export_flow, public_collection
+                ,collection_keywords,collection_displayname
+                ,license_id, license_name, license_url, no_localization
+                ,external_storage_enabled, external_storage_root
+                ,notification_enabled, notification_mails, expiration_delay, event_due_delay
+                ,sample_name_unique
+                ,collection_description
+                from collection
+                left outer join referent using (referent_id)
+                left outer join license using (license_id)
+                where collection_id = :id:";
+                return $this->readParam($sql, ["id"=>$collection_id]);
+    } 
 
     /**
      * Retourne la liste des collections autorises pour un login
@@ -351,10 +369,11 @@ class Collection extends PpciModel
     {
         if (!empty($_SESSION["collections"])) {
             $sql = "select collection_id, collection_name, count(*) as samples_number, max(change_date) as last_change
+            ,collection_description
         from sample
         join collection using (collection_id)
         join object using (uid)";
-            $groupby = "group by collection_id, collection_name";
+            $groupby = "group by collection_id, collection_name, collection_description";
             $where = " where collection_id in (";
             $comma = "";
             foreach ($_SESSION["collections"] as $colid) {
@@ -380,7 +399,7 @@ class Collection extends PpciModel
             address_name,address_line2,address_line3,address_city,address_country,referent_phone
             ,referent_firstname,academical_directory,academical_link
             ,collection_keywords,collection_displayname
-            ,license_name,license_url
+            ,license_name,license_url,collection_description
             from collection
             left outer join referent using (referent_id)
             left outer join license using (license_id)

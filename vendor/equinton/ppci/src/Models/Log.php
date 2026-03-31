@@ -4,6 +4,7 @@ namespace Ppci\Models;
 
 use Config\App;
 use Ppci\Libraries\Mail;
+use Ppci\Libraries\PpciException;
 use Ppci\Models\PpciModel;
 
 /**
@@ -101,7 +102,7 @@ class Log extends PpciModel
         if ($nbJours > 0) {
             $sql = "delete from log
 					where log_date < current_date - interval '" . $nbJours . " day'";
-            $this->executeSQL($sql,null, true);
+            $this->executeSQL($sql, null, true);
         }
     }
 
@@ -330,7 +331,7 @@ class Log extends PpciModel
         global $message;
         $login = strtolower($login);
         $this->setLog($login, "connectionBlocking");
-        $message->setSyslog("connectionBlocking for login $login",true);
+        $message->setSyslog("connectionBlocking for login $login");
         $this->sendMailToAdmin(
             sprintf(_("%s - Compte bloqué"), $_SESSION["APPLI_title"]),
             "ppci/mail/accountBlocked.tpl",
@@ -375,7 +376,7 @@ class Log extends PpciModel
         if ($data["nombre"] > $maxNumber) {
             $messageLog = $moduleName . "-Duration:" . $duration . "-nbCalls:" . $data["nombre"] . "-nbMax:" . $maxNumber;
             $this->setLog($_SESSION["login"], "nbMaxCallReached", $messageLog);
-            $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog,true);
+            $message->setSyslog($GACL_aco . "-" . $APPLI_address . ":nbMaxCallReached-" . $messageLog, true);
             $message->set(_("Le nombre d'accès autorisés pour le module demandé a été atteint. Si vous considérez que la valeur est trop faible, veuillez contacter l'administrateur de l'application"), true);
             $this->sendMailToAdmin(
                 sprintf(_("%s - Trop d'accès à un module"), $_SESSION["APPLI_title"]),
@@ -423,12 +424,12 @@ class Log extends PpciModel
             /*
              * Envoi des mails aux administrateurs
              */
-            if (isset($APP_mailToAdminPeriod)) {
+            /*if (isset($APP_mailToAdminPeriod)) {
                 $period = $APP_mailToAdminPeriod;
             } else {
                 $period = 7200;
             }
-            $lastDate = date('Y-m-d H:i:s', time() - $period);
+            $lastDate = date('Y-m-d H:i:s', time() - $period);*/
             $mail = new Mail($MAIL_param);
             $acllogin = new Acllogin();
             foreach ($logins as $value) {
@@ -438,7 +439,7 @@ class Log extends PpciModel
                     /**
                      * search if a mail has been send to this admin for the same event and the same user recently
                      */
-                    $sql = 'select log_id, log_date from log 
+                    /*$sql = 'select log_id, log_date from log 
                     where nom_module = :moduleName: 
                     and login = :login: and commentaire = :admin: 
                     and log_date > :lastdate: 
@@ -453,13 +454,14 @@ class Log extends PpciModel
                         $sql,
                         $dataSql
                     );
-                    if (!$logval["log_id"] > 0) {
-                        if ($mail->SendMailSmarty( $dataLogin["email"], $subject, $templateName, $data)) {
-                            $this->setLog($login, $moduleName, $value["login"]);
-                        } else {
-                            $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["mail"],true);
-                        }
+
+                    if (!$logval["log_id"] > 0) {*/
+                    try {
+                        $mail->SendMailSmarty($dataLogin["email"], $subject, $templateName, $data);
+                    } catch (PpciException) {
+                        $this->message->setSyslog("error_sendmail_to_admin:" . $dataLogin["email"]);
                     }
+                    //}
                 }
             }
         }

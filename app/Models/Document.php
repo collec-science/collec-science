@@ -77,10 +77,11 @@ class Document extends PpciModel
                 "type" => 2,
                 "defaultValue" => $this->getDateJour()
             ),
-            "uuid" => array("type" => 0, "default" => "getUUID"),
+            "uuid" => array("type" => 0),
             "external_storage" => array("type" => 1),
             "external_storage_path" => array("type" => 0),
-            "event_id" => array("type" => 1)
+            "event_id" => array("type" => 1),
+            "collection_id" => ["type" => 1]
         );
         parent::__construct();
     }
@@ -93,13 +94,13 @@ class Document extends PpciModel
      */
     function getListFromField($fieldName, $id /*, $isExternal = false*/): ?array
     {
-        $fields = array("uid", "campaign_id", "uuid", "event_id");
+        $fields = array("uid", "campaign_id", "uuid", "event_id", "collection_id");
         if (in_array($fieldName, $fields)) {
             if ($fieldName == "uid") {
                 $fieldName = "d.uid";
             }
             //$isExternal ? $external = "true" : $external = "false";
-            $sql = "select document_id, d.uid, campaign_id, mime_type_id,
+            $sql = "select document_id, d.uid, campaign_id, mime_type_id, collection_id,
           document_import_date, document_name, document_description, size, document_creation_date, d.uuid
           ,external_storage, external_storage_path, event_id, event_date, event_type_name, due_date
           from document d

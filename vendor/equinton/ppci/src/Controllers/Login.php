@@ -19,25 +19,19 @@ class Login extends PpciController
              */
             if (!$_SESSION["isLogged"] && $idConfig->identificationMode == "HEADER") {
                 $retour = $login->getLogin();
-                if (!empty($retour)) {
-                    return redirect()->to($retour);
-                } else {
-                    if ($_SESSION["isLogged"]) {
-                        return $this->defaultReturn();
-                    } else {
+                if (empty($retour) && !$_SESSION["isLogged"]) {                  
                         $_SESSION["filterMessages"][] = _("Identification refusée");
-                        return redirect()->to(site_url());
-                    }
                 }
+                return $this->defaultReturn($retour);
             } else {
                 if ($idConfig->identificationMode == "CAS") {
-                    return redirect()->to("loginCasExec");
+                    return $this->defaultReturn("loginCasExec");
                 } else if ($idConfig->identificationMode == "OIDC") {
-                    return redirect()->to("oidcExec");
+                    return $this->defaultReturn("oidcExec");
                 }
             }
             $_SESSION["filterMessages"][] = _("Le mode d'identification dans l'application ne vous permet pas d'accéder à la page de connexion");
-            defaultPage();
+            return defaultPage();
         }
     }
     public function loginExec()
@@ -61,12 +55,13 @@ class Login extends PpciController
             $login = new \Ppci\Libraries\Login();
             return $this->defaultReturn($login->getLogin());
         } else {
-            return redirect()->to(site_url());
+            return $this->defaultReturn();
         }
     }
-    public function oidcExec () {
+    public function oidcExec()
+    {
         $config = service("IdentificationConfig");
-         $ident_type = $config->identificationMode;
+        $ident_type = $config->identificationMode;
         if ($ident_type == "OIDC-BDD" && $_REQUEST["identificationType"] != "BDD") {
             $ident_type = "OIDC";
         }
@@ -74,10 +69,11 @@ class Login extends PpciController
             $login = new \Ppci\Libraries\Login();
             return $this->defaultReturn($login->getLogin());
         } else {
-            return redirect()->to(site_url());
+            return $this->defaultReturn();
         }
     }
-    public function getLogo() {
+    public function getLogo()
+    {
         $vue = service("BinaryView");
         $config = service("IdentificationConfig");
 
@@ -94,7 +90,7 @@ class Login extends PpciController
         $login = new \Ppci\Models\Login();
         $login->disconnect();
         $_SESSION["filterMessages"][] = (_("Vous avez été déconnecté"));
-        return redirect()->to(site_url());
+        return $this->defaultReturn();
     }
     protected function defaultReturn($retour = "")
     {
@@ -106,9 +102,9 @@ class Login extends PpciController
             }
         }
         if (empty($retour)) {
-           return defaultPage();
+            return defaultPage();
         } else {
-            return redirect()->to($retour);
+            return redirect($retour, "refresh");
         }
     }
 }

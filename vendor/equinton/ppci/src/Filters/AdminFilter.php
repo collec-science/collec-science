@@ -45,9 +45,10 @@ class AdminFilter implements FilterInterface
                                 $vue->set(1, "isAdmin");
                                 $_SESSION["filterMessages"][] = _("Vous devez vous ré-identifier avec votre code TOTP pour accéder aux modules d'administration");
                                 return redirect()->to("totpAdmin")->withInput();
+                                return redirect("totpAdmin","refresh")->withInput();
                             } else {
                                 $_SESSION["filterMessages"][] = _("Vous devez activer la double identification TOTP pour accéder aux modules d'administration");
-                                return redirect()->to("totpCreate")->withInput();
+                                return redirect("totpCreate","refresh")->withInput();
                             }
                         }
                     }

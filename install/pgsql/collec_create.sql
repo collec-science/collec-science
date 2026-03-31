@@ -1,10 +1,8 @@
 -- ** Database generated with pgModeler (PostgreSQL Database Modeler).
--- ** pgModeler version: 1.2.1
--- ** PostgreSQL version: 13.0
+-- ** pgModeler version: 1.2.3
+-- ** PostgreSQL version: 18.0
 -- ** Project Site: pgmodeler.io
 -- ** Model Author: Éric Quinton
--- object: collec | type: ROLE --
-
 
 SET check_function_bodies = false;
 -- ddl-end --
@@ -13,20 +11,14 @@ SET check_function_bodies = false;
 -- DROP SCHEMA IF EXISTS col CASCADE;
 CREATE SCHEMA col;
 -- ddl-end --
-ALTER SCHEMA col OWNER TO collec;
--- ddl-end --
 
 -- object: gacl | type: SCHEMA --
 -- DROP SCHEMA IF EXISTS gacl CASCADE;
 CREATE SCHEMA gacl;
 -- ddl-end --
-ALTER SCHEMA gacl OWNER TO collec;
--- ddl-end --
 
 SET search_path TO pg_catalog,public,col,gacl;
 -- ddl-end --
-
-
 
 -- object: col.booking_booking_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.booking_booking_id_seq CASCADE;
@@ -39,8 +31,6 @@ CREATE SEQUENCE col.booking_booking_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.booking_booking_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.booking | type: TABLE --
@@ -68,8 +58,6 @@ COMMENT ON COLUMN col.booking.booking_comment IS E'Comment';
 -- ddl-end --
 COMMENT ON COLUMN col.booking.booking_login IS E'Login used to perform the reservation';
 -- ddl-end --
-ALTER TABLE col.booking OWNER TO collec;
--- ddl-end --
 
 -- object: col.project_project_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.project_project_id_seq CASCADE;
@@ -83,8 +71,6 @@ CREATE SEQUENCE col.project_project_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.project_project_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.collection_group | type: TABLE --
 -- DROP TABLE IF EXISTS col.collection_group CASCADE;
@@ -95,8 +81,6 @@ CREATE TABLE col.collection_group (
 );
 -- ddl-end --
 COMMENT ON TABLE col.collection_group IS E'Table of project approvals';
--- ddl-end --
-ALTER TABLE col.collection_group OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container_container_id_seq | type: SEQUENCE --
@@ -111,8 +95,6 @@ CREATE SEQUENCE col.container_container_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.container_container_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.container | type: TABLE --
 -- DROP TABLE IF EXISTS col.container CASCADE;
@@ -125,8 +107,6 @@ CREATE TABLE col.container (
 );
 -- ddl-end --
 COMMENT ON TABLE col.container IS E'Liste of containers';
--- ddl-end --
-ALTER TABLE col.container OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container_family_container_family_id_seq | type: SEQUENCE --
@@ -141,8 +121,6 @@ CREATE SEQUENCE col.container_family_container_family_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.container_family_container_family_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.container_family | type: TABLE --
 -- DROP TABLE IF EXISTS col.container_family CASCADE;
@@ -153,8 +131,6 @@ CREATE TABLE col.container_family (
 );
 -- ddl-end --
 COMMENT ON TABLE col.container_family IS E'General family of containers';
--- ddl-end --
-ALTER TABLE col.container_family OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.container_family (container_family_name) VALUES (E'Immobilier');
@@ -173,8 +149,6 @@ CREATE SEQUENCE col.container_type_container_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.container_type_container_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.container_type | type: TABLE --
@@ -195,6 +169,9 @@ CREATE TABLE col.container_type (
 	first_column varchar DEFAULT 'L',
 	line_in_char boolean NOT NULL DEFAULT false,
 	column_in_char boolean NOT NULL DEFAULT false,
+	nbobject_by_slot integer DEFAULT 0,
+	risk_id integer,
+	product_id integer,
 	CONSTRAINT container_type_pk PRIMARY KEY (container_type_id)
 );
 -- ddl-end --
@@ -219,8 +196,6 @@ COMMENT ON COLUMN col.container_type.first_column IS E'Place of the first column
 COMMENT ON COLUMN col.container_type.line_in_char IS E'Is the number of the line is displayed in character?';
 -- ddl-end --
 COMMENT ON COLUMN col.container_type.column_in_char IS E'Is the number of the column is displayed in character?';
--- ddl-end --
-ALTER TABLE col.container_type OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.container_type (container_type_name, container_family_id) VALUES (E'Site', E'1');
@@ -255,8 +230,6 @@ COMMENT ON COLUMN col.dbparam.dbparam_description IS E'Description of the parame
 -- ddl-end --
 COMMENT ON COLUMN col.dbparam.dbparam_description_en IS E'Description of the parameter, in English';
 -- ddl-end --
-ALTER TABLE col.dbparam OWNER TO collec;
--- ddl-end --
 
 INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'APPLI_code', E'cs_code', E'Code de l''instance. Ce code figurera dans les QRcodes', E'Instance code. This code will appear in the Qrcodes');
 -- ddl-end --
@@ -289,8 +262,6 @@ CREATE SEQUENCE col.dbversion_dbversion_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.dbversion_dbversion_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.dbversion | type: TABLE --
 -- DROP TABLE IF EXISTS col.dbversion CASCADE;
@@ -307,9 +278,9 @@ COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 -- ddl-end --
 COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
-ALTER TABLE col.dbversion OWNER TO collec;
--- ddl-end --
 
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.1', E'2026-04-01');
+-- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.document_document_id_seq CASCADE;
@@ -322,8 +293,6 @@ CREATE SEQUENCE col.document_document_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.document_document_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.document | type: TABLE --
@@ -344,6 +313,7 @@ CREATE TABLE col.document (
 	external_storage_path varchar,
 	campaign_id integer,
 	event_id integer,
+	collection_id integer,
 	CONSTRAINT document_pk PRIMARY KEY (document_id)
 );
 -- ddl-end --
@@ -367,8 +337,6 @@ COMMENT ON COLUMN col.document.external_storage IS E'Is the document stored in t
 -- ddl-end --
 COMMENT ON COLUMN col.document.external_storage_path IS E'Path to the file, relative to the root of the external storage';
 -- ddl-end --
-ALTER TABLE col.document OWNER TO collec;
--- ddl-end --
 
 -- object: col.event_event_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.event_event_id_seq CASCADE;
@@ -381,8 +349,6 @@ CREATE SEQUENCE col.event_event_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.event_event_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.event | type: TABLE --
@@ -408,8 +374,6 @@ COMMENT ON COLUMN col.event.event_comment IS E'Comment';
 -- ddl-end --
 COMMENT ON COLUMN col.event.due_date IS E'Due date of the event';
 -- ddl-end --
-ALTER TABLE col.event OWNER TO collec;
--- ddl-end --
 
 -- object: col.event_type_event_type_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.event_type_event_type_id_seq CASCADE;
@@ -422,8 +386,6 @@ CREATE SEQUENCE col.event_type_event_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.event_type_event_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.event_type | type: TABLE --
@@ -443,8 +405,6 @@ COMMENT ON COLUMN col.event_type.event_type_name IS E'Name of the type of event'
 COMMENT ON COLUMN col.event_type.is_sample IS E'The event is applicable to the samples';
 -- ddl-end --
 COMMENT ON COLUMN col.event_type.is_container IS E'The event is applicable to the containers';
--- ddl-end --
-ALTER TABLE col.event_type OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.event_type (event_type_name, is_sample, is_container) VALUES (E'Autre', E'true', E'true');
@@ -470,8 +430,6 @@ CREATE SEQUENCE col.identifier_type_identifier_type_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.identifier_type_identifier_type_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.identifier_type | type: TABLE --
 -- DROP TABLE IF EXISTS col.identifier_type CASCADE;
@@ -491,8 +449,6 @@ COMMENT ON COLUMN col.identifier_type.identifier_type_code IS E'Identifier code,
 -- ddl-end --
 COMMENT ON COLUMN col.identifier_type.used_for_search IS E'Is the identifier usable for barcode searches?';
 -- ddl-end --
-ALTER TABLE col.identifier_type OWNER TO collec;
--- ddl-end --
 
 -- object: col.label_label_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.label_label_id_seq CASCADE;
@@ -506,8 +462,6 @@ CREATE SEQUENCE col.label_label_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.label_label_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.label | type: TABLE --
 -- DROP TABLE IF EXISTS col.label CASCADE;
@@ -516,6 +470,7 @@ CREATE TABLE col.label (
 	label_name character varying NOT NULL,
 	label_xsl character varying NOT NULL,
 	metadata_id integer,
+	logo bytea,
 	CONSTRAINT label_pk PRIMARY KEY (label_id)
 );
 -- ddl-end --
@@ -527,7 +482,7 @@ COMMENT ON COLUMN col.label.label_xsl IS E'XSL content used by FOP transformatio
 -- ddl-end --
 COMMENT ON COLUMN col.label.metadata_id IS E'Model of the metadata template associated with this label';
 -- ddl-end --
-ALTER TABLE col.label OWNER TO collec;
+COMMENT ON COLUMN col.label.logo IS E'Logo added to the label';
 -- ddl-end --
 
 INSERT INTO col.label (label_name, label_xsl, metadata_id) VALUES (E'Example', E'<?xml version="1.0" encoding="utf-8"?>\n<xsl:stylesheet version="1.0"\n	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"\n	xmlns:fo="http://www.w3.org/1999/XSL/Format">\n	<xsl:output method="xml" indent="yes"/>\n	<xsl:template match="objects">\n		<fo:root>\n			<fo:layout-master-set>\n				<fo:simple-page-master master-name="label"\n					  page-height="5cm" page-width="10cm" margin-left="0.5cm" margin-top="0.5cm" margin-bottom="0cm" margin-right="0.5cm">  \n					  <fo:region-body/>\n				</fo:simple-page-master>\n			</fo:layout-master-set>\n			<fo:page-sequence master-reference="label">\n				<fo:flow flow-name="xsl-region-body">        \n					<fo:block>\n						<xsl:apply-templates select="object" />\n					</fo:block>\n				</fo:flow>\n			</fo:page-sequence>\n		</fo:root>\n	</xsl:template>\n	<xsl:template match="object">\n		<fo:table table-layout="fixed" border-collapse="collapse"  border-style="none" width="9cm" keep-together.within-page="always">\n			<fo:table-column column-width="6cm"/>\n			<fo:table-column column-width="3cm" />\n			<fo:table-body border-style="none" >\n				<fo:table-row>\n					<fo:table-cell>\n						<fo:block>\n							<fo:external-graphic>\n								<xsl:attribute name="src">\n									<xsl:value-of select="concat(label_id,''-logo.png'')"/>\n								</xsl:attribute>\n								<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n									<xsl:attribute name="height">1cm</xsl:attribute>\n									<xsl:attribute name="content-width">1cm</xsl:attribute>\n									<xsl:attribute name="scaling">uniform</xsl:attribute>\n								</fo:external-graphic>\n								<fo:inline> Labo Collec-Science</fo:inline>\n						</fo:block>\n						<fo:block><fo:inline font-weight="bold"><xsl:value-of select="db"/>:<xsl:value-of select="uid"/></fo:inline></fo:block>\n						<fo:block>id:<fo:inline font-weight="bold"><xsl:value-of select="id"/></fo:inline></fo:block>\n					</fo:table-cell>\n					<fo:table-cell> \n						<fo:block>\n							<fo:external-graphic>\n								 <xsl:attribute name="src">\n										<xsl:value-of select="concat(uid,''.png'')" />\n								 </xsl:attribute>\n								<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n								<xsl:attribute name="height">2.5cm</xsl:attribute>\n								<xsl:attribute name="content-width">2.5cm</xsl:attribute>\n								<xsl:attribute name="scaling">uniform</xsl:attribute>     \n							</fo:external-graphic>\n						</fo:block>\n					</fo:table-cell>\n				</fo:table-row>\n		</fo:table-body>\n	</fo:table>\n	<fo:block text-align="center">\n		<fo:external-graphic>\n				 <xsl:attribute name="src">\n						<xsl:value-of select="concat(uid,''-2.png'')" />\n				 </xsl:attribute>\n				<xsl:attribute name="content-height">scale-to-fit</xsl:attribute>\n				<xsl:attribute name="content-width">9cm</xsl:attribute>\n				<xsl:attribute name="height">1cm</xsl:attribute>\n				<xsl:attribute name="scaling">uniform</xsl:attribute>     \n			</fo:external-graphic>\n	</fo:block>\n	<fo:block text-align="center">\n		Risque:<fo:inline font-weight="bold"><xsl:value-of select="clp"/></fo:inline>\n	</fo:block>\n	   <fo:block page-break-after="always"/>\n	  </xsl:template>\n</xsl:stylesheet>\n', DEFAULT);
@@ -545,8 +500,6 @@ CREATE SEQUENCE col.storage_storage_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.storage_storage_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.last_photo | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_photo CASCADE;
@@ -555,13 +508,14 @@ AS
 SELECT d.document_id,
     d.uid
    FROM col.document d
-  WHERE (d.document_id = ( SELECT d1.document_id
-           FROM col.document d1
-          WHERE ((d1.mime_type_id = ANY (ARRAY[4, 5, 6])) AND (d.uid = d1.uid))
-          ORDER BY d1.document_creation_date DESC, d1.document_import_date DESC, d1.document_id DESC
+  WHERE (d.document_id = (
+		SELECT d1.document_id
+  		FROM col.document d1
+		WHERE (d1.mime_type_id = ANY (ARRAY[4, 5, 6]) AND (d.uid = d1.uid))
+        ORDER BY d1.document_creation_date DESC, 
+				d1.document_import_date DESC, 
+				d1.document_id DESC
          LIMIT 1));
--- ddl-end --
-ALTER VIEW col.last_photo OWNER TO collec;
 -- ddl-end --
 
 -- object: col.metadata_metadata_id_seq | type: SEQUENCE --
@@ -575,8 +529,6 @@ CREATE SEQUENCE col.metadata_metadata_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.metadata_metadata_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.metadata | type: TABLE --
@@ -594,8 +546,6 @@ COMMENT ON COLUMN col.metadata.metadata_name IS E'Name of the metadata set';
 -- ddl-end --
 COMMENT ON COLUMN col.metadata.metadata_schema IS E'JSON schema of the metadata form';
 -- ddl-end --
-ALTER TABLE col.metadata OWNER TO collec;
--- ddl-end --
 
 -- object: col.mime_type_mime_type_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.mime_type_mime_type_id_seq CASCADE;
@@ -609,13 +559,11 @@ CREATE SEQUENCE col.mime_type_mime_type_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.mime_type_mime_type_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.mime_type | type: TABLE --
 -- DROP TABLE IF EXISTS col.mime_type CASCADE;
 CREATE TABLE col.mime_type (
-	mime_type_id integer NOT NULL DEFAULT nextval('col.mime_type_mime_type_id_seq'::regclass),
+	mime_type_id serial NOT NULL,
 	extension character varying NOT NULL,
 	content_type character varying NOT NULL,
 	CONSTRAINT mime_type_pk PRIMARY KEY (mime_type_id)
@@ -626,8 +574,6 @@ COMMENT ON TABLE col.mime_type IS E'Mime types of imported files';
 COMMENT ON COLUMN col.mime_type.extension IS E'File extension';
 -- ddl-end --
 COMMENT ON COLUMN col.mime_type.content_type IS E'Official mime type';
--- ddl-end --
-ALTER TABLE col.mime_type OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.mime_type (extension, content_type) VALUES (E'pdf', E'application/pdf');
@@ -681,8 +627,6 @@ CREATE SEQUENCE col.storage_reason_storage_reason_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.storage_reason_storage_reason_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.movement_type_movement_type_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.movement_type_movement_type_id_seq CASCADE;
@@ -696,8 +640,6 @@ CREATE SEQUENCE col.movement_type_movement_type_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.movement_type_movement_type_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.movement_type | type: TABLE --
 -- DROP TABLE IF EXISTS col.movement_type CASCADE;
@@ -708,8 +650,6 @@ CREATE TABLE col.movement_type (
 );
 -- ddl-end --
 COMMENT ON TABLE col.movement_type IS E'Type de mouvement';
--- ddl-end --
-ALTER TABLE col.movement_type OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.movement_type (movement_type_id, movement_type_name) VALUES (E'1', E'Entrée/Entry');
@@ -729,8 +669,6 @@ CREATE SEQUENCE col.multiple_type_multiple_type_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.multiple_type_multiple_type_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.multiple_type | type: TABLE --
 -- DROP TABLE IF EXISTS col.multiple_type CASCADE;
@@ -741,8 +679,6 @@ CREATE TABLE col.multiple_type (
 );
 -- ddl-end --
 COMMENT ON TABLE col.multiple_type IS E'Table of categories of potential sub-sampling (unit, quantity, percentage, etc.)';
--- ddl-end --
-ALTER TABLE col.multiple_type OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.multiple_type (multiple_type_name) VALUES (E'Unité');
@@ -766,8 +702,6 @@ CREATE SEQUENCE col.object_uid_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.object_uid_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.object_identifier_object_identifier_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.object_identifier_object_identifier_id_seq CASCADE;
@@ -780,8 +714,6 @@ CREATE SEQUENCE col.object_identifier_object_identifier_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.object_identifier_object_identifier_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.object_identifier | type: TABLE --
@@ -798,8 +730,6 @@ COMMENT ON TABLE col.object_identifier IS E'Table of complementary identifiers';
 -- ddl-end --
 COMMENT ON COLUMN col.object_identifier.object_identifier_value IS E'Identifier value';
 -- ddl-end --
-ALTER TABLE col.object_identifier OWNER TO collec;
--- ddl-end --
 
 -- object: col.object_status_object_status_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.object_status_object_status_id_seq CASCADE;
@@ -813,8 +743,6 @@ CREATE SEQUENCE col.object_status_object_status_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.object_status_object_status_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.object_status | type: TABLE --
 -- DROP TABLE IF EXISTS col.object_status CASCADE;
@@ -825,8 +753,6 @@ CREATE TABLE col.object_status (
 );
 -- ddl-end --
 COMMENT ON TABLE col.object_status IS E'Table of types of status';
--- ddl-end --
-ALTER TABLE col.object_status OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'1', E'État normal');
@@ -842,7 +768,6 @@ INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'3
 INSERT INTO col.object_status (object_status_id, object_status_name) VALUES (E'6', E'Objet prêté');
 -- ddl-end --
 
-
 -- object: col.operation_operation_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.operation_operation_id_seq CASCADE;
 CREATE SEQUENCE col.operation_operation_id_seq
@@ -854,8 +779,6 @@ CREATE SEQUENCE col.operation_operation_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.operation_operation_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.operation | type: TABLE --
@@ -879,8 +802,6 @@ COMMENT ON COLUMN col.operation.operation_version IS E'Version of the operation'
 -- ddl-end --
 COMMENT ON COLUMN col.operation.last_edit_date IS E'Last edit date of the operation';
 -- ddl-end --
-ALTER TABLE col.operation OWNER TO collec;
--- ddl-end --
 
 -- object: col.printer_printer_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.printer_printer_id_seq CASCADE;
@@ -893,8 +814,6 @@ CREATE SEQUENCE col.printer_printer_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.printer_printer_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.printer | type: TABLE --
@@ -921,8 +840,6 @@ COMMENT ON COLUMN col.printer.printer_user IS E'User used to print, if necessary
 -- ddl-end --
 COMMENT ON COLUMN col.printer.printer_comment IS E'Comment';
 -- ddl-end --
-ALTER TABLE col.printer OWNER TO collec;
--- ddl-end --
 
 -- object: col.collection | type: TABLE --
 -- DROP TABLE IF EXISTS col.collection CASCADE;
@@ -930,9 +847,9 @@ CREATE TABLE col.collection (
 	collection_id integer NOT NULL DEFAULT nextval('col.project_project_id_seq'::regclass),
 	collection_name character varying NOT NULL,
 	referent_id integer,
-	allowed_import_flow boolean DEFAULT 'f',
-	allowed_export_flow boolean DEFAULT 'f',
-	public_collection boolean DEFAULT 'f',
+	allowed_import_flow boolean DEFAULT false,
+	allowed_export_flow boolean DEFAULT false,
+	public_collection boolean DEFAULT false,
 	collection_keywords varchar,
 	collection_displayname varchar,
 	no_localization boolean NOT NULL DEFAULT false,
@@ -944,6 +861,7 @@ CREATE TABLE col.collection (
 	notification_mails varchar,
 	expiration_delay smallint DEFAULT 0,
 	event_due_delay smallint DEFAULT 0,
+	collection_description varchar,
 	CONSTRAINT project_pk PRIMARY KEY (collection_id)
 );
 -- ddl-end --
@@ -975,7 +893,7 @@ COMMENT ON COLUMN col.collection.expiration_delay IS E'Number of days before exp
 -- ddl-end --
 COMMENT ON COLUMN col.collection.event_due_delay IS E'Number of days before the due date of an event to notify this due date. 0: no notification';
 -- ddl-end --
-ALTER TABLE col.collection OWNER TO collec;
+COMMENT ON COLUMN col.collection.collection_description IS E'Description of the collection';
 -- ddl-end --
 
 -- object: col.protocol_protocol_id_seq | type: SEQUENCE --
@@ -989,8 +907,6 @@ CREATE SEQUENCE col.protocol_protocol_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.protocol_protocol_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.protocol | type: TABLE --
@@ -1021,8 +937,6 @@ COMMENT ON COLUMN col.protocol.authorization_number IS E'Number of the preleveme
 -- ddl-end --
 COMMENT ON COLUMN col.protocol.authorization_date IS E'Date of the prelevement authorization';
 -- ddl-end --
-ALTER TABLE col.protocol OWNER TO collec;
--- ddl-end --
 
 -- object: col.referent_referent_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.referent_referent_id_seq CASCADE;
@@ -1035,8 +949,6 @@ CREATE SEQUENCE col.referent_referent_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.referent_referent_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.referent | type: TABLE --
@@ -1084,8 +996,6 @@ COMMENT ON COLUMN col.referent.academical_link IS E'Link used to identify the re
 -- ddl-end --
 COMMENT ON COLUMN col.referent.referent_organization IS E'Referent''s organization';
 -- ddl-end --
-ALTER TABLE col.referent OWNER TO collec;
--- ddl-end --
 
 -- object: col.sample_sample_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.sample_sample_id_seq CASCADE;
@@ -1098,8 +1008,6 @@ CREATE SEQUENCE col.sample_sample_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.sample_sample_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.sample | type: TABLE --
@@ -1135,8 +1043,6 @@ COMMENT ON COLUMN col.sample.metadata IS E'Metadata associated with the sample, 
 -- ddl-end --
 COMMENT ON COLUMN col.sample.expiration_date IS E'Date of expiration of the sample. After this date, the sample is not usable';
 -- ddl-end --
-ALTER TABLE col.sample OWNER TO collec;
--- ddl-end --
 
 -- object: col.sample_type_sample_type_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.sample_type_sample_type_id_seq CASCADE;
@@ -1149,8 +1055,6 @@ CREATE SEQUENCE col.sample_type_sample_type_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.sample_type_sample_type_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.sample_type | type: TABLE --
@@ -1165,6 +1069,9 @@ CREATE TABLE col.sample_type (
 	operation_id integer,
 	identifier_generator_js character varying,
 	sample_type_description varchar,
+	sample_type_code varchar,
+	risk_id integer,
+	product_id integer,
 	CONSTRAINT sample_type_pk PRIMARY KEY (sample_type_id)
 );
 -- ddl-end --
@@ -1178,7 +1085,7 @@ COMMENT ON COLUMN col.sample_type.identifier_generator_js IS E'Javascript functi
 -- ddl-end --
 COMMENT ON COLUMN col.sample_type.sample_type_description IS E'Description of the type of sample';
 -- ddl-end --
-ALTER TABLE col.sample_type OWNER TO collec;
+COMMENT ON COLUMN col.sample_type.sample_type_code IS E'Code used to exchange information with others providers without use the name of the sample type';
 -- ddl-end --
 
 -- object: col.sampling_place_sampling_place_id_seq | type: SEQUENCE --
@@ -1192,8 +1099,6 @@ CREATE SEQUENCE col.sampling_place_sampling_place_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.sampling_place_sampling_place_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.sampling_place | type: TABLE --
@@ -1221,8 +1126,6 @@ COMMENT ON COLUMN col.sampling_place.sampling_place_x IS E'Longitude of the stat
 -- ddl-end --
 COMMENT ON COLUMN col.sampling_place.sampling_place_y IS E'Latitude of the station, in WGS84';
 -- ddl-end --
-ALTER TABLE col.sampling_place OWNER TO collec;
--- ddl-end --
 
 -- object: col.storage_condition_storage_condition_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.storage_condition_storage_condition_id_seq CASCADE;
@@ -1236,8 +1139,6 @@ CREATE SEQUENCE col.storage_condition_storage_condition_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.storage_condition_storage_condition_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.storage_condition | type: TABLE --
 -- DROP TABLE IF EXISTS col.storage_condition CASCADE;
@@ -1249,8 +1150,6 @@ CREATE TABLE col.storage_condition (
 -- ddl-end --
 COMMENT ON TABLE col.storage_condition IS E'Table of the conditions of storage';
 -- ddl-end --
-ALTER TABLE col.storage_condition OWNER TO collec;
--- ddl-end --
 
 -- object: col.movement_reason | type: TABLE --
 -- DROP TABLE IF EXISTS col.movement_reason CASCADE;
@@ -1261,8 +1160,6 @@ CREATE TABLE col.movement_reason (
 );
 -- ddl-end --
 COMMENT ON TABLE col.movement_reason IS E'List of the reasons of the movement';
--- ddl-end --
-ALTER TABLE col.movement_reason OWNER TO collec;
 -- ddl-end --
 
 -- object: col.movement | type: TABLE --
@@ -1296,8 +1193,6 @@ COMMENT ON COLUMN col.movement.column_number IS E'Number of the storage column i
 -- ddl-end --
 COMMENT ON COLUMN col.movement.line_number IS E'Number of the storage line in the container';
 -- ddl-end --
-ALTER TABLE col.movement OWNER TO collec;
--- ddl-end --
 
 -- object: col.subsample_subsample_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.subsample_subsample_id_seq CASCADE;
@@ -1311,8 +1206,6 @@ CREATE SEQUENCE col.subsample_subsample_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.subsample_subsample_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.subsample | type: TABLE --
 -- DROP TABLE IF EXISTS col.subsample CASCADE;
@@ -1325,6 +1218,7 @@ CREATE TABLE col.subsample (
 	subsample_comment character varying,
 	subsample_login character varying NOT NULL,
 	borrower_id integer,
+	createdsample_id integer,
 	CONSTRAINT subsample_pk PRIMARY KEY (subsample_id)
 );
 -- ddl-end --
@@ -1338,23 +1232,25 @@ COMMENT ON COLUMN col.subsample.subsample_comment IS E'Comment on this operation
 -- ddl-end --
 COMMENT ON COLUMN col.subsample.subsample_login IS E'Login of the user who perform this operation';
 -- ddl-end --
-ALTER TABLE col.subsample OWNER TO collec;
--- ddl-end --
 
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
 CREATE OR REPLACE VIEW col.v_object_identifier
 AS 
 SELECT object_identifier.uid,
-    array_to_string(array_agg((
-    case when identifier_type_code is not null then identifier_type.identifier_type_code else identifier_type_name end ::text || ':'::text) || object_identifier.object_identifier_value::text 
-    ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value), ','::text) AS identifiers
+    array_to_string(
+		array_agg(
+        CASE
+            WHEN identifier_type.identifier_type_code IS NOT NULL THEN identifier_type.identifier_type_code
+            ELSE identifier_type.identifier_type_name
+        END::text 
+		|| ':'::text || object_identifier.object_identifier_value::text ORDER BY identifier_type.identifier_type_code, object_identifier.object_identifier_value
+		), ','::text
+	) AS identifiers
    FROM col.object_identifier
      JOIN col.identifier_type USING (identifier_type_id)
   GROUP BY object_identifier.uid
   ORDER BY object_identifier.uid;
--- ddl-end --
-ALTER VIEW col.v_object_identifier OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.aclgroup_aclgroup_id_seq | type: SEQUENCE --
@@ -1369,8 +1265,6 @@ CREATE SEQUENCE gacl.aclgroup_aclgroup_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE gacl.aclgroup_aclgroup_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: gacl.aclacl | type: TABLE --
 -- DROP TABLE IF EXISTS gacl.aclacl CASCADE;
@@ -1381,8 +1275,6 @@ CREATE TABLE gacl.aclacl (
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.aclacl IS E'Table of rights granted';
--- ddl-end --
-ALTER TABLE gacl.aclacl OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO gacl.aclacl (aclaco_id, aclgroup_id) VALUES (E'1', E'1');
@@ -1410,8 +1302,6 @@ CREATE SEQUENCE gacl.aclaco_aclaco_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE gacl.aclaco_aclaco_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: gacl.aclaco | type: TABLE --
 -- DROP TABLE IF EXISTS gacl.aclaco CASCADE;
@@ -1426,8 +1316,6 @@ COMMENT ON TABLE gacl.aclaco IS E'Table of managed rights';
 -- ddl-end --
 COMMENT ON COLUMN gacl.aclaco.aco IS E'Name of the right in the application';
 -- ddl-end --
-ALTER TABLE gacl.aclaco OWNER TO collec;
--- ddl-end --
 
 INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'1', E'1', E'admin');
 -- ddl-end --
@@ -1439,7 +1327,7 @@ INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'6', E'1', E'impo
 -- ddl-end --
 INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'3', E'1', E'collection');
 -- ddl-end --
-INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'4', E'1', E'gestion');
+INSERT INTO gacl.aclaco (aclaco_id, aclappli_id, aco) VALUES (E'4', E'1', E'manage');
 -- ddl-end --
 
 -- object: gacl.aclappli_aclappli_id_seq | type: SEQUENCE --
@@ -1453,8 +1341,6 @@ CREATE SEQUENCE gacl.aclappli_aclappli_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE gacl.aclappli_aclappli_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.aclappli | type: TABLE --
@@ -1471,8 +1357,6 @@ COMMENT ON TABLE gacl.aclappli IS E'Table of managed applications';
 COMMENT ON COLUMN gacl.aclappli.appli IS E'Code of the application used to manage the rights';
 -- ddl-end --
 COMMENT ON COLUMN gacl.aclappli.applidetail IS E'Description of the application';
--- ddl-end --
-ALTER TABLE gacl.aclappli OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO gacl.aclappli (aclappli_id, appli, applidetail) VALUES (E'1', E'col', E'Collec-Science');
@@ -1493,14 +1377,12 @@ COMMENT ON COLUMN gacl.aclgroup.groupe IS E'Name of the group';
 -- ddl-end --
 COMMENT ON COLUMN gacl.aclgroup.aclgroup_id_parent IS E'Parent group who inherits of the rights attributed to this group';
 -- ddl-end --
-ALTER TABLE gacl.aclgroup OWNER TO collec;
--- ddl-end --
 
 INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'1', E'admin', DEFAULT);
 -- ddl-end --
 INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'2', E'consult', DEFAULT);
 -- ddl-end --
-INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'3', E'gestion', E'2');
+INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'3', E'manage', E'2');
 -- ddl-end --
 INSERT INTO gacl.aclgroup (aclgroup_id, groupe, aclgroup_id_parent) VALUES (E'4', E'collection', E'3');
 -- ddl-end --
@@ -1520,8 +1402,6 @@ CREATE SEQUENCE gacl.acllogin_acllogin_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE gacl.acllogin_acllogin_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.acllogin | type: TABLE --
@@ -1543,8 +1423,6 @@ COMMENT ON COLUMN gacl.acllogin.logindetail IS E'Displayed name';
 -- ddl-end --
 COMMENT ON COLUMN gacl.acllogin.totp_key IS E'TOTP secret key for the user';
 -- ddl-end --
-ALTER TABLE gacl.acllogin OWNER TO collec;
--- ddl-end --
 
 INSERT INTO gacl.acllogin (acllogin_id, login, logindetail) VALUES (E'1', E'admin', E'admin');
 -- ddl-end --
@@ -1558,8 +1436,6 @@ CREATE TABLE gacl.acllogingroup (
 );
 -- ddl-end --
 COMMENT ON TABLE gacl.acllogingroup IS E'List of logins in the groups';
--- ddl-end --
-ALTER TABLE gacl.acllogingroup OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO gacl.acllogingroup (acllogin_id, aclgroup_id) VALUES (E'1', E'1');
@@ -1579,14 +1455,12 @@ CREATE SEQUENCE gacl.log_log_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE gacl.log_log_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: gacl.log | type: TABLE --
 -- DROP TABLE IF EXISTS gacl.log CASCADE;
 CREATE TABLE gacl.log (
 	log_id integer NOT NULL DEFAULT nextval('gacl.log_log_id_seq'::regclass),
-	login character varying(32) NOT NULL,
+	login varchar NOT NULL,
 	nom_module character varying,
 	log_date timestamp NOT NULL,
 	commentaire character varying,
@@ -1606,8 +1480,6 @@ COMMENT ON COLUMN gacl.log.commentaire IS E'Complementary data recorded';
 -- ddl-end --
 COMMENT ON COLUMN gacl.log.ipaddress IS E'IP address of the client';
 -- ddl-end --
-ALTER TABLE gacl.log OWNER TO collec;
--- ddl-end --
 
 -- object: gacl.seq_logingestion_id | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS gacl.seq_logingestion_id CASCADE;
@@ -1620,8 +1492,6 @@ CREATE SEQUENCE gacl.seq_logingestion_id
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE gacl.seq_logingestion_id OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.logingestion | type: TABLE --
@@ -1670,8 +1540,6 @@ COMMENT ON COLUMN gacl.logingestion.lastattempt IS E'last attempt of connection'
 -- ddl-end --
 COMMENT ON COLUMN gacl.logingestion.locale IS E'Preferred locale for the user';
 -- ddl-end --
-ALTER TABLE gacl.logingestion OWNER TO collec;
--- ddl-end --
 
 INSERT INTO gacl.logingestion (id, login, password, nom, prenom, mail, datemodif, actif, is_clientws, tokenws, is_expired) VALUES (E'1', E'admin', E'cd916028a2d8a1b901e831246dd5b9b4d3832786ddc63bbf5af4b50d9fc98f50', E'Administrator', DEFAULT, E'admin@mysociety.com', E'2017-08-24 00:00:00', E'1', E'false', DEFAULT, E'false');
 -- ddl-end --
@@ -1687,8 +1555,6 @@ CREATE SEQUENCE gacl.passwordlost_passwordlost_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE gacl.passwordlost_passwordlost_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: gacl.passwordlost | type: TABLE --
@@ -1711,8 +1577,6 @@ COMMENT ON COLUMN gacl.passwordlost.token IS E'Token used to renewal';
 COMMENT ON COLUMN gacl.passwordlost.expiration IS E'Expiration date-time of the token';
 -- ddl-end --
 COMMENT ON COLUMN gacl.passwordlost.usedate IS E'Used date-time of the token';
--- ddl-end --
-ALTER TABLE gacl.passwordlost OWNER TO collec;
 -- ddl-end --
 
 -- object: referent_referent_name_idx | type: INDEX --
@@ -1805,6 +1669,56 @@ USING btree
 WITH (FILLFACTOR = 90);
 -- ddl-end --
 
+-- object: col.object | type: TABLE --
+-- DROP TABLE IF EXISTS col.object CASCADE;
+CREATE TABLE col.object (
+	uid integer NOT NULL DEFAULT nextval('col.object_uid_seq'::regclass),
+	identifier character varying,
+	wgs84_x double precision,
+	wgs84_y double precision,
+	object_status_id integer,
+	referent_id integer,
+	change_date timestamp NOT NULL DEFAULT now(),
+	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
+	trashed bool DEFAULT false,
+	location_accuracy float8,
+	geom geography(POINT, 4326),
+	object_comment varchar,
+	last_movement_id integer,
+	object_login varchar,
+	CONSTRAINT object_pk PRIMARY KEY (uid)
+);
+-- ddl-end --
+COMMENT ON TABLE col.object IS E'Table of objects';
+-- ddl-end --
+COMMENT ON COLUMN col.object.uid IS E'Unique identifier in the database of all objects';
+-- ddl-end --
+COMMENT ON COLUMN col.object.identifier IS E'Main working identifier';
+-- ddl-end --
+COMMENT ON COLUMN col.object.wgs84_x IS E'GPS longitude, in decimal form';
+-- ddl-end --
+COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
+-- ddl-end --
+COMMENT ON COLUMN col.object.change_date IS E'Technical date of changement of the object';
+-- ddl-end --
+COMMENT ON COLUMN col.object.uuid IS E'UUID of the object';
+-- ddl-end --
+COMMENT ON COLUMN col.object.trashed IS E'If the object is trashed before completly destroyed ?';
+-- ddl-end --
+COMMENT ON COLUMN col.object.location_accuracy IS E'Location accuracy of the object, in meters';
+-- ddl-end --
+COMMENT ON COLUMN col.object.geom IS E'Geographic point generate from wgs84_x and wgs84_y';
+-- ddl-end --
+COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
+-- ddl-end --
+COMMENT ON COLUMN col.object.last_movement_id IS E'Last movement recorded to the object';
+-- ddl-end --
+COMMENT ON COLUMN col.object.object_login IS E'Login that created the object';
+-- ddl-end --
+
+-- Appended SQL commands --
+CREATE INDEX object_identifier_idx ON col.object USING gist (lower((identifier)::text) gist_trgm_ops);
+-- ddl-end --
 
 -- object: col.borrower_borrower_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.borrower_borrower_id_seq CASCADE;
@@ -1817,8 +1731,6 @@ CREATE SEQUENCE col.borrower_borrower_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.borrower_borrower_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.borrower | type: TABLE --
@@ -1843,8 +1755,6 @@ COMMENT ON COLUMN col.borrower.laboratory_code IS E'Laboratory code of the borro
 -- ddl-end --
 COMMENT ON COLUMN col.borrower.borrower_mail IS E'Mail of the borrower';
 -- ddl-end --
-ALTER TABLE col.borrower OWNER TO collec;
--- ddl-end --
 
 -- object: col.borrowing_borrowing_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.borrowing_borrowing_id_seq CASCADE;
@@ -1858,8 +1768,6 @@ CREATE SEQUENCE col.borrowing_borrowing_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.borrowing_borrowing_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.borrowing | type: TABLE --
 -- DROP TABLE IF EXISTS col.borrowing CASCADE;
@@ -1870,6 +1778,7 @@ CREATE TABLE col.borrowing (
 	uid integer NOT NULL,
 	borrower_id integer NOT NULL,
 	return_date timestamp,
+	borrowing_comment varchar,
 	CONSTRAINT borrowing_pk PRIMARY KEY (borrowing_id)
 );
 -- ddl-end --
@@ -1880,8 +1789,6 @@ COMMENT ON COLUMN col.borrowing.borrowing_date IS E'Date of the borrowing';
 COMMENT ON COLUMN col.borrowing.expected_return_date IS E'Expected return date of the object';
 -- ddl-end --
 COMMENT ON COLUMN col.borrowing.return_date IS E'Date of return of the object';
--- ddl-end --
-ALTER TABLE col.borrowing OWNER TO collec;
 -- ddl-end --
 
 -- object: borrowing_uid_idx | type: INDEX --
@@ -1909,18 +1816,37 @@ WITH (FILLFACTOR = 90);
 CREATE OR REPLACE VIEW col.last_borrowing
 AS 
 SELECT b1.borrowing_id,
-    b1.uid,
-    b1.borrowing_date,
-    b1.expected_return_date,
-    b1.borrower_id
-   FROM col.borrowing b1
-  WHERE (b1.borrowing_id = ( SELECT b2.borrowing_id
+    	b1.uid,
+    	b1.borrowing_date,
+    	b1.expected_return_date,
+    	b1.borrower_id
+	FROM col.borrowing b1
+	WHERE (b1.borrowing_id = ( SELECT b2.borrowing_id
            FROM col.borrowing b2
           WHERE ((b1.uid = b2.uid) AND (b2.return_date IS NULL))
           ORDER BY b2.borrowing_date DESC
-         LIMIT 1));
+         LIMIT 1)
+		);
 -- ddl-end --
-ALTER VIEW col.last_borrowing OWNER TO collec;
+
+-- object: col.last_movement | type: VIEW --
+-- DROP VIEW IF EXISTS col.last_movement CASCADE;
+CREATE OR REPLACE VIEW col.last_movement
+AS 
+SELECT m.uid,
+    m.movement_id,
+    m.movement_date,
+    m.movement_type_id,
+    m.container_id,
+    c.uid AS container_uid,
+    o2.identifier AS container_identifier,
+    m.line_number,
+    m.column_number,
+    m.movement_reason_id
+   FROM col.movement m
+     JOIN col.object o ON m.movement_id = o.last_movement_id
+     LEFT JOIN col.container c USING (container_id)
+     LEFT JOIN col.object o2 ON c.uid = o2.uid;
 -- ddl-end --
 
 -- object: log_module_idx | type: INDEX --
@@ -1943,8 +1869,6 @@ CREATE SEQUENCE col.request_request_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.request_request_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.request | type: TABLE --
@@ -1975,8 +1899,6 @@ COMMENT ON COLUMN col.request.login IS E'Login of the creator of the request';
 -- ddl-end --
 COMMENT ON COLUMN col.request.datefields IS E'List of the date fields used in the request, separated by a comma, for format it';
 -- ddl-end --
-ALTER TABLE col.request OWNER TO collec;
--- ddl-end --
 
 /* Failed to create initial data commands! 
 
@@ -1993,8 +1915,6 @@ CREATE SEQUENCE col.export_model_export_model_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.export_model_export_model_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.export_model | type: TABLE --
@@ -2015,14 +1935,11 @@ COMMENT ON COLUMN col.export_model.pattern IS E'Pattern of the export/import.\nS
 -- ddl-end --
 COMMENT ON COLUMN col.export_model.target IS E'Main table targetted';
 -- ddl-end --
-ALTER TABLE col.export_model OWNER TO collec;
--- ddl-end --
 
 INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_model', E'[{"tableName":"export_model","businessKey":"export_model_name","istable11":false,"children":[],"booleanFields":[],"istablenn":false}]');
 -- ddl-end --
 INSERT INTO col.export_model (export_model_name, pattern) VALUES (E'export_template', E'[{"tableName":"export_template","technicalKey":"export_template_id","isEmpty":false,"businessKey":"export_template_name","istable11":false,"children":[{"aliasName":"export_dataset","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"export_dataset","isEmpty":false,"parentKey":"export_template_id","istable11":false,"children":[],"parents":[{"aliasName":"dataset_template","fieldName":"dataset_template_id"}],"istablenn":true,"tablenn":{"secondaryParentKey":"dataset_template_id","tableAlias":"dataset_template"}},{"tableName":"dataset_template","technicalKey":"dataset_template_id","isEmpty":true,"businessKey":"dataset_template_name","istable11":false,"children":[{"aliasName":"dataset_column","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"dataset_column","technicalKey":"dataset_column_id","isEmpty":false,"parentKey":"dataset_template_id","istable11":false,"children":[],"parents":[{"aliasName":"translator","fieldName":"translator_id"}],"istablenn":false},{"tableName":"translator","technicalKey":"translator_id","isEmpty":true,"businessKey":"translator_name","istable11":false,"children":[],"parents":[],"istablenn":false}]');
 -- ddl-end --
-
 
 -- object: movement_uid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS col.movement_uid_idx CASCADE;
@@ -2087,54 +2004,15 @@ USING btree
 );
 -- ddl-end --
 
--- object: col.object | type: TABLE --
--- DROP TABLE IF EXISTS col.object CASCADE;
-CREATE TABLE col.object (
-	uid integer NOT NULL DEFAULT nextval('col.object_uid_seq'::regclass),
-	identifier character varying,
-	wgs84_x double precision,
-	wgs84_y double precision,
-	object_status_id integer,
-	referent_id integer,
-	change_date timestamp NOT NULL DEFAULT now(),
-	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
-	trashed bool DEFAULT false,
-	location_accuracy float,
-	geom geography(POINT, 4326),
-	object_comment varchar,
-	last_movement_id integer,
-	CONSTRAINT object_pk PRIMARY KEY (uid)
-);
--- ddl-end --
-COMMENT ON TABLE col.object IS E'Table of objects';
--- ddl-end --
-COMMENT ON COLUMN col.object.uid IS E'Unique identifier in the database of all objects';
--- ddl-end --
-COMMENT ON COLUMN col.object.identifier IS E'Main working identifier';
--- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_x IS E'GPS longitude, in decimal form';
--- ddl-end --
-COMMENT ON COLUMN col.object.wgs84_y IS E'GPS latitude, in decimal form';
--- ddl-end --
-COMMENT ON COLUMN col.object.change_date IS E'Technical date of changement of the object';
--- ddl-end --
-COMMENT ON COLUMN col.object.uuid IS E'UUID of the object';
--- ddl-end --
-COMMENT ON COLUMN col.object.trashed IS E'If the object is trashed before completly destroyed ?';
--- ddl-end --
-COMMENT ON COLUMN col.object.location_accuracy IS E'Location accuracy of the object, in meters';
--- ddl-end --
-COMMENT ON COLUMN col.object.geom IS E'Geographic point generate from wgs84_x and wgs84_y';
--- ddl-end --
-COMMENT ON COLUMN col.object.object_comment IS E'Comment on the object (sample or container)';
--- ddl-end --
-COMMENT ON COLUMN col.object.last_movement_id IS E'Last movement recorded to the object';
--- ddl-end --
-ALTER TABLE col.object OWNER TO collec;
--- ddl-end --
-
--- Appended SQL commands --
-create index object_identifier_idx on col.object using gist (lower(identifier) gist_trgm_ops);
+-- object: col.slots_used | type: VIEW --
+-- DROP VIEW IF EXISTS col.slots_used CASCADE;
+CREATE OR REPLACE VIEW col.slots_used
+AS 
+SELECT container_id,
+    count(*) AS nb_slots_used
+   FROM col.last_movement
+  WHERE movement_type_id = 1
+  GROUP BY container_id;
 -- ddl-end --
 
 -- object: object_trashed | type: INDEX --
@@ -2170,8 +2048,6 @@ CREATE SEQUENCE col.campaign_campaign_id_seq
 	OWNED BY NONE;
 
 -- ddl-end --
-ALTER SEQUENCE col.campaign_campaign_id_seq OWNER TO collec;
--- ddl-end --
 
 -- object: col.campaign | type: TABLE --
 -- DROP TABLE IF EXISTS col.campaign CASCADE;
@@ -2181,6 +2057,7 @@ CREATE TABLE col.campaign (
 	campaign_from timestamp,
 	campaign_to timestamp,
 	uuid uuid NOT NULL DEFAULT gen_random_uuid(),
+	campaign_description varchar,
 	referent_id integer,
 	CONSTRAINT campaign_pk PRIMARY KEY (campaign_id)
 );
@@ -2195,7 +2072,7 @@ COMMENT ON COLUMN col.campaign.campaign_to IS E'date of end of the campaign';
 -- ddl-end --
 COMMENT ON COLUMN col.campaign.uuid IS E'UUID of the campaign';
 -- ddl-end --
-ALTER TABLE col.campaign OWNER TO collec;
+COMMENT ON COLUMN col.campaign.campaign_description IS E'Description of the campaign';
 -- ddl-end --
 
 -- object: col.regulation_regulation_id_seq | type: SEQUENCE --
@@ -2209,8 +2086,6 @@ CREATE SEQUENCE col.regulation_regulation_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 
--- ddl-end --
-ALTER SEQUENCE col.regulation_regulation_id_seq OWNER TO collec;
 -- ddl-end --
 
 -- object: col.regulation | type: TABLE --
@@ -2227,8 +2102,6 @@ COMMENT ON TABLE col.regulation IS E'Table of regulations';
 COMMENT ON COLUMN col.regulation.regulation_name IS E'Name of the regulation';
 -- ddl-end --
 COMMENT ON COLUMN col.regulation.regulation_comment IS E'regulatory clarity';
--- ddl-end --
-ALTER TABLE col.regulation OWNER TO collec;
 -- ddl-end --
 
 -- object: col.campaign_regulation | type: TABLE --
@@ -2247,8 +2120,6 @@ COMMENT ON TABLE col.campaign_regulation IS E'List of regulations attached to a 
 COMMENT ON COLUMN col.campaign_regulation.authorization_number IS E'Number of the authorization';
 -- ddl-end --
 COMMENT ON COLUMN col.campaign_regulation.authorization_date IS E'Date of the authorization';
--- ddl-end --
-ALTER TABLE col.campaign_regulation OWNER TO collec;
 -- ddl-end --
 
 -- object: campaign_fk | type: CONSTRAINT --
@@ -2299,8 +2170,6 @@ COMMENT ON TABLE col.lot IS E'List of lots of export';
 -- ddl-end --
 COMMENT ON COLUMN col.lot.lot_date IS E'Date of creation of the lot';
 -- ddl-end --
-ALTER TABLE col.lot OWNER TO collec;
--- ddl-end --
 
 -- object: collection_fk | type: CONSTRAINT --
 -- ALTER TABLE col.lot DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
@@ -2318,8 +2187,6 @@ CREATE TABLE col.lot_sample (
 );
 -- ddl-end --
 COMMENT ON TABLE col.lot_sample IS E'List of samples associated into a lot';
--- ddl-end --
-ALTER TABLE col.lot_sample OWNER TO collec;
 -- ddl-end --
 
 -- object: lot_fk | type: CONSTRAINT --
@@ -2349,8 +2216,6 @@ CREATE TABLE col.export (
 COMMENT ON TABLE col.export IS E'List of exports processed';
 -- ddl-end --
 COMMENT ON COLUMN col.export.export_date IS E'Date of last execution of the export';
--- ddl-end --
-ALTER TABLE col.export OWNER TO collec;
 -- ddl-end --
 
 -- object: lot_fk | type: CONSTRAINT --
@@ -2383,8 +2248,6 @@ COMMENT ON COLUMN col.export_template.export_template_version IS E'Version of th
 COMMENT ON COLUMN col.export_template.is_zipped IS E'Specify if the generated files must be zipped';
 -- ddl-end --
 COMMENT ON COLUMN col.export_template.filename IS E'Name of the file generated';
--- ddl-end --
-ALTER TABLE col.export_template OWNER TO collec;
 -- ddl-end --
 
 -- object: export_template_fk | type: CONSTRAINT --
@@ -2426,8 +2289,6 @@ COMMENT ON COLUMN col.dataset_template.xmlnodename IS E'Name of a node in a xml 
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_template.xslcontent IS E'Transformation of the generated xml to create a specific xml file';
 -- ddl-end --
-ALTER TABLE col.dataset_template OWNER TO collec;
--- ddl-end --
 
 -- object: col.export_format | type: TABLE --
 -- DROP TABLE IF EXISTS col.export_format CASCADE;
@@ -2438,8 +2299,6 @@ CREATE TABLE col.export_format (
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_format IS E'List of formats of export';
--- ddl-end --
-ALTER TABLE col.export_format OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.export_format (export_format_id, export_format_name) VALUES (E'1', E'CSV');
@@ -2466,8 +2325,6 @@ CREATE TABLE col.export_dataset (
 -- ddl-end --
 COMMENT ON TABLE col.export_dataset IS E'List of datasets embedded into the template of export';
 -- ddl-end --
-ALTER TABLE col.export_dataset OWNER TO collec;
--- ddl-end --
 
 -- object: export_template_fk | type: CONSTRAINT --
 -- ALTER TABLE col.export_dataset DROP CONSTRAINT IF EXISTS export_template_fk CASCADE;
@@ -2492,7 +2349,7 @@ CREATE TABLE col.dataset_column (
 	export_name varchar NOT NULL,
 	subfield_name varchar,
 	column_order smallint DEFAULT 1,
-	mandatory boolean DEFAULT 'f',
+	mandatory boolean DEFAULT false,
 	default_value varchar,
 	date_format varchar,
 	search_order smallint,
@@ -2518,8 +2375,6 @@ COMMENT ON COLUMN col.dataset_column.date_format IS E'Export date format, in php
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_column.search_order IS E'To search a sample, order of the current field to trigger the search';
 -- ddl-end --
-ALTER TABLE col.dataset_column OWNER TO collec;
--- ddl-end --
 
 -- object: dataset_template_fk | type: CONSTRAINT --
 -- ALTER TABLE col.dataset_column DROP CONSTRAINT IF EXISTS dataset_template_fk CASCADE;
@@ -2540,8 +2395,6 @@ CREATE TABLE col.translator (
 COMMENT ON TABLE col.translator IS E'Table of translator of values';
 -- ddl-end --
 COMMENT ON COLUMN col.translator.translator_data IS E'List of translations under the form term_in_database:term_in_the_export_file';
--- ddl-end --
-ALTER TABLE col.translator OWNER TO collec;
 -- ddl-end --
 
 -- object: translator_fk | type: CONSTRAINT --
@@ -2564,10 +2417,8 @@ COMMENT ON TABLE col.dataset_type IS E'Origine of the dataset: sample, collectio
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the database (json array)';
 -- ddl-end --
-ALTER TABLE col.dataset_type OWNER TO collec;
--- ddl-end --
 
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]');
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","product_name","risk_name","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed","campaign_id","campaign_name","campaign_uuid"]');
 -- ddl-end --
 INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', E'["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]');
 -- ddl-end --
@@ -2602,8 +2453,6 @@ COMMENT ON COLUMN col.samplesearch.samplesearch_data IS E'List of all research p
 -- ddl-end --
 COMMENT ON COLUMN col.samplesearch.samplesearch_login IS E'Login of the creator';
 -- ddl-end --
-ALTER TABLE col.samplesearch OWNER TO collec;
--- ddl-end --
 
 -- object: collection_fk | type: CONSTRAINT --
 -- ALTER TABLE col.samplesearch DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
@@ -2626,8 +2475,6 @@ COMMENT ON TABLE col.license IS E'List of licenses usable to communicate informa
 COMMENT ON COLUMN col.license.license_name IS E'Name of the license';
 -- ddl-end --
 COMMENT ON COLUMN col.license.license_url IS E'Link of download of the text of the license';
--- ddl-end --
-ALTER TABLE col.license OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.license (license_name, license_url) VALUES (E'CC0', E'https://creativecommons.org/publicdomain/zero/1.0/');
@@ -2796,8 +2643,6 @@ COMMENT ON COLUMN col.country.country_name IS E'Name of the country';
 COMMENT ON COLUMN col.country.country_code2 IS E'Code of the country, on 2 positions';
 -- ddl-end --
 COMMENT ON COLUMN col.country.country_code3 IS E'Code of the country, on 3 positions';
--- ddl-end --
-ALTER TABLE col.country OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.country (country_id, country_name, country_code2, country_code3) VALUES (E'4', E'Afghanistan', E'AF', E'AFG');
@@ -3322,12 +3167,16 @@ ON DELETE SET NULL ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- DROP VIEW IF EXISTS col.v_subsample_quantity CASCADE;
 CREATE OR REPLACE VIEW col.v_subsample_quantity
 AS 
-select sample_id, uid, multiple_value,  
-coalesce ((select sum(subsample_quantity) from col.subsample smore where smore.movement_type_id = 1 and smore.sample_id = s.sample_id),0) as subsample_more,
-coalesce ((select sum(subsample_quantity) from col.subsample sless where sless.movement_type_id  = 2 and sless.sample_id = s.sample_id),0) as subsample_less
-from col.sample s;
--- ddl-end --
-ALTER VIEW col.v_subsample_quantity OWNER TO collec;
+SELECT sample_id,
+    uid,
+    multiple_value,
+    COALESCE(( SELECT sum(smore.subsample_quantity) AS sum
+           FROM col.subsample smore
+          WHERE smore.movement_type_id = 1 AND smore.sample_id = s.sample_id), 0::double precision) AS subsample_more,
+    COALESCE(( SELECT sum(sless.subsample_quantity) AS sum
+           FROM col.subsample sless
+          WHERE sless.movement_type_id = 2 AND sless.sample_id = s.sample_id), 0::double precision) AS subsample_less
+   FROM col.sample s;
 -- ddl-end --
 
 -- object: country_fk1 | type: CONSTRAINT --
@@ -3360,8 +3209,6 @@ COMMENT ON TABLE col.barcode IS E'Models of barcodes usable';
 COMMENT ON COLUMN col.barcode.barcode_name IS E'Name of the model';
 -- ddl-end --
 COMMENT ON COLUMN col.barcode.barcode_code IS E'Value of the barcode used by the generating application, if occures. Default value: QR for QRcode';
--- ddl-end --
-ALTER TABLE col.barcode OWNER TO collec;
 -- ddl-end --
 
 INSERT INTO col.barcode (barcode_name, barcode_code) VALUES (E'QRCode', E'QR');
@@ -3424,24 +3271,8 @@ USING btree
 CREATE TABLE col.collection_sampletype (
 	collection_id integer NOT NULL,
 	sample_type_id integer NOT NULL,
-	CONSTRAINT collection_sampletype_1 PRIMARY KEY (collection_id,sample_type_id) DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT collection_sampletype_pk PRIMARY KEY (collection_id,sample_type_id)
 );
--- ddl-end --
-ALTER TABLE col.collection_sampletype OWNER TO collec;
--- ddl-end --
-
--- object: collection | type: CONSTRAINT --
--- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS collection CASCADE;
-ALTER TABLE col.collection_sampletype ADD CONSTRAINT collection FOREIGN KEY (collection_id)
-REFERENCES col.collection (collection_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
--- ddl-end --
-
--- object: sample_type | type: CONSTRAINT --
--- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS sample_type CASCADE;
-ALTER TABLE col.collection_sampletype ADD CONSTRAINT sample_type FOREIGN KEY (sample_type_id)
-REFERENCES col.sample_type (sample_type_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
 -- object: col.getsampletypesfromcollection | type: FUNCTION --
@@ -3462,8 +3293,6 @@ join col.sample_type using (sample_type_id)
 where collection_id = $1
 $function$;
 -- ddl-end --
-ALTER FUNCTION col.getsampletypesfromcollection(integer) OWNER TO collec;
--- ddl-end --
 
 -- object: col.getgroupsfromcollection | type: FUNCTION --
 -- DROP FUNCTION IF EXISTS col.getgroupsfromcollection(integer) CASCADE;
@@ -3483,34 +3312,16 @@ join gacl.aclgroup using (aclgroup_id)
 where collection_id = $1
 $function$;
 -- ddl-end --
-ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO collec;
--- ddl-end --
 
 -- object: col.collection_eventtype | type: TABLE --
 -- DROP TABLE IF EXISTS col.collection_eventtype CASCADE;
 CREATE TABLE col.collection_eventtype (
 	collection_id integer NOT NULL,
 	event_type_id integer NOT NULL,
-	CONSTRAINT collection_eventtype_1 PRIMARY KEY (collection_id,event_type_id) DEFERRABLE INITIALLY IMMEDIATE
+	CONSTRAINT collection_eventtype_pk PRIMARY KEY (collection_id,event_type_id)
 );
 -- ddl-end --
 COMMENT ON TABLE col.collection_eventtype IS E'List of event types attached to a collection';
--- ddl-end --
-ALTER TABLE col.collection_eventtype OWNER TO collec;
--- ddl-end --
-
--- object: collection | type: CONSTRAINT --
--- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS collection CASCADE;
-ALTER TABLE col.collection_eventtype ADD CONSTRAINT collection FOREIGN KEY (collection_id)
-REFERENCES col.collection (collection_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
--- ddl-end --
-
--- object: event_type | type: CONSTRAINT --
--- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS event_type CASCADE;
-ALTER TABLE col.collection_eventtype ADD CONSTRAINT event_type FOREIGN KEY (event_type_id)
-REFERENCES col.event_type (event_type_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
 -- object: col.geteventtypesfromcollection | type: FUNCTION --
@@ -3530,8 +3341,6 @@ from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1
 $function$;
--- ddl-end --
-ALTER FUNCTION col.geteventtypesfromcollection(integer) OWNER TO collec;
 -- ddl-end --
 
 -- object: object_uuid_idx | type: INDEX --
@@ -3556,12 +3365,11 @@ USING btree
 -- DROP VIEW IF EXISTS col.v_derivated_number CASCADE;
 CREATE OR REPLACE VIEW col.v_derivated_number
 AS 
-select s.uid, count(*) -1 as nb_derivated_sample
-from col.sample s
-join col.sample d on (d.parent_sample_id = s.sample_id)
-group by s.uid;
--- ddl-end --
-ALTER VIEW col.v_derivated_number OWNER TO collec;
+SELECT s.uid,
+	count(*) AS nb_derivated_sample
+	FROM col.sample s
+	JOIN col.sample d ON d.parent_sample_id = s.sample_id
+	GROUP BY s.uid;
 -- ddl-end --
 
 -- object: collection_fk | type: CONSTRAINT --
@@ -3580,8 +3388,6 @@ CREATE TABLE col.campaign_group (
 );
 -- ddl-end --
 COMMENT ON TABLE col.campaign_group IS E'Rights to modify the samples sampled during a campaign';
--- ddl-end --
-ALTER TABLE col.campaign_group OWNER TO collec;
 -- ddl-end --
 
 -- object: campaign_fk | type: CONSTRAINT --
@@ -3623,8 +3429,6 @@ COMMENT ON COLUMN col.label_optical.radical IS E'Radical in the optical code, as
 -- ddl-end --
 COMMENT ON COLUMN col.label_optical.optical_content IS E'Content of the optical code, as list of fields if type 1, used identifier if type 2 or 3';
 -- ddl-end --
-ALTER TABLE col.label_optical OWNER TO collec;
--- ddl-end --
 
 INSERT INTO col.label_optical (label_id, content_type, radical, optical_content, barcode_id) VALUES (E'1', E'2', DEFAULT, E'uuid', E'1');
 -- ddl-end --
@@ -3642,6 +3446,156 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ALTER TABLE col.label_optical DROP CONSTRAINT IF EXISTS barcode_fk CASCADE;
 ALTER TABLE col.label_optical ADD CONSTRAINT barcode_fk FOREIGN KEY (barcode_id)
 REFERENCES col.barcode (barcode_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.samplehisto | type: TABLE --
+-- DROP TABLE IF EXISTS col.samplehisto CASCADE;
+CREATE TABLE col.samplehisto (
+	samplehisto_id serial NOT NULL,
+	samplehisto_login varchar,
+	samplehisto_date timestamp NOT NULL DEFAULT now(),
+	oldvalues json,
+	sample_id integer,
+	CONSTRAINT samplehisto_pk PRIMARY KEY (samplehisto_id)
+);
+-- ddl-end --
+COMMENT ON COLUMN col.samplehisto.samplehisto_login IS E'Login of the user that made the change';
+-- ddl-end --
+COMMENT ON COLUMN col.samplehisto.oldvalues IS E'Old values changed at this date, in a multiple field in json format. The value "new" says that the value is created';
+-- ddl-end --
+
+-- object: sample_fk | type: CONSTRAINT --
+-- ALTER TABLE col.samplehisto DROP CONSTRAINT IF EXISTS sample_fk CASCADE;
+ALTER TABLE col.samplehisto ADD CONSTRAINT sample_fk FOREIGN KEY (sample_id)
+REFERENCES col.sample (sample_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: collection_fk | type: CONSTRAINT --
+-- ALTER TABLE col.document DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
+ALTER TABLE col.document ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: collection_id_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.collection_id_idx CASCADE;
+CREATE INDEX collection_id_idx ON col.document
+USING btree
+(
+	collection_id
+);
+-- ddl-end --
+
+-- object: campaign_id_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.campaign_id_idx CASCADE;
+CREATE INDEX campaign_id_idx ON col.document
+USING btree
+(
+	campaign_id
+);
+-- ddl-end --
+
+-- object: event_id_dx | type: INDEX --
+-- DROP INDEX IF EXISTS col.event_id_dx CASCADE;
+CREATE INDEX event_id_dx ON col.document
+USING btree
+(
+	event_id
+);
+-- ddl-end --
+
+-- object: sample_id_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.sample_id_idx CASCADE;
+CREATE INDEX sample_id_idx ON col.samplehisto
+USING btree
+(
+	sample_id
+);
+-- ddl-end --
+
+-- object: subsample_createdsample_id_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.subsample_createdsample_id_idx CASCADE;
+CREATE INDEX subsample_createdsample_id_idx ON col.subsample
+USING btree
+(
+	createdsample_id
+);
+-- ddl-end --
+
+-- object: col.v_sample_parents | type: VIEW --
+-- DROP VIEW IF EXISTS col.v_sample_parents CASCADE;
+CREATE OR REPLACE VIEW col.v_sample_parents
+AS 
+select ss.createdsample_id as sample_id,
+array_to_string (array_agg((p.uid::text || ' '|| po.identifier::text) order by p.uid), ', ') as sample_parents
+from subsample ss
+join sample p on (ss.sample_id = p.sample_id)
+join object po on (p.uid = po.uid)
+group by ss.createdsample_id;
+-- ddl-end --
+
+-- object: dbparamname_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.dbparamname_idx CASCADE;
+CREATE UNIQUE INDEX dbparamname_idx ON col.dbparam
+USING btree
+(
+	dbparam_name
+);
+-- ddl-end --
+
+-- object: col.risk | type: TABLE --
+-- DROP TABLE IF EXISTS col.risk CASCADE;
+CREATE TABLE col.risk (
+	risk_id serial NOT NULL,
+	risk_name varchar NOT NULL,
+	CONSTRAINT risk_pk PRIMARY KEY (risk_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.risk IS E'Risks attached to a sample or a container';
+-- ddl-end --
+COMMENT ON COLUMN col.risk.risk_name IS E'Risk classification according to the European CLP directive';
+-- ddl-end --
+
+-- object: risk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS risk_fk CASCADE;
+ALTER TABLE col.sample_type ADD CONSTRAINT risk_fk FOREIGN KEY (risk_id)
+REFERENCES col.risk (risk_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: risk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.container_type DROP CONSTRAINT IF EXISTS risk_fk CASCADE;
+ALTER TABLE col.container_type ADD CONSTRAINT risk_fk FOREIGN KEY (risk_id)
+REFERENCES col.risk (risk_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.product | type: TABLE --
+-- DROP TABLE IF EXISTS col.product CASCADE;
+CREATE TABLE col.product (
+	product_id serial NOT NULL,
+	product_name varchar NOT NULL,
+	CONSTRAINT product_pk PRIMARY KEY (product_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.product IS E'List of products used with samples or containers';
+-- ddl-end --
+COMMENT ON COLUMN col.product.product_name IS E'Name of the product';
+-- ddl-end --
+
+-- object: product_fk | type: CONSTRAINT --
+-- ALTER TABLE col.container_type DROP CONSTRAINT IF EXISTS product_fk CASCADE;
+ALTER TABLE col.container_type ADD CONSTRAINT product_fk FOREIGN KEY (product_id)
+REFERENCES col.product (product_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: product_fk | type: CONSTRAINT --
+-- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS product_fk CASCADE;
+ALTER TABLE col.sample_type ADD CONSTRAINT product_fk FOREIGN KEY (product_id)
+REFERENCES col.product (product_id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -3883,6 +3837,13 @@ REFERENCES col.sample (sample_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- object: sample_id | type: CONSTRAINT --
+-- ALTER TABLE col.subsample DROP CONSTRAINT IF EXISTS sample_id CASCADE;
+ALTER TABLE col.subsample ADD CONSTRAINT sample_id FOREIGN KEY (createdsample_id)
+REFERENCES col.sample (sample_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
 -- object: aclaco_aclacl_fk | type: CONSTRAINT --
 -- ALTER TABLE gacl.aclacl DROP CONSTRAINT IF EXISTS aclaco_aclacl_fk CASCADE;
 ALTER TABLE gacl.aclacl ADD CONSTRAINT aclaco_aclacl_fk FOREIGN KEY (aclaco_id)
@@ -3932,20 +3893,6 @@ REFERENCES gacl.logingestion (id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
--- object: object_fk | type: CONSTRAINT --
--- ALTER TABLE col.borrowing DROP CONSTRAINT IF EXISTS object_fk CASCADE;
-ALTER TABLE col.borrowing ADD CONSTRAINT object_fk FOREIGN KEY (uid)
-REFERENCES col.object (uid) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
--- object: borrower_fk | type: CONSTRAINT --
--- ALTER TABLE col.borrowing DROP CONSTRAINT IF EXISTS borrower_fk CASCADE;
-ALTER TABLE col.borrowing ADD CONSTRAINT borrower_fk FOREIGN KEY (borrower_id)
-REFERENCES col.borrower (borrower_id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
 -- object: object_status_object_fk | type: CONSTRAINT --
 -- ALTER TABLE col.object DROP CONSTRAINT IF EXISTS object_status_object_fk CASCADE;
 ALTER TABLE col.object ADD CONSTRAINT object_status_object_fk FOREIGN KEY (object_status_id)
@@ -3967,161 +3914,46 @@ REFERENCES col.movement (movement_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- object: object_fk | type: CONSTRAINT --
+-- ALTER TABLE col.borrowing DROP CONSTRAINT IF EXISTS object_fk CASCADE;
+ALTER TABLE col.borrowing ADD CONSTRAINT object_fk FOREIGN KEY (uid)
+REFERENCES col.object (uid) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
 
--- object: "grant_rawdD_a7760dbb4c" | type: PERMISSION --
-GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE
-   ON TABLE col.v_subsample_quantity
-   TO collec;
+-- object: borrower_fk | type: CONSTRAINT --
+-- ALTER TABLE col.borrowing DROP CONSTRAINT IF EXISTS borrower_fk CASCADE;
+ALTER TABLE col.borrowing ADD CONSTRAINT borrower_fk FOREIGN KEY (borrower_id)
+REFERENCES col.borrower (borrower_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
 
+-- object: collection_sampletype_collection_fk | type: CONSTRAINT --
+-- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS collection_sampletype_collection_fk CASCADE;
+ALTER TABLE col.collection_sampletype ADD CONSTRAINT collection_sampletype_collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE NO ACTION;
+-- ddl-end --
+
+-- object: collection_sampletype_sample_type_fk | type: CONSTRAINT --
+-- ALTER TABLE col.collection_sampletype DROP CONSTRAINT IF EXISTS collection_sampletype_sample_type_fk CASCADE;
+ALTER TABLE col.collection_sampletype ADD CONSTRAINT collection_sampletype_sample_type_fk FOREIGN KEY (sample_type_id)
+REFERENCES col.sample_type (sample_type_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: collection_eventtype_event_type_fk | type: CONSTRAINT --
+-- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS collection_eventtype_event_type_fk CASCADE;
+ALTER TABLE col.collection_eventtype ADD CONSTRAINT collection_eventtype_event_type_fk FOREIGN KEY (event_type_id)
+REFERENCES col.event_type (event_type_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: collection_eventtype_collection_fk | type: CONSTRAINT --
+-- ALTER TABLE col.collection_eventtype DROP CONSTRAINT IF EXISTS collection_eventtype_collection_fk CASCADE;
+ALTER TABLE col.collection_eventtype ADD CONSTRAINT collection_eventtype_collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH SIMPLE
+ON DELETE NO ACTION ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: col.last_movement | type: VIEW --
--- DROP VIEW IF EXISTS col.last_movement CASCADE;
-CREATE OR REPLACE VIEW col.last_movement
-AS 
-SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);
--- ddl-end --
-ALTER VIEW col.last_movement OWNER TO collec;
--- ddl-end --
-
--- patch version 24.1-25.0
-
-create unique index if not exists dbparamname_idx on dbparam (dbparam_name);
-insert into dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en)
-values (
-'APPLI_code', 
-'code',
-'Code de l''application, pour les exportations',
-'Code of the application, to export data'
-) 
-on conflict do nothing;
-alter table gacl.acllogin add column if not exists email varchar;
-alter table gacl.logingestion add column if not exists is_expired boolean;
-alter table gacl.logingestion add column if not exists nbattempts integer;
-alter table gacl.logingestion add column if not exists lastattempt timestamp;
-
-update aclgroup set groupe = 'manage' where groupe = 'gestion';
-update aclaco set aco = 'manage' where aco = 'gestion';
-
-select setval('mime_type_mime_type_id_seq', (select max(mime_type_id) from mime_type));
-select setval('dataset_type_dataset_type_id_seq', (select max(dataset_type_id) from dataset_type));
-
-alter table subsample add column createdsample_id integer;
-ALTER TABLE subsample ADD CONSTRAINT sample_id FOREIGN KEY (createdsample_id)
-REFERENCES sample (sample_id) MATCH FULL
-ON DELETE SET NULL ON UPDATE CASCADE;
-CREATE INDEX subsample_createdsample_id_idx ON subsample
-USING btree
-(
-	createdsample_id
-);
-create view col.v_sample_parents as 
-(select ss.createdsample_id as sample_id,
-array_to_string (array_agg((p.uid::text || ' '|| po.identifier::text) order by p.uid), ', ') as sample_parents
-from subsample ss
-join sample p on (ss.sample_id = p.sample_id)
-join object po on (p.uid = po.uid)
-group by ss.createdsample_id
-);
-
-create or replace view col.v_derivated_number as (
-	SELECT s.uid,
-	count(*) AS nb_derivated_sample
-	FROM col.sample s
-	JOIN col.sample d ON d.parent_sample_id = s.sample_id
-	GROUP BY s.uid
-);
-
-alter table borrowing add column borrowing_comment varchar;
-
-alter table container_type add column nbobject_by_slot integer DEFAULT 0;
-
-alter table sample_type add column sample_type_code varchar;
-comment on column sample_type.sample_type_code is 'Code used to exchange information with others providers without use the name of the sample type';
-
-alter table log alter column login type varchar;
-
-insert into dbversion (dbversion_date, dbversion_number) values ('2024-09-18','25.0');
-
-/*
-patch when the database was created with the script of version v24.1
-*/
-
-ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO collec;
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'1', E'sample', E'["uid","uuid","identifier","wgs84_x","wgs84_y","location_accuracy","object_status_name","referent_name","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","referent_firstname","academic_directory","academic_link","object_comment","identifiers","sample_creation_date","sampling_date","multiple_value","sampling_place_name","expiration_date","sample_type_name","storage_product","clp_classification","multiple_type_name","collection_name","metadata","metadata_unit","parent_uid","parent_uuid","parent_identifiers","web_address","content_type","container_uid","container_identifier","container_uuid","storage_type_name","fixed_value","country_code","country_origin_code","trashed,campaign_id","campaign_name","campaign_uuid"]')
-on conflict do nothing;
--- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'2', E'collection', '["collection_name","collection_displayname","collection_keywords","referent_name","referent_firstname","academical_directory","academical_link","referent_email","address_name","address_line2","address_line3","address_city","address_country","referent_phone","fixed_value"]')
-on conflict do nothing;
--- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', '["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value","web_address"]')
-on conflict do nothing;
--- ddl-end --
-INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', '["content"]')
-on conflict do nothing;
--- ddl-end --
-INSERT INTO col.export_model (export_model_id, export_model_name, pattern) VALUES (1, E'export_model', '[{"tableName":"export_model","businessKey":"export_model_name","istable11":false,"children":[],"booleanFields":[],"istablenn":false}]')
-on conflict do nothing;
--- ddl-end --
-INSERT INTO col.export_model (export_model_id,export_model_name, pattern) VALUES (2, E'export_template', '[{"tableName":"export_template","technicalKey":"export_template_id","isEmpty":false,"businessKey":"export_template_name","istable11":false,"children":[{"aliasName":"export_dataset","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"export_dataset","isEmpty":false,"parentKey":"export_template_id","istable11":false,"children":[],"parents":[{"aliasName":"dataset_template","fieldName":"dataset_template_id"}],"istablenn":true,"tablenn":{"secondaryParentKey":"dataset_template_id","tableAlias":"dataset_template"}},{"tableName":"dataset_template","technicalKey":"dataset_template_id","isEmpty":true,"businessKey":"dataset_template_name","istable11":false,"children":[{"aliasName":"dataset_column","isStrict":true}],"parents":[],"istablenn":false},{"tableName":"dataset_column","technicalKey":"dataset_column_id","isEmpty":false,"parentKey":"dataset_template_id","istable11":false,"children":[],"parents":[{"aliasName":"translator","fieldName":"translator_id"}],"istablenn":false},{"tableName":"translator","technicalKey":"translator_id","isEmpty":true,"businessKey":"translator_name","istable11":false,"children":[],"parents":[],"istablenn":false}]')
-on conflict do nothing;
-
--- object: col.last_movement | type: VIEW --
--- DROP VIEW IF EXISTS col.last_movement CASCADE;
-CREATE or replace VIEW col.last_movement
-AS 
-SELECT m.uid,
-    m.movement_id,
-    m.movement_date,
-    m.movement_type_id,
-    m.container_id,
-    c.uid AS container_uid,
-    o2.identifier AS container_identifier,
-    m.line_number,
-    m.column_number,
-    m.movement_reason_id
-   FROM col.movement m
-     JOIN col.object o ON m.movement_id = o.last_movement_id
-     LEFT JOIN col.container c USING (container_id)
-     left join col.object o2 on (c.uid = o2.uid);
--- ddl-end --
-
--- object: col.slots_used | type: VIEW --
--- DROP VIEW IF EXISTS col.slots_used CASCADE;
-CREATE or replace VIEW col.slots_used
-AS 
-SELECT
-   container_id, count(*) as nb_slots_used
-FROM
-   col.last_movement
-WHERE
-   movement_type_id = 1
-   group by container_id;
--- ddl-end --
-ALTER VIEW col.slots_used OWNER TO collec;
--- ddl-end --
-
--- patch version 25.0-26.0
-
-alter table col.label add column logo bytea;
-comment on column col.label.logo is 'Logo added to the label';
-insert into col.dbparam(dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) 
-values
-('labelDebugMode', '0', 'Si à 1, les fichiers générés lors de la création des étiquettes ne sont pas supprimés'
-, 'If set to 1, files generated when creating labels are not deleted'
-);
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.0', E'2025-11-1');

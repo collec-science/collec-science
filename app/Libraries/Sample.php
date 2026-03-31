@@ -26,6 +26,7 @@ use App\Models\ObjectStatus;
 use App\Models\Printer;
 use App\Models\Referent;
 use App\Models\Sample as ModelsSample;
+use App\Models\Samplehisto;
 use App\Models\SampleInitClass;
 use App\Models\Samplesearch;
 use App\Models\SampleType;
@@ -50,8 +51,10 @@ class Sample extends PpciLibrary
         parent::__construct();
         $this->dataclass = new ModelsSample();
         $this->keyName = "uid";
-        if (isset($_REQUEST["uid"]) && strlen($_REQUEST["uid"]) > 0) {
+        if (strlen($_REQUEST["uid"]) > 0) {
             $this->id = $_REQUEST["uid"];
+        } else {
+            $this->id = 0;
         }
         $_SESSION["moduleParent"] = "sample";
     }
@@ -171,6 +174,14 @@ class Sample extends PpciLibrary
          */
         $mimeType = new MimeType();
         $this->vue->set($mimeType->getListExtensions(false), "extensions");
+
+        /**
+         * online help
+         */
+
+        $this->vue->help(_("objets/les-opérations-globales-sur-les-échantillons.html"), "helpsamplegroup");
+        $this->vue->help(_("gestion/chercher-les-échantillons.html"), "helpsamplesearch");
+        $this->vue->help(_("gestion/la-liste-des-échantillons.html"), "helpsamplelist");
         return $this->vue->send();
     }
     function searchAjax()
@@ -218,14 +229,14 @@ class Sample extends PpciLibrary
              * Recuperation des evenements
              */
             $event = new Event();
-            $this->vue->set($event->getListeFromUid($data["uid"]), "events");
+            $this->vue->set($events = $event->getListeFromUid($data["uid"]), "events");
             $eventType = new EventType();
             $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
             /**
              * Recuperation des mouvements
              */
             $movement = new Movement();
-            $this->vue->set($movement->getAllMovements($this->id), "movements");
+            $this->vue->set($movements = $movement->getAllMovements($this->id), "movements");
             /**
              * Recuperation des echantillons associes
              */
@@ -275,6 +286,14 @@ class Sample extends PpciLibrary
             }
 
             /**
+             * Get history
+             */
+            if ($is_modifiable || $_SESSION["dbparams"]["consultSeesAll"] == 1) {
+                $sampleHisto = new Samplehisto;
+                $this->vue->set($sampleHisto->getHisto($data, $movements, $events), "histo");
+                $this->vue->set($sampleHisto->header, "histoheader");
+            }
+            /**
              * Ajout des listes complémentaires
              */
             $this->setRelatedTablesToView($this->vue);
@@ -289,19 +308,21 @@ class Sample extends PpciLibrary
                 $this->vue->set($_SESSION["dbparams"][$field], $field);
             }
         }
+        /**
+         * add help link
+         */
+        $this->vue->help(_("objets/les-échantillons.html"));
+        $this->vue->help(_("gestion/prêter-un-ou-plusieurs-échantillons.html"), "helpborrowing");
+        $this->vue->help(_("gestion/la-liste-des-échantillons.html"), "helpsamplelist");
         $this->vue->set("sample", "moduleParent");
         $this->vue->set("gestion/sampleDisplay.tpl", "corps");
         return $this->vue->send();
     }
-    function change()
+    function change($withTab = 0)
     {
         $this->vue = service('Smarty');
-        /**
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
-        $data = $this->dataRead($this->id, "gestion/sampleChange.tpl");
+        $withTab == 1 ? $template = "gestion/sampleChangeTab.tpl" : $template = "gestion/sampleChange.tpl";
+        $data = $this->dataRead($this->id, $template);
         if ($data["sample_id"] > 0 && !$this->dataclass->verifyCollection($data)) {
             $this->message->set(_("Vous ne disposez pas des droits nécessaires pour modifier cet échantillon"), true);
             return $this->list();
@@ -387,6 +408,8 @@ class Sample extends PpciLibrary
     function write()
     {
         try {
+            $db = $this->dataclass->db;
+            $db->transBegin();
             /**
              * generate metadata
              */
@@ -412,18 +435,19 @@ class Sample extends PpciLibrary
             }
             $_REQUEST["metadata"] = json_encode($metadata);
             $this->id = $this->dataWrite($_REQUEST);
-            if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
-                /**
-                 * Stockage en session du dernier echantillon modifie,
-                 * pour recuperation des informations rattachees pour duplication ou autre
-                 */
-                $_SESSION["last_sample_id"] = $this->id;
-                return true;
-            } else {
-                return false;
+            $db->transCommit();
+            $_REQUEST[$this->keyName] = $this->id;
+            /**
+             * Stockage en session du dernier echantillon modifie,
+             * pour recuperation des informations rattachees pour duplication ou autre
+             */
+            $_SESSION["last_sample_id"] = $this->id;
+            return true;
+        } catch (PpciException $e) {
+            if ($db->transEnabled) {
+                $db->transRollback();
             }
-        } catch (PpciException) {
+            $this->message->set($e->getMessage(), true);
             return false;
         }
     }
@@ -858,6 +882,24 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
+    function setSampleType() {
+        try {
+            if (count($_POST["uids"]) == 0) {
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
+            }
+            if (empty($_POST["sample_type_id"])) {
+                throw new PpciException(_("Pas de type d'échantillon sélectionné"));
+            }
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+
+            $this->dataclass->setSampleType($_POST["uids"], $_POST["sample_type_id"]);
+            $this->message->set(_("Opération effectuée"));
+        } catch (PpciException $oe) {
+            $this->message->setSyslog($oe->getMessage(), true);
+            $this->message->set(_("Une erreur est survenue pendant la mise à jour du type d'échantillon"), true);
+            $this->message->set($oe->getMessage());
+        }
+    }
     function setStatus()
     {
         try {
@@ -1000,7 +1042,8 @@ class Sample extends PpciLibrary
             $db->transRollback();
         }
     }
-    function reindex() {
+    function reindex()
+    {
         $this->dataclass->reindex();
     }
 }

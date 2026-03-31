@@ -20,7 +20,6 @@ use CodeIgniter\Exceptions\LogicException;
 use CodeIgniter\I18n\Time;
 use Config\Cookie as CookieConfig;
 use DateTimeInterface;
-use ReturnTypeWillChange;
 
 /**
  * A `Cookie` class represents an immutable HTTP cookie value object.
@@ -225,9 +224,19 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
     /**
      * Construct a new Cookie instance.
      *
-     * @param string                                                                                                                                                                                      $name    The cookie's name
-     * @param string                                                                                                                                                                                      $value   The cookie's value
-     * @param array{prefix?: string, max-age?: int|numeric-string, expires?: DateTimeInterface|int|string, path?: string, domain?: string, secure?: bool, httponly?: bool, samesite?: string, raw?: bool} $options The cookie's options
+     * @param string $name  The cookie's name
+     * @param string $value The cookie's value
+     * @param array{
+     *   prefix?: string,
+     *   max-age?: int|numeric-string,
+     *   expires?: DateTimeInterface|int|string,
+     *   path?: string,
+     *   domain?: string,
+     *   secure?: bool,
+     *   httponly?: bool,
+     *   samesite?: string,
+     *   raw?: bool,
+     * } $options The cookie's options
      *
      * @throws CookieException
      */
@@ -497,7 +506,7 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
      */
     public function withPath(?string $path)
     {
-        $path = $path !== null && $path !== '' && $path !== '0' ? $path : self::$defaults['path'];
+        $path = in_array($path, [null, '', '0'], true) ? self::$defaults['path'] : $path;
         $this->validatePrefix($this->prefix, $this->secure, $path, $this->domain);
 
         $cookie = clone $this;
@@ -596,12 +605,9 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
      *
      * @param string $offset
      *
-     * @return bool|int|string
-     *
      * @throws InvalidArgumentException
      */
-    #[ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): bool|int|string
     {
         if (! $this->offsetExists($offset)) {
             throw new InvalidArgumentException(sprintf('Undefined offset "%s".', $offset));
@@ -793,11 +799,11 @@ class Cookie implements ArrayAccess, CloneableCookieInterface
             $samesite = self::SAMESITE_LAX;
         }
 
-        if (! in_array(strtolower($samesite), self::ALLOWED_SAMESITE_VALUES, true)) {
+        if (! in_array(ucfirst(strtolower($samesite)), self::ALLOWED_SAMESITE_VALUES, true)) {
             throw CookieException::forInvalidSameSite($samesite);
         }
 
-        if (strtolower($samesite) === self::SAMESITE_NONE && ! $secure) {
+        if (ucfirst(strtolower($samesite)) === self::SAMESITE_NONE && ! $secure) {
             throw CookieException::forInvalidSameSiteNone();
         }
     }

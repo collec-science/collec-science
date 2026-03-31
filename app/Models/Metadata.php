@@ -139,4 +139,27 @@ class Metadata extends PpciModel
         where metadata_schema::text like '%\"name\":\"" . $old . "\"%'";
         $this->executeQuery($sql, null, true);
     }
+    function getModelAsArray(int $id): array
+    {
+        $data = $this->read($id);
+        if (!empty($data)) {
+            return json_decode($data["metadata_schema"], true);
+        } else {
+            return [];
+        }
+    }
+    function getModelAsArrayFromSampleId(int $id): array
+    {
+        $sql = "SELECT metadata_schema 
+                from metadata
+                join sample_type using (metadata_id)
+                where sample_type_id = :id:
+        ";
+        $data = $this->readParam($sql, ["id" => $id]);
+        if (!empty($data)) {
+            return json_decode($data["metadata_schema"], true);
+        } else {
+            return [];
+        }
+    }
 }

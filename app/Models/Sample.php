@@ -16,9 +16,9 @@ class Sample extends PpciModel
 {
 
     private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
-					s.collection_id, collection_name, no_localization, s.sample_type_id, s.dbuid_origin,
+					s.collection_id, collection_name, collection_description, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
-                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid,
+                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
                     s.parent_sample_id,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,
@@ -30,9 +30,10 @@ class Sample extends PpciModel
           s.country_origin_id, sco.country_name as country_origin_name, sco.country_code2 as country_origin_code2,
           so.object_status_id, object_status_name,so.referent_id,
           so.change_date::timestamp(0), so.uuid, so.trashed, so.location_accuracy, so.object_comment,
+          so.object_login,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
-					ct.container_type_name, ct.clp_classification,
+					ct.container_type_name, product_name,risk_name,
 					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
@@ -91,6 +92,8 @@ class Sample extends PpciModel
           left outer join v_subsample_quantity vsq on (s.sample_id = vsq.sample_id)
           left outer join v_derivated_number vdn on (vdn.uid = s.uid)
           left outer join v_sample_parents vsp on (vsp.sample_id = s.sample_id)
+          left outer join risk on (st.risk_id = risk.risk_id)
+          left outer join product on (st.product_id = product.product_id)
           ";
     private $where = "";
     private $paramSearch = array();
@@ -99,6 +102,8 @@ class Sample extends PpciModel
     public $container, $event, $country, $collection;
     public Subsample $subsample;
     public Campaign $campaign;
+    public Samplehisto $samplehisto;
+    public Metadata $metadata;
 
     public function __construct()
     {
@@ -275,12 +280,23 @@ class Sample extends PpciModel
         if (!$this->is_unique($data["uid"], $data["identifier"], $data["collection_id"])) {
             throw new PpciException(sprintf(_("L'identifiant de l'échantillon %s existe déjà dans la base de données pour la collection considérée"), $data["identifier"]));
         }
+        if ($data["parent_sample_id"] > 0 && $data["sample_id"] > 0) {
+            if (!$this->verifyCyclic($data["parent_sample_id"], $data["sample_id"])) {
+                throw new PpciException(_("Le parent sélectionné a pour parent l'échantillon courant"));
+            }
+        }
         if ($ok) {
-            $firstUid = $data["uid"];
+            if (!isset($this->samplehisto)) {
+                $this->samplehisto = new Samplehisto;
+            }
+            if (empty($data["uid"])) {
+                $data["uid"] = 0;
+            }
+            $this->samplehisto->initOldValues($data["uid"]);
             if (!isset($this->object)) {
                 $this->object = new ObjectClass;
             }
-            $uid = $this->object->ecrire($data);
+            $uid = $this->object->write($data);
 
             if ($uid > 0) {
                 $data["uid"] = $uid;
@@ -300,6 +316,18 @@ class Sample extends PpciModel
                         $metadata[$k] = $new;
                     }
                 }
+                /**
+                 * Search if a mandatory metadata field is empty
+                 */
+                if (!isset($this->metadata)) {
+                    $this->metadata = new Metadata;
+                }
+                $metamodel = $this->metadata->getModelAsArrayFromSampleId($data["sample_type_id"]);
+                foreach ($metamodel as $mfield) {
+                    if ($mfield["required"] && empty($metadata[$mfield["name"]])) {
+                        throw new PpciException(sprintf(_("La métadonnée %s est obligatoire, mais n'a pas été renseignée"), $mfield["name"]));
+                    }
+                }
                 $data["metadata"] = json_encode($metadata);
                 if (parent::write($data) > 0) {
                     if (!empty($data["metadata"])) {
@@ -315,7 +343,7 @@ class Sample extends PpciModel
                                 $cmd[$k] = $v;
                             }
                             $child["metadata"] = json_encode($cmd);
-                            $this->ecrire($child);
+                            $this->write($child);
                         }
                     }
                     /**
@@ -341,6 +369,10 @@ class Sample extends PpciModel
                             $this->subsample->ecrire($dataSubsample);
                         }
                     }
+                    /**
+                     * write changes in historical
+                     */
+                    $this->samplehisto->generateHisto($data);
                     return $uid;
                 } else {
                     throw new PpciException(_("Un problème est survenu lors de l'écriture de l'échantillon"));
@@ -375,6 +407,16 @@ class Sample extends PpciModel
                  * delete from subsample
                  */
                 $sql = "delete from subsample where sample_id = :sample_id:";
+                $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
+                /**
+                 * delete from subsample if it's a composite sample
+                 */
+                $sql = "DELETE from subsample where createdsample_id = :sample_id:";
+                $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
+                /**
+                 * delete from samplehisto
+                 */
+                $sql = "delete from samplehisto where sample_id = :sample_id:";
                 $this->executeSQL($sql, array("sample_id" => $data["sample_id"]), true);
                 /**
                  * suppression de l'echantillon
@@ -501,7 +543,7 @@ class Sample extends PpciModel
                 $where = "where";
                 $and = "";
                 $uidSearch = false;
-                if ( is_numeric ($param["uidsearch"]) && $param["uidsearch"] > 0) {
+                if (is_numeric($param["uidsearch"]) && $param["uidsearch"] > 0) {
                     $where .= " ( s.uid = :uid:";
                     $data["uid"] = $param["uidsearch"];
                     $uidSearch = true;
@@ -673,8 +715,8 @@ class Sample extends PpciModel
                  */
                 if ($geoSearch) {
                     $where .= $and . " st_contains (st_setsrid (st_makebox2d(
-                    st_makepoint(:southwestlon, :southwestlat),
-                    st_makepoint(:northeastlon, :northeastlat))
+                    st_makepoint(:southwestlon:, :southwestlat:),
+                    st_makepoint(:northeastlon:, :northeastlat:))
                     ,4326), so.geom::geometry) = true ";
                     $data["southwestlon"] = $param["SouthWestlon"];
                     $data["southwestlat"] = $param["SouthWestlat"];
@@ -1162,7 +1204,9 @@ class Sample extends PpciModel
      */
     public function writeImport($data)
     {
-        $object = new ObjectClass();
+        if (!isset($this->object)) {
+            $this->object = new ObjectClass();
+        }
         /*
          * Ajout des informations manquantes
          */
@@ -1241,7 +1285,11 @@ class Sample extends PpciModel
                 $data["parent_sample_id"] = $dataParent["sample_id"];
             }
         }
-        $uid = $object->ecrire($data);
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
+        $this->samplehisto->initOldValues($data["uid"]);
+        $uid = $this->object->write($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
             /**
@@ -1252,6 +1300,10 @@ class Sample extends PpciModel
                 $data["sample_id"] = $dataOrigine["sample_id"];
             }
             parent::write($data);
+            /**
+             * write changes in historical
+             */
+            $this->samplehisto->generateHisto($data);
             return $uid;
         } else {
             throw new PpciException(_("Impossible d'écrire dans la table Object"));
@@ -1453,6 +1505,23 @@ class Sample extends PpciModel
         }
     }
     /**
+     * Method setSampleType
+     *
+     * @param array $uids list of uid to treat
+     * @param int $sample_type_id new sample type
+     *
+     * @return void
+     */
+    function setSampleType(array $uids, int $sample_type_id)
+    {
+        $sql = "update sample set sample_type_id = :sample_type_id: where uid = :uid:";
+        $data = array("sample_type_id" => $sample_type_id);
+        foreach ($uids as $uid) {
+            $data["uid"] = $uid;
+            $this->executeSql($sql, $data, true);
+        }
+    }
+    /**
      * Change parent for all furnished uid
      * @param array $uids
      * @param int $parent_id
@@ -1465,7 +1534,7 @@ class Sample extends PpciModel
         if (empty($parent["sample_id"])) {
             throw new PpciException(_("Le parent n'existe pas"));
         }
-        $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid:";
+        $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid: and sample_id <> :parent_id:";
         foreach ($uids as $uid) {
             $this->executeSql($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
         }
@@ -1739,8 +1808,34 @@ class Sample extends PpciModel
     {
         $old = addslashes($old);
         $new = addslashes($new);
-        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"".$old."\":','\"".$new."\":')::json
-                where metadata::text like '%\"".$old."\":%'";
+        $sql = "UPDATE sample set metadata = replace(metadata::text,'\"" . $old . "\":','\"" . $new . "\":')::json
+                where metadata::text like '%\"" . $old . "\":%'";
         $this->executeQuery($sql, null, true);
+    }
+    /**
+     * Verify if the sample_id is not used as parent
+     */
+    function verifyCyclic(int $sample_id, int $parent_sample_id)
+    {
+        $back = true;
+        $sql = "with recursive samples as (
+            select s.uid, s.parent_sample_id, s.sample_id
+            from sample s
+            where s.sample_id = :id:
+            union all
+            select ss.uid, ss.parent_sample_id, ss.sample_id
+            from sample ss
+            join samples on (samples.parent_sample_id = ss.sample_id)
+            )
+            select sample_id from samples
+            where sample_id <> :id:";
+        $parents = $this->executeQuery($sql, ["id" => $sample_id]);
+        foreach ($parents as $parent) {
+            if ($parent["sample_id"] == $parent_sample_id) {
+                $back = false;
+                break;
+            }
+        }
+        return $back;
     }
 }

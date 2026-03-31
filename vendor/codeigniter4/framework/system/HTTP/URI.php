@@ -17,6 +17,7 @@ use CodeIgniter\Exceptions\BadMethodCallException;
 use CodeIgniter\Exceptions\InvalidArgumentException;
 use CodeIgniter\HTTP\Exceptions\HTTPException;
 use Config\App;
+use SensitiveParameter;
 use Stringable;
 
 /**
@@ -181,9 +182,9 @@ class URI implements Stringable
         }
 
         if ((string) $path !== '') {
-            $uri .= ! str_ends_with($uri, '/')
-                ? '/' . ltrim($path, '/')
-                : ltrim($path, '/');
+            $uri .= str_ends_with($uri, '/')
+                ? ltrim($path, '/')
+                : '/' . ltrim($path, '/');
         }
 
         if ((string) $query !== '') {
@@ -628,7 +629,7 @@ class URI implements Stringable
     /**
      * Formats the URI as a string.
      *
-     * Warning: For backwards-compatability this method
+     * Warning: For backwards-compatibility this method
      * assumes URIs with the same host as baseURL should
      * be relative to the project's configuration.
      * This aspect of __toString() is deprecated and should be avoided.
@@ -768,7 +769,7 @@ class URI implements Stringable
      *
      * @TODO PSR-7: Should be `withUserInfo($user, $password = null)`.
      */
-    public function setUserInfo(string $user, string $pass)
+    public function setUserInfo(string $user, #[SensitiveParameter] string $pass)
     {
         $this->user     = trim($user);
         $this->password = trim($pass);

@@ -67,6 +67,10 @@
                         <dd>{$data.campaign_name}</dd>
                     </dl>
                     <dl class="dl-horizontal">
+                        <dt>{t}Description :{/t}</dt>
+                        <dd class="textareaDisplay">{$data.campaign_description}</dd>
+                    </dl>
+                    <dl class="dl-horizontal">
                         <dt>{t}Référent ou responsable :{/t}</dt>
                         <dd>{$data.referent_name}</dd>
                     </dl>

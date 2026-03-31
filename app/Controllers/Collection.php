@@ -16,6 +16,10 @@ class Collection extends PpciController
     {
         return $this->lib->list();
     }
+    function display()
+    {
+        return $this->lib->display();
+    }
     function change()
     {
         return $this->lib->change();
@@ -23,7 +27,7 @@ class Collection extends PpciController
     function write()
     {
         if ($this->lib->write()) {
-            return $this->list();
+            return $this->display();
         } else {
             return $this->change();
         }

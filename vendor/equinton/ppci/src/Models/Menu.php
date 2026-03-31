@@ -101,14 +101,14 @@ class Menu
                 if ($level == 0) {
                     $level = 1;
                 }
-                $target = "self";
+                $target = "_self";
                 $url = "";
                 if (isset($attributes["isdoc"]) && isset($this->app->docroot)) {
                     /**
                      * treatment of external doc
                      */
                     $url = $this->app->docroot . "/";
-                    $target = "blank";
+                    $target = "_blank";
                 }
                 $texte = '<li>
                 <a href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'

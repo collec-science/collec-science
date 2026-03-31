@@ -23,14 +23,17 @@
     <div class="col-md-6">
         {if $rights.param == 1}
         <a href="campaignChange?campaign_id=0">
+            <img src="display/images/new.png" height="25">
             {t}Nouveau...{/t}
         </a>
         {/if}
+        {$help}
         <table id="campaignList" class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>
                     <th>{t}Nom{/t}</th>
                     <th>{t}Id{/t}</th>
+                    <th>{t}Description{/t}</th>
                     <th>{t}Responsable{/t}</th>
                     <th>{t}du{/t}</th>
                     <th>{t}au{/t}</th>
@@ -49,7 +52,8 @@
                         </a>
                     </td>
                     <td class="center">{$row.campaign_id}</td>
-                    <td >{$row.referent_name} {$row.referent_firstname}</td>
+                    <td class="textareaDisplay">{$row.campaign_description}</td>
+                    <td>{$row.referent_name} {$row.referent_firstname}</td>
                     <td class="center nowrap">{$row.campaign_from}</td>
                     <td class="center nowrap">{$row.campaign_to}</td>
                     <td class="nowrap">{$row.uuid}</td>
@@ -110,6 +114,7 @@
                     <li>{t}campaign_to : date de fin de la campagne, sous la forme yyyy-mm-dd{/t}</li>
                     <li>{t}referent_name : nom du responsable de la campagne. S'il n'existe pas dans la liste des référents, il sera créé{/t}</li>
                     <li>{t}referent_firstname : prénom du responsable de la campagne{/t}</li>
+                    <li>{t}campaign_description : description textuelle de la campagne{/t}</li>
                     <li>{t}uuid : identifiant de type UUID, si existant{/t}</li>
                 </ul>
             </div>

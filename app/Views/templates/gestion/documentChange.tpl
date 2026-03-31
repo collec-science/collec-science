@@ -28,6 +28,7 @@
 		<input type="hidden" name="uid" value="{$data.uid}">
 		<input type="hidden" name="campaign_id" value="{$data.campaign_id}">
 		<input type="hidden" name="event_id" value="{$data.event_id}">
+		<input type="hidden" name="collection_id" value="{$data.collection_id}">
 		<input type="hidden" name="parentKeyName" value="{$parentKeyName}">
 		<input type="hidden" name="activeTab" value="tab-document">
 		<div class="form-group">

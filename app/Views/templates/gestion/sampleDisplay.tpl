@@ -354,20 +354,20 @@
 			{t}Accès rapide{/t}
 		</a>
 		{if $rights.manage == 1}
-		<a href="sampleChange?uid=0">
+		<a href="sampleChangeTab?uid=0">
 			<img src="display/images/new.png" height="25">
 			{t}Nouvel échantillon{/t}
 		</a>
 		{if $data.uid > 0}
 			&nbsp;
-			<a href="sampleChange?uid=0&last_sample_id={$data.uid}&is_duplicate=1"
+			<a href="sampleChangeTab?uid=0&last_sample_id={$data.uid}&is_duplicate=1"
 				title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
 				<img src="display/images/copy.png" height="25">
 				{t}Dupliquer{/t}
 			</a>
 			{if $modifiable == 1}
 			&nbsp;
-			<a href="sampleChange?uid={$data.uid}">
+			<a href="sampleChangeTab?uid={$data.uid}">
 				<img src="display/images/edit.gif" height="25">
 				{t}Modifier{/t}
 			</a>
@@ -393,11 +393,12 @@
 		<a href="sampleDisplay?uid={$data.uid}">
 			<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
 		</a>
+		
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4">{$help}
 		<div class="pull-right bg-info">
 			{if $rights.manage == 1}
-			<a href="sampleChange?uid=0">
+			<a href="sampleChangeTab?uid=0">
 				<img src="display/images/new.png" height="25">
 				{t}Nouvel échantillon{/t}
 			</a>
@@ -512,6 +513,7 @@
 				{t}Documents associés{/t}
 			</a>
 		</li>
+
 		{/if}
 		<li class="nav-item">
 			<a class="nav-link" id="tab-booking" href="#nav-booking" data-toggle="tab" role="tab"
@@ -526,6 +528,15 @@
 				aria-controls="nav-subsample" aria-selected="false">
 				<img src="display/images/subsample.png" height="25">
 				{t}Sous-échantillonnage{/t}
+			</a>
+		</li>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-histo" href="#nav-histo" data-toggle="tab" role="tab"
+				aria-controls="nav-histo" aria-selected="false">
+				<img src="display/images/history.png" height="25">
+				{t}Historique des modifications{/t}
 			</a>
 		</li>
 		{/if}
@@ -590,7 +601,7 @@
 				{/if}
 				<dl class="dl-horizontal">
 					<dt>{t}Collection :{/t}</dt>
-					<dd>{$data.collection_name}</dd>
+					<dd title="{$data.collection_description}">{$data.collection_name}</dd>
 				</dl>
 				<dl class="dl-horizontal">
 					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
@@ -602,11 +613,15 @@
 					<dd>{$data.sample_type_name}
 						{if strlen($data.container_type_name) > 0}
 						<br>
-						{$data.container_type_name}
+						{t}Contenant associé :{/t} {$data.container_type_name}
 						{/if}
-						{if strlen($data.clp_classification) > 0}
+						{if strlen($data.risk_name) > 0}
 						<br>
-						{t}clp :{/t} {$data.clp_classification}
+						{t}Risque :{/t} {$data.risk_name}
+						{/if}
+						{if strlen($data.product_name) > 0}
+						<br>
+						{t}Produit utilisé :{/t} {$data.product_name}
 						{/if}
 					</dd>
 				</dl>
@@ -688,11 +703,11 @@
 					</dd>
 				</dl>
 				{/if}
-				{if $data.no_localization != 1}
+				{if $data.no_localization != 't'}
 				{if $data.campaign_id > 0}
 				<dl class="dl-horizontal">
 					<dt>{t}Campagne de prélèvement :{/t}</dt>
-					<dd><a href="campaignDisplay?campaign_id={$data.campaign_id}">
+					<dd title="{$data.campaign_description}"><a href="campaignDisplay?campaign_id={$data.campaign_id}">
 						{$data.campaign_name}
 					</a>
 					</dd>
@@ -820,7 +835,7 @@
 		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
 			<div class="col-md-12">
 				{if $rights.manage == 1 && $modifiable == 1}
-				<a href="sampleChange?uid=0&parent_uid={$data.uid}">
+				<a href="sampleChangeTab?uid=0&parent_uid={$data.uid}">
 					<img src="display/images/new.png" height="25">
 					{t}Nouvel échantillon dérivé...{/t}
 				</a>
@@ -847,6 +862,13 @@
 		<div class="tab-pane fade" id="nav-subsample" role="tabpanel" aria-labelledby="tab-subsample">
 			<div class="col-md-12">
 				{include file="gestion/subsampleList.tpl"}
+			</div>
+		</div>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1 }
+		<div class="tab-pane fade" id="nav-histo" role="tabpanel" aria-labelledby="tab-histo">
+			<div class="col-md-12">
+				{include file="gestion/sampleHistory.tpl"}
 			</div>
 		</div>
 		{/if}

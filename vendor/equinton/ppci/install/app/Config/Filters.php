@@ -13,6 +13,7 @@ use Ppci\Filters\AdminFilter;
 use Ppci\Filters\RightFilter;
 use Ppci\Filters\StartcallFilter;
 use Ppci\Filters\DbversioncheckFilter;
+use Ppci\Filters\SessionHijackingFilter;
 use Ppci\Filters\VersionCheckFilter;
 
 class Filters extends BaseConfig
@@ -32,9 +33,10 @@ class Filters extends BaseConfig
         'secureheaders' => SecureHeaders::class,
         'rights'        => RightFilter::class,
         'startcall'     => StartCallFilter::class,
-        'dbversioncheck'=> DbversioncheckFilter::class,
+        'dbversioncheck' => DbversioncheckFilter::class,
         "admin"         => AdminFilter::class,
-        "versioncheck"  => VersionCheckFilter::class
+        "versioncheck"  => VersionCheckFilter::class,
+        "sessionHijacking" => SessionHijackingFilter::class
     ];
 
     /**
@@ -46,18 +48,50 @@ class Filters extends BaseConfig
     public array $globals = [
         'before' => [
             // 'honeypot',
-            'csrf'=>['except'=>[]],
+            'csrf' => ['except' => [
+                'apiv1sampleWrite',
+                'apiv1sampleDelete',
+                'apiv1movementWrite',
+                'apiv1sampleList',
+                'samplePrintLabel',
+                'sampleExport',
+                'sampleExportCSV',
+                'samplePrintDirect',
+                'containerExportCSV',
+                'containerPrintLabel',
+                'containerPrintDirect',
+                'containerExportGlobal',
+                'smallMovementWriteAjax',
+                'smallMovementChange',
+                'apiv1documentWrite'
+            ]],
             'invalidchars',
+            /*'legacyRoute',*/
             'startcall',
-            'dbversioncheck'=>['except' => []],
-            'versioncheck' =>['except' => []],
+            'sessionHijacking',
+            'dbversioncheck' => [
+                'except' => [
+                    'CollectionsGenerateMail',
+                    'apiv1sampleWrite',
+                    'apiv1sampleDelete',
+                    'apiv1movementWrite',
+                    'apiv1sampleList'
+                ]
+            ],
+            'versioncheck' => ['except' => [
+                'CollectionsGenerateMail',
+                'apiv1sampleWrite',
+                'apiv1sampleDelete',
+                'apiv1movementWrite',
+                'apiv1sampleList'
+            ]],
             'rights',
             'admin'
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
-             'secureheaders',
+            'secureheaders',
         ],
     ];
 

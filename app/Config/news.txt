@@ -1,5 +1,43 @@
 Nouveautés
 ============
+Version v26.1.0 du 1/4/2026
+-----------------------------
+Corrections de bugs :
+- depuis la liste des échantillons, les boites d'information avaient tendance à rester ouvertes
+- en mode "multi-instances", il était possible d'usurper la session d'une autre instance et élever son niveau de privilèges
+- les informations de localisation des échantillons n'étaient plus masquées si la collection avait été paramétrée pour ne pas gérer les localisations
+- l'appel à certaines actions ouvrait un nouvel onglet
+- il était possible de créer des échantillons alors que des métadonnées obligatoires n'étaient pas renseignées
+- dans les API, la variable "locale" n'était pas prise en compte, et les messages restaient systématiquement en français
+- la recherche par zone géographique ne fonctionnait plus
+- la suppression du parent d'un échantillon ne fonctionnait plus
+- il était possible de rattacher un échantillon à un parent qui était lui-même enfant de l'échantillon traité
+- il était possible de ranger un contenant dans un contenant qu'il contenait
+- la création des modèles d'export ne fonctionnait pas correctement
+- en import de masse, l'ajout d'identifiants secondaires pour les contenants déclenchait une erreur
+- technique : le script de création de la base de données a été corrigé en supprimant la référence au compte collec, pour faciliter l'installation dans des contextes particuliers
+
+Nouveautés :
+- l'affichage des collections a été restructuré, avec l'ajout d'une page détail
+- il est maintenant possible de rajouter une description à une collection, ainsi que des documents associés. La description est affichée au survol du nom de la collection dans le détail des échantillons ou des contenants et sur le panneau d'accueil avec le nombre d'échantillons par collection
+- il est maintenant possible de rajouter une description à une campagne. La description est affichée au survol du nom de la campagne dans le détail d'un échantillon
+- les modifications apportées aux échantillons sont maintenant tracées
+- la page de modification d'un échantillon a été réorganisée en utilisant une boite d'onglets
+- il est maintenant possible d'indiquer les produits utilisés et les risques associés à un type d'échantillon. Auparavant, il fallait systématiquement associer le type d'échantillon à un type de contenant
+- en import de masse, il est maintenant possible d'indiquer tous les parents d'un échantillon composé
+- en import de masse, si le statut n'est pas fourni, il est automatiquement positionné à 1
+- il est maintenant possible créer un modèle d'import de masse qui contient les colonnes nécessaires, en fonction des besoins exprimés
+- l'api de création/modification d'un échantillon permet maintenant d'indiquer les parents dans le cas d'un échantillon composé
+- à partir de la liste des échantillons, il est maintenant possible de changer le type de ceux qui sont sélectionnés
+- technique : les fichiers des sessions PHP sont stockés dans un sous-dossier de TEMP et sont maintenant systématiquement purgés
+- technique : les mots de passe auparavant encodés en sha256 (comptes anciens) sont maintenant réencodés en bcrypt quand l'utilisateur se connecte
+- technique : les messages d'erreur générés par l'application sont maintenant enregistrés dans les logs CodeIgniter
+
+Version v26.0.2 du 6/3/2026
+-----------------------------
+Correction de bugs :
+- la génération des qrcodes ne fonctionnait pas correctement : dès lors qu'on générait plusieurs étiquettes, les suivantes contenaient le texte des qrcodes précédents
+
 Version v26.0.2 du 6/3/2026
 -----------------------------
 Correction de bugs :

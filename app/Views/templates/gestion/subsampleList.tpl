@@ -1,4 +1,3 @@
-{* Objets > échantillons > Rechercher > UID d'un échantillon > section Sous-échantillons *}
 <!-- Liste des sous-échantillonnages réalisés -->
 {if $rights.manage == 1}
 <a href="subsampleChange?subsample_id=0&sample_id={$data.sample_id}&uid={$data.uid}">

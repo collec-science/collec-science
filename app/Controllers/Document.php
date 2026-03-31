@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Libraries\Campaign;
+use App\Libraries\Collection;
 use App\Libraries\Container;
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Document as LibrariesDocument;
@@ -18,6 +19,15 @@ class Document extends PpciController
     }
     function write($origin)
     {
+        if (!(
+            $origin == "collection" &&
+            ($_SESSION["userRights"]["param"] == 1 || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$_REQUEST["collection_id"]]))
+            )
+        )) {
+            $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
+            $lib = new Collection;
+            return $lib->display();
+        }
         return $this->returnToOrigin($origin,  $this->lib->write());
     }
     function delete($origin)
@@ -55,6 +65,8 @@ class Document extends PpciController
         } elseif ($origin == "containerevent") {
             $lib = new Event;
             $isEvent = true;
+        } elseif ($origin == "collection") {
+            $lib = new Collection;
         }
         if ($isEvent) {
             if ($res) {

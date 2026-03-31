@@ -2,6 +2,7 @@
     <img src="display/images/new.png" height="25">
     {t}Nouveau prêt{/t}
 </a>
+{$helpborrowing}
 <table class="table datatable table-bordered table-hover" data-sort='[[0,"desc"]]'>
     <thead>
         <tr>

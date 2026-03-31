@@ -865,7 +865,8 @@
                             title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
                             {t}Export CSV direct{/t}
                             </button>
-                        {/if}
+                            {/if}
+                            {$helpsamplesearch}
                         </div>
                             <label for="activateSearchByColumn" class="control-label col-sm-2">{t}Activer la recherche par colonne :{/t}</label>
                             <div class="col-sm-1">

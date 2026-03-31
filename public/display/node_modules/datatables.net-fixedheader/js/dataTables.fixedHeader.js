@@ -1,4 +1,4 @@
-/*! FixedHeader 4.0.5
+/*! FixedHeader 4.0.6
  * © SpryMedia Ltd - datatables.net/license
  */
 
@@ -53,7 +53,7 @@ var DataTable = $.fn.dataTable;
  * @summary     FixedHeader
  * @description Fix a table's header or footer, so it is always visible while
  *              scrolling
- * @version     4.0.5
+ * @version     4.0.6
  * @author      SpryMedia Ltd
  * @contact     datatables.net
  *
@@ -186,6 +186,7 @@ $.extend(FixedHeader.prototype, {
 		var dom = this.dom;
 
 		this.s.dt.off('.dtfc');
+		$('body').off('.dtfc');
 		$(window).off(this.s.namespace);
 
 		// Remove clones of FC blockers
@@ -335,7 +336,9 @@ $.extend(FixedHeader.prototype, {
 			function (e, ctx) {
 				that.update();
 			}
-		).on('draw.dt.dtfc', function (e, ctx) {
+		);
+		
+		$('body').on('draw.dt.dtfc', function (e, ctx) {
 			// For updates from our own table, don't reclone, but for all others, do
 			that.update(ctx === dt.settings()[0] ? false : true);
 		});
@@ -480,9 +483,17 @@ $.extend(FixedHeader.prototype, {
 			itemDom.placeholder = itemElement.clone(false);
 			itemDom.placeholder.find('*[id]').removeAttr('id');
 
-			// Move the thead / tfoot elements around - original into the floating
-			// element and clone into the original table
-			itemDom.host.prepend(itemDom.placeholder);
+			// Move the thead / tfoot elements around - original into the
+			// floating element and clone into the original table. Note that the
+			// order is important in Chrome. It must be colgroup, thead, tbody,
+			// tfoot. Otherwise a "jitter" when scrolling will occur.
+			$(itemDom.placeholder).insertAfter(
+				item === 'header'
+					? $('colgroup', itemDom.host)
+					: $('tbody', itemDom.host)
+			);
+
+			// itemDom.host.prepend(itemDom.placeholder);
 			itemDom.floating.append(itemElement);
 
 			this._widths(itemDom);
@@ -605,7 +616,7 @@ $.extend(FixedHeader.prototype, {
 
 			if (!$.contains(itemDom.host[0], tablePart[0])) {
 				if (item === 'header') {
-					itemDom.host.prepend(tablePart);
+					tablePart.insertAfter($('colgroup', itemDom.host));
 				}
 				else {
 					itemDom.host.append(tablePart);
@@ -1096,7 +1107,7 @@ $.extend(FixedHeader.prototype, {
  * @type {String}
  * @static
  */
-FixedHeader.version = '4.0.5';
+FixedHeader.version = '4.0.6';
 
 /**
  * Defaults

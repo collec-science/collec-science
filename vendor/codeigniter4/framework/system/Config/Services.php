@@ -345,7 +345,7 @@ class Services extends BaseService
         $config ??= config(Images::class);
         assert($config instanceof Images);
 
-        $handler = $handler !== null && $handler !== '' && $handler !== '0' ? $handler : $config->defaultHandler;
+        $handler = in_array($handler, [null, '', '0'], true) ? $config->defaultHandler : $handler;
         $class   = $config->handlers[$handler];
 
         return new $class($config);
@@ -385,7 +385,7 @@ class Services extends BaseService
         }
 
         // Use '?:' for empty string check
-        $locale = $locale !== null && $locale !== '' && $locale !== '0' ? $locale : $requestLocale;
+        $locale = in_array($locale, [null, '', '0'], true) ? $requestLocale : $locale;
 
         return new Language($locale);
     }
@@ -484,7 +484,7 @@ class Services extends BaseService
             return static::getSharedInstance('parser', $viewPath, $config);
         }
 
-        $viewPath = $viewPath !== null && $viewPath !== '' && $viewPath !== '0' ? $viewPath : (new Paths())->viewDirectory;
+        $viewPath = in_array($viewPath, [null, '', '0'], true) ? (new Paths())->viewDirectory : $viewPath;
         $config ??= config(ViewConfig::class);
 
         return new Parser($config, $viewPath, AppServices::get('locator'), CI_DEBUG, AppServices::get('logger'));
@@ -503,7 +503,7 @@ class Services extends BaseService
             return static::getSharedInstance('renderer', $viewPath, $config);
         }
 
-        $viewPath = $viewPath !== null && $viewPath !== '' && $viewPath !== '0' ? $viewPath : (new Paths())->viewDirectory;
+        $viewPath = in_array($viewPath, [null, '', '0'], true) ? (new Paths())->viewDirectory : $viewPath;
         $config ??= config(ViewConfig::class);
 
         return new View($config, $viewPath, AppServices::get('locator'), CI_DEBUG, AppServices::get('logger'));
@@ -543,7 +543,7 @@ class Services extends BaseService
             $request = AppServices::incomingrequest($config);
 
             // guess at protocol if needed
-            $request->setProtocolVersion($_SERVER['SERVER_PROTOCOL'] ?? 'HTTP/1.1');
+            $request->setProtocolVersion(static::superglobals()->server('SERVER_PROTOCOL', 'HTTP/1.1'));
         }
 
         // Inject the request object into Services.
@@ -746,13 +746,17 @@ class Services extends BaseService
     public static function superglobals(
         ?array $server = null,
         ?array $get = null,
+        ?array $post = null,
+        ?array $cookie = null,
+        ?array $files = null,
+        ?array $request = null,
         bool $getShared = true,
     ) {
         if ($getShared) {
-            return static::getSharedInstance('superglobals', $server, $get);
+            return static::getSharedInstance('superglobals', $server, $get, $post, $cookie, $files, $request);
         }
 
-        return new Superglobals($server, $get);
+        return new Superglobals($server, $get, $post, $cookie, $files, $request);
     }
 
     /**

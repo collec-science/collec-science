@@ -40,6 +40,7 @@ class MessagePpci
         $this->_message[] = $value;
         if ($is_error) {
             $this->is_error = true;
+            log_message("error", $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]." --> ".$value);
         }
     }
 
@@ -70,6 +71,10 @@ class MessagePpci
         openlog("[$date] [" . $_SESSION["dbparams"]["APPLI_code"] . ":$level]", LOG_PID | LOG_PERROR, LOG_LOCAL7);
         syslog($priority, $message);
         closelog();
+        /**
+         * Add message to CodeIgniter logs
+         */
+        log_message("error", $_SERVER["HTTP_HOST"].$_SERVER["REQUEST_URI"]." --> ".$message);
     }
 
     /**

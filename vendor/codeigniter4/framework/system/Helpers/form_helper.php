@@ -290,12 +290,17 @@ if (! function_exists('form_dropdown')) {
 
         // If no selected state was submitted we will attempt to set it automatically
         if ($selected === []) {
+            $superglobals = service('superglobals');
             if (is_array($data)) {
-                if (isset($data['name'], $_POST[$data['name']])) {
-                    $selected = [$_POST[$data['name']]];
+                $postValue = $superglobals->post($data['name'] ?? '');
+                if (isset($data['name']) && $postValue !== null) {
+                    $selected = [$postValue];
                 }
-            } elseif (isset($_POST[$data])) {
-                $selected = [$_POST[$data]];
+            } else {
+                $postValue = $superglobals->post($data);
+                if ($postValue !== null) {
+                    $selected = [$postValue];
+                }
             }
         }
 
@@ -350,7 +355,7 @@ if (! function_exists('form_checkbox')) {
     {
         $defaults = [
             'type'  => 'checkbox',
-            'name'  => (! is_array($data) ? $data : ''),
+            'name'  => is_array($data) ? '' : $data,
             'value' => $value,
         ];
 

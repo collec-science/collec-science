@@ -12,7 +12,7 @@ class Container extends PpciModel
                     o.change_date::timestamp(0), o.uuid, o.trashed, o.location_accuracy, o.object_comment,
 					container_type_id, container_type_name, nb_slots_max,
 					container_family_id, container_family_name, os.object_status_id, object_status_name,
-					storage_product, clp_classification, storage_condition_name,
+					product_name, risk_name, storage_condition_name,
 					document_id, identifiers,
 					movement_date, movement_type_name, movement_type_id,
           lines, columns, first_line, first_column, line_in_char, column_in_char,
@@ -20,7 +20,7 @@ class Container extends PpciModel
           o.referent_id, referent_name, referent_firstname, referent_email, address_name, address_line2, address_line3, address_city, address_country, referent_phone, academical_directory, academical_link,
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           nb_slots_used
-          ,collection_id, collection_name
+          ,collection_id, collection_name, collection_description
 					from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
@@ -37,6 +37,8 @@ class Container extends PpciModel
           left outer join borrower using (borrower_id)
           left outer join slots_used su on (c.container_id = su.container_id)
           left outer join collection using (collection_id)
+          left outer join risk using (risk_id)
+          left outer join product using (product_id)
             ";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
 
@@ -110,7 +112,7 @@ class Container extends PpciModel
             throw new PpciException(sprintf(_("L'identifiant du contenant %s existe déjà dans la base de données"), $data["identifier"]));
         }
         $object = new ObjectClass();
-        $uid = $object->ecrire($data);
+        $uid = $object->write($data);
         if ($uid > 0) {
             $data["uid"] = $uid;
             parent::write($data);
@@ -212,8 +214,8 @@ class Container extends PpciModel
         $sql = "select o.uid, o.identifier, container_type_id, container_type_name,
                 container_family_id, container_family_name, o.object_status_id, o.trashed,
                 o.location_accuracy, o.uuid, o.object_comment,
-                storage_product, storage_condition_name,
-                object_status_name, clp_classification,
+                product_name, storage_condition_name,
+                object_status_name, risk_name,
                 movement_date, movement_type_id, column_number, line_number,
                 document_id
                 ,lm.container_uid
@@ -229,6 +231,8 @@ class Container extends PpciModel
                 left outer join  last_photo on (o.uid = last_photo.uid)
                 left outer join slots_used su on (co.container_id = su.container_id)
                 left outer join collection using (collection_id)
+                left outer join product using (product_id)
+                left outer join risk using (risk_id)
                 where lm.movement_type_id = 1
                 order by o.identifier, o.uid
 				";
@@ -748,7 +752,7 @@ class Container extends PpciModel
              * Writing the container
              */
             $dcontainer["uid"] = 0;
-            $uid = $object->ecrire($dcontainer);
+            $uid = $object->write($dcontainer);
             if ($uid > 0) {
                 $dcontainer["uid"] = $uid;
                 parent::write($dcontainer);

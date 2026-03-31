@@ -110,7 +110,9 @@
                         </div>
                   </div>
                   <div class="form-group">
-                        <label for="external_storage_enabled"  class="control-label col-md-4">{t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}</label>
+                        <label for="external_storage_enabled"  class="control-label col-md-4">
+                              {t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}
+                        </label>
                         <div class="col-md-8">
                               <div class="radio">
                                     <label>

@@ -4,10 +4,11 @@
 	<div class="col-md-12">
 		{if $rights.param == 1}
 		<a href="sampleTypeChange?sample_type_id=0">
+			<img src="display/images/new.png" height="25">
 			{t}Nouveau...{/t}
 		</a>
 		{/if}
-		{$help}
+		&nbsp;{$help}
 	</div>
 </div>
 <div class="row">

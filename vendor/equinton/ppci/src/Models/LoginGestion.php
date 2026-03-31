@@ -123,6 +123,7 @@ class LoginGestion extends PpciModel
                     $tests = false;
                 }
             }
+            $this->autoFormatDate = true;
             if ($tests) {
                 /**
                  * Test the password

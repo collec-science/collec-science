@@ -295,16 +295,16 @@
         },
         {
             "name": "chillerlan/php-settings-container",
-            "version": "3.2.1",
+            "version": "3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-settings-container.git",
-                "reference": "95ed3e9676a1d47cab2e3174d19b43f5dbf52681"
+                "reference": "a0a487cbf5344f721eb504bf0f59bada40c381b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/95ed3e9676a1d47cab2e3174d19b43f5dbf52681",
-                "reference": "95ed3e9676a1d47cab2e3174d19b43f5dbf52681",
+                "url": "https://api.github.com/repos/chillerlan/php-settings-container/zipball/a0a487cbf5344f721eb504bf0f59bada40c381b7",
+                "reference": "a0a487cbf5344f721eb504bf0f59bada40c381b7",
                 "shasum": ""
             },
             "require": {
@@ -312,11 +312,13 @@
                 "php": "^8.1"
             },
             "require-dev": {
+                "phan/phan": "^5.5.2",
                 "phpmd/phpmd": "^2.15",
-                "phpstan/phpstan": "^1.11",
-                "phpstan/phpstan-deprecation-rules": "^1.2",
+                "phpstan/phpstan": "^2.1.31",
+                "phpstan/phpstan-deprecation-rules": "^2.0.3",
                 "phpunit/phpunit": "^10.5",
-                "squizlabs/php_codesniffer": "^3.10"
+                "slevomat/coding-standard": "^8.22",
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "library",
             "autoload": {
@@ -341,7 +343,8 @@
                 "Settings",
                 "configuration",
                 "container",
-                "helper"
+                "helper",
+                "property hook"
             ],
             "support": {
                 "issues": "https://github.com/chillerlan/php-settings-container/issues",
@@ -357,20 +360,20 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2024-07-16T11:13:48+00:00"
+            "time": "2026-03-20T21:10:52+00:00"
         },
         {
             "name": "codeigniter4/framework",
-            "version": "v4.7.0",
+            "version": "v4.7.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "e7753bc03f8b74af428f46b5e2bb74925487c930"
+                "reference": "b3359be849be29394660c3aed909aa32b6c45cf6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/e7753bc03f8b74af428f46b5e2bb74925487c930",
-                "reference": "e7753bc03f8b74af428f46b5e2bb74925487c930",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/b3359be849be29394660c3aed909aa32b6c45cf6",
+                "reference": "b3359be849be29394660c3aed909aa32b6c45cf6",
                 "shasum": ""
             },
             "require": {
@@ -434,20 +437,20 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2026-02-01T20:39:35+00:00"
+            "time": "2026-03-24T18:26:09+00:00"
         },
         {
             "name": "equinton/ppci",
-            "version": "v1.1.13",
+            "version": "v1.1.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/equinton/ppci.git",
-                "reference": "d30c0cce975c859348f9bc34e1d0055b457f9d1a"
+                "reference": "bbbc04abbedae8c20e9488996b0e8c1a5c0fafbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/equinton/ppci/zipball/d30c0cce975c859348f9bc34e1d0055b457f9d1a",
-                "reference": "d30c0cce975c859348f9bc34e1d0055b457f9d1a",
+                "url": "https://api.github.com/repos/equinton/ppci/zipball/bbbc04abbedae8c20e9488996b0e8c1a5c0fafbf",
+                "reference": "bbbc04abbedae8c20e9488996b0e8c1a5c0fafbf",
                 "shasum": ""
             },
             "require": {
@@ -479,9 +482,9 @@
             "description": "PrototypePHP to CodeIgniter",
             "support": {
                 "issues": "https://github.com/equinton/ppci/issues",
-                "source": "https://github.com/equinton/ppci/tree/v1.1.13"
+                "source": "https://github.com/equinton/ppci/tree/v1.1.14"
             },
-            "time": "2026-03-10T10:27:55+00:00"
+            "time": "2026-03-22T17:30:00+00:00"
         },
         {
             "name": "jumbojett/openid-connect-php",
@@ -705,16 +708,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.49",
+            "version": "3.0.50",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "6233a1e12584754e6b5daa69fe1289b47775c1b9"
+                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/6233a1e12584754e6b5daa69fe1289b47775c1b9",
-                "reference": "6233a1e12584754e6b5daa69fe1289b47775c1b9",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
+                "reference": "aa6ad8321ed103dc3624fb600a25b66ebf78ec7b",
                 "shasum": ""
             },
             "require": {
@@ -795,7 +798,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.49"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.50"
             },
             "funding": [
                 {
@@ -811,7 +814,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-01-27T09:17:28+00:00"
+            "time": "2026-03-19T02:57:58+00:00"
         },
         {
             "name": "picqer/php-barcode-generator",

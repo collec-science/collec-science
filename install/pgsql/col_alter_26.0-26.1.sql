@@ -74,8 +74,6 @@ COMMENT ON COLUMN col.samplehisto.samplehisto_login IS E'Login of the user that 
 -- ddl-end --
 COMMENT ON COLUMN col.samplehisto.oldvalues IS E'Old values changed at this date, in a multiple field in json format. The value "new" says that the value is created';
 -- ddl-end --
-ALTER TABLE col.samplehisto OWNER TO collec;
--- ddl-end --
 
 -- object: collection_id | type: COLUMN --
 ALTER TABLE col.document ADD COLUMN collection_id integer;
@@ -138,8 +136,6 @@ SELECT d.document_id,
 				d1.document_id DESC
          LIMIT 1));
 -- ddl-end --
-ALTER VIEW col.last_photo OWNER TO collec;
--- ddl-end --
 
 -- object: col.v_object_identifier | type: VIEW --
 -- DROP VIEW IF EXISTS col.v_object_identifier CASCADE;
@@ -160,8 +156,6 @@ SELECT object_identifier.uid,
   GROUP BY object_identifier.uid
   ORDER BY object_identifier.uid;
 -- ddl-end --
-ALTER VIEW col.v_object_identifier OWNER TO collec;
--- ddl-end --
 
 -- object: col.last_borrowing | type: VIEW --
 -- DROP VIEW IF EXISTS col.last_borrowing CASCADE;
@@ -179,8 +173,6 @@ SELECT b1.borrowing_id,
           ORDER BY b2.borrowing_date DESC
          LIMIT 1)
 		);
--- ddl-end --
-ALTER VIEW col.last_borrowing OWNER TO collec;
 -- ddl-end --
 
 -- object: col.last_movement | type: VIEW --
@@ -202,8 +194,6 @@ SELECT m.uid,
      LEFT JOIN col.container c USING (container_id)
      LEFT JOIN col.object o2 ON c.uid = o2.uid;
 -- ddl-end --
-ALTER VIEW col.last_movement OWNER TO collec;
--- ddl-end --
 
 -- object: col.slots_used | type: VIEW --
 -- DROP VIEW IF EXISTS col.slots_used CASCADE;
@@ -214,8 +204,6 @@ SELECT container_id,
    FROM col.last_movement
   WHERE movement_type_id = 1
   GROUP BY container_id;
--- ddl-end --
-ALTER VIEW col.slots_used OWNER TO collec;
 -- ddl-end --
 
 ALTER TABLE col.object ALTER COLUMN location_accuracy TYPE float8;
@@ -237,8 +225,6 @@ SELECT sample_id,
           WHERE sless.movement_type_id = 2 AND sless.sample_id = s.sample_id), 0::double precision) AS subsample_less
    FROM col.sample s;
 -- ddl-end --
-ALTER VIEW col.v_subsample_quantity OWNER TO collec;
--- ddl-end --
 
 -- object: col.getsampletypesfromcollection | type: FUNCTION --
 -- DROP FUNCTION IF EXISTS col.getsampletypesfromcollection(integer) CASCADE;
@@ -257,8 +243,6 @@ from col.collection_sampletype
 join col.sample_type using (sample_type_id)
 where collection_id = $1
 $function$;
--- ddl-end --
-ALTER FUNCTION col.getsampletypesfromcollection(integer) OWNER TO collec;
 -- ddl-end --
 
 -- object: col.getgroupsfromcollection | type: FUNCTION --
@@ -279,8 +263,6 @@ join gacl.aclgroup using (aclgroup_id)
 where collection_id = $1
 $function$;
 -- ddl-end --
-ALTER FUNCTION col.getgroupsfromcollection(integer) OWNER TO collec;
--- ddl-end --
 
 -- object: col.geteventtypesfromcollection | type: FUNCTION --
 -- DROP FUNCTION IF EXISTS col.geteventtypesfromcollection(integer) CASCADE;
@@ -299,8 +281,6 @@ from col.collection_eventtype
 join col.event_type using (event_type_id)
 where collection_id = $1
 $function$;
--- ddl-end --
-ALTER FUNCTION col.geteventtypesfromcollection(integer) OWNER TO collec;
 -- ddl-end --
 
 -- object: col.v_derivated_number | type: VIEW --

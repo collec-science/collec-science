@@ -2,11 +2,14 @@
 <script src="display/node_modules/jquery/dist/jquery.min.js"></script>
 <!--script src="display/javascript/jquery-3.6.0.min.js"></script-->
 
-<!-- Bootstrap -->
+<!-- Bootstrap 3
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
 <script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
+-->
+<!-- bootstrap 5-->
+ <link rel="stylesheet" href="display/node_modules/bootstrap/dist/css/bootstrap.min.css">
+<script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <!--JqueryUI-->
 <script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>

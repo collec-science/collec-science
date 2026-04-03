@@ -456,3 +456,35 @@ input:invalid {
 	pointer-events: none;
 	/* Prevent any interaction */
 }
+/*
+bootstrap5
+*/
+.navbar {
+	background-color: #003A80;
+}
+.nav.navbar-nav > li > a {
+    color: white;
+}
+.nav.navbar-nav li a:hover,
+.nav.navbar-nav li a:focus,
+.nav.navbar-nav li a:active{
+	color: #003A80;
+	background-color: rgba(0, 158, 224, 0.5);
+}
+.nav.navbar-nav > .open > a,
+.nav.navbar-nav > .active > a,
+.nav.navbar-nav > .focus > a
+{
+	color: white;
+	background-color: rgba(0, 158, 224);
+}
+.white {
+	color:white;
+}
+.navbar-inverse > a{
+	color: #003A80;
+	background-color: #009EE0;
+}
+.dropdown-menu li a {
+	color:#003A80
+}

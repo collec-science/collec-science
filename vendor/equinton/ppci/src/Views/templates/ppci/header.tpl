@@ -1,4 +1,4 @@
-<div class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-default navbar-dark" role="navigation" >
 	<div class="container-fluid">
 
 		<div class="navbar-header navbar">
@@ -9,10 +9,10 @@
 					class="icon-bar"></span>
 			</button>
 			<div class="navbar-brand"><a href='/'><img src="{$favicon}" height="20"></a></div>
-			<a href='/'><span class="navbar-text hidden-xs hidden-sm"><b>{$APPLI_title}</b></span></a>
+			<a href='/'><span class="navbar-text hidden-xs hidden-sm"><span class="white"><b>{$APPLI_title}</b></span></span></a>
 		</div>
 		<!-- Affichage du menu -->
-		<div class="collapse navbar-collapse" id="navbar_collapse">
+		<div class="collapse navbar-collapse " id="navbar_collapse">
 		<ul class="nav navbar-nav md">{$menu}
 		</ul>
 

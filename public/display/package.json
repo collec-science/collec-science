@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "~3.4.1",
+    "bootstrap": "~5",
     "combobox": "^1.0.1",
     "datatables.net": "^2.1.8",
     "datatables.net-bs": "^2.1.8",

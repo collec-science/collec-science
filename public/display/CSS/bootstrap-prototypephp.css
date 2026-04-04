@@ -79,18 +79,21 @@ body {
 
 h1 {
 	font-size: x-large;
+	color:#003A80;
 }
 
 h2 {
-	font-size: x-large;
+	font-size: large;
+	color:#003A80;
 }
 
 h3 {
 	font-size: large;
+	color:#009EE0;
 }
 
 legend {
-	font-size: large;
+	font-size: medium;
 	color: #003A80;
 }
 
@@ -443,7 +446,7 @@ tr {
 }
 
 input:invalid {
-	border: 1px solid red;
+	border: 1px solid #D1041D;
 }
 
 .move:hover {
@@ -468,7 +471,6 @@ bootstrap5
 .nav.navbar-nav li a:hover,
 .nav.navbar-nav li a:focus,
 .nav.navbar-nav li a:active{
-	color: #003A80;
 	background-color: rgba(0, 158, 224, 0.5);
 }
 .nav.navbar-nav > .open > a,
@@ -478,13 +480,10 @@ bootstrap5
 	color: white;
 	background-color: rgba(0, 158, 224);
 }
+.nav.navbar-nav > .open > a,
 .white {
 	color:white;
 }
-.navbar-inverse > a{
-	color: #003A80;
-	background-color: #009EE0;
-}
-.dropdown-menu li a {
-	color:#003A80
+a {
+	color:#003A80;
 }

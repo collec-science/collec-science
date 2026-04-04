@@ -1,15 +1,10 @@
 <!-- Jquery -->
 <script src="display/node_modules/jquery/dist/jquery.min.js"></script>
-<!--script src="display/javascript/jquery-3.6.0.min.js"></script-->
 
-<!-- Bootstrap 3
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
-<script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
--->
 <!-- bootstrap 5-->
  <link rel="stylesheet" href="display/node_modules/bootstrap/dist/css/bootstrap.min.css">
 <script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
 <!--JqueryUI-->
 <script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
 <script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
@@ -19,8 +14,6 @@
 <script type="text/javascript" charset="utf-8"
     src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
-<script type="text/javascript" charset="utf-8"
-    src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
 <link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">

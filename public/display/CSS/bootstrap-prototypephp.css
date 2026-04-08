@@ -471,7 +471,7 @@ bootstrap5
 .nav.navbar-nav li a:hover,
 .nav.navbar-nav li a:focus,
 .nav.navbar-nav li a:active{
-	background-color: rgba(0, 158, 224, 0.5);
+	background-color: rgba(0, 158, 224, 0.2);
 }
 .nav.navbar-nav > .open > a,
 .nav.navbar-nav > .active > a,

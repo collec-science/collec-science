@@ -48,7 +48,7 @@
 		</ul>
 		</div>
 	</div>
-</div>
+</nav>
 <div class="container-fluid" id="messageDiv" {if strlen($message) == 0} hidden{/if}>
 	<div class="row">
 		<div class="col-xs-12 message{if $messageError == 1}Error{/if}" id="message">

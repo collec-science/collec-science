@@ -209,7 +209,6 @@
                             options += '<option value="'+d[i].sampling_place_id + '"';
                             if (d[i].sampling_place_id == sampling_place_init ) {
                                 options += ' selected="selected" ';
-                                //$("#sampling_place_id").next().find(".custom-combobox-input").val(libelle);
                             }
                             options += '>';
                             options += libelle;

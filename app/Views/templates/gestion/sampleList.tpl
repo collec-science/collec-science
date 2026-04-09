@@ -37,12 +37,12 @@ $(document).ready(function() {
 			{/if}
 			<ul class="nav nav-tabs  " id="tabResult" role="tablist" >
 				<li class="nav-item active">
-						<a class="nav-link tabResult" id="tablist" data-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
+						<a class="nav-link tabResult" id="tablist" data-bs-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
 								{t}Liste{/t}
 						</a>
 				</li>
 				<li class="nav-item">
-						<a class="nav-link tabResult" id="tabmap" href="#navmap"  data-toggle="tab" role="tab" aria-controls="navmap" aria-selected="false">
+						<a class="nav-link tabResult" id="tabmap" href="#navmap"  data-bs-toggle="tab" role="tab" aria-controls="navmap" aria-selected="false">
 								{t}Carte{/t}
 						</a>
 				</li>

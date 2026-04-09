@@ -11,14 +11,14 @@
              */
             var newDiv = document.createElement("div");
             newDiv.id = "div" + newId;
-            newDiv.classList.add("form-group");
+            newDiv.classList.add("row mb-6");
             metadata.appendChild(newDiv);
             /**
              * create label
              */
             var newLabel = document.createElement("label");
             newLabel.htmlFor = newId;
-            newLabel.classList.add("control-label", "col-md-4");
+            newLabel.classList.add("form-label", "col-md-4");
             var labelContent = field.name;
             if (field.measureUnit) {
                 labelContent += '&nbsp;(' + field.measureUnit + ')';

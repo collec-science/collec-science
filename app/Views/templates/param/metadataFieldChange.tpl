@@ -86,10 +86,10 @@
 </div>
 <form class="form-horizontal " id="metadataField" method="post" action="metadataFieldWrite">
     <input type="hidden" name="moduleBase" value="metadataField">
-    <input type="hidden" name="metadata_id" value="{$data.metadata_id}" <div class="form-group">
+    <input type="hidden" name="metadata_id" value="{$data.metadata_id}" <div class="row mb-6">
     <input type="hidden" name="oldname" value="{$data.name}">
-    <div class="form-group">
-        <label for="name" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6">
+        <label for="name" class="form-label col-md-4"><span class="red">*</span>
             {t}Nom du champ (minuscules, chiffres ou _, sans espace, sans tiret){/t}
         </label>
         <div class="col-md-8">
@@ -98,8 +98,8 @@
             required>
         </div>
     </div>
-    <div class="form-group">
-        <label for="type" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6">
+        <label for="type" class="form-label col-md-4"><span class="red">*</span>
             {t}Type du champ{/t}
         </label>
         <div class="col-md-8">
@@ -134,8 +134,8 @@
             </select>
         </div>
     </div>
-    <div class="form-group" id="multipleGroup">
-        <label for="multipleNo" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6" id="multipleGroup">
+        <label for="multipleNo" class="form-label col-md-4"><span class="red">*</span>
             {t}Valeurs multiples ?{/t}
         </label>
         <div class="col-md-8">
@@ -145,8 +145,8 @@
                 }checked{/if} value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="form-group" id="choiceListGroup" hidden>
-        <label for="name" class="control-label col-md-4">
+    <div class="row mb-6" id="choiceListGroup" hidden>
+        <label for="name" class="form-label col-md-4">
             {t}Valeurs{/t}
         </label>
         <div class="col-md-8">
@@ -179,16 +179,16 @@
 
         </div>
     </div>
-    <div class="form-group">
-        <label for="defaultValue" class="control-label col-md-4">
+    <div class="row mb-6">
+        <label for="defaultValue" class="form-label col-md-4">
             {t}Valeur par défaut{/t}
         </label>
         <div class="col-md-8">
             <input id="defaultValue" type="text" class="form-control" name="defaultValue" value="{$data.defaultValue}">
         </div>
     </div>
-    <div class="form-group">
-        <label for="description" class="control-label col-md-4">
+    <div class="row mb-6">
+        <label for="description" class="form-label col-md-4">
             <span class="red">*</span>
             {t}Description{/t}
         </label>
@@ -196,8 +196,8 @@
             <input id="description" type="text" class="form-control" name="description" value="{$data.description}" required>
         </div>
     </div>
-    <div class="form-group">
-        <label for="isSearchable0" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6">
+        <label for="isSearchable0" class="form-label col-md-4"><span class="red">*</span>
             {t}Champ utilisé pour rechercher un échantillon ?{/t}
         </label>
         <div class="col-md-8">
@@ -208,8 +208,8 @@
                 value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="form-group">
-        <label for="required0" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6">
+        <label for="required0" class="form-label col-md-4"><span class="red">*</span>
             {t}Champ obligatoire ?{/t}
         </label>
         <div class="col-md-8">
@@ -220,16 +220,16 @@
                 value="true">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="form-group">
-        <label for="measureUnit" class="control-label col-md-4">
+    <div class="row mb-6">
+        <label for="measureUnit" class="form-label col-md-4">
             {t}Unité de mesure{/t}
         </label>
         <div class="col-md-8">
             <input id="measureUnit" type="text" class="form-control" name="measureUnit" value="{$data.measureUnit}">
         </div>
     </div>
-    <div class="form-group">
-        <label for="helperChoice" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6">
+        <label for="helperChoice" class="form-label col-md-4"><span class="red">*</span>
             {t}Affichage d'un message d'aide ?{/t}
         </label>
         <div class="col-md-8">
@@ -240,15 +240,15 @@
                 value="true" class="helperChoice">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="form-group" id="helperGroup" hidden>
-        <label for="helper" class="control-label col-md-4"><span class="red">*</span>
+    <div class="row mb-6" id="helperGroup" hidden>
+        <label for="helper" class="form-label col-md-4"><span class="red">*</span>
             {t}Message d'aide - vous pouvez copier ici la description de l'unité de mesure, par exemple{/t}
         </label>
         <div class="col-md-8">
             <input id="helper" type="text" class="form-control" name="helper" value="{$data.helper}">
         </div>
     </div>
-    <div class="form-group center">
+    <div class="row mb-6 center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
     </div>
     {$csrf}

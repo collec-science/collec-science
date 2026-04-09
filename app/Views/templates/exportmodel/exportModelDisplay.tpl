@@ -115,15 +115,15 @@
                 <input type="hidden" name="export_model_name" value="{$data.export_model_name}">
                 <input type="hidden" name="returnko" value="exportModelDisplay">
                 <input type="hidden" name="returnok" value="exportModelDisplay">
-                <div class="form-group">
-                    <label for="FileName" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="FileName" class="form-label col-md-4">
                         <span class="red">*</span> {t}Fichier à importer (format JSON généré par l'opération d'export ci-dessus) :{/t}
                     </label>
                     <div class="col-md-8">
                         <input id="FileName" type="file" class="form-control" name="filename" size="40" required>
                     </div>
                 </div>
-                <div class="form-group center">
+                <div class="row mb-6 center">
                     <button id="importButton" type="submit" class="btn btn-warning">{t}Importer les données{/t}</button>
                 </div>
             {$csrf}</form>

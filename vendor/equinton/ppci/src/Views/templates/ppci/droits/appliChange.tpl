@@ -5,8 +5,8 @@
             <form class="form-horizontal" id="appliForm" method="post" action="appliWrite">
                   <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
                   <input type="hidden" name="moduleBase" value="appli">
-                  <div class="form-group">
-                        <label for="appli" class="control-label col-md-4"><span class="red">*</span> 
+                  <div class="row mb-6">
+                        <label for="appli" class="form-label col-md-4"><span class="red">*</span> 
                               {t}Nom de l'application :{/t}
                         </label>
                         <div class="col-md-8">
@@ -14,14 +14,14 @@
                                     autofocus required>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="applidetail" class="control-label col-md-4">{t}Description :{/t} </label>
+                  <div class="row mb-6">
+                        <label for="applidetail" class="form-label col-md-4">{t}Description :{/t} </label>
                         <div class="col-md-8">
                               <input id="applidetail" type="text" class="form-control" name="applidetail"
                                     value="{$data.applidetail}">
                         </div>
                   </div>
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.aclappli_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -14,15 +14,15 @@
     <form class="form-horizontal " id="datasetTemplateForm" method="post" action="datasetTemplateWrite">
       <input type="hidden" name="moduleBase" value="datasetTemplate">
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
-      <div class="form-group">
-        <label for="datasetTemplateName" class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
+      <div class="row mb-6">
+        <label for="datasetTemplateName" class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-md-8">
           <input id="datasetTemplateName" type="text" class="form-control" name="dataset_template_name"
             value="{$data.dataset_template_name}" autofocus required>
         </div>
       </div>
-      <div class="form-group">
-        <label for="dataset_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
+      <div class="row mb-6">
+        <label for="dataset_type_id" class="form-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
         <div class="col-md-8">
           <select id="dataset_type_id" name="dataset_type_id" class="form-control">
             {foreach $datasetTypes as $dt}
@@ -33,8 +33,8 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label for="export_format_id" class="control-label col-md-4"><span class="red">*</span> 
+      <div class="row mb-6">
+        <label for="export_format_id" class="form-label col-md-4"><span class="red">*</span> 
             {t}Format d'export :{/t}</label>
         <div class="col-md-8">
           <select id="export_format_id" name="export_format_id" class="form-control">
@@ -46,15 +46,15 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label for="filename" class="control-label col-md-4"><span class="red">*</span>
+      <div class="row mb-6">
+        <label for="filename" class="form-label col-md-4"><span class="red">*</span>
              {t}Nom du fichier généré :{/t}</label>
         <div class="col-md-8">
           <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
         </div>
       </div>
-      <div class="form-group">
-        <label for="only_last_document" class="control-label col-md-4">
+      <div class="row mb-6">
+        <label for="only_last_document" class="form-label col-md-4">
             {t}Uniquement le document le plus récent (type document) :{/t}</label>
         <div class="col-md-8" id="only_last_document">
           <div class="radio">
@@ -71,8 +71,8 @@
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="separator" class="control-label col-md-4">{t}Séparateur (fichiers CSV) :{/t}</label>
+      <div class="row mb-6">
+        <label for="separator" class="form-label col-md-4">{t}Séparateur (fichiers CSV) :{/t}</label>
         <div class="col-md-8">
           <select id="separator" name="separator" class="form-control">
             <option value="" {if $data.separator=='' }selected{/if}>{t}Sélectionnez...{/t}</option>
@@ -82,21 +82,21 @@
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label for="xmlroot" class="control-label col-md-4"> {t}Entête du fichier XML :{/t}</label>
+      <div class="row mb-6">
+        <label for="xmlroot" class="form-label col-md-4"> {t}Entête du fichier XML :{/t}</label>
         <div class="col-md-8">
           <input id="xmlroot" type="text" class="form-control" name="xmlroot" value="{$data.xmlroot}">
         </div>
       </div>
-      <div class="form-group">
-        <label for="xmlnodename" class="control-label col-md-4"> 
+      <div class="row mb-6">
+        <label for="xmlnodename" class="form-label col-md-4"> 
             {t}Nom du nœud XML pour les lignes traitées (non utilisé pour la description de la collection) :{/t}</label>
         <div class="col-md-8">
           <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
         </div>
       </div>
-      <div class="form-group">
-        <label for="xslcontent" class="control-label col-md-4">
+      <div class="row mb-6">
+        <label for="xslcontent" class="form-label col-md-4">
             {t}Transformation XSL appliquée sur le fichier XML généré :{/t}</label>
         <div class="col-md-8">
           <textarea class="form-control textarea-edit" id="xslcontent" name="xslcontent" rows="10" placeholder='<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
@@ -114,7 +114,7 @@
 </xsl:stylesheet>'>{$data.xslcontent}</textarea>
         </div>
       </div>
-      <div class="form-group center">
+      <div class="row mb-6 center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_template_id > 0 }
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

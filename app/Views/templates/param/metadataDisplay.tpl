@@ -59,8 +59,8 @@
         <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
             <input type="hidden" name="moduleBase" value="metadata">
             <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
-            <div class="form-group">
-                <label for="metadata_name" class="control-label col-md-2"><span class="red">*</span>
+            <div class="row mb-6">
+                <label for="metadata_name" class="form-label col-md-2"><span class="red">*</span>
                     {t}Nom du modèle :{/t}
                 </label>
                 <div class="col-md-6">
@@ -159,7 +159,7 @@
     </table>
 </div>
 <div class="row">
-    <div class="bg-info col-md-offset-3 col-md-6 center">
+    <div class="bg-info offset-md-3 col-md-6 center">
         {t}Vous pouvez également modifier l'ordre des champs en cliquant-déplaçant avec la souris sur la première colonne{/t}
     </div>
 </div>

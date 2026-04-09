@@ -57,6 +57,7 @@ class Menu
         $texte = "";
         $attributes = $valeur["@attributes"];
         $ok = true;
+        $currentLevel = $level;
         /*
          * Recherche des droits
          */
@@ -107,21 +108,24 @@ class Menu
                     $url = $this->app->docroot . "/";
                     $target = "_blank";
                 }
-                
+
                 if (!isset($valeur["item"])) {
-                $texte = '<li class="nav-item">
+                    $texte = '<li class="nav-item">
                 <a class="nav-link" href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
-                    . $label .
-                    '</a>';
+                        . $label .
+                        '</a>';
                 } else {
                     /*
                      * Il s'agit d'un tableau imbrique
                      */
+                    if ($currentLevel > 0) {
+                        $label .= " >";
+                    }
                     $texte = '<li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" role="button" href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
-                    . $label .
-                    '</a>';
-                    
+                        . $label .
+                        '</a>';
+
                     $texte .= '<ul class="dropdown-menu">';
                     if (count($valeur["item"]) == 1) {
                         $texte .= $this->lireItem($valeur["item"], $level);

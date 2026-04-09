@@ -480,7 +480,7 @@
 			<input type="hidden" id="sample_id" name="sample_id" value="{$data.sample_id}">
 			<input type="hidden" name="moduleBase" value="sample">
 			<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 				{if $data.sample_id > 0 }
 				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
@@ -488,8 +488,8 @@
 			</div>
 			<fieldset>
 				<legend>{t}Échantillon parent{/t}</legend>
-				<div class="form-group">
-					<label for="parent_sample_id" class="control-label col-md-4"> {t}Parent :{/t}</label>
+				<div class="row mb-6">
+					<label for="parent_sample_id" class="form-label col-md-4"> {t}Parent :{/t}</label>
 					<div class="col-md-2">
 						<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
 					</div>
@@ -509,15 +509,15 @@
 						<img src="display/images/eraser.png" height="25" title="{t}Supprimer le parent{/t}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="parent_collection" class="control-label col-md-4">{t}Collection :{/t}</label>
+				<div class="row mb-6">
+					<label for="parent_collection" class="form-label col-md-4">{t}Collection :{/t}</label>
 					<div class="col-md-8">
 						<input id="parent_collection" class="form-control" readonly
 							value="{$parent_sample.collection_name}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="parent_type" class="control-label col-md-4">{t}Type :{/t}</label>
+				<div class="row mb-6">
+					<label for="parent_type" class="form-label col-md-4">{t}Type :{/t}</label>
 					<div class="col-md-8">
 						<input id="parent_type" class="form-control" readonly value="{$parent_sample.sample_type_name}">
 					</div>
@@ -525,8 +525,8 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Données générales{/t}</legend>
-				<div class="form-group">
-					<label for="scan_label" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="scan_label" class="form-label col-md-4">
 						{t}Scannez l'étiquette existante :{/t}</label>
 					<div class="col-md-5">
 						<input id="scan_label" class="form-control"
@@ -538,15 +538,15 @@
 						</button>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="uid" class="control-label col-md-4">{t}UID :{/t}</label>
+				<div class="row mb-6">
+					<label for="uid" class="form-label col-md-4">{t}UID :{/t}</label>
 					<div class="col-md-8">
 						<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control"
 							title="{t}identifiant unique dans la base de données{/t}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="identifier" class="control-label col-md-4"><span class="red">*</span> 
+				<div class="row mb-6">
+					<label for="identifier" class="form-label col-md-4"><span class="red">*</span> 
 						{t}Identifiant ou nom :{/t}
 					</label>
 					<div class="col-md-6">
@@ -558,8 +558,8 @@
 							title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Générer{/t}</button>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span> 
+				<div class="row mb-6">
+					<label for="object_status_id" class="form-label col-md-4"><span class="red">*</span> 
 						{t}Statut :{/t}
 					</label>
 					<div class="col-md-8">
@@ -573,8 +573,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="collection_id" class="control-label col-md-4"><span class="red">*</span> 
+				<div class="row mb-6">
+					<label for="collection_id" class="form-label col-md-4"><span class="red">*</span> 
 						{t}Collection :{/t}
 					</label>
 					<div class="col-md-8">
@@ -588,8 +588,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="referentId" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="referentId" class="form-label col-md-4">
 						{t}Référent de l'échantillon :{/t}
 					</label>
 					<div class="col-md-8">
@@ -604,8 +604,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span> 
+				<div class="row mb-6">
+					<label for="sample_type_id" class="form-label col-md-4"><span class="red">*</span> 
 						{t}Type :{/t}
 					</label>
 					<div class="col-md-8">
@@ -613,8 +613,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="dbuid_origin" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="dbuid_origin" class="form-label col-md-4">
 						{t}Base de données et UID d'origine :{/t}
 					</label>
 					<div class="col-md-8">
@@ -622,8 +622,8 @@
 							placeholder="{t}db:uid. Exemple: col:125{/t}">
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="campaign_id" class="control-label col-md-4">
+				<div class="row mb-6 geographic">
+					<label for="campaign_id" class="form-label col-md-4">
 						{t}Campagne de prélèvement :{/t}
 					</label>
 					<div class="col-md-8">
@@ -638,8 +638,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">
+				<div class="row mb-6 geographic">
+					<label for="country_id" class="form-label col-md-4 lexical" data-lexical="country">
 						{t}Pays de collecte :{/t}
 					</label>
 					<div class="col-md-8">
@@ -654,8 +654,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="country_origin_id" class="control-label col-md-4 lexical"
+				<div class="row mb-6 geographic">
+					<label for="country_origin_id" class="form-label col-md-4 lexical"
 						data-lexical="country_origin">
 						{t}Pays de provenance :{/t}
 					</label>
@@ -672,8 +672,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="sampling_place_id" class="control-label col-md-4">
+				<div class="row mb-6 geographic">
+					<label for="sampling_place_id" class="form-label col-md-4">
 						{t}Lieu de prélèvement :{/t}
 					</label>
 					<div class="col-md-8">
@@ -681,8 +681,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="" class="control-label col-sm-4">
+				<div class="row mb-6">
+					<label for="" class="form-label col-sm-4">
 						{t}Mode de calcul des coordonnées GPS :{/t}
 					</label>
 					<div class="col-sm-8">
@@ -706,8 +706,8 @@
 						</table>
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
+				<div class="row mb-6 geographic">
+					<label for="wy" class="form-label col-md-4">{t}Latitude :{/t}</label>
 					<div class="col-md-8" id="wy">
 						{t}Format sexagesimal (45°01,234N) :{/t}
 						<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
@@ -716,8 +716,8 @@
 							class="form-control taux position" value="{$data.wgs84_y}">
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
+				<div class="row mb-6 geographic">
+					<label for="wx" class="form-label col-md-4">{t}Longitude :{/t}</label>
 					<div class="col-md-8" id="wx">
 						{t}Format sexagesimal (0°01,234W) :{/t}
 						<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
@@ -726,16 +726,16 @@
 							class="form-control taux position" value="{$data.wgs84_x}">
 					</div>
 				</div>
-				<div class="form-group geographic">
-					<label for="location_accuracy" class="control-label col-md-4 lexical"
+				<div class="row mb-6 geographic">
+					<label for="location_accuracy" class="form-label col-md-4 lexical"
 						data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
 					<div class="col-md-8">
 						<input id="sampling_date" class="form-control taux" name="location_accuracy"
 							value="{$data.location_accuracy}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="sampling_date" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="sampling_date" class="form-label col-md-4">
 						{t}Date de création/échantillonnage de l'échantillon :{/t}
 					</label>
 					<div class="col-md-8">
@@ -743,8 +743,8 @@
 							value="{$data.sampling_date}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="sample_creation_date" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="sample_creation_date" class="form-label col-md-4">
 						{t}Date d'import dans la base de données :{/t}
 					</label>
 					<div class="col-md-8">
@@ -752,8 +752,8 @@
 							value="{$data.sample_creation_date}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="expiration_date" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="expiration_date" class="form-label col-md-4">
 						{t}Date d'expiration de l'échantillon :{/t}
 					</label>
 					<div class="col-md-8">
@@ -761,8 +761,8 @@
 							value="{$data.expiration_date}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="object_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+				<div class="row mb-6">
+					<label for="object_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
 					<div class="col-md-8">
 						<textarea class="form-control" rows="3" id="object_comment"
 							name="object_comment">{$data.object_comment}</textarea>
@@ -776,8 +776,8 @@
 			</script>
 			<fieldset>
 				<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
-				<div class="form-group">
-					<label for="multiple_value" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="multiple_value" class="form-label col-md-4">
 						{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
 					<div class="col-md-8">
 						<input id="multiple_value" class="form-control taux" name="multiple_value"
@@ -793,8 +793,8 @@
 					});
 				</script>
 				<!-- record quantity extracted from parent-->
-				<div class="form-group">
-					<label for="subsample_quantity" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="subsample_quantity" class="form-label col-md-4">
 						{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
 					<div class="col-md-8">
 						<input id="subsample_quantity" class="form-control taux" name="subsample_quantity">
@@ -804,7 +804,7 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Jeu de métadonnées{/t}</legend>
-				<div class="form-group">
+				<div class="row mb-6">
 					<div class="col-md-10 col-sm-offset-1">
 						<div id="metadata"></div>
 					</div>
@@ -812,15 +812,15 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Informations diverses{/t}</legend>
-				<div class="form-group">
-					<label for="uuid" class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
+				<div class="row mb-6">
+					<label for="uuid" class="form-label col-md-4">{t}UID universel (UUID) :{/t}</label>
 					<div class="col-md-8">
 						<input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
 					</div>
 				</div>
 				{if $data.sample_id > 0}
-				<div class="form-group">
-					<label for="trashed" class="col-md-4 control-label">
+				<div class="row mb-6">
+					<label for="trashed" class="col-md-4 form-label">
 						{t}Échantillon en attente de suppression (mis à la corbeille) :{/t}
 					</label>
 					<div class="col-md-8" id="trashed">
@@ -842,7 +842,7 @@
 				</div>
 				{/if}
 			</fieldset>
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 				{if $data.sample_id > 0 }
 				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

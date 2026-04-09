@@ -30,7 +30,7 @@
 			</table>
 
 
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			</div>
 		{$csrf}

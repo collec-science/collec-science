@@ -86,38 +86,38 @@ $(document).ready(function() {
 <input type="hidden" name="id" value="{$data.id}">
 
 
-<div class="form-group">
-<label for="login" class="control-label col-md-4"><span class="red">*</span> {t}Login :{/t}</label>
+<div class="row mb-6">
+<label for="login" class="form-label col-md-4"><span class="red">*</span> {t}Login :{/t}</label>
 <div class="col-md-8">
 <input id="login" type="text" class="form-control" name="login" value="{$data.login}" autofocus>
 </div>
 </div>
 
-<div class="form-group">
-<label for="nom" class="col-md-4 control-label">{t}Nom de famille :{/t} </label>
+<div class="row mb-6">
+<label for="nom" class="col-md-4 form-label">{t}Nom de famille :{/t} </label>
 <div class="col-md-8">
 <input id="nom" type="text" class="form-control" name="nom" value="{$data.nom}"></div>
 </div>
-<div class="form-group">
-<label for="prenom" class="col-md-4 control-label">{t}Prénom :{/t} </label>
+<div class="row mb-6">
+<label for="prenom" class="col-md-4 form-label">{t}Prénom :{/t} </label>
 <div class="col-md-8">
 <input id="prenom" type="text" class="form-control" name="prenom" value="{$data.prenom}">
 </div>
 </div>
-<div class="form-group">
-<label for="mail" class="col-md-4 control-label">{t}Adresse e-mail :{/t} </label>
+<div class="row mb-6">
+<label for="mail" class="col-md-4 form-label">{t}Adresse e-mail :{/t} </label>
 <div class="col-md-8">
 <input type="email" id="mail" class="form-control" name="mail" value="{$data.mail}">
 </div>
 </div>
-<div class="form-group">
-<label for="datemodif" class="col-md-4 control-label">{t}Date :{/t} </label>
+<div class="row mb-6">
+<label for="datemodif" class="col-md-4 form-label">{t}Date :{/t} </label>
 <div class="col-md-8">
 <input class="form-control" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
 </div>
 </div>
-<div class="form-group">
-<label for="is_clientws_group" class="col-md-4 control-label">{t}Compte utilisé pour service web :{/t} </label>
+<div class="row mb-6">
+<label for="is_clientws_group" class="col-md-4 form-label">{t}Compte utilisé pour service web :{/t} </label>
 <div class="col-md-8 input-group">
 <div id="is_clientws_group" class="form-check form-check-inline">
 <input type="radio" class="form-check-input" id="is_clientws1" name="is_clientws" value="1" {if $data.is_clientws == 't'}checked{/if} >
@@ -129,8 +129,8 @@ $(document).ready(function() {
 </div>
 </div>
 </div>
-<div class="form-group">
-<label for="tokenws" class="col-md-4 control-label">{t}Jeton d'identification du service web :{/t} </label>
+<div class="row mb-6">
+<label for="tokenws" class="col-md-4 form-label">{t}Jeton d'identification du service web :{/t} </label>
 <div class="col-md-8">
 
 <input class="form-control" id="tokenws" name="tokenws" value="{$data.tokenws}" readonly>
@@ -141,14 +141,14 @@ $(document).ready(function() {
 </div>
 </div>
 {if $data.dbconnect_provisional_nb > 3}
-	<div class="form-group">
+	<div class="row mb-6">
 		<div class="col-md-12 center red">
 			{t}Le compte est verrouillé, le mot de passe n'a pas été changé après 3 connexions{/t}
 		</div>
 	</div>
 {/if}
-<div class="form-group">
-<label for="pass1" class="col-md-4 control-label"><span class="red">*</span> {t}Mot de passe :{/t} </label>
+<div class="row mb-6">
+<label for="pass1" class="col-md-4 form-label"><span class="red">*</span> {t}Mot de passe :{/t} </label>
 <div class="col-md-7">
 <input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1" >
 </div>
@@ -156,8 +156,8 @@ $(document).ready(function() {
 	<img src="display/images/framework/eye-open.png" height="16" id="passVisible" class="passwordVisible" data-fieldnumber="0">
 </div>
 </div>
-<div class="form-group">
-<label for="pass2" class="col-md-4 control-label"><span class="red">*</span> {t}Répétez le mot de passe :{/t} </label>
+<div class="row mb-6">
+<label for="pass2" class="col-md-4 form-label"><span class="red">*</span> {t}Répétez le mot de passe :{/t} </label>
 <div class="col-md-7">
 <input type="password" class="form-control" id="pass2" autocomplete="off" name="pass2">
 </div>
@@ -165,8 +165,8 @@ $(document).ready(function() {
 	<img src="display/images/framework/eye-open.png" height="16" id="passVisible2" class="passwordVisible" data-fieldnumber="1">
 </div>
 </div>
-<div class="form-group">
-<label for="generate" class="col-md-4 control-label">{t}Générez un mot de passe aléatoire{/t}</label>
+<div class="row mb-6">
+<label for="generate" class="col-md-4 form-label">{t}Générez un mot de passe aléatoire{/t}</label>
 <div class="col-md-2">
 <input id="generate" type="button" class="btn btn-info" name="generate" value="{t}Générez{/t}" >
 </div>
@@ -192,8 +192,8 @@ $(document).ready(function() {
 </ul>
 </div>
 </div>
-<div class="form-group">
-<label for="actif" class="col-md-4 control-label">{t}Actif{/t}</label>
+<div class="row mb-6">
+<label for="actif" class="col-md-4 form-label">{t}Actif{/t}</label>
 <span id="actif">
 <label class="radio-inline">
 <input type="radio" name="actif" value="1" {if $data.actif == 1}checked{/if}>{t}oui{/t}
@@ -203,8 +203,8 @@ $(document).ready(function() {
 </label>
 </span>
 </div>
-<div class="form-group">
-	<label for="attempts" class="col-md-4 control-label">{t}Essais de connexion infructueux et date du dernier essai :{/t}</label>
+<div class="row mb-6">
+	<label for="attempts" class="col-md-4 form-label">{t}Essais de connexion infructueux et date du dernier essai :{/t}</label>
 	<div class="col-md-2">
 		<input class="form-control" id="nbattempts" name="nbattempts" value="{$data.nbattempts}" readonly>
 	</div>
@@ -213,10 +213,10 @@ $(document).ready(function() {
 	</div>
 	<div class="col-md-2">
 		<input type="checkbox" class="form-control" id="resetattempts" name="resetattempts" value="1">
-		<label class="control-label">{t}Réinitialiser...{/t}</label>
+		<label class="form-label">{t}Réinitialiser...{/t}</label>
 	</div>
 </div>
-<div class="form-group center">
+<div class="row mb-6 center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

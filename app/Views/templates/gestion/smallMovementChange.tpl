@@ -535,8 +535,8 @@
 			</div>
 		</div>
 		<div class="form-horizontal col-xs-12 col-lg-10">
-			<div class="form-group">
-				<label class="col-xs-4 control-label ">{t}Caméra :{/t}</label>
+			<div class="row mb-6">
+				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 				<div class="col-xs-8">
 					<select id="cam-list" class="form-control ">
 						<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
@@ -544,8 +544,8 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-xs-4 control-label ">{t}Mode couleur :{/t}</label>
+			<div class="row mb-6">
+				<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 				<div class="col-xs-8">
 					<select id="inversion-mode-select" class="form-control ">
 						<option value="original">Scan original (dark QR code on bright background)</option>
@@ -555,8 +555,8 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="cam-has-flash" class="col-xs-4 control-label ">{t}Flash présent :{/t}</label>
+			<div class="row mb-6">
+				<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
 				<div class="col-xs-8">
 					<span id="cam-has-flash"></span>
 					<button id="flash-toggle">

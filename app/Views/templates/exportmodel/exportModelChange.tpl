@@ -34,17 +34,17 @@
             <input type="hidden" name="moduleBase" value="exportModel">
             <input type="hidden" name="export_model_id" value="{$data.export_model_id}">
             <input type="hidden" name="pattern" id="pattern" value="{$data.pattern}">
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
             </div>
-            <div class="form-group">
-                <label for="export_model_name"  class="control-label col-md-4"><span class="red">*</span> {t}Nom du modèle :{/t}</label>
+            <div class="row mb-6">
+                <label for="export_model_name"  class="form-label col-md-4"><span class="red">*</span> {t}Nom du modèle :{/t}</label>
                 <div class="col-md-8">
                 <input id="export_model_name" type="text" class="form-control" name="export_model_name" value="{$data.export_model_name}" required autofocus>
                 </div>
             </div>
             <div id="alpacaPattern"></div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.export_model_id > 0 }
                  <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

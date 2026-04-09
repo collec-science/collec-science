@@ -41,13 +41,13 @@
     <div class="col-lg-12">
         <ul class="nav nav-tabs" id="datasetTab" role="tablist">
             <li class="nav-item active">
-                <a class="nav-link datasetTab" id="tabgeneral" data-toggle="tab" role="tab" aria-controls="navgeneral"
+                <a class="nav-link datasetTab" id="tabgeneral" data-bs-toggle="tab" role="tab" aria-controls="navgeneral"
                     aria-selected="true" href="#navgeneral">
                     {t}Informations générales{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-toggle="tab" role="tab"
+                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-bs-toggle="tab" role="tab"
                     aria-controls="navcols" aria-selected="false">
                     {t}Liste des échantillons exportés{/t}
                 </a>

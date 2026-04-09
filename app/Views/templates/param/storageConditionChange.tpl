@@ -5,8 +5,8 @@
             <form class="form-horizontal " id="loginForm" method="post" action="storageConditionWrite">
                   <input type="hidden" name="moduleBase" value="storageCondition">
                   <input type="hidden" name="storage_condition_id" value="{$data.storage_condition_id}">
-                  <div class="form-group">
-                        <label for="storageConditionName" class="control-label col-md-4"><span class="red">*</span>
+                  <div class="row mb-6">
+                        <label for="storageConditionName" class="form-label col-md-4"><span class="red">*</span>
                               {t}Nom :{/t}</label>
                         <div class="col-md-8">
                               <input id="storageConditionName" type="text" class="form-control"
@@ -15,7 +15,7 @@
                         </div>
                   </div>
 
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.storage_condition_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

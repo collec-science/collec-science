@@ -8,8 +8,8 @@
         <form class="form-horizontal " id="sampleTypeForm" method="post" action="sampleTypeWrite">
             <input type="hidden" name="moduleBase" value="sampleType">
             <input type="hidden" name="sample_type_id" value="{$data.sample_type_id}">
-            <div class="form-group">
-                <label for="sampleTypeName" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="sampleTypeName" class="form-label col-md-4">
                     <span class="red">*</span>
                     {t}Nom :{/t}
                 </label>
@@ -18,8 +18,8 @@
                         value="{$data.sample_type_name}" autofocus required>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="sampleTypeCode" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="sampleTypeCode" class="form-label col-md-4">
                     {t}Code utilisé pour les échanges d'informations avec d'autres organismes :{/t}
                 </label>
                 <div class="col-md-8">
@@ -27,8 +27,8 @@
                         value="{$data.sample_type_code}">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="container_type_id" class="control-label col-md-4">{t}Type de contenant :{/t}</label>
+            <div class="row mb-6">
+                <label for="container_type_id" class="form-label col-md-4">{t}Type de contenant :{/t}</label>
                 <div class="col-md-8">
                     <select id="container_type_id" name="container_type_id" class="form-control">
                         <option value="" {if $data.container_type_id=="" }selected{/if}>
@@ -44,8 +44,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="operation_id" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="operation_id" class="form-label col-md-4">
                     {t}Protocole / opération :{/t}
                 </label>
                 <div class="col-md-8">
@@ -64,16 +64,16 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="sampleTypeDescription" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="sampleTypeDescription" class="form-label col-md-4">
                     {t}Description :{/t}</label>
                 <div class="col-md-8">
                     <textarea class="form-control" rows="3" name="sample_type_description"
                         id="sampleTypeDescription">{$data.sample_type_description}</textarea>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="metadata_id" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="metadata_id" class="form-label col-md-4">
                     {t}Modèle de métadonnées :{/t}
                 </label>
                 <div class="col-md-8">
@@ -93,8 +93,8 @@
 
             <fieldset>
                 <legend>{t}Produit de conservation{/t}</legend>
-                <div class="form-group">
-                    <label for="product_id" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="product_id" class="form-label col-md-4">
                         {t}Produit utilisé :{/t}
                     </label>
                     <div class="col-md-8">
@@ -111,16 +111,16 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="productNew" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="productNew" class="form-label col-md-4">
                         {t}ou nouveau produit :{/t}
                     </label>
                     <div class="col-md-8">
                         <input id="productNew" type="text" class="form-control" name="productNew">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="risk_id" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="risk_id" class="form-label col-md-4">
                         {t}Risque (code CLP) :{/t}
                     </label>
                     <div class="col-md-8">
@@ -136,8 +136,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="riskNew" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="riskNew" class="form-label col-md-4">
                         {t}ou nouveau risque :{/t}</label>
                     <div class="col-md-8">
                         <input id="riskNew" type="text" class="form-control" name="riskNew">
@@ -148,8 +148,8 @@
             <fieldset>
                 <legend>{t}Sous-échantillonnage{/t}</legend>
 
-                <div class="form-group">
-                    <label for="multiple_type_id" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="multiple_type_id" class="form-label col-md-4">
                         {t}Nature :{/t}
                     </label>
                     <div class="col-md-8">
@@ -165,8 +165,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="multiple_unit" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="multiple_unit" class="form-label col-md-4">
                         {t}Unité de base :{/t}
                     </label>
                     <div class="col-md-8">
@@ -175,8 +175,8 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="identifier_generator_js" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="identifier_generator_js" class="form-label col-md-4">
                         {t}Code javascript de génération de l'identifiant :{/t}</label>
                     <div class="col-md-8">
                         <input id="identifier_generator_js" type="text" class="form-control"
@@ -187,7 +187,7 @@
 
             </fieldset>
 
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.sample_type_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

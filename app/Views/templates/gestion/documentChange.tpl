@@ -31,8 +31,8 @@
 		<input type="hidden" name="collection_id" value="{$data.collection_id}">
 		<input type="hidden" name="parentKeyName" value="{$parentKeyName}">
 		<input type="hidden" name="activeTab" value="tab-document">
-		<div class="form-group">
-			<label for="documentName" class="control-label col-md-4">
+		<div class="row mb-6">
+			<label for="documentName" class="form-label col-md-4">
 				{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 			</label>
 			<div class="col-md-8">
@@ -40,22 +40,22 @@
 					name="documentName[]" multiple>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="document_description" class="control-label col-md-4">
+		<div class="row mb-6">
+			<label for="document_description" class="form-label col-md-4">
 				{t}Description :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_description" name="document_description" class="form-control">
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="document_creation_date" class="control-label col-md-4">
+		<div class="row mb-6">
+			<label for="document_creation_date" class="form-label col-md-4">
 				{t}Date de création du document :{/t} </label>
 			<div class="col-md-8">
 				<input id="document_creation_date" name="document_creation_date"
 					class="form-control datepicker">
 			</div>
 		</div>
-		<div class="form-group center">
+		<div class="row mb-6 center">
 			<button type="submit" class="btn btn-primary">{t}Envoyer le fichier{/t}</button>
 			<img id="documentSpinner" src="display/images/spinner.gif" height="25" hidden>
 		</div>

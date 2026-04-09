@@ -16,23 +16,23 @@
     <form class="form-horizontal " id="identifierTypeForm" method="post" action="identifierTypeWrite">
       <input type="hidden" name="moduleBase" value="identifierType">
       <input type="hidden" name="identifier_type_id" value="{$data.identifier_type_id}">
-      <div class="form-group">
-        <label for="identifierTypeName" class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
+      <div class="row mb-6">
+        <label for="identifierTypeName" class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-md-8">
           <input id="identifierTypeName" type="text" class="form-control" name="identifier_type_name"
             value="{$data.identifier_type_name}" autofocus required>
         </div>
       </div>
-      <div class="form-group">
-        <label for="identifierTypeCode" class="control-label col-md-4">
+      <div class="row mb-6">
+        <label for="identifierTypeCode" class="form-label col-md-4">
           {t}Code utilisé (étiquettes, recherche, import) :{/t}</label>
         <div class="col-md-8">
           <input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code"
             value="{$data.identifier_type_code}">
         </div>
       </div>
-      <div class="form-group">
-        <label for="search" class="control-label col-md-4"><span class="red">*</span> 
+      <div class="row mb-6">
+        <label for="search" class="form-label col-md-4"><span class="red">*</span> 
           {t}Identifiant utilisé dans les recherches ?{/t}</label>
         <div class="col-md-8" id="search">
           <div class="radio">
@@ -50,7 +50,7 @@
         </div>
       </div>
 
-      <div class="form-group center">
+      <div class="row mb-6 center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.identifier_type_id > 0 }
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

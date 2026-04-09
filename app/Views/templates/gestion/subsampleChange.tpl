@@ -128,8 +128,8 @@
             <input type="hidden" name="uid" value="{$sample.uid}">
             <input type="hidden" name="subsample_login" value="{$data.subsample_login}">
 
-            <div class="form-group">
-                <label for="subsampling_date" class="control-label col-md-4"><span class="red">*</span>
+            <div class="row mb-6">
+                <label for="subsampling_date" class="form-label col-md-4"><span class="red">*</span>
                     {t}Date :{/t}
                 </label>
                 <div class="col-md-8">
@@ -138,8 +138,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="movement_type_id" class="control-label col-md-4"><span class="red">*</span>
+            <div class="row mb-6">
+                <label for="movement_type_id" class="form-label col-md-4"><span class="red">*</span>
                     {t}Mouvement :{/t}
                 </label>
                 <div class="col-md-8">
@@ -154,8 +154,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="subsample_quantity" class="control-label col-md-4"><span class="red">*</span>
+            <div class="row mb-6">
+                <label for="subsample_quantity" class="form-label col-md-4"><span class="red">*</span>
                     {t 1=$data.multiple_unit}Quantité (%1) :{/t}
                 </label>
                 <div class="col-md-8">
@@ -164,8 +164,8 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="borrower_id" class="control-label col-md-4">{t}Emprunteur :{/t}</label>
+            <div class="row mb-6">
+                <label for="borrower_id" class="form-label col-md-4">{t}Emprunteur :{/t}</label>
                 <div class="col-md-8">
                     <select id="borrower_id" name="borrower_id" class="form-control">
                         <option value="" {if $data.borrower_id=="" }selected{/if}>
@@ -181,16 +181,16 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="subsample_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+            <div class="row mb-6">
+                <label for="subsample_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
                 <div class="col-md-8">
                     <textarea id="subsample_comment" name="subsample_comment" class="form-control"
                         rows="3">{$data.subsample_comment}</textarea>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="with_create" class="control-label col-md-4 lexical" data-lexical="composite">
+            <div class="row mb-6">
+                <label for="with_create" class="form-label col-md-4 lexical" data-lexical="composite">
                     {t}Avec création ou rattachement à un échantillon composé :{/t}
                 </label>
                 <div class="col-md-8 center">
@@ -199,14 +199,14 @@
             </div>
 
             <div id="created" hidden>
-                <div class="form-group">
-                    <label for="identifier" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
+                <div class="row mb-6">
+                    <label for="identifier" class="form-label col-md-4">{t}Identifiant ou nom :{/t}</label>
                     <div class="col-md-8">
                         <input id="identifier" type="text" name="identifier" class="form-control tocreate">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="collection_id" class="control-label col-md-4"><span class="red">*</span>
+                <div class="row mb-6">
+                    <label for="collection_id" class="form-label col-md-4"><span class="red">*</span>
                         {t}Collection :{/t}</label>
                     <div class="col-md-8">
                         <select id="collection_id" name="collection_id" class="form-control tocreate" autofocus>
@@ -218,8 +218,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span>
+                <div class="row mb-6">
+                    <label for="sample_type_id" class="form-label col-md-4"><span class="red">*</span>
                         {t}Type :{/t}
                     </label>
                     <div class="col-md-8">
@@ -227,13 +227,13 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="uidsearch" class="col-md-4 control-label">
+                <div class="row mb-6">
+                    <label for="uidsearch" class="col-md-4 form-label">
                         {t}Échantillon déjà existant - UID :{/t}</label>
                     <div class="col-md-2">
                         <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$data.created_uid}">
                     </div>
-                    <label for="namesearch" class="col-md-2 control-label">
+                    <label for="namesearch" class="col-md-2 form-label">
                         {t}ou identifiant ou UUID :{/t}
                     </label>
                     <div class="col-md-3">
@@ -244,8 +244,8 @@
                         <img src="display/images/zoom.png" height="25">
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="uid" class="col-md-4 control-label">
+                <div class="row mb-6">
+                    <label for="uid" class="col-md-4 form-label">
                         {t}Échantillon composé correspondant :{/t}
                     </label>
                     <div class="col-md-8">
@@ -253,8 +253,8 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="multiple_value" class="control-label col-md-4">
+                <div class="row mb-6">
+                    <label for="multiple_value" class="form-label col-md-4">
                         {t 1=$data.multiple_unit}Quantité affectée à l'échantillon (%1):{/t}</label>
                     <div class="col-md-8">
                         <input id="multiple_value" class="form-control taux" name="multiple_value">
@@ -262,7 +262,7 @@
                 </div>
             </div>
 
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.subsample_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -7,26 +7,26 @@
             <form class="form-horizontal " id="collectionForm" method="post" action="collectionWrite">
                   <input type="hidden" name="moduleBase" value="collection">
                   <input type="hidden" name="collection_id" value="{$data.collection_id}">
-                  <div class="form-group">
-                        <label for="collectionName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="collectionName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
                         <div class="col-md-8">
                               <input id="collectionName" type="text" class="form-control" name="collection_name" value="{$data.collection_name}" autofocus required>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="collectionDisplayname"  class="control-label col-md-4"> {t}Nom public, communiqué à l'extérieur :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="collectionDisplayname"  class="form-label col-md-4"> {t}Nom public, communiqué à l'extérieur :{/t}</label>
                         <div class="col-md-8">
                               <input id="collectionDisplayname" type="text" class="form-control" name="collection_displayname" value="{$data.collection_displayname}" >
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="collectionDisplayname"  class="control-label col-md-4"> {t}Mots clés, séparés par une virgule :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="collectionDisplayname"  class="form-label col-md-4"> {t}Mots clés, séparés par une virgule :{/t}</label>
                         <div class="col-md-8">
                               <input id="collectionKeywords" type="text" class="form-control" name="collection_keywords" value="{$data.collection_keywords}" >
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="referentId"  class="control-label col-md-4">{t}Référent de la collection :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="referentId"  class="form-label col-md-4">{t}Référent de la collection :{/t}</label>
                         <div class="col-md-8">
                               <select id="referentId" name="referent_id" class="form-control">
                                     <option value="" {if $data.referent_id == ""}selected{/if}>Choisissez...</option>
@@ -38,8 +38,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="columns"  class="control-label col-md-4">{t}Flux de modification entrants autorisés :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="columns"  class="form-label col-md-4">{t}Flux de modification entrants autorisés :{/t}</label>
                         <div class="col-md-8">
                               <div class="radio">
                                     <label>
@@ -53,8 +53,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="allowed_export_flow"  class="control-label col-md-4">{t}Flux d'interrogation externes autorisés :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="allowed_export_flow"  class="form-label col-md-4">{t}Flux d'interrogation externes autorisés :{/t}</label>
                         <div class="col-md-8">
                               <div class="radio" id="allowed_export_flow">
                                     <label>
@@ -68,8 +68,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="public_collection"  class="control-label col-md-4">{t}Collection publique ?{/t}</label>
+                  <div class="row mb-6">
+                        <label for="public_collection"  class="form-label col-md-4">{t}Collection publique ?{/t}</label>
                         <div class="col-md-8">
                               <div class="radio" id="public_collection">
                                     <label>
@@ -83,8 +83,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="license_id" class="control-label col-md-4">{t}Licence de diffusion :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="license_id" class="form-label col-md-4">{t}Licence de diffusion :{/t}</label>
                         <div class="col-md-8">
                               <select id="license_id" name="license_id" class="form-control">
                                     <option value="" {if $data.license_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
@@ -94,8 +94,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="no_localization"  class="control-label col-md-4">{t}Collection sans gestion de la localisation des échantillons ?{/t}</label>
+                  <div class="row mb-6">
+                        <label for="no_localization"  class="form-label col-md-4">{t}Collection sans gestion de la localisation des échantillons ?{/t}</label>
                         <div class="col-md-8">
                               <div class="radio">
                                     <label>
@@ -109,8 +109,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="external_storage_enabled"  class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="external_storage_enabled"  class="form-label col-md-4">
                               {t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}
                         </label>
                         <div class="col-md-8">
@@ -126,15 +126,15 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="external_storage_root"  class="control-label col-md-4"> {t}Chemin d'accès aux fichiers externes :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="external_storage_root"  class="form-label col-md-4"> {t}Chemin d'accès aux fichiers externes :{/t}</label>
                         <div class="col-md-8">
                               <input id="external_storage_root" type="text" class="form-control" name="external_storage_root" value="{$data.external_storage_root}" >
                         </div>
                   </div>
 
-                  <div class="form-group">
-                        <label for="groupes"  class="control-label col-md-4">{t}Groupes :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="groupes"  class="form-label col-md-4">{t}Groupes :{/t}</label>
                         <div class="col-md-7">
                               {section name=lst loop=$groupes}
                                     <div class="col-md-2 col-sm-offset-3">
@@ -148,8 +148,8 @@
                               {/section}
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="sampletypes"  class="control-label col-md-4">{t}Types d'échantillons spécifiques de la collection :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="sampletypes"  class="form-label col-md-4">{t}Types d'échantillons spécifiques de la collection :{/t}</label>
                         <div class="col-md-7">
                               {section name=lst loop=$sampletypes}
                                     <div class="col-md-6 ">
@@ -163,8 +163,8 @@
                               {/section}
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="eventtypes"  class="control-label col-md-4">{t}Types d'événements spécifiques de la collection :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="eventtypes"  class="form-label col-md-4">{t}Types d'événements spécifiques de la collection :{/t}</label>
                         <div class="col-md-7">
                               {section name=lst loop=$eventtypes}
                                     <div class="col-md-6 ">
@@ -178,7 +178,7 @@
                               {/section}
                         </div>
                   </div>
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.collection_id > 0 }
                               <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

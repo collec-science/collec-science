@@ -559,8 +559,8 @@ $(document).ready(function () {
 					</select>
 					<!-- add a borrowing -->
 					<div class="borrowing" hidden>
-						<div class="form-group " >
-							<label for="borrower_id"class="control-label col-md-4">
+						<div class="row mb-6 " >
+							<label for="borrower_id"class="form-label col-md-4">
 								<span class="red">*</span> {t}Emprunteur :{/t}
 							</label>
 							<div class="col-md-8">
@@ -573,14 +573,14 @@ $(document).ready(function () {
 								</select>
 							</div>
 						</div>
-						<div class="form-group " >
-							<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="borrowing_date" class="form-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
 							<div class="col-md-8">
 								<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker" >
 							</div>
 						</div>
-						<div class="form-group " >
-							<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="expected_return_date" class="form-label col-md-4">{t}Date de retour escomptée :{/t}</label>
 							<div class="col-md-8">
 								<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker" >
 							</div>
@@ -598,8 +598,8 @@ $(document).ready(function () {
 						</select>
 					</div>
 					<div class="trashedgroup" hidden>
-							<div class="form-group " >
-							<label for="trashedbin" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
+							<div class="row mb-6 " >
+							<label for="trashedbin" class="form-label col-md-4">{t}Traitement de la corbeille{/t}</label>
 							<div class="col-md-8">
 								<select class="form-control" name="settrashed" id="trashedbin">
 									<option value="1">{t}Mettre à la corbeille{/t}</option>
@@ -636,14 +636,14 @@ $(document).ready(function () {
 						});
 					</script>
 					<div class="entry" hidden>
-						<div class="form-group " >
-							<label for="container_uid" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="container_uid" class="form-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 							<div class="col-md-8">
 								<input id="container_uid" name="container_uid" value="" type="number" class="form-control slotFull">
 							</div>
 						</div>
-						<div class="form-group " >
-							<label for="containers_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="containers_family_id" class="form-label col-md-4">{t}ou recherchez :{/t}</label>
 								<div class="col-md-8">
 									<select id="containers_family_id" class="form-control">
 										<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
@@ -661,23 +661,23 @@ $(document).ready(function () {
 									</select>
 								</div>
 						</div>
-						<div class="form-group " >
-							<label for="storage_location" class="control-label col-md-4">
+						<div class="row mb-6 " >
+							<label for="storage_location" class="form-label col-md-4">
 								{t}Emplacement dans le contenant (format libre) :{/t}
 							</label>
 							<div class="col-md-8">
 								<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 							</div>
 						</div>
-						<div class="form-group " >
-							<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="line_number" class="form-label col-sm-4">{t}N° de ligne :{/t}</label>
 							<div class="col-sm-8">
 								<input id="line_number" name="line_number"
 									value="" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 							</div>
 						</div>
-						<div class="form-group " >
-							<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
+						<div class="row mb-6 " >
+							<label for="column_number" class="form-label col-sm-4">{t}N° de colonne :{/t}</label>
 							<div class="col-sm-8">
 								<input id="column_number" name="column_number"
 									value="" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
@@ -685,8 +685,8 @@ $(document).ready(function () {
 						</div>
 					</div>
 					<!-- set status -->
-			<div class="form-group status" hidden>
-				<label for="object_status_id" class="col-sm-4 control-label">{t}Statut :{/t}</label>
+			<div class="row mb-6 status" hidden>
+				<label for="object_status_id" class="col-sm-4 form-label">{t}Statut :{/t}</label>
 				<div class="col-sm-8">
 						<select id="object_status_id" name="object_status_id" class="form-control">
 							<option value="" selected>{t}Choisissez...{/t}</option>
@@ -698,8 +698,8 @@ $(document).ready(function () {
 			</div>
 			<!-- set collection-->
 			<div class="collection" hidden>
-				<div class="form-group ">
-					<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
+				<div class="row mb-6 ">
+					<label for="collection_id_change" class="form-label col-sm-4">{t}Nouvelle collection :{/t}</label>
 					<div class="col-sm-8">
 						<select id="collection_id_change" name="collection_id_change" class="form-control">
 							<option value="" selected>{t}Choisissez...{/t}</option>

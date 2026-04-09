@@ -36,16 +36,16 @@
             <input type="hidden" name="uid" value="{$object.uid}">
             <input type="hidden" name="activeTab" value="{$activeTab}">
 
-            <div class="form-group">
-                <label for="event_date" class="control-label col-md-4">{t}Date :{/t}</label>
+            <div class="row mb-6">
+                <label for="event_date" class="form-label col-md-4">{t}Date :{/t}</label>
                 <div class="col-md-8">
                     <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
                 </div>
             </div>
 
 
-            <div class="form-group">
-                <label for="container_status_id" class="control-label col-md-4"><span class="red">*</span> 
+            <div class="row mb-6">
+                <label for="container_status_id" class="form-label col-md-4"><span class="red">*</span> 
                     {t}Type d'évenement :{/t}
                 </label>
                 <div class="col-md-8">
@@ -60,8 +60,8 @@
                 </div>
             </div>
             {if $moduleParent == "sample"}
-            <div class="form-group">
-                <label for="still_available" class="control-label col-md-4">{t}Reste disponible :{/t}</label>
+            <div class="row mb-6">
+                <label for="still_available" class="form-label col-md-4">{t}Reste disponible :{/t}</label>
                 <div class="col-md-8">
                     <input id="still_available" type="text" name="still_available" value="{$data.still_available}"
                         class="form-control">
@@ -69,22 +69,22 @@
             </div>
             {/if}
 
-            <div class="form-group">
-                <label for="due_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
+            <div class="row mb-6">
+                <label for="due_date" class="form-label col-md-4">{t}Date d'échéance :{/t}</label>
                 <div class="col-md-8">
                     <input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+            <div class="row mb-6">
+                <label for="event_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
                 <div class="col-md-8">
                     <textarea id="event_comment" name="event_comment" class="form-control"
                         rows="3">{$data.event_comment}</textarea>
                 </div>
             </div>
 
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.event_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

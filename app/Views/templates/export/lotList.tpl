@@ -24,8 +24,8 @@
         <form id="lotSearch" action="lotList" method="GET">
             <input type="hidden" name="moduleBase" value="lot">
             <div class="row">
-                <div class="form-group">
-                    <label for="collection_id" class="col-sm-3 control-label">{t}Collection :{/t}</label>
+                <div class="row mb-6">
+                    <label for="collection_id" class="col-sm-3 form-label">{t}Collection :{/t}</label>
                     <div class="col-sm-3">
                         <select id="collection_id" class="form-control">
                             {foreach $collections as $collection}

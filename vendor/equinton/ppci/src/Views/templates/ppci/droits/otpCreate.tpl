@@ -52,8 +52,8 @@
     </div>
 
     <form id="otpform" class="form-horizontal protoform" method="post" action="totpCreateVerify">
-        <div class="form-group">
-            <label for="otpcode" class="control-label col-md-4">{t}Code généré par le logiciel TOTP :{/t} </label>
+        <div class="row mb-6">
+            <label for="otpcode" class="form-label col-md-4">{t}Code généré par le logiciel TOTP :{/t} </label>
             <div class="col-md-8">
                 <input id="otpcode" type="number" class="form-control" name="otpcode" class="nombre" required autofocus>
             </div>

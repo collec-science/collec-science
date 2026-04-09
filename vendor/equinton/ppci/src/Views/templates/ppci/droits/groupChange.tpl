@@ -8,21 +8,21 @@
 <input type="hidden" name="action" value="Write">
 <input type="hidden" name="aclgroup_id" value="{$data.aclgroup_id}">
 <!--input type="hidden" name="aclgroup_id_parent" value="{$data.aclgroup_id_parent}"-->
-<div class="form-group center">
+<div class="row mb-6 center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.aclgroup_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
 </div>
-<div class="form-group">
-<label for="groupe" class="control-label col-md-4">
+<div class="row mb-6">
+<label for="groupe" class="form-label col-md-4">
 <span class="red">*</span> {t}Nom du groupe :{/t}
 </label>
 <div class="col-md-8"><input type="text" class="form-control" id="groupe" name="groupe" value="{$data.groupe}" autofocus required>
 </div>
 </div>
-<div class="form-group">
-      <label for="aclgroup_id_parent" class="control-label col-md-4">{t}Groupe de rattachement{/t}</label>
+<div class="row mb-6">
+      <label for="aclgroup_id_parent" class="form-label col-md-4">{t}Groupe de rattachement{/t}</label>
       <div class="col-md-8">
             <select id="aclgroup_id_parent" name="aclgroup_id_parent" class="form-control">
             <option value="" {if $data.aclgroup_id_parent == ""}selected{/if}></option>
@@ -36,7 +36,7 @@
             </select>
       </div>
 </div>
-<div class="form-group">
+<div class="row mb-6">
 <fieldset class="col-lg-12">
 <legend><span class="red">*</span> {t}Logins rattachés{/t}</legend>
 {section name=lst loop=$logins}

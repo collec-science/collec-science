@@ -486,3 +486,8 @@ bootstrap5
 a {
 	color:#003A80;
 }
+.buttons-html5,
+.buttons-colvis{
+		color: white;
+	background-color: #003A80;
+}

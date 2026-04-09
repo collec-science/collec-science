@@ -10,8 +10,8 @@
     <div class="row">
         <form id="otpform" class="form-horizontal protoform" method="post" action="totpVerifyExec">
             <input type="hidden" name="moduleCalled" value="{$moduleCalled}"">
-        <div class=" form-group">
-            <label for="otpcode" class="control-label col-md-4">
+        <div class=" row mb-6">
+            <label for="otpcode" class="form-label col-md-4">
                 {t}Code généré par le logiciel TOTP :{/t}
             </label>
             <div class="col-md-8">
@@ -20,8 +20,8 @@
             </div>
     </div>
     {if !$isAdmin}
-    <div class="form-group">
-        <label for="otptrusted" class="control-label col-md-4">
+    <div class="row mb-6">
+        <label for="otptrusted" class="form-label col-md-4">
             {t}Faire confiance à ce navigateur :{/t}
         </label>
         <div class="col-md-8">

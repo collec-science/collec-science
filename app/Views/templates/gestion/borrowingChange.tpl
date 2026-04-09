@@ -43,8 +43,8 @@
             <input type="hidden" name="uid" value="{$data.uid}">
             <input type="hidden" name="activeTab" value="{$activeTab}">
 
-            <div class="form-group" >
-                <label for="borrower_id"class="control-label col-md-4">
+            <div class="row mb-6" >
+                <label for="borrower_id"class="form-label col-md-4">
                      {t}Emprunteur :{/t}<span class="red">*</span>
                 </label>
                 <div class="col-md-8">
@@ -57,31 +57,31 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group" >
-                <label for="borrowing_date" class="control-label col-md-4">{t}Date d'emprunt :{/t}<span class="red">*</span></label>
+            <div class="row mb-6" >
+                <label for="borrowing_date" class="form-label col-md-4">{t}Date d'emprunt :{/t}<span class="red">*</span></label>
                 <div class="col-md-8">
                     <input id="borrowing_date" name="borrowing_date" value="{$data.borrowing_date}" class="form-control datepicker" >
                 </div>
             </div>
-            <div class="form-group" >
-                <label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
+            <div class="row mb-6" >
+                <label for="expected_return_date" class="form-label col-md-4">{t}Date de retour escomptée :{/t}</label>
                 <div class="col-md-8">
                     <input id="expected_return_date" name="expected_return_date" value="{$data.expected_return_date}" class="form-control datepicker" >
                 </div>
             </div>
-            <div class="form-group">
-                <label for="borrowing_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+            <div class="row mb-6">
+                <label for="borrowing_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
                 <div class="col-md-8">
                 <textarea id="borrowing_comment" name="borrowing_comment"  class="form-control" rows="3">{$data.borrowing_comment}</textarea>
                 </div>
                 </div>
-            <div class="form-group" >
-                    <label for="return_date" class="control-label col-md-4">{t}Date de retour réelle :{/t}</label>
+            <div class="row mb-6" >
+                    <label for="return_date" class="form-label col-md-4">{t}Date de retour réelle :{/t}</label>
                     <div class="col-md-8">
                         <input id="return_date" name="return_date" value="{$data.return_date}" class="form-control datepicker" >
                     </div>
                 </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                     {if $data.borrower_id > 0 }
                     <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -59,16 +59,16 @@
       <div class="col-md-6">
             <form class="form-horizontal" id="controlForm" method="post" action="importControl"
                   enctype="multipart/form-data">
-                  <div class="form-group">
-                        <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
+                  <div class="row mb-6">
+                        <label for="upfile" class="form-label col-md-4"><span class="red">*</span> 
                               {t}Nom du fichier à importer (CSV) :{/t}
                         </label>
                         <div class="col-md-8">
                               <input type="file" name="upfile" class="form-control" required>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="separator" class="form-label col-md-4">{t}Séparateur utilisé :{/t}</label>
                         <div class="col-md-8">
                               <select id="separator" name="separator" class="form-control">
                                     <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
@@ -77,8 +77,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
+                  <div class="row mb-6">
+                        <label for="utf8_encode" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
                         <div class="col-md-8">
                               <select id="utf8_encode" name="utf8_encode" class="form-control">
                                     <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
@@ -86,8 +86,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="onlyCollectionSearch" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="onlyCollectionSearch" class="form-label col-md-4">
                               {t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}
                         </label>
                         <div class="col-md-8">
@@ -97,7 +97,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
                   </div>
             {$csrf}</form>

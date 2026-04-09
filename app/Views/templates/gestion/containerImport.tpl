@@ -2,14 +2,14 @@
 <div class="row">
     <div class="col-md-6">
         <form class="form-horizontal " id="containerStage1" method="post" action="containerImportStage2" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
+            <div class="row mb-6">
+                <label for="upfile" class="form-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
                 <div class="col-md-8">
                     <input type="file" name="upfile" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="utf8_encode" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
+            <div class="row mb-6">
+                <label for="utf8_encode" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
                 <div class="col-md-8">
                     <select id="utf8_encode" name="utf8_encode">
                         <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
@@ -17,7 +17,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
             </div>
         {$csrf}</form>
@@ -34,8 +34,8 @@
             <input type="hidden" name="realfilename" value="{$realfilename}">
             <input type="hidden" name="separator" value="{$separator}">
             <input type="hidden" name="utf8_encode" value="{$utf8_encode}">
-            <div class="form-group">
-                <label for="filename" class="control-label col-md-4">{t}Fichier en cours de traitement :{/t}</label>
+            <div class="row mb-6">
+                <label for="filename" class="form-label col-md-4">{t}Fichier en cours de traitement :{/t}</label>
                 <div class="col-md-8">
                     <input type="text" id="filename" class="form-control" readonly name="filename" value="{$filename}">
                 </div>
@@ -44,8 +44,8 @@
                 <fieldset>
                     <legend>{$kname}</legend>
                     {foreach $name as $val}
-                        <div class="form-group">
-                            <label for="{$kname}-{$val}" class="control-label col-md-4">{$val}</label>
+                        <div class="row mb-6">
+                            <label for="{$kname}-{$val}" class="form-label col-md-4">{$val}</label>
                             <div class="col-md-8">
                                 <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
                                     {foreach $dataClass[$kname] as $svalue}
@@ -57,7 +57,7 @@
                     {/foreach}
                 </fieldset>
             {/foreach}
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
             </div>
         {$csrf}</form>

@@ -17,8 +17,8 @@
                   <input type="hidden" name="uid" value="{$object.uid}">
                   <input type="hidden" name="activeTab" value="{$activeTab}">
 
-                  <div class="form-group">
-                        <label for="identifier_type_id" class="control-label col-md-4"><span class="red">*</span>
+                  <div class="row mb-6">
+                        <label for="identifier_type_id" class="form-label col-md-4"><span class="red">*</span>
                               {t}Type d'identifiant :{/t}</label>
                         <div class="col-md-8">
                               <select id="identifier_type_id" name="identifier_type_id" class="form-control">
@@ -33,8 +33,8 @@
                         </div>
                   </div>
 
-                  <div class="form-group">
-                        <label for="object_identifier_value" class="control-label col-md-4"><span class="red">*</span>
+                  <div class="row mb-6">
+                        <label for="object_identifier_value" class="form-label col-md-4"><span class="red">*</span>
                               {t}Valeur :{/t}</label>
                         <div class="col-md-8">
                               <input id="object_identifier_value" name="object_identifier_value" required
@@ -43,7 +43,7 @@
                   </div>
 
 
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.object_identifier_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

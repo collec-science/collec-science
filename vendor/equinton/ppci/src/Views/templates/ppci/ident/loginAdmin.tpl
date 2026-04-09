@@ -21,16 +21,16 @@
 		<input type="hidden" name="moduleCalled" value="{$moduleCalled}">
 		<input type="hidden" name="loginAdmin" value="1">
 		<div class="form-horizontal protoform">
-			<div class="form-group">
-				<label for="login" class="control-label col-sm-4">
+			<div class="row mb-6">
+				<label for="login" class="form-label col-sm-4">
 					{t}Login :{/t}
 				</label>
 				<div class="col-sm-8">
 					<input class="form-control input-lg" name="login" id="login" maxlength="64" required autofocus>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="login" class="control-label col-sm-4">
+			<div class="row mb-6">
+				<label for="login" class="form-label col-sm-4">
 					{t}Mot de passe :{/t}
 				</label>
 				<div class="col-sm-7">
@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-group center">
+		<div class="row mb-6 center">
 			<button type="submit" class="btn btn-primary button-valid input-lg">{t}Se connecter{/t}</button>
 			</div>
 	{$csrf}

@@ -76,16 +76,16 @@
         <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
         <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport"
             enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
+            <div class="row mb-6">
+                <label for="upfile" class="form-label col-md-4"><span class="red">*</span> 
                     {t}Nom du fichier à importer :{/t}
                 </label>
                 <div class="col-md-8">
                     <input type="file" name="upfile" class="form-control" required>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
+            <div class="row mb-6">
+                <label for="separator" class="form-label col-md-4">{t}Séparateur utilisé :{/t}</label>
                 <div class="col-md-8">
                       <select id="separator" name="separator" class="form-control">
                             <option value=",">{t}Virgule{/t}</option>
@@ -94,8 +94,8 @@
                       </select>
                 </div>
           </div>
-          <div class="form-group">
-                <label for="encoding" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
+          <div class="row mb-6">
+                <label for="encoding" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
                 <div class="col-md-8">
                       <select id="encoding" name="utf8_encode" class="form-control">
                             <option value="0" >UTF-8</option>
@@ -103,7 +103,7 @@
                       </select>
                 </div>
           </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary">{t}Importer les nouvelles campagnes{/t}</button>
             </div>
             <div class="bg-info">

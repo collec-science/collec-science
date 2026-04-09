@@ -111,24 +111,24 @@
 			<input type="hidden" name="label_id" value="{$data.label_id}">
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
 			<input type="hidden" id="labelSent" name="label_xsl">
-			<div class="form-group">
-				<label for="labelName" class="control-label col-md-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="labelName" class="form-label col-md-4"><span class="red">*</span>
 					{t}Nom de l'étiquette :{/t}</label>
 				<div class="col-md-8">
 					<input id="labelName" type="text" class="form-control" name="label_name" value="{$data.label_name}"
 						autofocus required>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="xsl" class="control-label col-md-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="xsl" class="form-label col-md-4"><span class="red">*</span>
 					{t}Transformation XSL :{/t}</label>
 				<div class="col-md-8">
 					<textarea id="label_xsl" class="form-control textarea-edit" rows="20"
 						required>{$data.label_xsl}</textarea>
 				</div>
 			</div>
-			<div class="form-group multipleFields" id="metadataDisplay">
-				<label for="metadata_id" class="control-label col-md-4">
+			<div class="row mb-6 multipleFields" id="metadataDisplay">
+				<label for="metadata_id" class="form-label col-md-4">
 					{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 				<div class="col-md-8">
 					<select id="metadata_id" name="metadata_id" class="form-control">
@@ -144,8 +144,8 @@
 			<fieldset>
 				<legend>{t}Premier code optique{/t}</legend>
 				<input type="hidden" name="label_optical_id" value="{$opticals[0].label_optical_id}">
-				<div class="form-group">
-					<label for="barcode_id" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+				<div class="row mb-6">
+					<label for="barcode_id" class="form-label col-md-4">{t}Type de code-barre :{/t}</label>
 					<div class="col-md-8">
 						<select id="barcode_id" name="barcode_id" class="form-control">
 							{foreach $barcodes as $barcode}
@@ -157,8 +157,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="content_type" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
+				<div class="row mb-6">
+					<label for="content_type" class="form-label col-md-4">{t}Type de contenu :{/t}</label>
 					<div class="col-md-8">
 						<select id="content_type" class="form-control" name="content_type">
 							<option value="1" {if $opticals[0].content_type==1}selected{/if}>
@@ -170,8 +170,8 @@
 						</select>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="radical" class="control-label col-md-4">
+				<div class="row mb-6">
+					<label for="radical" class="form-label col-md-4">
 						{t}Radical inséré avant l'attribut :{/t}
 					</label>
 					<div class="col-md-8">
@@ -179,8 +179,8 @@
 							value="{$opticals[0].radical}">
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="optical_content" class="control-label col-md-4"><span class="red">*</span>
+				<div class="row mb-6">
+					<label for="optical_content" class="form-label col-md-4"><span class="red">*</span>
 						{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 					</label>
 					<div class="col-md-8">
@@ -196,8 +196,8 @@
 				</legend>
 				<input type="hidden" name="label_optical_id2" value="{$opticals[1].label_optical_id}">
 				<div id="optical2" disabled hidden>
-					<div class="form-group">
-						<label for="barcode_id2" class="control-label col-md-4">{t}Type de code-barre :{/t}</label>
+					<div class="row mb-6">
+						<label for="barcode_id2" class="form-label col-md-4">{t}Type de code-barre :{/t}</label>
 						<div class="col-md-8">
 							<select id="barcode_id2" name="barcode_id2" class="form-control">
 								{foreach $barcodes as $barcode}
@@ -209,8 +209,8 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="content_type2" class="control-label col-md-4">{t}Type de contenu :{/t}</label>
+					<div class="row mb-6">
+						<label for="content_type2" class="form-label col-md-4">{t}Type de contenu :{/t}</label>
 						<div class="col-md-8">
 							<select id="content_type2" class="form-control" name="content_type2">
 								<option value="1" {if $opticals[1].content_type==1}selected{/if}>
@@ -222,8 +222,8 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="radical2" class="control-label col-md-4">
+					<div class="row mb-6">
+						<label for="radical2" class="form-label col-md-4">
 							{t}Radical inséré avant l'attribut :{/t}
 						</label>
 						<div class="col-md-8">
@@ -231,8 +231,8 @@
 								value="{$opticals[1].radical}">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="optical_content2" class="control-label col-md-4"><span class="red">*</span>
+					<div class="row mb-6">
+						<label for="optical_content2" class="form-label col-md-4"><span class="red">*</span>
 							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 						</label>
 						<div class="col-md-8">
@@ -242,8 +242,8 @@
 					</div>
 				</div>
 			</fieldset>			
-			<div class="form-group">
-				<label for="logo" class="control-label col-md-4">
+			<div class="row mb-6">
+				<label for="logo" class="form-label col-md-4">
 					{t}Logo à insérer dans l'étiquette (jpg, png) :{/t}
 				</label>
 				<div class="col-md-8">
@@ -253,7 +253,7 @@
 					<input id="logo" type="file" class="form-control" name="logo">
 				</div>
 			</div>
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" id="stay" class="btn btn-primary">{t}Valider{/t}</button>
 				<button type="submit" id="write" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
 				{if $data.label_id > 0 }

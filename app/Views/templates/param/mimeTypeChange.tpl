@@ -6,18 +6,18 @@
 <form class="form-horizontal " id="mimeTypeForm" method="post" action="mimeTypeWrite">
 <input type="hidden" name="moduleBase" value="mimeType">
 <input type="hidden" name="mime_type_id" value="{$data.mime_type_id}">
-<div class="form-group">
-<label for="extension"  class="control-label col-md-4"><span class="red">*</span> {t}Extension :{/t}</label>
+<div class="row mb-6">
+<label for="extension"  class="form-label col-md-4"><span class="red">*</span> {t}Extension :{/t}</label>
 <div class="col-md-8">
 <input id="extension" type="text" class="form-control" name="extension" value="{$data.extension}" autofocus required></div>
 </div>
-<div class="form-group">
-    <label for="contentType"  class="control-label col-md-4"><span class="red">*</span> {t}Type mime normalisé :{/t}</label>
+<div class="row mb-6">
+    <label for="contentType"  class="form-label col-md-4"><span class="red">*</span> {t}Type mime normalisé :{/t}</label>
     <div class="col-md-8">
     <input id="contentType" type="text" class="form-control" name="content_type" value="{$data.content_type}" required></div>
     </div>
 
-<div class="form-group center">
+<div class="row mb-6 center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.mime_type_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

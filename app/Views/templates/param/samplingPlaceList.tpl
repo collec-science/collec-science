@@ -49,15 +49,15 @@
 		<legend>{t}Importer des emplacements depuis un fichier CSV{/t}</legend>
 		<form class="form-horizontal " id="metadataImport" method="post" action="samplingPlaceImport"
 			enctype="multipart/form-data">
-			<div class="form-group">
-				<label for="upfile" class="control-label col-md-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="upfile" class="form-label col-md-4"><span class="red">*</span>
 					{t}Nom du fichier à importer (CSV) :{/t}</label>
 				<div class="col-md-8">
 					<input type="file" name="upfile" required>
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="separator" class="control-label col-md-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="separator" class="form-label col-md-4"><span class="red">*</span>
 					{t}Séparateur :{/t}</label>
 				<div class="col-md-8">
 					<select id="separator" class="form-control" name="separator">
@@ -68,8 +68,8 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="collection_id" class="control-label col-md-4">
+			<div class="row mb-6">
+				<label for="collection_id" class="form-label col-md-4">
 					{t}Collection éventuelle de rattachement :{/t}</label>
 				<div class="col-md-8">
 					<select id="collection_id" name="collection_id" class="form-control">
@@ -83,7 +83,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" class="btn btn-primary">
 					{t}Importer les localisations{/t}</button>
 			</div>

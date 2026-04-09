@@ -25,13 +25,13 @@
 <script src="display/node_modules/smartmenus/dist/jquery.smartmenus.min.js" type="text/javascript"></script>
 <link type="text/css" href="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css"
     rel="stylesheet">
-<script src="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"
+<script src="display/node_modules/smartmenus/dist/addons/bootstrap-4/jquery.smartmenus.bootstrap-4.min.js"
     type="text/javascript"></script>
 
 <!-- Datatables -->
-<script src="display/node_modules/datatables.net/js/dataTables.min.js"></script>
-<script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+ <script src="display/node_modules/datatables.net/js/dataTables.min.js"></script>
+<script src="display/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
 <script src="display/javascript/intl.js"></script>
 
 <!-- Buttons to export from Datatables - classe datatable-export -->
@@ -39,10 +39,10 @@
 <script src="display/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="display/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <link rel="stylesheet" type="text/css"
-    href="display/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" />
+    href="display/node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" />
 <script src="display/node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
 <!-- Add sort on date/time -->

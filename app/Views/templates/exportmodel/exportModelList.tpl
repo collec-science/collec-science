@@ -92,15 +92,15 @@
         <form id="importForm" class="form-horizontal " method="post" action="exportModelImportExec"
             enctype="multipart/form-data">
             <input type="hidden" name="export_model_name" value="export_model">
-            <div class="form-group">
-                <label for="filename" class="control-label col-md-4">
+            <div class="row mb-6">
+                <label for="filename" class="form-label col-md-4">
                     {t}Fichier JSON à importer :{/t}
                 </label>
                 <div class="col-md-8">
                     <input id="filename" type="file" class="form-control" name="filename" required>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-danger">{t}Importer le fichier{/t}</button>
                 <img id="documentSpinner" src="display/images/spinner.gif" height="25">
             </div>

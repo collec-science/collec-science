@@ -12,21 +12,21 @@
 <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
 <input type="hidden" name="moduleBase" value="aco">
 <input type="hidden" name="action" value="Write">
-<div class="form-group center">
+<div class="row mb-6 center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.aclappli_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
       {/if}
  </div>
  
-<div class="form-group">
-<label for="aco" class="control-label col-md-4"><span class="red">*</span> {t}Nom du droit utilisé dans l'application :{/t}</label>
+<div class="row mb-6">
+<label for="aco" class="form-label col-md-4"><span class="red">*</span> {t}Nom du droit utilisé dans l'application :{/t}</label>
 <div class="col-md-8"><input type="text" class="form-control" 
   id="aco" name="aco" value="{$data.aco}" autofocus required
   {if $newRightEnabled == 0} readonly{/if}>
 </div>
 </div>
-<div class="form-group">
+<div class="row mb-6">
 <fieldset class="col-lg-12">
 <legend>{t}Groupes disposant du droit :{/t}</legend>
 {section name=lst loop=$groupes}

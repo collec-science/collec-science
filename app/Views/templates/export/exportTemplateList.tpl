@@ -47,13 +47,13 @@
 		<fieldset>
 			<legend>{t}Importer d'un modèle d'export provenant d'une autre base de données Collec-Science{/t}</legend>
 			<form class="form-horizontal" id="exportTemplateImport" method="post" action="exportTemplateImport" enctype="multipart/form-data">
-				<div class="form-group">
-					<label for="upfile" class="control-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
+				<div class="row mb-6">
+					<label for="upfile" class="form-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
 					<div class="col-md-8">
 						<input class="form-control" type="file" name="upfile" required>
 					</div>
 				</div>
-				<div class="form-group center">
+				<div class="row mb-6 center">
 					<button type="submit" class="btn btn-primary">{t}Importer le modèle{/t}</button>
 				</div>
 				<div class="bg-info">

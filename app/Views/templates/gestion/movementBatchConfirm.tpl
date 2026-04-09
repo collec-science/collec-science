@@ -16,8 +16,8 @@
 
 		<form id="movementConfirm" class="form-horizontal" method="post" action="movementBatchWrite">
 			<input type="hidden" name="moduleBase" value="movementBatch">
-			<div class="form-group">
-				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
+			<div class="row mb-6">
+				<label for="movement_reason_id" class="form-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
 					<option value="" {if empty($data.movement_reason_id)}selected{/if}>{t}Choisissez...{/t}</option>

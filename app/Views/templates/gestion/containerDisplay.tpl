@@ -218,7 +218,7 @@
 			$('.nav-link').on('shown.bs.tab', function () {
 			myStorage.setItem("containerDisplayTab", $(this).attr("id"));
 		});
-		$('a[data-toggle="tab"]').on("click", function () {
+		$('a[data-bs-toggle="tab"]').on("click", function () {
 			tabHover = 0 ;
 		});
 
@@ -363,8 +363,8 @@
 	</div>
 
 	<div class="form-horizontal col-xs-12 col-lg-10">
-		<div class="form-group">
-			<label class="col-xs-4 control-label ">{t}Caméra :{/t}</label>
+		<div class="row mb-6">
+			<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 			<div class="col-xs-8">
 				<select id="cam-list" class="form-control ">
 					<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
@@ -372,8 +372,8 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="col-xs-4 control-label ">{t}Mode couleur :{/t}</label>
+		<div class="row mb-6">
+			<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 			<div class="col-xs-8">
 				<select id="inversion-mode-select" class="form-control ">
 					<option value="original">Scan original (dark QR code on bright background)</option>
@@ -383,8 +383,8 @@
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="cam-has-flash" class="col-xs-4 control-label ">{t}Flash présent :{/t}</label>
+		<div class="row mb-6">
+			<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
 			<div class="col-xs-8">
 				<span id="cam-has-flash" class=""></span>
 				<button id="flash-toggle" class="">
@@ -402,11 +402,11 @@
 		<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 		{/if}
 	</div>
-	<div id="rapidAccessForm" hidden class="col-sm-4 col-lg-offset-2 col-lg-2">
+	<div id="rapidAccessForm" hidden class="col-sm-4 offset-lg-2 col-lg-2">
 		<form id="open" action="containerDisplay" method="GET">
 			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
-			<div class="form-group">
-				<div class="col-md-6 col-sm-offset-2 col-md-offset-0 col-sm-4">
+			<div class="row mb-6">
+				<div class="col-md-6 col-sm-offset-2 offset-md-0 col-sm-4">
 					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required >
 				</div>
 				<input type="submit" id="searchExec" class="btn btn-warning col-md-6 col-sm-4" value="{t}Ouvrir{/t}">
@@ -420,57 +420,57 @@
 <div class="row">
 	<ul class="nav nav-tabs" id="myTab" role="tablist" >
         <li class="nav-item active">
-            <a class="nav-link" id="tab-detail" data-toggle="tab"  role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
+            <a class="nav-link" id="tab-detail" data-bs-toggle="tab"  role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
 				<img src="display/images/zoom.png" height="25">
 				{t}Détails{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-identifier" href="#nav-identifier"  data-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-identifier" href="#nav-identifier"  data-bs-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
 				<img src="display/images/label.png" height="25">
 				{t}Identifiants{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-event" href="#nav-event"  data-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
+            <a class="nav-link" id="tab-event" href="#nav-event"  data-bs-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
 				<img src="display/images/events.png" height="25">
 				{t}Événements/prêts{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-movement" href="#nav-movement"  data-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
+            <a class="nav-link" id="tab-movement" href="#nav-movement"  data-bs-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
 				<img src="display/images/movement.png" height="25">
 				{t}Mouvements{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link lexical" data-lexical="container" id="tab-container" href="#nav-container"  data-toggle="tab" role="tab" aria-controls="nav-container" aria-selected="false">
+            <a class="nav-link lexical" data-lexical="container" id="tab-container" href="#nav-container"  data-bs-toggle="tab" role="tab" aria-controls="nav-container" aria-selected="false">
 				<img src="display/images/box.png" height="25">
 				{t}Contenants présents{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-sample" href="#nav-sample"  data-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
+            <a class="nav-link" id="tab-sample" href="#nav-sample"  data-bs-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
 				<img src="display/images/sample.png" height="25">
 				{t}Échantillons présents{/t}
 			</a>
 		</li>
 		{if $nblignes > 1 || $nbcolonnes > 1}
 			<li class="nav-item">
-				<a class="nav-link" id="tab-grid" href="#nav-grid"  data-toggle="tab" role="tab" aria-controls="nav-grid" aria-selected="false">
+				<a class="nav-link" id="tab-grid" href="#nav-grid"  data-bs-toggle="tab" role="tab" aria-controls="nav-grid" aria-selected="false">
 					<img src="display/images/grid.png" height="25">
 					{t}Grille d'objets{/t}
 				</a>
 			</li>
 		{/if}
 		<li class="nav-item">
-            <a class="nav-link" id="tab-document" href="#nav-document"  data-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
+            <a class="nav-link" id="tab-document" href="#nav-document"  data-bs-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
 				<img src="display/images/camera.png" height="25">
 				{t}Documents associés{/t}
 			</a>
 		</li>
 		<li class="nav-item">
-            <a class="nav-link" id="tab-booking" href="#nav-booking"  data-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
+            <a class="nav-link" id="tab-booking" href="#nav-booking"  data-bs-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
 				<img src="display/images/crossed-calendar.png" height="25">
 				{t}Réservations{/t}
 			</a>

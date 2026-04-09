@@ -6,8 +6,8 @@
             <form class="form-horizontal " id="containerTypeForm" method="post" action="containerTypeWrite">
                   <input type="hidden" name="container_type_id" value="{$data.container_type_id}">
                   <input type="hidden" name="moduleBase" value="containerType">
-                  <div class="form-group">
-                        <label for="containerTypeName" class="control-label col-md-4"><span class="red">*</span> 
+                  <div class="row mb-6">
+                        <label for="containerTypeName" class="form-label col-md-4"><span class="red">*</span> 
                               {t}Nom :{/t}
                         </label>
                         <div class="col-md-8">
@@ -15,8 +15,8 @@
                                     value="{$data.container_type_name}" autofocus required>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="container_family_id" class="control-label col-md-4"><span class="red">*</span>
+                  <div class="row mb-6">
+                        <label for="container_family_id" class="form-label col-md-4"><span class="red">*</span>
                               {t}Famille :{/t}</label>
                         <div class="col-md-8">
                               <select id="container_family_id" name="container_family_id" class="form-control">
@@ -29,8 +29,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="containerTypeDescription" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="containerTypeDescription" class="form-label col-md-4">
                               {t}Description :{/t}
                         </label>
                         <div class="col-md-8">
@@ -38,24 +38,24 @@
                                     id="containerTypeDescription">{$data.container_type_description}</textarea>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="lines" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="lines" class="form-label col-md-4">
                               {t}Nombre de lignes :{/t}
                         </label>
                         <div class="col-md-8">
                               <input id="lines" name="lines" value="{$data.lines}" class="nombre form-control">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="columns" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="columns" class="form-label col-md-4">
                               {t}Nombre de colonnes :{/t}
                         </label>
                         <div class="col-md-8">
                               <input id="columns" name="columns" value="{$data.columns}" class="nombre form-control">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="columns" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="columns" class="form-label col-md-4">
                               {t}Position de la première ligne :{/t}
                         </label>
                         <div class="col-md-8">
@@ -73,8 +73,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="columns" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="columns" class="form-label col-md-4">
                               {t}Position de la première colonne :{/t}
                         </label>
                         <div class="col-md-8">
@@ -92,8 +92,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="line_in_char" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="line_in_char" class="form-label col-md-4">
                               {t}Lignes identifiées par une lettre ?{/t}
                         </label>
                         <div class="col-md-8">
@@ -111,8 +111,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="line_in_char" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="line_in_char" class="form-label col-md-4">
                               {t}Colonnes identifiées par une lettre ?{/t}
                         </label>
                         <div class="col-md-8">
@@ -130,8 +130,8 @@
                               </div>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="nb_slots_max" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="nb_slots_max" class="form-label col-md-4">
                               {t}Nombre d'emplacements maximum :{/t}
                         </label>
                         <div class="col-md-8">
@@ -139,8 +139,8 @@
                                     class="nombre form-control">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="nbobject_by_slot" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="nbobject_by_slot" class="form-label col-md-4">
                               {t}Nombre maxi d'objets par emplacement (ligne/colonne) :{/t}
                         </label>
                         <div class="col-md-8">
@@ -148,8 +148,8 @@
                                     class="nombre form-control">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="storageConditionId" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="storageConditionId" class="form-label col-md-4">
                               {t}Condition de stockage :{/t}
                         </label>
                         <div class="col-md-8">
@@ -166,8 +166,8 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="product_id" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="product_id" class="form-label col-md-4">
                               {t}Produit utilisé :{/t}
                         </label>
                         <div class="col-md-8">
@@ -184,16 +184,16 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="productNew" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="productNew" class="form-label col-md-4">
                               {t}ou nouveau produit :{/t}
                         </label>
                         <div class="col-md-8">
                               <input id="productNew" type="text" class="form-control" name="productNew">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="risk_id" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="risk_id" class="form-label col-md-4">
                               {t}Risque (code CLP) :{/t}
                         </label>
                         <div class="col-md-8">
@@ -209,15 +209,15 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="riskNew" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="riskNew" class="form-label col-md-4">
                               {t}ou nouveau risque :{/t}</label>
                         <div class="col-md-8">
                               <input id="riskNew" type="text" class="form-control" name="riskNew">
                         </div>
                   </div>
-                  <div class="form-group">
-                        <label for="labelId" class="control-label col-md-4">
+                  <div class="row mb-6">
+                        <label for="labelId" class="form-label col-md-4">
                               {t}Modèle d'étiquette :{/t}
                         </label>
                         <div class="col-md-8">
@@ -234,7 +234,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="form-group center">
+                  <div class="row mb-6 center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.container_type_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

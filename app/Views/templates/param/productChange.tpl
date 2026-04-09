@@ -6,8 +6,8 @@
         <form class="form-horizontal " id="productForm" method="post" action="productWrite">
             <input type="hidden" name="moduleBase" value="product">
             <input type="hidden" name="product_id" value="{$data.product_id}">
-            <div class="form-group">
-                <label for="productName" class="control-label col-md-4"><span class="red">*</span> 
+            <div class="row mb-6">
+                <label for="productName" class="form-label col-md-4"><span class="red">*</span> 
                     {t}Nom du produit :{/t}
                 </label>
                 <div class="col-md-8">
@@ -15,7 +15,7 @@
                         value="{$data.product_name}" autofocus required>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.product_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

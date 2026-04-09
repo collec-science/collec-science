@@ -26,8 +26,8 @@
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="export_id" value="{$data.export_id}">
       <input type="hidden" name="lot_id" value="{$data.lot_id}">
-      <div class="form-group">
-        <label for="export_template_id" class="control-label col-md-4"><span class="red">*</span> {t}Modèle d'export :{/t}</label>
+      <div class="row mb-6">
+        <label for="export_template_id" class="form-label col-md-4"><span class="red">*</span> {t}Modèle d'export :{/t}</label>
         <div class="col-md-8">
           <select id="export_template_id" name="export_template_id" class="form-control">
             {foreach $templates as $template}
@@ -36,7 +36,7 @@
           </select>
         </div>
       </div>
-      <div class="form-group center">
+      <div class="row mb-6 center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.export_template_id > 0 }
           <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

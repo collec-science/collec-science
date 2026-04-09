@@ -124,20 +124,20 @@ if (container_type_id > 0) {
 		<input type="hidden" name="container_id" value="{$data.container_id}">
 		<input type="hidden" name="moduleBase" value="container">
 		<input type="hidden" name="container_parent_uid" value="{$container_parent_uid}">
-		<div class="form-group">
-			<label for="uid" class="control-label col-md-4">{t}UID :{/t}</label>
+		<div class="row mb-6">
+			<label for="uid" class="form-label col-md-4">{t}UID :{/t}</label>
 			<div class="col-md-8">
 				<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control" title="{t}identifiant unique dans la base de données{/t}">
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="appli" class="control-label col-md-4"><span class="red">*</span> {t}Identifiant ou nom :{/t}</label>
+		<div class="row mb-6">
+			<label for="appli" class="form-label col-md-4"><span class="red">*</span> {t}Identifiant ou nom :{/t}</label>
 			<div class="col-md-8">
 				<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus required>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="referentId"  class="control-label col-md-4">{t}Référent du contenant :{/t}</label>
+		<div class="row mb-6">
+			<label for="referentId"  class="form-label col-md-4">{t}Référent du contenant :{/t}</label>
 			<div class="col-md-8">
 				<select id="referentId" name="referent_id" class="form-control">
 					<option value="" {if $data.referent_id == ""}selected{/if}>Choisissez...</option>
@@ -149,8 +149,8 @@ if (container_type_id > 0) {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="collection_id" class="control-label col-md-4">{t}Collection :{/t}</label>
+		<div class="row mb-6">
+			<label for="collection_id" class="form-label col-md-4">{t}Collection :{/t}</label>
 			<div class="col-md-8">
 				<select id="collection_id" name="collection_id" class="form-control">
 					<option value=""  {if $data.collection_id == ""}selected{/if}>
@@ -164,8 +164,8 @@ if (container_type_id > 0) {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span>  {t}Statut :{/t}</label>
+		<div class="row mb-6">
+			<label for="object_status_id" class="form-label col-md-4"><span class="red">*</span>  {t}Statut :{/t}</label>
 			<div class="col-md-8">
 				<select id="object_status_id" name="object_status_id" class="form-control">
 				{section name=lst loop=$objectStatus}
@@ -176,8 +176,8 @@ if (container_type_id > 0) {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="" class="control-label col-sm-4">
+		<div class="row mb-6">
+			<label for="" class="form-label col-sm-4">
 				{t}Mode de calcul des coordonnées GPS :{/t}
 			</label>
 			<div class="col-sm-8">
@@ -201,8 +201,8 @@ if (container_type_id > 0) {
 				</table>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
+		<div class="row mb-6">
+			<label for="wy" class="form-label col-md-4">{t}Latitude :{/t}</label>
 			<div class="col-md-8" id="wy">
 				{t}Format sexagesimal (45°01,234N) :{/t}
 				<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
@@ -210,8 +210,8 @@ if (container_type_id > 0) {
 				<input id="wgs84_y" name="wgs84_y" placeholder="45.01300" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
+		<div class="row mb-6">
+			<label for="wx" class="form-label col-md-4">{t}Longitude :{/t}</label>
 			<div class="col-md-8" id="wx">
 				{t}Format sexagesimal (0°01,234W) :{/t}
 				<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
@@ -219,14 +219,14 @@ if (container_type_id > 0) {
 				<input id="wgs84_x" name="wgs84_x" placeholder="-0.0156" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="location_accuracy"  class="control-label col-md-4">{t}Précision de la localisation (en mètres) :{/t}</label>
+		<div class="row mb-6">
+			<label for="location_accuracy"  class="form-label col-md-4">{t}Précision de la localisation (en mètres) :{/t}</label>
 			<div class="col-md-8">
 				<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="container_family_id" class="control-label col-md-4"><span class="red">*</span> {t}Famille :{/t}</label>
+		<div class="row mb-6">
+			<label for="container_family_id" class="form-label col-md-4"><span class="red">*</span> {t}Famille :{/t}</label>
 			<div class="col-md-8">
 				<select id="container_family_id" name="container_family_id" class="form-control">
 					<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
@@ -238,8 +238,8 @@ if (container_type_id > 0) {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="container_type_id" class="control-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
+		<div class="row mb-6">
+			<label for="container_type_id" class="form-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
 			<div class="col-md-8">
 				<select id="container_type_id" name="container_type_id" class="form-control">
 					{section name=lst loop=$container_type}
@@ -250,21 +250,21 @@ if (container_type_id > 0) {
 				</select>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="object_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
+		<div class="row mb-6">
+			<label for="object_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
 			<div class="col-md-8">
 				<textarea class="form-control" rows="3" id="object_comment" name="object_comment">{$data.object_comment}</textarea>
 			</div>
 		</div>
-		<div class="form-group">
-			<label for="uuid"  class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
+		<div class="row mb-6">
+			<label for="uuid"  class="form-label col-md-4">{t}UID universel (UUID) :{/t}</label>
 			<div class="col-md-8">
 				<input id="expiration_date" class="form-control uuid" name="uuid"  value="{$data.uuid}">
 			</div>
 		</div>
 		{if $data.container_id > 0}
-			<div class="form-group">
-				<label for="trashed" class="col-md-4 control-label">{t}Contenant en attente de suppression (mis à la corbeille) :{/t}</label>
+			<div class="row mb-6">
+				<label for="trashed" class="col-md-4 form-label">{t}Contenant en attente de suppression (mis à la corbeille) :{/t}</label>
 				<div class="col-md-8" id="trashed">
 					<div class="radio-inline">
 					<label>
@@ -284,23 +284,23 @@ if (container_type_id > 0) {
 		{if $container_parent_uid > 0 && $data.container_id == 0} 
 		<fieldset>
 			<legend>{t}Position dans le contenant parent{/t}</legend>
-			<div class="form-group">
-				<label for="storage_location" class="control-label col-md-4">
+			<div class="row mb-6">
+				<label for="storage_location" class="form-label col-md-4">
 					{t}Emplacement dans le contenant (format libre) :{/t}
 			</label>
 				<div class="col-md-8">
 					<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
+			<div class="row mb-6">
+				<label for="line_number" class="form-label col-sm-4">{t}N° de ligne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="line_number" name="line_number"
 						value="{$data.line_number}" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
+			<div class="row mb-6">
+				<label for="column_number" class="form-label col-sm-4">{t}N° de colonne :{/t}</label>
 				<div class="col-sm-8">
 					<input id="column_number" name="column_number"
 						value="{$data.column_number}" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
@@ -308,7 +308,7 @@ if (container_type_id > 0) {
 			</div>
 		</fieldset>
 		{/if}
-		<div class="form-group center">
+		<div class="row mb-6 center">
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			{if $data.container_id > 0 }
 			<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

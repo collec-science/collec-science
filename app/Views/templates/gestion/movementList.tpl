@@ -3,22 +3,22 @@
         <form class="form-horizontal " id="movement_search" action="movementList" method="GET">
             <input id="moduleBase" type="hidden" name="moduleBase" value="movement">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
-            <div class="form-group">
-                <label for="login" class="col-md-2 control-label">{t}Login à rechercher :{/t}</label>
+            <div class="row mb-6">
+                <label for="login" class="col-md-2 form-label">{t}Login à rechercher :{/t}</label>
                 <div class="col-md-4">
                     <input id="login" name="login" class="form-control" value="{$movementSearch.login}">
                 </div>
-                <div class="col-md-2 col-md-offset-3">
+                <div class="col-md-2 offset-md-3">
                     <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="date_start" class="col-md-2 control-label">{t}Du :{/t}</label>
+            <div class="row mb-6">
+                <label for="date_start" class="col-md-2 form-label">{t}Du :{/t}</label>
                 <div class="col-md-4">
                     <input class="datepicker form-control" name="date_start" id="date_start"
                         value="{$movementSearch.date_start}">
                 </div>
-                <label for="date_end" class="col-md-2 control-label">{t}Au :{/t}</label>
+                <label for="date_end" class="col-md-2 form-label">{t}Au :{/t}</label>
                 <div class="col-md-4">
                     <input class="datepicker form-control" name="date_end" id="date_end"
                         value="{$movementSearch.date_end}">

@@ -6,8 +6,8 @@
         <form class="form-horizontal " id="riskForm" method="post" action="riskWrite">
             <input type="hidden" name="moduleBase" value="risk">
             <input type="hidden" name="risk_id" value="{$data.risk_id}">
-            <div class="form-group">
-                <label for="riskName" class="control-label col-md-4"><span class="red">*</span> 
+            <div class="row mb-6">
+                <label for="riskName" class="form-label col-md-4"><span class="red">*</span> 
                     {t}Nom du risque, selon la nomenclature CLP :{/t}
                 </label>
                 <div class="col-md-8">
@@ -15,7 +15,7 @@
                         value="{$data.risk_name}" autofocus required>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.risk_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

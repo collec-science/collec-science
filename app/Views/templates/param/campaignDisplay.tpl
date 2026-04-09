@@ -25,25 +25,25 @@
 <!-- Tab box -->
 <ul class="nav nav-tabs" id="tabCampaignDetail" role="tablist">
     <li class="nav-item active">
-        <a class="nav-link" id="tabCampaignDetail" data-toggle="tab" role="tab" aria-controls="navCampaignDetail"
+        <a class="nav-link" id="tabCampaignDetail" data-bs-toggle="tab" role="tab" aria-controls="navCampaignDetail"
             aria-selected="true" href="#navCampaignDetail">
             {t}Description{/t}
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="tabRules" href="#navRules" data-toggle="tab" role="tab" aria-controls="navRules"
+        <a class="nav-link" id="tabRules" href="#navRules" data-bs-toggle="tab" role="tab" aria-controls="navRules"
             aria-selected="false">
             {t}Réglementations applicables{/t}
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="tabGroups" href="#navGroups" data-toggle="tab" role="tab" aria-controls="navGroups"
+        <a class="nav-link" id="tabGroups" href="#navGroups" data-bs-toggle="tab" role="tab" aria-controls="navGroups"
             aria-selected="false">
             {t}Droits attribués{/t}
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" id="tabDocs" href="#navDocs" data-toggle="tab" role="tab" aria-controls="navDocs"
+        <a class="nav-link" id="tabDocs" href="#navDocs" data-bs-toggle="tab" role="tab" aria-controls="navDocs"
             aria-selected="false">
             {t}Documents associés{/t}
         </a>

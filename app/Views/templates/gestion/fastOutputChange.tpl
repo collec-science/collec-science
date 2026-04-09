@@ -10,8 +10,8 @@
 			<input type="hidden" name="movement_id" value="0"> <input type="hidden" id="read_optical"
 				name="read_optical" value="{$read_optical}">
 
-			<div class="form-group">
-				<label for="object_uid" class="control-label col-sm-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="object_uid" class="form-label col-sm-4"><span class="red">*</span>
 					{t}UID de l'objet :{/t}</label>
 				<div class="col-sm-8" id="object_groupe">
 					<div class="col-sm-3">
@@ -19,7 +19,7 @@
 							autofocus autocomplete="off">
 					</div>
 					<div class="col-sm-3 col-sm-offset-1">
-						<button type="button" id="object_search" class="btn btn-default">{t}Chercher...{/t}</button>
+						<button type="button" id="object_search" class="btn btn-light">{t}Chercher...{/t}</button>
 					</div>
 				</div>
 				<div class="col-sm-8 col-sm-offset-4 ">
@@ -27,16 +27,16 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="movement_date" class="control-label col-sm-4"><span class="red">*</span>
+			<div class="row mb-6">
+				<label for="movement_date" class="form-label col-sm-4"><span class="red">*</span>
 					{t}Date/heure :{/t}</label>
 				<div class="col-sm-8">
 					<input id="movement_date" name="movement_date" required value="{$data.movement_date}"
 						class="form-control datetimepicker">
 				</div>
 			</div>
-			<div class="form-group">
-				<label for="movement_reason_id" class="control-label col-sm-4">{t}Motif du déstockage :{/t}</label>
+			<div class="row mb-6">
+				<label for="movement_reason_id" class="form-label col-sm-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-sm-8">
 					<select id="movement_reason_id" name="movement_reason_id">
 						<option value="" {if $data.movement_reason_id=="" }selected{/if}>{t}Choisissez...{/t}</option>
@@ -50,14 +50,14 @@
 				</div>
 			</div>
 
-			<div class="form-group">
-				<label for="movement_comment" class="control-label col-sm-4">{t}Commentaire :{/t}</label>
+			<div class="row mb-6">
+				<label for="movement_comment" class="form-label col-sm-4">{t}Commentaire :{/t}</label>
 				<div class="col-sm-8">
 					<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 				</div>
 			</div>
 
-			<div class="form-group center">
+			<div class="row mb-6 center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Sortir du stock{/t}</button>
 			</div>
 
@@ -73,8 +73,8 @@
 
 		<div class="col-md-6">
 			<div class="form-horizontal ">
-				<div class="form-group">
-					<label for="valeur-scan" class="control-label col-sm-4">{t}Valeur lue :{/t}</label>
+				<div class="row mb-6">
+					<label for="valeur-scan" class="form-label col-sm-4">{t}Valeur lue :{/t}</label>
 					<div class="col-sm-8">
 						<input id="valeur-scan" type="text" class="form-control"
 							placeholder="{t}Placez le curseur dans cette zone et scannez l'étiquette{/t}">
@@ -91,7 +91,7 @@
 
 		<div class="col-md-6">
 			<div class="form-horizontal ">
-				<div class="form-group center">
+				<div class="row mb-6 center">
 					<button id="start2" class="btn btn-success">{t}Activer la lecture{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>

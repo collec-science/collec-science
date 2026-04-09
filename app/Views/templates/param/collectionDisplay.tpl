@@ -35,25 +35,25 @@
         <!-- Tab box -->
         <ul class="nav nav-tabs" id="collectionTab" role="tablist">
             <li class="nav-item active">
-                <a class="nav-link collectionTab" id="tabGeneral" data-toggle="tab" role="tab"
+                <a class="nav-link collectionTab" id="tabGeneral" data-bs-toggle="tab" role="tab"
                     aria-controls="navGeneral" aria-selected="true" href="#navGeneral">
                     {t}Informations générales{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collectionTab" id="tabsampletypes" href="#navsampletypes" data-toggle="tab"
+                <a class="nav-link collectionTab" id="tabsampletypes" href="#navsampletypes" data-bs-toggle="tab"
                     role="tab" aria-controls="navsampletypes" aria-selected="false">
                     {t}Types d'échantillons et d'évenements rattachés{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collectionTab" id="tabnotifications" href="#navnotifications" data-toggle="tab"
+                <a class="nav-link collectionTab" id="tabnotifications" href="#navnotifications" data-bs-toggle="tab"
                     role="tab" aria-controls="navnotifications" aria-selected="false">
                     {t}Groupes et notifications{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tabDocs" href="#navDocs" data-toggle="tab" role="tab" aria-controls="navDocs"
+                <a class="nav-link" id="tabDocs" href="#navDocs" data-bs-toggle="tab" role="tab" aria-controls="navDocs"
                     aria-selected="false">
                     {t}Documents associés{/t}
                 </a>

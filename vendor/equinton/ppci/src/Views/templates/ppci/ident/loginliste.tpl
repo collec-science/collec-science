@@ -68,8 +68,8 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<form class="form-horizontal">
-					<div class="form-group">
-						<label for="mails" class="control-label col-md-2">
+					<div class="row mb-6">
+						<label for="mails" class="form-label col-md-2">
 							{t}Adresses mails :{/t}
 						</label>
 						<div class="col-md-9">

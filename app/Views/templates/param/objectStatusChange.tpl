@@ -6,8 +6,8 @@
         <form class="form-horizontal " id="objectStatusForm" method="post" action="objectStatusWrite">
             <input type="hidden" name="moduleBase" value="objectStatus">
             <input type="hidden" name="object_status_id" value="{$data.object_status_id}">
-            <div class="form-group">
-                <label for="objectStatusName" class="control-label col-md-4"><span class="red">*</span>
+            <div class="row mb-6">
+                <label for="objectStatusName" class="form-label col-md-4"><span class="red">*</span>
                     {t}Nom:{/t}
                 </label>
                 <div class="col-md-8">
@@ -15,7 +15,7 @@
                         value="{$data.object_status_name}" autofocus required>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row mb-6 center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
             </div>
         {$csrf}</form>

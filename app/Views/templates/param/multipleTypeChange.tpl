@@ -7,12 +7,12 @@
 <form class="form-horizontal " id="multipleTypeForm" method="post" action="multipleTypeWrite">
 <input type="hidden" name="moduleBase" value="multipleType">
 <input type="hidden" name="multiple_type_id" value="{$data.multiple_type_id}">
-<div class="form-group">
-<label for="multipleTypeName"  class="control-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
+<div class="row mb-6">
+<label for="multipleTypeName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
 <div class="col-md-8">
 <input id="multipleTypeName" type="text" class="form-control" name="multiple_type_name" value="{$data.multiple_type_name}" autofocus required></div>
 </div>
-<div class="form-group center">
+<div class="row mb-6 center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       {if $data.multiple_type_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

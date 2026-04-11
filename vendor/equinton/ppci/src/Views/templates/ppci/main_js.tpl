@@ -4,6 +4,7 @@
 <!-- bootstrap 5-->
  <link rel="stylesheet" href="display/node_modules/bootstrap/dist/css/bootstrap.min.css">
 <script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="display/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!--JqueryUI-->
 <script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
@@ -16,10 +17,6 @@
 <script type="text/javascript" charset="utf-8"
     src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
-
-
-<!-- ppci.css-->
- <link rel="stylesheet" type="text/css" href="display/CSS/ppci.css">
 
 <!-- extension pour le menu -->
 <script src="display/node_modules/smartmenus/dist/jquery.smartmenus.min.js" type="text/javascript"></script>
@@ -66,6 +63,9 @@
 
 <!-- specific code -->
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
+
+<!-- ppci.css-->
+ <link rel="stylesheet" type="text/css" href="display/CSS/ppci.css">
 
 
 <!--  Automatic implementation of classes -->

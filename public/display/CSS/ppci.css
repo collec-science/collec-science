@@ -397,13 +397,14 @@ table a:visited {
 }
 
 thead {
-	/*background-color: #fff;*/
+	background-color: red;
 	color: rgb(0, 58, 128);
 }
 
-th {
+th, .dt-column-title {
 	font-weight: normal;
 	text-align: center;
+	color: rgb(0, 58, 128);
 }
 
 tr {
@@ -461,6 +462,15 @@ input:invalid {
 /*
 bootstrap5
 */
+a {
+	color:#003A80;
+	text-decoration: none;
+}
+a:hover {
+	color:#003A80;
+	text-decoration: underline;
+}
+/* menu */
 .navbar {
 	background-color: #003A80;
 }
@@ -483,11 +493,70 @@ bootstrap5
 .white {
 	color:white;
 }
-a {
-	color:#003A80;
+.nav a:hover {
+	text-decoration: none;
+	background-color: rgba(0, 158, 224, 0.3);
 }
+/* tabs */
+.nav-tabs .nav-item a {
+	color: #003A80 !important;
+	background-color:rgba(0, 158, 224, 0.3) !important;
+}
+.nav-tabs .nav-item .active
+ {
+  color: white !important;
+  background-color: rgba(0, 158, 224) !important;
+}
+.nav-tabs .nav-item a:hover {
+	background-color: rgba(0, 158, 224, 0.5) !important
+}
+/* datatables */
 .buttons-html5,
-.buttons-colvis{
+.buttons-colvis,
+.buttons-print{
 		color: white;
 	background-color: #003A80;
+}
+.buttons-html5:hover,
+.buttons-print:hover,
+.buttons-colvis:hover,
+a.buttons-colvis:hover
+ {
+	background-color: rgba(0, 158, 224);
+}
+
+.btn-primary {
+	background-color: #009EE0;
+}
+.btn-primary:hover {
+	background-color: rgba(0, 158, 224, 0.7);
+}
+.btn-secondary {
+	background-color: #003A80;
+}
+.btn-secondary:hover {
+	background-color: rgba(0,58,128,0.7);
+}
+.btn-danger {
+	background-color: #D1041D;
+}
+.btn-danger:hover {
+	background-color: rgba(213,19,23,0.7);
+}
+.btn-warning {
+	background-color: #A4C400;
+	color: white;
+}
+.btn-warning:hover {
+	background-color: rgba(164,196,0,0.7);
+	color: white;
+}
+.text-warning {
+	color:rgba(213,19,23);
+}
+.tooltip-inner {
+    white-space:pre-wrap;
+	--bs-tooltip-max-width: 600px !important;
+	text-align: left;
+
 }

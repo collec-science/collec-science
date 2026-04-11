@@ -274,7 +274,7 @@
 		/**
 		 * Display the content of a sample
 		 */
-		var delay = 1000, timer, ajaxDone = true;
+		/*var delay = 1000, timer, ajaxDone = true;
 		$( ".sample" ).mouseenter( function () {
 			var objet = $( this );			
 			timer = setTimeout( function () {
@@ -408,7 +408,128 @@
 			} );
 			//object.attr( "title", tooltipContent );
 			object.tooltip( "open" );
-		}
+		}*/
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+		$( ".sample" ).mouseenter( function () {
+			var objet = $( this );		
+			const tip = bootstrap.Tooltip.getOrCreateInstance(this);	
+			var uid = objet.data( "uid" );
+			if ( uid > 0 ) {
+				var url = "sampleDetail";
+				var data = { "uid": uid };
+				$.ajax( { url: url, data: data } )
+					.done( function ( d ) {
+						if ( d ) {
+							d = JSON.parse( d );
+							if ( !d.error_code ) {
+								var content = "{t}UID et référence :{/t} "
+									+ encodeHtml( d.uid.toString() ) + "&nbsp;" + encodeHtml( d.identifier );
+								if ( d.dbuid_origin ) {
+									content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml( d.dbuid_origin );
+								}
+								if ( d.identifiers ) {
+									d.identifiers.split( "," ).forEach( function ( dc ) {
+										//content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
+										content += "<br>" + encodeHtml( dc );
+									} );
+								}
+								content += "<br>{t}Collection :{/t} " + encodeHtml( d.collection_name );
+								content += "<br>{t}Référent :{/t} " + encodeHtml( d.referent_name ) + " " + encodeHtml(d.referent_firstname);
+								content += "<br>{t}Type :{/t} " + encodeHtml( d.sample_type_name );
+								if ( d.container_type_name ) {
+									content += " / " + encodeHtml( d.container_type_name );
+								}
+								if ( d.product_name ) {
+									content += " / {t}produit :{/t} " + encodeHtml( d.product_name );
+								}
+								if ( d.risk_name ) {
+									content += " / {t}clp :{/t} " + encodeHtml( d.risk_name );
+								}
+								if ( d.campaign_id > 0 ) {
+									content += "<br>{t}Campagne :{/t} " + encodeHtml( d.campaign_name );
+								}
+								if ( d.operation_id > 0 ) {
+									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml( d.protocol_year ) + " " + encodeHtml( d.protocol_name ) + " " + encodeHtml( d.operation_name ) + " " + encodeHtml( d.operation_version );
+								}
+								content += "<br>{t}Statut :{/t} " + encodeHtml( d.object_status_name );
+								content += "<br>{t}Date de création	de l'échantillon (d'échantillonnage) :{/t} " + encodeHtml( d.sampling_date );
+								content += "<br>{t}Date d'import dans la base de données :{/t} " + encodeHtml( d.sample_creation_date );
+								if ( d.expiration_date ) {
+									content += "<br>{t}Date d'expiration de l'échantillon :{/t} " + encodeHtml( d.expiration_date );
+								}
+								if (d.multiple_value) {
+									content +="<br>{t}Quantité initiale :{/t} " + encodeHtml(d.multiple_value) +" " + d.multiple_unit;
+									content +="<br>{t}Reste disponible :{/t} "+ encodeHtml(d.subsample_quantity);
+								}
+								if ( d.parent_uid ) {
+									content += "<br>{t}Échantillon parent :{/t} " + encodeHtml( d.parent_uid.toString() ) + " " + encodeHtml( d.parent_identifier );
+								}
+								if ( d.sampling_place_id ) {
+									content += "<br>{t}Lieu de prélèvement :{/t} " + encodeHtml( d.sampling_place_name );
+								}
+								if ( d.country_name ) {
+									content += "<br>{t}Pays de collecte :{/t} " + encodeHtml( d.country_name );
+								}
+								if ( d.country_origin_name ) {
+									content += "<br>{t}Pays de provenance :{/t} " + encodeHtml( d.country_origin_name );
+								}
+								if (d.object_comment) {
+									content += "<br>{t}Commentaires :{/t} " + encodeHtml (d.object_comment);
+								}
+								if ( d.metadata ) {
+									content += "<br><u>{t}Métadonnées :{/t}</u>";
+									dm = d.metadata;
+									var comma = "";
+									for ( key in dm ) {
+										dmunitname = "md_" + key + "_unit";
+										if (d[dmunitname]) {
+											mdunit = " ("+ encodeHtml(d[dmunitname]) + ")";
+										} else {
+											mdunit = "";
+										}
+										content += "<br>" + key + mdunit + "{t} : {/t}";
+										if ( Array.isArray( dm[ key ] ) ) {
+											$.each( dm[ key ], function ( i, md ) {
+												content += comma;
+												if (!md.value) {
+												content += encodeHtml( md );
+												} else {
+													content += encodeHtml (md.value);
+												}
+												comma = ", ";
+											} );
+										} else {
+											try {
+												content += encodeHtml( dm[ key ].toString() );
+											} catch ( Exception ) { }
+										}
+									}
+								}
+								if ( d.container.length > 0 ) {
+									content += "<br><u>{t}Contenants :{/t}</u> ";
+									d.container.forEach( function ( dc ) {
+										content += "<br>" + encodeHtml( dc.uid.toString() ) + " " + encodeHtml( dc.identifier ) + " <i>" + encodeHtml( dc.container_type_name ) + "</i>";
+									} );
+								}
+								if ( d.events.length > 0 ) {
+									content += "<br><u>{t}Événements :{/t}</u> ";
+									d.events.forEach( function ( dc ) {
+										content += "<br>" + encodeHtml( dc.event_type_name ) + "{t} : {/t}" + encodeHtml( dc.event_date );
+									} );
+								}
+								$(this).attr("title", content);
+								 tip.setContent({ '.tooltip-inner': content });
+								    if (document.querySelector('.tooltip.show')) {
+      tip.show();
+    }
+							}
+						}
+					} );		
+			}
+		});
+	
+
 		/**
 		 * Add the search on columns headers
 		 */
@@ -776,7 +897,8 @@
 								{/if}
 							</td>
 							<td class="nowrap"  title="">
-								<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="" data-uid="{$samples[lst].uid}">
+								<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" 
+								title="test" data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
 									{$samples[lst].identifier}
 								</a>
 							</td>

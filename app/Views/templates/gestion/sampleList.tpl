@@ -36,8 +36,8 @@ $(document).ready(function() {
 			<span class="red">{t 1=$totalNumber 2=$sampleSearch["limit"] 3=$sampleSearch["page"]}Attention : seuls les %2 échantillons les plus récents à partir de la page %3 sont affichés sur un total de %1{/t}</span>
 			{/if}
 			<ul class="nav nav-tabs  " id="tabResult" role="tablist" >
-				<li class="nav-item active">
-						<a class="nav-link tabResult" id="tablist" data-bs-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
+				<li class="nav-item">
+						<a class="nav-link tabResult active" id="tablist" data-bs-toggle="tab"  role="tab" aria-controls="navlist" aria-selected="true" href="#navlist">
 								{t}Liste{/t}
 						</a>
 				</li>

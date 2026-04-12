@@ -511,19 +511,6 @@ a:hover {
 	background-color: rgba(0, 158, 224, 0.5) !important
 }
 /* datatables */
-.buttons-html5,
-.buttons-colvis,
-.buttons-print{
-		color: white;
-	background-color: #003A80;
-}
-.buttons-html5:hover,
-.buttons-print:hover,
-.buttons-colvis:hover,
-a.buttons-colvis:hover
- {
-	background-color: rgba(0, 158, 224);
-}
 
 .btn-primary {
 	background-color: #009EE0;
@@ -551,12 +538,12 @@ a.buttons-colvis:hover
 	background-color: rgba(164,196,0,0.7);
 	color: white;
 }
-.text-warning {
-	color:rgba(213,19,23);
-}
 .tooltip-inner {
     white-space:pre-wrap;
 	--bs-tooltip-max-width: 600px !important;
 	text-align: left;
+	background-color: whitesmoke;
+	color:#003A80;
+	border-style: solid;
 
 }

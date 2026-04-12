@@ -8,7 +8,6 @@
 
 <!--JqueryUI-->
 <script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
-<script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
 <link rel="stylesheet" href="display/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css">
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
 <link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />

@@ -1,6 +1,5 @@
 <nav class="navbar navbar-expand-lg ">
 	<div class="container-fluid">
-
 		<a class="navbar-brand" href='/'>
 			<span class="navbar-text hidden-xs hidden-sm">
 				<img src="{$favicon}" height="20">

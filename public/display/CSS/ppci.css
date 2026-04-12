@@ -1,10 +1,27 @@
 /*
 Couleurs IRSTEA :
-marine : 	#003A80; rgb(0,58,128)
-ocean:		#009EE0; rgb(0,158,224)
-prairie :	#A4C400; rgb(164,196,0)
-red: #D1041D, rgb(213,19,23);
+marine : 	var(--color-pri); rgb(0,58,128)
+ocean:		var(--color-sec); rgb(0,158,224)
+prairie :	var(--color-green); rgb(164,196,0)
+red: var(--color-red), rgb(213,19,23);
 */
+:root {
+	--color-pri: rgba(0,58,128);
+	--color-sec: rgba(0,158,224);
+	--color-green: rgba(164,196,0);
+	--color-red: rgba(213,19,23);
+	--color-pri-7:rgba(0,58,128,0.7);
+	--color-sec-1: rgba(0,158,224,0.1);
+	--color-sec-3: rgba(0, 158, 224, 0.3);
+	--color-sec-5: rgba(0, 158, 224, 0.5);
+	--color-sec-7: rgba(0, 158, 224, 0.7);
+	--color-green-3: rgba(164,196,0,0.3);
+	--color-green-7: rgba(164,196,0,0.7);
+	--color-red-5: rgba(213, 19, 23, 0.5);
+	--color-red-7:rgba(213, 19, 23, 0.7);
+	--color-grey: #000000c8;
+
+}
 /* Wrapper for page content to push down footer */
 html,
 body {
@@ -37,8 +54,7 @@ body {
 .form-horizontal {
 	border-style: solid;
 	border-width: 1px;
-	/*background:  #98c1e9;*/
-	background-color: rgba(0, 158, 224, 0.1);
+	background-color: var(--color-sec-1);
 }
 
 .center {
@@ -50,51 +66,51 @@ body {
 }
 
 .red {
-	color: #D1041D;
+	color: var(--color-red);
 }
 
 .blue {
-	color: #003A80;
+	color: var(--color-pri);
 }
 
 .green {
-	color: #A4C400;
+	color: var(--color-green);
 }
 
 .message {
 	font-style: italic;
-	color: #003A80;
+	color: var(--color-pri);
 }
 
 .messageError {
-	color: #D1041D;
+	color: var(--color-red);
 }
 
 /* italique gris petit*/
 .messagebas {
-	color: #A4C400;
+	color: var(--color-green);
 	font-size: small;
 	font-style: italic;
 }
 
 h1 {
 	font-size: x-large;
-	color:#003A80;
+	color:var(--color-pri);
 }
 
 h2 {
 	font-size: large;
-	color:#003A80;
+	color:var(--color-pri);
 }
 
 h3 {
 	font-size: large;
-	color:#009EE0;
+	color:var(--color-sec);
 }
 
 legend {
 	font-size: medium;
-	color: #003A80;
+	color: var(--color-pri);
 }
 
 .textareaDisplay {
@@ -113,7 +129,7 @@ legend {
 	border-style: solid;
 	border-width: 1px;
 	/*background:  #98c1e9;*/
-	background-color: rgba(0, 158, 224, 0.3);
+	background-color: var(--color-sec-3);
 }
 
 
@@ -233,17 +249,17 @@ td a {
 /* Affichage de la structure de la base de donnees */
 .tablename {
 	margin-top: 1em;
-	background: #003A80;
+	background: var(--color-pri);
 	font-size: large;
 	color: white;
 }
 
 .tablecomment {
-	color: #009EE0;
+	color: var(--color-sec);
 }
 
 .itemSelected {
-	background: #009EE0;
+	background: var(--color-sec);
 }
 
 meter {
@@ -266,57 +282,57 @@ meter::-webkit-meter-bar {
 }
 
 meter::-webkit-meter-optimum-value {
-	background: #009EE0;
+	background: var(--color-sec);
 }
 
 meter::-webkit-meter-suboptimum-value {
-	background: #009EE0;
+	background: var(--color-sec);
 }
 
 meter::-webkit-meter-even-less-good-value {
-	background: #009EE0;
+	background: var(--color-sec);
 }
 
 meter[value="1"]::-moz-meter-bar {
-	background: #D1041D;
+	background: var(--color-red);
 }
 
 meter[value="2"]::-moz-meter-bar {
-	background: #003A80;
+	background: var(--color-pri);
 }
 
 meter[value="3"]::-moz-meter-bar {
-	background: #009EE0;
+	background: var(--color-sec);
 }
 
 meter[value="4"]::-moz-meter-bar {
-	background: #A4C400;
+	background: var(--color-green);
 }
 
 .messageLevel1 {
-	color: #D1041D;
+	color: var(--color-red);
 }
 
 .messageLevel0 {
-	color: #D1041D;
+	color: var(--color-red);
 }
 
 .messageLevel2 {
-	color: #003A80;
+	color: var(--color-pri);
 }
 
 .messageLevel3 {
-	color: #009EE0;
+	color: var(--color-sec);
 }
 
 .messageLevel4 {
-	color: #A4C400;
+	color: var(--color-green);
 }
 
 /* Nav */
 
 .tab-content {
-	border-top: 2px solid rgba(0, 158, 224);
+	border-top: 2px solid var(--color-sec);
 	border-right: 0px;
 	padding: 10px;
 }
@@ -328,14 +344,14 @@ meter[value="4"]::-moz-meter-bar {
 
 .nav-tabs>li>a {
 	border: medium none;
-	background-color: rgba(0, 158, 224, 0.3) !important;
+	background-color: var(--color-sec-3) !important;
 }
 
 .nav-tabs>li.active a,
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:focus,
 .nav-tabs>li.active>a:visited {
-	background-color: rgba(0, 158, 224) !important;
+	background-color: var(--color-sec) !important;
 	color: #fff;
 	border: medium none;
 	border-radius: 0.5;
@@ -376,12 +392,12 @@ table a {
 
 table a:hover {
 	/*text-decoration: underline;*/
-	color: #003A80;
+	color: var(--color-pri);
 }
 
 table a:visited {
 	/*text-decoration: none;*/
-	color: #009EE0;
+	color: var(--color-sec);
 }
 
 .tableinput {
@@ -428,9 +444,9 @@ tr {
 .submenu {
 	border-bottom: solid;
 	border-right: solid;
-	border-bottom-color: rgba(0, 158, 224);
-	border-right-color: rgba(0, 158, 224);
-	background-color: rgba(0, 158, 224, 0.3);
+	border-bottom-color: var(--color-sec);
+	border-right-color: var(--color-sec);
+	background-color: var(--color-sec-3);
 	list-style: none;
 }
 
@@ -446,7 +462,7 @@ tr {
 }
 
 input:invalid {
-	border: 1px solid #D1041D;
+	border: 1px solid var(--color-red);
 }
 
 .move:hover {
@@ -463,16 +479,16 @@ input:invalid {
 bootstrap5
 */
 a {
-	color:#003A80;
+	color:var(--color-pri);
 	text-decoration: none;
 }
 a:hover {
-	color:#003A80;
+	color:var(--color-pri);
 	text-decoration: underline;
 }
 /* menu */
 .navbar {
-	background-color: #003A80;
+	background-color: var(--color-pri);
 }
 .nav.navbar-nav > li > a {
     color: white;
@@ -480,14 +496,14 @@ a:hover {
 .nav.navbar-nav li a:hover,
 .nav.navbar-nav li a:focus,
 .nav.navbar-nav li a:active{
-	background-color: rgba(0, 158, 224, 0.3);
+	background-color: var(--color-sec-3);
 }
 .nav.navbar-nav > .open > a,
 .nav.navbar-nav > .active > a,
 .nav.navbar-nav > .focus > a
 {
 	color: white;
-	background-color: rgba(0, 158, 224);
+	background-color: var(--color-sec);
 }
 .nav.navbar-nav > .open > a,
 .white {
@@ -495,55 +511,66 @@ a:hover {
 }
 .nav a:hover {
 	text-decoration: none;
-	background-color: rgba(0, 158, 224, 0.3);
+	background-color: var(--color-sec-3);
 }
+
 /* tabs */
 .nav-tabs .nav-item a {
-	color: #003A80 !important;
-	background-color:rgba(0, 158, 224, 0.3) !important;
+	color: var(--color-pri) !important;
+	background-color:var(--color-sec-3) !important;
 }
 .nav-tabs .nav-item .active
  {
   color: white !important;
-  background-color: rgba(0, 158, 224) !important;
+  background-color: var(--color-sec) !important;
 }
 .nav-tabs .nav-item a:hover {
-	background-color: rgba(0, 158, 224, 0.5) !important
+	background-color: var(--color-sec-5) !important
 }
 /* datatables */
 
 .btn-primary {
-	background-color: #009EE0;
+	background-color: var(--color-sec);
 }
 .btn-primary:hover {
-	background-color: rgba(0, 158, 224, 0.7);
+	background-color: var(--color-sec-7);
 }
 .btn-secondary {
-	background-color: #003A80;
+	background-color: var(--color-pri);
 }
 .btn-secondary:hover {
-	background-color: rgba(0,58,128,0.7);
+	background-color: var(--color-pri-7);
 }
 .btn-danger {
-	background-color: #D1041D;
+	background-color: var(--color-red);
 }
 .btn-danger:hover {
-	background-color: rgba(213,19,23,0.7);
+	background-color: var(--color-red-7);
 }
 .btn-warning {
-	background-color: #A4C400;
+	background-color: var(--color-green);
 	color: white;
 }
 .btn-warning:hover {
-	background-color: rgba(164,196,0,0.7);
+	background-color: var(--color-green-7);
 	color: white;
+}
+.btn-info {
+	background-color: var(--color-green);
+	color:var(--color-grey);
+}
+.btn-info:hover {
+background-color: var(--color-green-7);
+}
+.bg-info {
+	background-color: var(--color-green-3) !important;
 }
 .tooltip-inner {
     white-space:pre-wrap;
 	--bs-tooltip-max-width: 600px !important;
 	text-align: left;
 	background-color: whitesmoke;
-	color:#003A80;
+	color:var(--color-pri);
 	border-style: solid;
 
 }

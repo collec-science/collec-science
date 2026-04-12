@@ -685,18 +685,18 @@
 	});
 
 </script>
-<div class="col-lg-12">
-	{include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel"
-		enctype="multipart/form-data">
-		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
-		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
+
+{include file="gestion/displayPhotoScript.tpl"}
+<form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel" enctype="multipart/form-data">
+	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
+	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
+	<div class="container-fluid">
 		{if $rights.manage == 1}
 		<div class="row">
 			<div class="center">
 				<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>
 				<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample">
-				<select id="labels" name="label_id">
+				<select id="labels" name="label_id" class="">
 					<option value="" {if $label_id=="" }selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
 					<option value="{$labels[lst].label_id}" {if $labels[lst].label_id==$label_id}selected{/if}>
@@ -726,161 +726,162 @@
 			</div>
 		</div>
 		{/if}
+	</div>
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<table id="sampleList" class="table table-bordered table-hover display">
-					<thead class="nowrap">
-						<tr>{if $rights.manage == 1}
-							<th class="center">
-								<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
-							</th>
+			<table id="sampleList" class="table table-bordered table-hover display">
+				<thead class="nowrap">
+					<tr>{if $rights.manage == 1}
+						<th class="center">
+							<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
+						</th>
+						{/if}
+						<th>{t}UID{/t}</th>
+						<th>{t}Identifiant ou nom{/t}</th>
+						<th>{t}Autres identifiants{/t}</th>
+						<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
+						<th>{t}Type{/t}</th>
+						<th>{t}Statut{/t}</th>
+						<th>{t}Parent{/t}</th>
+						<th>{t}Photo{/t}</th>
+						<th>{t}Dernier mouvement{/t}</th>
+						<th>{t}Emplacement{/t}</th>
+						<th>{t}Condition de stockage{/t}</th>
+						<th>{t}Référent{/t}</th>
+						<th>{t}Campagne{/t}</th>
+						<th>{t}Lieu de prélèvement{/t}</th>
+						<th>{t}Date d'échantillonnage{/t}</th>
+						<th>{t}Date de création dans la base{/t}</th>
+						<th>{t}Date d'expiration{/t}</th>
+						<th>{t}Quantité restante{/t}</th>
+						<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
+						<th>{t}Commentaires{/t}</th>
+						<th>{t}Tri technique{/t}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{section name=lst loop=$samples}
+					<tr>
+						{if $rights.manage == 1}
+						<td class="center">
+							<input type="checkbox" class="checkSample checkSampleList" name="uids[]"
+								value="{$samples[lst].uid}">
+						</td>
+						{/if}
+						<td class="text-center">
+							<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
+								{$samples[lst].uid}
+							</a>
+							{if $samples[lst].nb_derivated_sample > -1}
+							<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}"
+								src="display/images/plus.png" height="15">
 							{/if}
-							<th>{t}UID{/t}</th>
-							<th>{t}Identifiant ou nom{/t}</th>
-							<th>{t}Autres identifiants{/t}</th>
-							<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
-							<th>{t}Type{/t}</th>
-							<th>{t}Statut{/t}</th>
-							<th>{t}Parent{/t}</th>
-							<th>{t}Photo{/t}</th>
-							<th>{t}Dernier mouvement{/t}</th>
-							<th>{t}Emplacement{/t}</th>
-							<th>{t}Condition de stockage{/t}</th>
-							<th>{t}Référent{/t}</th>
-							<th>{t}Campagne{/t}</th>
-							<th>{t}Lieu de prélèvement{/t}</th>
-							<th>{t}Date d'échantillonnage{/t}</th>
-							<th>{t}Date de création dans la base{/t}</th>
-							<th>{t}Date d'expiration{/t}</th>
-							<th>{t}Quantité restante{/t}</th>
-							<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
-							<th>{t}Commentaires{/t}</th>
-							<th>{t}Tri technique{/t}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{section name=lst loop=$samples}
-						<tr>
-							{if $rights.manage == 1}
-							<td class="center">
-								<input type="checkbox" class="checkSample checkSampleList" name="uids[]"
-									value="{$samples[lst].uid}">
-							</td>
+						</td>
+						<td class="nowrap" title="">
+							<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="empty"
+								data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
+								{$samples[lst].identifier}
+							</a>
+						</td>
+						<td class="nowrap">{$samples[lst].identifiers}
+							{if strlen($samples[lst].dbuid_origin) > 0}
+							{if strlen($samples[lst].identifiers) > 0}<br>{/if}
+							<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
 							{/if}
-							<td class="text-center">
-								<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
-									{$samples[lst].uid}
+						</td>
+						<td class="nowrap" title="{$samples[lst].collection_description}">
+							{$samples[lst].collection_name}</td>
+						<td class="nowrap">{$samples[lst].sample_type_name}</td>
+						<td {if $samples[lst].trashed=='t' }class="trashed"
+							title="{t}Échantillon mis à la corbeille{/t}" {/if}>
+							{$samples[lst].object_status_name}</td>
+						<td>
+							{if strlen($samples[lst].parent_uid) > 0}
+							<span class="nowrap">
+								<a class="sample" data-uid="{$samples[lst].parent_uid}"
+									href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip"
+									data-bs-html="true" title="empty">
+									<span
+										class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
 								</a>
-								{if $samples[lst].nb_derivated_sample > -1}
-								<img class="plus hover" id="{$samples[lst].uid + 9000000}"
-									data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
-								{/if}
-							</td>
-							<td class="nowrap" title="">
-								<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="empty"
-									data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
-									{$samples[lst].identifier}
-								</a>
-							</td>
-							<td class="nowrap">{$samples[lst].identifiers}
-								{if strlen($samples[lst].dbuid_origin) > 0}
-								{if strlen($samples[lst].identifiers) > 0}<br>{/if}
-								<span
-									title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
-								{/if}
-							</td>
-							<td class="nowrap" title="{$samples[lst].collection_description}">
-								{$samples[lst].collection_name}</td>
-							<td class="nowrap">{$samples[lst].sample_type_name}</td>
-							<td {if $samples[lst].trashed=='t' }class="trashed"
-								title="{t}Échantillon mis à la corbeille{/t}" {/if}>
-								{$samples[lst].object_status_name}</td>
-							<td>
-								{if strlen($samples[lst].parent_uid) > 0}
-								<span class="nowrap">
-									<a class="sample" data-uid="{$samples[lst].parent_uid}"
-										href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip"
-										data-bs-html="true" title="empty">
-										<span
-											class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
-									</a>
+							</span>
+							{/if}
+							{if strlen($samples[lst].sample_parents) > 0}
+							{$samples[lst].sample_parents}
+							{/if}
+						</td>
+						<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
+								href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
+								title="{t}aperçu de la photo{/t}"> <img
+									src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
+									height="30">
+							</a> {/if}
+						</td>
+						<td class="nowrap">
+							{if strlen($samples[lst].movement_date) > 0 }
+							{if $samples[lst].movement_type_id == 1}
+							<span class="green">{else}
+								<span class="red">
+									{/if}
+									{$samples[lst].movement_date}
 								</span>
 								{/if}
-								{if strlen($samples[lst].sample_parents) > 0}
-								{$samples[lst].sample_parents}
-								{/if}
-							</td>
-							<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
-									href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
-									title="{t}aperçu de la photo{/t}"> <img
-										src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
-										height="30">
-								</a> {/if}
-							</td>
-							<td class="nowrap">
-								{if strlen($samples[lst].movement_date) > 0 }
-								{if $samples[lst].movement_type_id == 1}
-								<span class="green">{else}
-									<span class="red">
-										{/if}
-										{$samples[lst].movement_date}
-									</span>
-									{/if}
-							</td>
-							<td class="nowrap">
-								{if $samples[lst].container_uid > 0}
-								<a href="containerDisplay?uid={$samples[lst].container_uid}">
-									{$samples[lst].container_identifier}
-								</a>
-								<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
-								{/if}
-							</td>
-							<td>{$samples[lst].storage_condition_name}</td>
-							<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
-							<td class="nowrap" title="{$samples[lst].campaign_description}">
-								{$samples[lst].campaign_name}</td>
-							<td class="nowrap">{$samples[lst].sampling_place_name}</td>
-							<td class="nowrap">{$samples[lst].sampling_date}</td>
-							<td class="nowrap">{$samples[lst].sample_creation_date}</td>
-							<td class="nowrap">{$samples[lst].expiration_date}</td>
-							<td>{$samples[lst].subsample_quantity}</td>
-							<td>
-								{if empty($sampleSearch.metadatafilter)}
-								{$l = 0}
-								{foreach $samples[lst].metadata_array as $k => $v}
-								{if $l > 0}<br>{/if}
-								{$l = $l+1}
-								{$k}:
-								{if is_array($v)}
-								{foreach $v as $val}
-								{$val}&nbsp;
-								{/foreach}
-								{else}
-								{$v}
-								{/if}
-								{/foreach}
-								{else}
-								{$samples[lst].metadata}
-								{/if}
-							</td>
-							<td class="textareaDisplay">{$samples[lst].object_comment}</td>
-							<td>{$samples[lst].uid + 9000000}</td>
+						</td>
+						<td class="nowrap">
+							{if $samples[lst].container_uid > 0}
+							<a href="containerDisplay?uid={$samples[lst].container_uid}">
+								{$samples[lst].container_identifier}
+							</a>
+							<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
+							{/if}
+						</td>
+						<td>{$samples[lst].storage_condition_name}</td>
+						<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
+						<td class="nowrap" title="{$samples[lst].campaign_description}">
+							{$samples[lst].campaign_name}</td>
+						<td class="nowrap">{$samples[lst].sampling_place_name}</td>
+						<td class="nowrap">{$samples[lst].sampling_date}</td>
+						<td class="nowrap">{$samples[lst].sample_creation_date}</td>
+						<td class="nowrap">{$samples[lst].expiration_date}</td>
+						<td>{$samples[lst].subsample_quantity}</td>
+						<td>
+							{if empty($sampleSearch.metadatafilter)}
+							{$l = 0}
+							{foreach $samples[lst].metadata_array as $k => $v}
+							{if $l > 0}<br>{/if}
+							{$l = $l+1}
+							{$k}:
+							{if is_array($v)}
+							{foreach $v as $val}
+							{$val}&nbsp;
+							{/foreach}
+							{else}
+							{$v}
+							{/if}
+							{/foreach}
+							{else}
+							{$samples[lst].metadata}
+							{/if}
+						</td>
+						<td class="textareaDisplay">{$samples[lst].object_comment}</td>
+						<td>{$samples[lst].uid + 9000000}</td>
 
-						</tr>
-						{/section}
-					</tbody>
-				</table>
-			</div>
+					</tr>
+					{/section}
+				</tbody>
+			</table>
 		</div>
+	</div>
 
 
-		<!-- form at the bottom of the list-->
-		{if $rights.collection == 1}
+	<!-- form at the bottom of the list-->
+	{if $rights.collection == 1}
+	<div class="container">
 		<div class="row">
 			<div id="nbSampleChecked"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 form-horizontal">
+			<div class="col-md-10 form-horizontal">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">
@@ -1369,7 +1370,7 @@
 				{$helpsamplegroup}
 			</div>
 		</div>
-		{/if}
-		{$csrf}
-	</form>
-</div>
+	</div>
+	{/if}
+	{$csrf}
+</form>

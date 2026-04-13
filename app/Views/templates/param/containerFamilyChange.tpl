@@ -7,7 +7,7 @@
             <form class="form-horizontal " id="containerFamilyForm" method="post" action="containerFamilyWrite">
                   <input type="hidden" name="moduleBase" value="containerFamily">
                   <input type="hidden" name="container_family_id" value="{$data.container_family_id}">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="containerFamilyName" class="form-label col-4"><span class="red">*</span>
                               {t}Nom :{/t}</label>
                         <div class="col-8">
@@ -17,7 +17,7 @@
                         </div>
                   </div>
 
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.container_family_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

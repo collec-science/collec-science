@@ -17,7 +17,7 @@
 
 		<form id="movementConfirm" class="form-horizontal" method="post" action="movementBatchWrite">
 			<input type="hidden" name="moduleBase" value="movementBatch">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-8">
 					<select id="movement_reason_id" name="movement_reason_id">

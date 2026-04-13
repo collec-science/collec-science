@@ -50,7 +50,7 @@ $(document).ready(function() {
 		<form class="form-horizontal protoform" id="requestForm" method="post" action="index.php">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<input type="hidden" name="body" id="bodySent">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="title" class="form-label col-4">
 					{t}Description de la requête{/t} <span class="red">*</span> :
 				</label>
@@ -58,38 +58,38 @@ $(document).ready(function() {
 					<input class="form-control modif" id="title" name="title" type="text" value="{$data.title}" required autofocus/>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="body" class="form-label col-4"><span class="red">*</span> {t}Code SQL :{/t}</label>
 				<div class="col-8">
 					<textarea id="body" class="form-control modif" cols="70" rows="10" wrap="soft" required>{$data.body}</textarea>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="datefields" class="form-label col-4">{t}Champs dates de la requête (séparés par une virgule) :{/t}</label>
 				<div class="col-8">
 					<input class="form-control modif"  name="datefields" value="{$data.datefields}" placeholder="sampling_date,sample_creation_date">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="create_date" class="form-label col-4">{t}date de création :{/t}</label>
 				<div class="col-8">
 					<input id="create_date" class="form-control" name="create_date" value="{$data.create_date}" readonly>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="login" class="form-label col-4">{t}par :{/t}</label>
 				<div class="col-8">
 					<input id="login" class="form-control" name="login" value="{$data.login}" readonly>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 			<label for="last_exec" class="form-label col-4">{t}Date de dernière exécution :{/t}</label>
 				<div class="col-8">
 					<input id="last_exec" class="form-control" name="last_exec" value="{$data.last_exec}" readonly>
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<div class="col-12 center">
 					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}

@@ -35,7 +35,7 @@
 			<input type="hidden" name="moduleBase" value="fastInput">
 			<input type="hidden" name="movement_id" value="0">
 			<input type="hidden" id="read_optical" name="read_optical" value="{$read_optical}">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="container_uid" class="form-label col-4">
 					<img id="arrow-container" src="display/images/right-arrow.png" height="25">
 					<span class="red">*</span> {t}UID du contenant :{/t}
@@ -54,7 +54,7 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="object_uid" class="form-label col-4">
 					<img id="arrow-object" src="display/images/right-arrow.png" height="25">
 					<span class="red">*</span> {t}UID de l'objet :{/t}
@@ -73,7 +73,7 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="storage_location" class="form-label col-4">
 					{t}Emplacement dans le contenant (format libre) :{/t}</label>
 				<div class="col-8">
@@ -81,14 +81,14 @@
 						class="form-control">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
 				<div class="col-8">
 					<input id="line_number" name="line_number" value="{$data.line_number}" class="form-control nombre slotFull"
 						title="{t}N° de la ligne de rangement dans le container{/t}">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
 				<div class="col-8">
 					<input id="column_number" name="column_number" value="{$data.column_number}"
@@ -98,7 +98,7 @@
 
 
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_date" class="form-label col-4"><span class="red">*</span> 
 					{t}Date/heure :{/t}</label>
 				<div class="col-8">
@@ -107,14 +107,14 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
 				<div class="col-8">
 					<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 				</div>
 			</div>
 
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary button-valid">
 					{t}Entrer ou déplacer dans le contenant{/t}</button>
 			</div>
@@ -133,13 +133,13 @@
 
 		<div class="col-6">
 			<div class="form-horizontal ">
-				<div class="row mb-6 center">
+				<div class="row center">
 					<button id="destObject" class="btn btn-success">
 						{t}Lecture de l'objet à entrer ou déplacer{/t}</button>
 					<button id="destContainer" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 				</div>
 
-				<div class="row mb-6">
+				<div class="row">
 					<label for="valeur-scan" class="form-label col-4">{t}Valeur lue :{/t}</label>
 					<div class="col-8">
 						<input id="valeur-scan" type="text" class="form-control"
@@ -157,7 +157,7 @@
 		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone (utiliser Firefox){/t}</legend>
 		<div class="col-6">
 			<div class="form-horizontal ">
-				<div class="row mb-6 center">
+				<div class="row center">
 					<button id="start" class="btn btn-success">{t}Lecture du contenant{/t}</button>
 					<button id="start2" class="btn btn-success">{t}Lecture de l'objet à entrer ou déplacer{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>

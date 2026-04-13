@@ -60,7 +60,7 @@
         <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
             <input type="hidden" name="moduleBase" value="metadata">
             <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="metadata_name" class="form-label col-2"><span class="red">*</span>
                     {t}Nom du modèle :{/t}
                 </label>

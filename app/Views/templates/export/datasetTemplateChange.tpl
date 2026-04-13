@@ -15,14 +15,14 @@
     <form class="form-horizontal " id="datasetTemplateForm" method="post" action="datasetTemplateWrite">
       <input type="hidden" name="moduleBase" value="datasetTemplate">
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="datasetTemplateName" class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-8">
           <input id="datasetTemplateName" type="text" class="form-control" name="dataset_template_name"
             value="{$data.dataset_template_name}" autofocus required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="dataset_type_id" class="form-label col-4"><span class="red">*</span> {t}Type :{/t}</label>
         <div class="col-8">
           <select id="dataset_type_id" name="dataset_type_id" class="form-control">
@@ -34,7 +34,7 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="export_format_id" class="form-label col-4"><span class="red">*</span> 
             {t}Format d'export :{/t}</label>
         <div class="col-8">
@@ -47,14 +47,14 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="filename" class="form-label col-4"><span class="red">*</span>
              {t}Nom du fichier généré :{/t}</label>
         <div class="col-8">
           <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="only_last_document" class="form-label col-4">
             {t}Uniquement le document le plus récent (type document) :{/t}</label>
         <div class="col-8" id="only_last_document">
@@ -72,7 +72,7 @@
           </div>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="separator" class="form-label col-4">{t}Séparateur (fichiers CSV) :{/t}</label>
         <div class="col-8">
           <select id="separator" name="separator" class="form-control">
@@ -83,20 +83,20 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="xmlroot" class="form-label col-4"> {t}Entête du fichier XML :{/t}</label>
         <div class="col-8">
           <input id="xmlroot" type="text" class="form-control" name="xmlroot" value="{$data.xmlroot}">
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="xmlnodename" class="form-label col-4"> 
             {t}Nom du nœud XML pour les lignes traitées (non utilisé pour la description de la collection) :{/t}</label>
         <div class="col-8">
           <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="xslcontent" class="form-label col-4">
             {t}Transformation XSL appliquée sur le fichier XML généré :{/t}</label>
         <div class="col-8">
@@ -115,7 +115,7 @@
 </xsl:stylesheet>'>{$data.xslcontent}</textarea>
         </div>
       </div>
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_template_id > 0 }
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

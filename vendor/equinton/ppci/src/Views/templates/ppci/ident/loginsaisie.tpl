@@ -87,37 +87,37 @@
 			<input type="hidden" name="moduleBase" value="login">
 			<input type="hidden" name="action" value="Write">
 			<input type="hidden" name="id" value="{$data.id}">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="login" class="form-label col-4"><span class="red">*</span> {t}Login :{/t}</label>
 				<div class="col-8">
 					<input id="login" type="text" class="form-control" name="login" value="{$data.login}" autofocus>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="nom" class="col-4 form-label">{t}Nom de famille :{/t} </label>
 				<div class="col-8">
 					<input id="nom" type="text" class="form-control" name="nom" value="{$data.nom}">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="prenom" class="col-4 form-label">{t}Prénom :{/t} </label>
 				<div class="col-8">
 					<input id="prenom" type="text" class="form-control" name="prenom" value="{$data.prenom}">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="mail" class="col-4 form-label">{t}Adresse e-mail :{/t} </label>
 				<div class="col-8">
 					<input type="email" id="mail" class="form-control" name="mail" value="{$data.mail}">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="datemodif" class="col-4 form-label">{t}Date :{/t} </label>
 				<div class="col-8">
 					<input class="form-control-plaintext" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="is_clientws_group" class="col-4 form-label">{t}Compte utilisé pour service web :{/t}
 				</label>
 				<div class="col-8 ">
@@ -133,7 +133,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="tokenws" class="col-4 form-label">{t}Jeton d'identification du service web :{/t}
 				</label>
 				<div class="col-8">
@@ -147,13 +147,13 @@
 				</div>
 			</div>
 			{if $data.dbconnect_provisional_nb > 3}
-			<div class="row mb-6">
+			<div class="row">
 				<div class="col-12 center red">
 					{t}Le compte est verrouillé, le mot de passe n'a pas été changé après 3 connexions{/t}
 				</div>
 			</div>
 			{/if}
-			<div class="row mb-6">
+			<div class="row">
 				<label for="pass1" class="col-4 form-label"><span class="red">*</span> {t}Mot de passe :{/t}
 				</label>
 				<div class="col-7">
@@ -164,7 +164,7 @@
 						class="passwordVisible" data-fieldnumber="0">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="pass2" class="col-4 form-label"><span class="red">*</span>
 					{t}Répétez le mot de passe :{/t}
 				</label>
@@ -176,7 +176,7 @@
 						class="passwordVisible" data-fieldnumber="1">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="generate" class="col-4 form-label">{t}Générez un mot de passe aléatoire{/t}</label>
 				<div class="col-2">
 					<input id="generate" type="button" class="btn btn-info" name="generate" value="{t}Générez{/t}">
@@ -205,7 +205,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="actif" class="col-4 form-label">{t}Actif{/t}</label>
 				<div class="col-8">
 					<div class="form-check form-check-inline">
@@ -223,7 +223,7 @@
 						</label>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="attempts" class="col-4 form-label">{t}Essais de connexion infructueux et date du
 						dernier
 						essai :{/t}</label>

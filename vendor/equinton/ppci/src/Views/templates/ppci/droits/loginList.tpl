@@ -59,7 +59,7 @@
 <div class="row">
 	<div class="col-12">
 		<form class="form-horizontal">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="mails" class="form-label col-2">
 					{t}Adresses mails :{/t}
 				</label>

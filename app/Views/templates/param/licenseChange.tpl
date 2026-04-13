@@ -8,19 +8,19 @@
       <input type="hidden" name="moduleBase" value="license">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="license_id" value="{$data.license_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="" class="form-label col-4"><span class="red">*</span> {t}Code de la licence :{/t}</label>
         <div class="col-8">
           <input id="license_name" type="text" class="form-control" name="license_name" value="{$data.license_name}"
             autofocus required></div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="license_url" class="form-label col-4"><span class="red">*</span> {t}URL :{/t}</label>
         <div class="col-8">
           <input id="license_url" type="text" class="form-control" name="license_url" value="{$data.license_url}"></div>
       </div>
 
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.license_id > 0 }
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -50,14 +50,14 @@
 		<legend>{t}Importer des emplacements depuis un fichier CSV{/t}</legend>
 		<form class="form-horizontal " id="metadataImport" method="post" action="samplingPlaceImport"
 			enctype="multipart/form-data">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="upfile" class="form-label col-4"><span class="red">*</span>
 					{t}Nom du fichier à importer (CSV) :{/t}</label>
 				<div class="col-8">
 					<input type="file" name="upfile" required>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="separator" class="form-label col-4"><span class="red">*</span>
 					{t}Séparateur :{/t}</label>
 				<div class="col-8">
@@ -69,7 +69,7 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="collection_id" class="form-label col-4">
 					{t}Collection éventuelle de rattachement :{/t}</label>
 				<div class="col-8">
@@ -84,7 +84,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary">
 					{t}Importer les localisations{/t}</button>
 			</div>

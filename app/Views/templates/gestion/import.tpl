@@ -60,7 +60,7 @@
       <div class="col-6">
             <form class="form-horizontal" id="controlForm" method="post" action="importControl"
                   enctype="multipart/form-data">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="upfile" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom du fichier à importer (CSV) :{/t}
                         </label>
@@ -68,7 +68,7 @@
                               <input type="file" name="upfile" class="form-control" required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
                         <div class="col-8">
                               <select id="separator" name="separator" class="form-control">
@@ -78,7 +78,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                         <div class="col-8">
                               <select id="utf8_encode" name="utf8_encode" class="form-control">
@@ -87,7 +87,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="onlyCollectionSearch" class="form-label col-4">
                               {t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}
                         </label>
@@ -98,7 +98,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
                   </div>
             {$csrf}</form>

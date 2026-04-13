@@ -93,7 +93,7 @@ $("#pass1").on('input', function()
 {if $passwordLost == 1}
 <input type="hidden" name="token" value="{$token}">
 {else}
-<div class="row mb-6">
+<div class="row">
 <label for="oldPassword" class="form-label col-4">{t}Ancien mot de passe :{/t}</label>
 <div class="col-7">
 <input id="pass3" class="form-control" type="password" name="oldPassword" autocomplete="off" autofocus>
@@ -103,7 +103,7 @@ $("#pass1").on('input', function()
 </div>
 </div>
 {/if}
-<div class="row mb-6">
+<div class="row">
 <label for="pass1" class="form-label col-4">
 {t}Nouveau mot de passe :{/t}
 </label>
@@ -119,7 +119,7 @@ $("#pass1").on('input', function()
 </div>
 
 </div>
-<div class="row mb-6">
+<div class="row">
 <label for="pass2" class="form-label col-4">
 {t}Répétez le mot de passe :{/t}
 </label>
@@ -130,7 +130,7 @@ $("#pass1").on('input', function()
 	<img src="display/images/framework/visible-24.png" height="16" id="passVisible2" class="passwordVisible" data-fieldnumber="1">
 </div>
 </div>
-<div class="row mb-6 center">
+<div class="row center">
       <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 </div>
 <span id="helpBlock" class="help-block center">{t}Longueur minimale du mot de passe :{/t} {$passwordMinLength} {t}caractères{/t}

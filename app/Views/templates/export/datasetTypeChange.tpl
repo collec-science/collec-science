@@ -11,19 +11,19 @@
       <input type="hidden" name="moduleBase" value="datasetType">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="dataset_type_id" value="{$data.dataset_type_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="datasetTypeName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-8">
           <input id="datasetTypeName" type="text" class="form-control" name="dataset_type_name" value="{$data.dataset_type_name}" autofocus required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="fields"  class="form-label col-4">{t}Liste des champs utilisables dans le dataset, au format JSON :{/t}</label>
         <div class="col-8">
           <input id="fields" type="text" class="form-control" name="fields" value="{$data.fields}" >
         </div>
       </div>
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_type_id > 0 }
           <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

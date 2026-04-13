@@ -58,7 +58,7 @@
       <input type="hidden" name="moduleBase" value="datasetColumn">
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
       <input type="hidden" name="dataset_column_id" value="{$data.dataset_column_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="column_name" class="form-label col-4"><span class="red">*</span> {t}Nom de la colonne à
           exporter :{/t}</label>
         <div class="col-8">
@@ -69,7 +69,7 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="subfield_name" class="form-label col-4"><span class="red">*</span>
           {t}Nom du champ dans les métadonnées ou nom de l'identifiant secondaire :{/t}
         </label>
@@ -77,7 +77,7 @@
           <input id="subfield_name" type="text" class="form-control" name="subfield_name" value="{$data.subfield_name}" >
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="export_name" class="form-label col-4"><span class="red">*</span>
           {t}Nom dans l'export :{/t}
         </label>
@@ -85,7 +85,7 @@
           <input id="export_name" type="text" class="form-control" name="export_name" value="{$data.export_name}" required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="translator_id" class="form-label col-4 lexical" data-lexical="translationTable"> {t}Nom de la table de correspondance :{/t}</label>
         <div class="col-8">
           <select id="translator_id" name="translator_id" class="form-control">
@@ -96,7 +96,7 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="mandatory"  class="form-label col-4">{t}Contenu obligatoire pour l'export ?{/t}</label>
         <div class="col-8" id="mandatory">
           <div class="radio">
@@ -111,7 +111,7 @@
           </div>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="default_value" class="form-label col-4">
           {t}Valeur par défaut, si aucune n'est renseignée, ou contenu du fichier pour le type arbitrary_content :{/t}
         </label>
@@ -119,7 +119,7 @@
           <textarea id="default_value" type="text" class="form-control" name="default_value" rows="5">{$data.default_value}</textarea>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="date_format" class="form-label col-4">
           {t}Formatage de la date (format PHP). Exemple : d/m/Y H:i:s{/t}
         </label>
@@ -127,7 +127,7 @@
           <input id="date_format" type="text" class="form-control" name="date_format" value="{$data.date_format}" >
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="column_order" class="form-label col-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}
         </label>
@@ -135,7 +135,7 @@
           <input id="column_order" type="number" class="form-control number" name="column_order" value="{$data.column_order}" required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="sort_order" class="form-label col-4">
           {t}Pour les importations, ordre de recherche parmi les différents identifiants possibles :{/t}
         </label>
@@ -143,7 +143,7 @@
           <input id="search_order" type="number" class="form-control number" name="search_order" value="{$data.search_order}">
         </div>
       </div>
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.dataset_column_id > 0 }
           <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

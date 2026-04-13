@@ -363,7 +363,7 @@
 	</div>
 
 	<div class="form-horizontal col-xs-12 col-10">
-		<div class="row mb-6">
+		<div class="row">
 			<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 			<div class="col-xs-8">
 				<select id="cam-list" class="form-control ">
@@ -372,7 +372,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row mb-6">
+		<div class="row">
 			<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 			<div class="col-xs-8">
 				<select id="inversion-mode-select" class="form-control ">
@@ -383,7 +383,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row mb-6">
+		<div class="row">
 			<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
 			<div class="col-xs-8">
 				<span id="cam-has-flash" class=""></span>
@@ -406,7 +406,7 @@
 	<div id="rapidAccessForm" hidden class="col-4 offset-2 col-2">
 		<form id="open" action="containerDisplay" method="GET">
 			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
-			<div class="row mb-6">
+			<div class="row">
 				<div class="col-6 col-offset-2 offset-0 col-4">
 					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required >
 				</div>

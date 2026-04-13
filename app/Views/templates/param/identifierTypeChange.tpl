@@ -17,14 +17,14 @@
     <form class="form-horizontal " id="identifierTypeForm" method="post" action="identifierTypeWrite">
       <input type="hidden" name="moduleBase" value="identifierType">
       <input type="hidden" name="identifier_type_id" value="{$data.identifier_type_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="identifierTypeName" class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-8">
           <input id="identifierTypeName" type="text" class="form-control" name="identifier_type_name"
             value="{$data.identifier_type_name}" autofocus required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="identifierTypeCode" class="form-label col-4">
           {t}Code utilisé (étiquettes, recherche, import) :{/t}</label>
         <div class="col-8">
@@ -32,7 +32,7 @@
             value="{$data.identifier_type_code}">
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="search" class="form-label col-4"><span class="red">*</span> 
           {t}Identifiant utilisé dans les recherches ?{/t}</label>
         <div class="col-8" id="search">
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.identifier_type_id > 0 }
         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

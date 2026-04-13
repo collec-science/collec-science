@@ -11,7 +11,7 @@
 			<input type="hidden" name="movement_id" value="0"> <input type="hidden" id="read_optical"
 				name="read_optical" value="{$read_optical}">
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="object_uid" class="form-label col-4"><span class="red">*</span>
 					{t}UID de l'objet :{/t}</label>
 				<div class="col-8" id="object_groupe">
@@ -28,7 +28,7 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_date" class="form-label col-4"><span class="red">*</span>
 					{t}Date/heure :{/t}</label>
 				<div class="col-8">
@@ -36,7 +36,7 @@
 						class="form-control datetimepicker">
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-8">
 					<select id="movement_reason_id" name="movement_reason_id">
@@ -51,14 +51,14 @@
 				</div>
 			</div>
 
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
 				<div class="col-8">
 					<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 				</div>
 			</div>
 
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Sortir du stock{/t}</button>
 			</div>
 
@@ -74,7 +74,7 @@
 
 		<div class="col-6">
 			<div class="form-horizontal ">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="valeur-scan" class="form-label col-4">{t}Valeur lue :{/t}</label>
 					<div class="col-8">
 						<input id="valeur-scan" type="text" class="form-control"
@@ -92,7 +92,7 @@
 
 		<div class="col-6">
 			<div class="form-horizontal ">
-				<div class="row mb-6 center">
+				<div class="row center">
 					<button id="start2" class="btn btn-success">{t}Activer la lecture{/t}</button>
 					<button id="stop" class="btn btn-danger">{t}Arrêter la lecture{/t}</button>
 				</div>

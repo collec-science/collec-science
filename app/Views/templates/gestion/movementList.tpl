@@ -3,7 +3,7 @@
         <form class="form-horizontal " id="movement_search" action="movementList" method="GET">
             <input id="moduleBase" type="hidden" name="moduleBase" value="movement">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="login" class="col-2 form-label">{t}Login à rechercher :{/t}</label>
                 <div class="col-4">
                     <input id="login" name="login" class="form-control" value="{$movementSearch.login}">
@@ -12,7 +12,7 @@
                     <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="date_start" class="col-2 form-label">{t}Du :{/t}</label>
                 <div class="col-4">
                     <input class="datepicker form-control" name="date_start" id="date_start"

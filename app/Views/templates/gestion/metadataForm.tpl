@@ -11,7 +11,7 @@
              */
             var newDiv = document.createElement("div");
             newDiv.id = "div" + newId;
-            newDiv.classList.add("row mb-6");
+            newDiv.classList.add("row");
             metadata.appendChild(newDiv);
             /**
              * create label

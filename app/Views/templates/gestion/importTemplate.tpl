@@ -111,7 +111,7 @@
                     {t}Importer des contenants : {/t}
                     <input type="checkbox" id="containerEnable" name="containerEnable" value="1">
                 </legend>
-                 <div class="row mb-6">
+                 <div class="row">
                     <label for="containerCollection" class="col-4 form-label">
                         {t}Collection de destination :{/t}
                     </label>
@@ -126,7 +126,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="container_family_id" class="form-label col-4">
                         {t}Famille :{/t}
                     </label>
@@ -140,7 +140,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="containerTypeName" class="form-label col-4">
                         {t}Type :{/t}
                     </label>
@@ -149,7 +149,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="containerFields" class="col-4 form-label">
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
@@ -176,7 +176,7 @@
                     {t}Importer des échantillons : {/t}
                     <input type="checkbox" id="sampleEnable" name="sampleEnable" value="1">
                 </legend>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="sampleCollection" class="col-4 form-label">
                         <span class="red">*</span> {t}Collection de destination :{/t}
                     </label>
@@ -190,7 +190,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="sampleTypes" class="col-4 form-label">
                         <span class="red">*</span> {t}Types d'échantillons à importer :{/t}
                     </label>
@@ -201,7 +201,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="referent_name" class="col-4 form-label">
                         {t}Référent :{/t}
                     </label>
@@ -216,7 +216,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6 ">
+                <div class="row ">
                     <label for="country_name" class="form-label col-4">
                         {t}Pays de collecte :{/t}
                     </label>
@@ -232,7 +232,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6 ">
+                <div class="row ">
                     <label for="country_origin_name" class="form-label col-4" >
                         {t}Pays de provenance :{/t}
                     </label>
@@ -247,7 +247,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="campaign_name" class="col-4 form-label">
                         {t}Campagne de prélèvement :{/t}
                     </label>
@@ -260,7 +260,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="sampling_place_name" class="col-4 form-label">
                         {t}Lieu de prélèvement :{/t}
                     </label>
@@ -275,7 +275,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="sampleFields" class="col-4 form-label">
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
@@ -315,7 +315,7 @@
             </fieldset>
             <fieldset id="identifiers">
                 <legend>{t}Informations communes aux contenants et aux échantillons{/t}</legend>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="identifiers" class="form-label col-4">
 							{t}Identifiants complémentaires :{/t}
 						</label>
@@ -334,7 +334,7 @@
 						</div>
 					</div>
             </fieldset>
-            <div class="row mb-6 center">
+            <div class="row center">
                         <button type="submit" class="btn btn-primary" id="submit">{t}Générer le fichier{/t}</button>
                   </div>
             {$csrf}

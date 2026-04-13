@@ -30,7 +30,7 @@ $(document).ready(function() {
 			<div class="bg-info">
 {t}Pour entrer ou déplacer des objets dans un contenant, commencez toujours par scanner/saisir le contenant puis les objets.{/t}
 </div>
-			<div class="row mb-6">
+			<div class="row">
 <label for="reads"  class="form-label col-4"><span class="red">*</span> {t}Données à traiter :{/t}</label>
 <div class="col-8">
 <textarea id="reads" name="reads" class="form-control" rows="20" required autofocus
@@ -38,7 +38,7 @@ placeholder="{t}Placer le curseur dans cette zone avant de scanner un QR Code ou
 </div>
 </div>
 
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary">{t}Suivant{/t}</button>
 			</div>
 

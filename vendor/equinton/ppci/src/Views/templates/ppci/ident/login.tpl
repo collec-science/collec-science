@@ -21,7 +21,7 @@
 		<div class="form-horizontal">
 			<form id="loginForm" method="POST" action="loginExec">
 				<input type="hidden" name="identificationType" value="BDD">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="login" class="form-label col-4">
 						{t}Login :{/t}
 					</label>
@@ -29,7 +29,7 @@
 						<input class="form-control " name="login" id="login" required autofocus>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="login" class="form-label col-4">
 						{t}Mot de passe :{/t}
 					</label>
@@ -43,7 +43,7 @@
 					</div>
 				</div>
 				{if $tokenIdentityValidity > 0}
-				<div class="row mb-6 center checkbox col-12 ">
+				<div class="row center checkbox col-12 ">
 					<label>
 						{$duration = $tokenIdentityValidity / 3600}
 						<input type="checkbox" name="loginByTokenRequested" class="" value="1" checked>
@@ -52,12 +52,12 @@
 				</div>
 				{/if}
 				{if $lostPassword == 1 }
-				<div class="row mb-6 center col-12 ">
+				<div class="row center col-12 ">
 					<a href="passwordlostIslost">
 						{t}Mot de passe oublié ?{/t}</a>
 				</div>
 				{/if}
-				<div class="row mb-6 center ">
+				<div class="row center ">
 					<div class="col-2-offset-4">
 						<button type="submit" class=" btn btn-primary  ">{t}Se connecter{/t}</button>
 					</div>
@@ -73,7 +73,7 @@
 				<form id="loginCasForm" method="GET" action="oidcExec">
 					<input type="hidden" name="identificationType" value="OIDC">
 					{/if}
-					<div class="row mb-6">
+					<div class="row">
 						<label for="cas" class="form-label col-4">{t}ou :{/t}</label>
 						<div class="col-8">
 							<button type="submit" id="cas" class="btn btn-primary">

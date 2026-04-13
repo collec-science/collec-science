@@ -74,7 +74,7 @@
 	<form class="form-horizontal " id="container_search" action="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}{if strlen($action)>0}{$action}{else}List{/if}" method="GET">
 		<input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
 		<input id="isSearch" type="hidden" name="isSearch" value="1">
-		<div class="row mb-6">
+		<div class="row">
 			<label for="name" class="col-2 form-label">{t}UID ou identifiant :{/t}</label>
 			<div class="col-4">
 			<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}" >
@@ -99,7 +99,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row mb-6">
+		<div class="row">
 			<label for="select_date" class="col-2 form-label">{t}Recherche par date :{/t}</label>
 			<div class="col-2">
 				<select class="form-control" id="select_date" name="select_date">
@@ -116,7 +116,7 @@
 				<input class="datepicker form-control" id="date_to" name="date_to" value="{$containerSearch.date_to}">
 			</div>
 		</div>
-		<div class="row mb-6">
+		<div class="row">
 			<label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
 			<div class="col-2">
 				<input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
@@ -136,7 +136,7 @@
 				</select>
 			</div>
 		</div>
-		<div class="row mb-6">
+		<div class="row">
 		<!--
 		<label for="limit" class="col-2 form-label">Nbre limite à afficher :</label>
 		<div class="col-2">

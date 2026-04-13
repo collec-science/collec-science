@@ -57,25 +57,25 @@
       <input type="hidden" name="moduleBase" value="exportTemplate">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="export_template_id" value="{$data.export_template_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="exportTemplateName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-8">
           <input id="exportTemplateName" type="text" class="form-control" name="export_template_name" value="{$data.export_template_name}" autofocus required>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="exportTemplateDescription"  class="form-label col-4">{t}Description :{/t}</label>
         <div class="col-8">
           <textarea id="exportTemplateDescription" class="form-control" name="export_template_description" >{$data.export_template_description}</textarea>
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="export_template_version"  class="form-label col-4">{t}Version :{/t}</label>
         <div class="col-8">
           <input id="export_template_version" type="text" class="form-control" name="export_template_version" value="{$data.export_template_version}">
         </div>
       </div>
-      <div class="row mb-6">
+      <div class="row">
           <label for="is_zipped"  class="form-label col-4">{t}Fichier compressé (si un seul fichier généré) ?{/t}</label>
           <div class="col-8" id="is_zipped">
             <div class="radio">
@@ -90,7 +90,7 @@
             </div>
           </div>
         </div>
-      <div class="row mb-6">
+      <div class="row">
           <label for="filename"  class="form-label col-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
           <div class="col-8">
             <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
@@ -110,7 +110,7 @@
       </fieldset>
     </div>
     </div>
-  <div class="row mb-6 center">
+  <div class="row center">
     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
     {if $data.export_template_id > 0 }
       <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

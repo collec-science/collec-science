@@ -13,7 +13,7 @@
         <form class="form-horizontal " id="campaignChange" method="post" action="campaignWrite">
             <input type="hidden" name="moduleBase" value="campaign">
             <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="campaign_name" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom de la campagne :{/t}
                 </label>
@@ -22,7 +22,7 @@
                         value="{$data.campaign_name}" autofocus required>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="campaign_description" class="form-label col-4">
                     {t}Description de la campagne :{/t}
                 </label>
@@ -30,7 +30,7 @@
                     <textarea class="form-control" name="campaign_description" id="campaign_description">{$data.campaign_description}</textarea>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="referent_id" class="form-label col-4">
                     {t}Responsable ou référent de la campagne :{/t}
                 </label>
@@ -46,27 +46,27 @@
                     </select>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="campaign_from" class="form-label col-4">{t}Date de début :{/t}</label>
                 <div class="col-8">
                     <input id="campaign_from" type="text" class="form-control datepicker" name="campaign_from"
                         value="{$data.campaign_from}">
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="campaign_to" class="form-label col-4">{t}Date de fin :{/t}</label>
                 <div class="col-8">
                     <input id="campaign_to" type="text" class="form-control datepicker" name="campaign_to"
                         value="{$data.campaign_to}">
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="uuid" class="form-label col-4">{t}UID universel (UUID) :{/t}</label>
                 <div class="col-8">
                     <input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="groupes" class="form-label col-4">
                     {t}Droits de modification attribués aux groupes :{/t}
                 </label>
@@ -84,7 +84,7 @@
                     {/section}
                 </div>
             </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.campaign_id > 0}
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -3,7 +3,7 @@
         <div class="row">
             <form class="form-horizontal protoform" id="log_search" action="logList" method="POST">
                 <input id="isSearch" type="hidden" name="isSearch" value="1">
-                <div class="row mb-6">
+                <div class="row">
                     <label for="logmodule" class="col-2 form-label">{t}Nom du module :{/t}</label>
                     <div class="col-10">
                         <select id="logmodule" name="logmodule" class="form-control">
@@ -14,7 +14,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="loglogin" class="col-2 form-label">{t}Login concerné :{/t}</label>
                     <div class="col-6">
                         <select id="loglogin" name="loglogin" class="form-control">
@@ -28,7 +28,7 @@
                         <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="date_from" class="col-2 form-label">{t}du :{/t}</label>
                     <div class="col-2">
                         <input class="datepicker form-control" id="date_from" name="date_from" value="{$date_from}">

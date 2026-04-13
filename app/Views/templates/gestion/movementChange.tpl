@@ -242,7 +242,7 @@ var type_movement = "{$data.movement_type_id}";
 		<input type="hidden" name="container_id" id="container_id" value="{$data.container_id}">
 		<input type="hidden" name="activeTab" value="{$activeTab}">
 
-		<div class="row mb-6">
+		<div class="row">
 			<label for="uid" class="form-label col-4">{t}Objet :{/t}</label>
 			<div class="col-8">
 				<input id="uid" name="uid" value="{$data.uid}" readonly >
@@ -252,13 +252,13 @@ var type_movement = "{$data.movement_type_id}";
 		{if $data.movement_type_id == 1}
 			<fieldset>
 				<legend>{t}Entrer ou déplacer dans :{/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="container_uid" class="form-label col-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
 					<div class="col-8">
 						<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control slotFull">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="container_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
 					<div class="col-8">
 						<select id="container_family_id" name="container_family_id" class="form-control">
@@ -281,28 +281,28 @@ var type_movement = "{$data.movement_type_id}";
 		{/if}
 		<fieldset>
 			<legend>{t}Détails :{/t}</legend>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_date" class="form-label col-4"><span class="red">*</span> {t}Date :{/t}</label>
 				<div class="col-8">
 					<input id="movement_date" name="movement_date" value="{$data.movement_date}" required class="datetimepicker form-control">
 				</div>
 			</div>
 			{if $data.movement_type_id == 1}
-				<div class="row mb-6">
+				<div class="row">
 					<label for="storage_location" class="form-label col-4">{t}Emplacement dans le contenant
 					(format libre) :{/t}</label>
 					<div class="col-8">
 						<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
 					<div class="col-8">
 						<input id="line_number" name="line_number"
 							value="{$data.line_number}" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
 					<div class="col-8">
 						<input id="column_number" name="column_number"
@@ -313,7 +313,7 @@ var type_movement = "{$data.movement_type_id}";
 			{if $data.movement_type_id == 2}
 				<input type="hidden" name="line_number" id="line_number" value="1">
 				<input type="hidden" name="column_number" id="column_number" value="1">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
 					<div class="col-8">
 						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
@@ -327,20 +327,20 @@ var type_movement = "{$data.movement_type_id}";
 					</div>
 				</div>
 			{/if}
-			<div class="row mb-6">
+			<div class="row">
 				<label for="movement_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
 				<div class="col-8">
 					<textarea id="movement_comment" name="movement_comment" class="form-control" rows="3">{$data.movement_comment}</textarea>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="login" class="form-label col-4">{t}Utilisateur :{/t}</label>
 				<div class="col-8">
 					<input id="login" name="login" value="{$data.login}" type="text" readonly class="form-control">
 				</div>
 			</div>
 		</fieldset>
-		<div class="row mb-6 center">
+		<div class="row center">
 			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 		</div>
 	{$csrf}</form>

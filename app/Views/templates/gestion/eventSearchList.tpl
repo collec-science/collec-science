@@ -409,7 +409,7 @@
             </select>
 
             <div class="eventsChange" hidden>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
                     <div class="col-8">
                         <input id="event_date" name="event_date" value="{$data.event_date}"
@@ -417,7 +417,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-6">
+                <div class="row">
                     <label for="container_status_id" class="form-label col-4">
                         {t}Type d'évenement :{/t}</label>
                     <div class="col-8">
@@ -435,7 +435,7 @@
                     </div>
                 </div>
                 {if $eventSearch.object_type == 1}
-                <div class="row mb-6">
+                <div class="row">
                     <label for="still_available" class="form-label col-4">
                         {t}Reste disponible :{/t}
                     </label>
@@ -445,7 +445,7 @@
                 </div>
                 {/if}
 
-                <div class="row mb-6">
+                <div class="row">
                     <label for="due_date" class="form-label col-4">
                         {t}Date d'échéance :{/t}
                     </label>
@@ -454,7 +454,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-6">
+                <div class="row">
                     <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
                     <div class="col-8">
                         <textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
@@ -465,7 +465,7 @@
                 </div>
             </div>
             <div class="eventsDuplicate" hidden>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="eventDueDelay" class="form-label col-4">
                         {t}Délai en jours pour reprogrammer les événements :{/t}
                     </label>

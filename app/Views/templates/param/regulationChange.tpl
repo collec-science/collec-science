@@ -7,7 +7,7 @@
         <form class="form-horizontal " id="regulationForm" method="post" action="regulationWrite">
             <input type="hidden" name="moduleBase" value="regulation">
             <input type="hidden" name="regulation_id" value="{$data.regulation_id}">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="regulationName" class="form-label col-4"><span class="red">*</span>
                     {t}Nom de la réglementation :{/t}</label>
                 <div class="col-8">
@@ -15,14 +15,14 @@
                         value="{$data.regulation_name}" autofocus required>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="regulation_comment" class="form-label col-4">{t}Description :{/t}</label>
                 <div class="col-8">
                     <textarea rows="5" class="form-control"
                         name="regulation_comment">{$data.regulation_comment}</textarea>
                 </div>
             </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.regulation_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -3,13 +3,13 @@
 <div class="row">
     <div class="col-6">
         <form class="form-horizontal " id="containerStage1" method="post" action="containerImportStage2" enctype="multipart/form-data">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="upfile" class="form-label col-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
                 <div class="col-8">
                     <input type="file" name="upfile" required>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                 <div class="col-8">
                     <select id="utf8_encode" name="utf8_encode">
@@ -18,7 +18,7 @@
                     </select>
                 </div>
             </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
             </div>
         {$csrf}</form>
@@ -37,7 +37,7 @@
             <input type="hidden" name="realfilename" value="{$realfilename}">
             <input type="hidden" name="separator" value="{$separator}">
             <input type="hidden" name="utf8_encode" value="{$utf8_encode}">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="filename" class="form-label col-4">{t}Fichier en cours de traitement :{/t}</label>
                 <div class="col-8">
                     <input type="text" id="filename" class="form-control" readonly name="filename" value="{$filename}">
@@ -47,7 +47,7 @@
                 <fieldset>
                     <legend>{$kname}</legend>
                     {foreach $name as $val}
-                        <div class="row mb-6">
+                        <div class="row">
                             <label for="{$kname}-{$val}" class="form-label col-4">{$val}</label>
                             <div class="col-8">
                                 <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
@@ -60,7 +60,7 @@
                     {/foreach}
                 </fieldset>
             {/foreach}
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
             </div>
         {$csrf}</form>

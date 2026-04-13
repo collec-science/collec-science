@@ -77,7 +77,7 @@
         <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
         <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport"
             enctype="multipart/form-data">
-            <div class="row mb-6">
+            <div class="row">
                 <label for="upfile" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom du fichier à importer :{/t}
                 </label>
@@ -85,7 +85,7 @@
                     <input type="file" name="upfile" class="form-control" required>
                 </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                 <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
                 <div class="col-8">
                       <select id="separator" name="separator" class="form-control">
@@ -95,7 +95,7 @@
                       </select>
                 </div>
           </div>
-          <div class="row mb-6">
+          <div class="row">
                 <label for="encoding" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                 <div class="col-8">
                       <select id="encoding" name="utf8_encode" class="form-control">
@@ -104,7 +104,7 @@
                       </select>
                 </div>
           </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary">{t}Importer les nouvelles campagnes{/t}</button>
             </div>
             <div class="bg-info">

@@ -123,14 +123,14 @@
   <legend>{t}Fichiers externes à associer avec l'échantillon{/t}</legend>
   <form id="fileExternal" class="form-horizontal" method="post" action="documentExternalAdd">
     <input type="hidden" name="uid" value="{$data.uid}">
-    <div class="row mb-6 fields" hidden>
+    <div class="row fields" hidden>
 			<label for="document_description_external" class="form-label col-4">
 				{t}Description :{/t} </label>
 			<div class="col-8">
 				<input id="document_description_external" name="document_description" class="form-control">
 			</div>
 		</div>
-		<div class="row mb-6 fields" hidden>
+		<div class="row fields" hidden>
 			<label for="document_creation_date_external" class="form-label col-4">
 				{t}Date de création des documents :{/t} </label>
 			<div class="col-8">
@@ -138,7 +138,7 @@
 					class="form-control date">
 			</div>
 		</div>
-    <div class="row mb-6">
+    <div class="row">
     <label for="root" class="form-label col-4">
 				{t}Fichiers à associer :{/t} </label>
       <div id="treeview" class="col-8">
@@ -154,7 +154,7 @@
         </ul>
       </div>
     </div>
-    <div class="row mb-6 center fields" hidden>
+    <div class="row center fields" hidden>
       <button type="submit" class="btn btn-primary button-valid">{t}Associer les fichiers sélectionnés{/t}</button>
     </div>
   {$csrf}</form>

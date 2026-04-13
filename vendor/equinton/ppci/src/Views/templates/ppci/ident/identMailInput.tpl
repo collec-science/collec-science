@@ -2,7 +2,7 @@
       <legend>{t}Mot de passe oublié ?{/t} {t}lancement de la procédure de récupération{/t}</legend>
 
       <form class="form-horizontal protoform" id="sendMail" method="post" action="passwordlostSendmail">
-            <div class="row mb-6">
+            <div class="row">
                   <label for="mail" class="form-label col-4">
                         <span class="red">*</span> {t}Entrez votre adresse e-mail :{/t}
                   </label>
@@ -10,7 +10,7 @@
                         <input type="text" class="form-control" id="mail" name="mail" required autofocus>
                   </div>
             </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                   <button type="submit" class="btn btn-primary button-valid">
                         {t}Recevoir un mail de récupération{/t}
                   </button>

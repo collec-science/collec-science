@@ -937,19 +937,19 @@
 				</div>
 				<!-- Ajout d'un nouvel evenement-->
 				<div class="event">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
 						<div class="col-8">
 							<input id="due_date" name="due_date" value="" class="form-control datepicker">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="event_date" class="form-label col-4">{t}Date{/t} :</label>
 						<div class="col-8">
 							<input id="event_date" name="event_date" value="" class="form-control datepicker">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="eventsType" class="form-label col-4"><span class="red">*</span> {t}Type
 							d'événement :{/t}</label>
 						<div class="col-8">
@@ -962,7 +962,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
 						<div class="col-8">
 							<textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
@@ -971,7 +971,7 @@
 				</div>
 				<!-- add a borrowing -->
 				<div class="borrowing">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="borrower_id" class="form-label col-4">
 							<span class="red">*</span>{t}Emprunteur :{/t}
 						</label>
@@ -985,7 +985,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>{t}Date
 							d'emprunt :{/t}</label>
 						<div class="col-8">
@@ -993,7 +993,7 @@
 								class="form-control datepicker">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="expected_return_date" class="form-label col-4">{t}Date de retour escomptée
 							:{/t}</label>
 						<div class="col-8">
@@ -1004,7 +1004,7 @@
 				</div>
 				<!-- set Trashed-->
 				<div class="trashedgroupsample">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="trashed" class="form-label col-4">{t}Traitement de la corbeille{/t}</label>
 						<div class="col-8">
 							<select class="form-select" name="settrashed" id="trashedbin">
@@ -1043,7 +1043,7 @@
 					});
 				</script>
 				<div class="entry">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> {t}UID
 							du contenant :{/t}</label>
 						<div class="col-8">
@@ -1051,7 +1051,7 @@
 								class="form-control slotFull">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="container_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
 						<div class="col-8">
 							<select id="container_family_id" name="container_family_id" class="form-select">
@@ -1070,7 +1070,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="storage_location" class="form-label col-4">
 							{t}Emplacement dans le contenant (format libre) :{/t}
 						</label>
@@ -1079,14 +1079,14 @@
 								type="text" class="form-control">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
 						<div class="col-8">
 							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull"
 								title="{t}N° de la ligne de rangement dans le contenant{/t}">
 						</div>
 					</div>
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
 						<div class="col-8">
 							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull"
@@ -1096,7 +1096,7 @@
 				</div>
 				<!-- set country -->
 				<div class="country">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
 						<div class="col-8">
 							<select id="country_id" name="country_id" class="form-select">
@@ -1113,7 +1113,7 @@
 				</div>
 				<!-- set collection-->
 				<div class="collection">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="collection_id_change" class="form-label col-4">{t}Nouvelle collection
 							:{/t}</label>
 						<div class="col-8">
@@ -1130,7 +1130,7 @@
 				</div>
 				<!-- set campaign -->
 				<div class="campaign">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="campaign_id_change" class="form-label col-4">{t}Nouvelle campagne :{/t}</label>
 						<div class="col-8">
 							<select id="campaign_id_change" name="campaign_id" class="form-select">
@@ -1144,7 +1144,7 @@
 				</div>
 				<!-- set status -->
 				<div class="status">
-					<div class="row mb-6 ">
+					<div class="row ">
 						<label for="object_status_id" class="col-4 form-label">{t}Statut :{/t}</label>
 						<div class="col-8">
 							<select id="object_status_id" name="object_status_id" class="form-select">
@@ -1158,7 +1158,7 @@
 				</div>
 				<!-- change sampleType-->
 				<div class="samplestype">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="samplesTypeId" class="col-4 form-label">
 							{t}Nouveau type d'échantillon :{/t}
 						</label>
@@ -1176,7 +1176,7 @@
 				</div>
 				<!-- set parent -->
 				<div class="parentid">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="parent_search" class="form-label col-4"> {t}Recherchez le parent :{/t}</label>
 						<div class="col-6">
 							<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
@@ -1185,7 +1185,7 @@
 							<img src="display/images/zoom.png" height="25" title="{t}Chercher{/t}">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="parent_sample_id" class="form-label col-4"> {t}Parent à affecter :{/t}</label>
 						<div class="col-8">
 							<select id="parent_sample_id" name="parent_sample_id" class="form-select">
@@ -1195,7 +1195,7 @@
 				</div>
 				<div class="document">
 					<input type="hidden" name="parentKeyName" value="uid">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="documentName2" class="form-label col-4">
 							{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 						</label>
@@ -1203,14 +1203,14 @@
 							<input id="documentName2" type="file" class="form-control" name="documentName[]" multiple>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="documentDescription2" class="form-label col-4">
 							{t}Description :{/t} </label>
 						<div class="col-8">
 							<input id="documentDescription2" name="document_description" class="form-control">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="document_creation_date2" class="form-label col-4">
 							{t}Date de création du document :{/t} </label>
 						<div class="col-8">
@@ -1298,7 +1298,7 @@
 					});
 				</script>
 				<div class="createComposite">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="subsample_quantity" class="form-label col-4"><span class="red">*</span>
 							{t}Quantité à retirer de chacun des échantillons sélectionnés :{/t}
 						</label>
@@ -1307,14 +1307,14 @@
 								class="form-control taux">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="identifierComposite" class="form-label col-4">{t}Identifiant ou nom :{/t}</label>
 						<div class="col-8">
 							<input id="identifierComposite" type="text" name="identifierComposite"
 								class="form-control tocreate">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="collection_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Collection :{/t}</label>
 						<div class="col-8">
@@ -1329,7 +1329,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="sample_type_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Type :{/t}
 						</label>
@@ -1339,7 +1339,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="uidsearchComposite" class="col-4 form-label">
 							{t}Échantillon déjà existant - UID :{/t}</label>
 						<div class="col-2">
@@ -1357,7 +1357,7 @@
 							<img src="display/images/zoom.png" height="25">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="uidComposite" class="col-4 form-label">
 							{t}Échantillon composé correspondant :{/t}
 						</label>
@@ -1366,7 +1366,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="multiple_valueComposite" class="form-label col-4">
 							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création
 							uniquement):{/t}</label>

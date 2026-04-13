@@ -27,10 +27,10 @@
     <form id="translatorId" class="form-horizontal" action="translatorWrite" method="POST">
       <input type="hidden" name="moduleBase" value="translator">
       <input type="hidden" name="translator_id" value="{$data.translator_id}">
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       </div>
-      <div class="row mb-6">
+      <div class="row">
         <label for="translatorName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
         <div class="col-8">
           <input id="translatorName" type="text" class="form-control" name="translator_name" value="{$data.translator_name}" autofocus required>
@@ -66,7 +66,7 @@
           </tr>
         </tbody>
       </table>
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.translator_id > 0 }
           <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

@@ -37,7 +37,7 @@
             <input type="hidden" name="uid" value="{$object.uid}">
             <input type="hidden" name="activeTab" value="{$activeTab}">
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
                 <div class="col-8">
                     <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
@@ -45,7 +45,7 @@
             </div>
 
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="container_status_id" class="form-label col-4"><span class="red">*</span> 
                     {t}Type d'évenement :{/t}
                 </label>
@@ -61,7 +61,7 @@
                 </div>
             </div>
             {if $moduleParent == "sample"}
-            <div class="row mb-6">
+            <div class="row">
                 <label for="still_available" class="form-label col-4">{t}Reste disponible :{/t}</label>
                 <div class="col-8">
                     <input id="still_available" type="text" name="still_available" value="{$data.still_available}"
@@ -70,14 +70,14 @@
             </div>
             {/if}
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
                 <div class="col-8">
                     <input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker">
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
                 <div class="col-8">
                     <textarea id="event_comment" name="event_comment" class="form-control"
@@ -85,7 +85,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.event_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

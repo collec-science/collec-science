@@ -42,7 +42,7 @@
             <input type="hidden" name="moduleBase" value="collection">
             <input type="hidden" name="collection_id" value="{$data.collection_id}">
             <div class="row">
-                <div class="row mb-6 center">
+                <div class="row center">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                     {if $data.collection_id > 0 }
                     <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
@@ -86,7 +86,7 @@
             <div class="tab-content col-12 form-horizontal" id="tabContent">
                 <!-- donnees generales-->
                 <div class="tab-pane active in" id="navgeneral" role="tabpanel" aria-labelledby="tabgeneral">
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="collectionName" class="form-label col-4">
                             <span class="red">*</span> {t}Nom :{/t}
                         </label>
@@ -95,7 +95,7 @@
                                 value="{$data.collection_name}" autofocus required>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="collectionDisplayname" class="form-label col-4">
                             {t}Nom public, communiqué à l'extérieur :{/t}
                         </label>
@@ -104,7 +104,7 @@
                                 name="collection_displayname" value="{$data.collection_displayname}">
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="collection_description" class="form-label col-4">
                             {t}Description de la collection :{/t}
                         </label>
@@ -112,7 +112,7 @@
                             <textarea class="form-control" name="collection_description" id="collection_description">{$data.collection_description}</textarea>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="collectionKeywords" class="form-label col-4">
                             {t}Mots clés, séparés par une virgule :{/t}
                         </label>
@@ -121,7 +121,7 @@
                                 value="{$data.collection_keywords}">
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="referentId" class="form-label col-4">
                             {t}Référent de la collection :{/t}
                         </label>
@@ -137,7 +137,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="sau0" class="form-label col-4">
                             {t}Les identifiants des échantillons doivent être uniques :{/t}
                         </label>
@@ -156,7 +156,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="columns" class="form-label col-4">
                             {t}Flux de modification entrants autorisés :{/t}
                         </label>
@@ -175,7 +175,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="allowed_export_flow" class="form-label col-4">
                             {t}Flux d'interrogation externes autorisés :{/t}
                         </label>
@@ -194,7 +194,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="public_collection" class="form-label col-4">
                             {t}Collection publique ?{/t}
                         </label>
@@ -213,7 +213,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="license_id" class="form-label col-4">
                             {t}Licence de diffusion :{/t}
                         </label>
@@ -229,7 +229,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="no_localization" class="form-label col-4">
                             {t}Collection sans gestion de la localisation des échantillons ?{/t}
                         </label>
@@ -249,7 +249,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="external_storage_enabled" class="form-label col-4">
                             {t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}
                         </label>
@@ -269,7 +269,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="external_storage_root" class="form-label col-4">
                             {t}Chemin d'accès aux fichiers externes :{/t}
                         </label>
@@ -281,7 +281,7 @@
                 </div>
                 <!--groupes-->
                 <div class="tab-pane fade" id="navgroups" role="tabpanel" aria-labelledby="tabgroups">
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="groupes" class="form-label col-4">
                             {t}Groupes :{/t}
                         </label>
@@ -302,7 +302,7 @@
                 </div>
                 <!--sample types-->
                 <div class="tab-pane fade" id="navsampletypes" role="tabpanel" aria-labelledby="tabsampletypes">
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="sampletypes" class="form-label col-4">
                             {t}Types d'échantillons spécifiques de la collection :{/t}
                             <br>
@@ -327,7 +327,7 @@
                 </div>
                 <!-- event types -->
                 <div class="tab-pane fade" id="naveventtypes" role="tabpanel" aria-labelledby="tabeventtypes">
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="eventtypes" class="form-label col-4">
                             {t}Types d'événements spécifiques de la collection :{/t}
                         </label>
@@ -349,7 +349,7 @@
                 </div>
                 <!-- notifications -->
                 <div class="tab-pane fade" id="navnotifications" role="tabpanel" aria-labelledby="tabnotifications">
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="ne0" class="form-label col-4">
                             {t}Activer les notifications ?{/t}
                         </label>
@@ -368,7 +368,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="notification_mails" class="col-4 form-label">
                             <span class="red">*</span>
                             {t}Mails des destinataires des notifications, séparés par une virgule :{/t}
@@ -378,7 +378,7 @@
                                 name="notification_mails" value="{$data.notification_mails}" required>
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="expiration_delay" class="col-4 form-label">
                             {t}Délai avant l'expiration des échantillons, en jours (0 : pas de notification) :{/t}
                         </label>
@@ -387,7 +387,7 @@
                                 name="expiration_delay" value="{$data.expiration_delay}">
                         </div>
                     </div>
-                    <div class="row mb-6">
+                    <div class="row">
                         <label for="event_due_delay" class="col-4 form-label">
                             {t}Délai avant la date d'échéance d'un événement, en jours (0 : pas de notification) :{/t}
                         </label>

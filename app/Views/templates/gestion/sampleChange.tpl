@@ -481,7 +481,7 @@
 			<input type="hidden" id="sample_id" name="sample_id" value="{$data.sample_id}">
 			<input type="hidden" name="moduleBase" value="sample">
 			<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 				{if $data.sample_id > 0 }
 				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
@@ -489,7 +489,7 @@
 			</div>
 			<fieldset>
 				<legend>{t}Échantillon parent{/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="parent_sample_id" class="form-label col-4"> {t}Parent :{/t}</label>
 					<div class="col-2">
 						<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
@@ -510,14 +510,14 @@
 						<img src="display/images/eraser.png" height="25" title="{t}Supprimer le parent{/t}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="parent_collection" class="form-label col-4">{t}Collection :{/t}</label>
 					<div class="col-8">
 						<input id="parent_collection" class="form-control" readonly
 							value="{$parent_sample.collection_name}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="parent_type" class="form-label col-4">{t}Type :{/t}</label>
 					<div class="col-8">
 						<input id="parent_type" class="form-control" readonly value="{$parent_sample.sample_type_name}">
@@ -526,7 +526,7 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Données générales{/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="scan_label" class="form-label col-4">
 						{t}Scannez l'étiquette existante :{/t}</label>
 					<div class="col-5">
@@ -539,14 +539,14 @@
 						</button>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="uid" class="form-label col-4">{t}UID :{/t}</label>
 					<div class="col-8">
 						<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control"
 							title="{t}identifiant unique dans la base de données{/t}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="identifier" class="form-label col-4"><span class="red">*</span> 
 						{t}Identifiant ou nom :{/t}
 					</label>
@@ -559,7 +559,7 @@
 							title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Générer{/t}</button>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="object_status_id" class="form-label col-4"><span class="red">*</span> 
 						{t}Statut :{/t}
 					</label>
@@ -574,7 +574,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="collection_id" class="form-label col-4"><span class="red">*</span> 
 						{t}Collection :{/t}
 					</label>
@@ -589,7 +589,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="referentId" class="form-label col-4">
 						{t}Référent de l'échantillon :{/t}
 					</label>
@@ -605,7 +605,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="sample_type_id" class="form-label col-4"><span class="red">*</span> 
 						{t}Type :{/t}
 					</label>
@@ -614,7 +614,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="dbuid_origin" class="form-label col-4">
 						{t}Base de données et UID d'origine :{/t}
 					</label>
@@ -623,7 +623,7 @@
 							placeholder="{t}db:uid. Exemple: col:125{/t}">
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="campaign_id" class="form-label col-4">
 						{t}Campagne de prélèvement :{/t}
 					</label>
@@ -639,7 +639,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="country_id" class="form-label col-4 lexical" data-lexical="country">
 						{t}Pays de collecte :{/t}
 					</label>
@@ -655,7 +655,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="country_origin_id" class="form-label col-4 lexical"
 						data-lexical="country_origin">
 						{t}Pays de provenance :{/t}
@@ -673,7 +673,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="sampling_place_id" class="form-label col-4">
 						{t}Lieu de prélèvement :{/t}
 					</label>
@@ -682,7 +682,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="" class="form-label col-4">
 						{t}Mode de calcul des coordonnées GPS :{/t}
 					</label>
@@ -707,7 +707,7 @@
 						</table>
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="wy" class="form-label col-4">{t}Latitude :{/t}</label>
 					<div class="col-8" id="wy">
 						{t}Format sexagesimal (45°01,234N) :{/t}
@@ -717,7 +717,7 @@
 							class="form-control taux position" value="{$data.wgs84_y}">
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="wx" class="form-label col-4">{t}Longitude :{/t}</label>
 					<div class="col-8" id="wx">
 						{t}Format sexagesimal (0°01,234W) :{/t}
@@ -727,7 +727,7 @@
 							class="form-control taux position" value="{$data.wgs84_x}">
 					</div>
 				</div>
-				<div class="row mb-6 geographic">
+				<div class="row geographic">
 					<label for="location_accuracy" class="form-label col-4 lexical"
 						data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
 					<div class="col-8">
@@ -735,7 +735,7 @@
 							value="{$data.location_accuracy}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="sampling_date" class="form-label col-4">
 						{t}Date de création/échantillonnage de l'échantillon :{/t}
 					</label>
@@ -744,7 +744,7 @@
 							value="{$data.sampling_date}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="sample_creation_date" class="form-label col-4">
 						{t}Date d'import dans la base de données :{/t}
 					</label>
@@ -753,7 +753,7 @@
 							value="{$data.sample_creation_date}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="expiration_date" class="form-label col-4">
 						{t}Date d'expiration de l'échantillon :{/t}
 					</label>
@@ -762,7 +762,7 @@
 							value="{$data.expiration_date}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="object_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
 					<div class="col-8">
 						<textarea class="form-control" rows="3" id="object_comment"
@@ -777,7 +777,7 @@
 			</script>
 			<fieldset>
 				<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="multiple_value" class="form-label col-4">
 						{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
 					<div class="col-8">
@@ -794,7 +794,7 @@
 					});
 				</script>
 				<!-- record quantity extracted from parent-->
-				<div class="row mb-6">
+				<div class="row">
 					<label for="subsample_quantity" class="form-label col-4">
 						{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
 					<div class="col-8">
@@ -805,7 +805,7 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Jeu de métadonnées{/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<div class="col-10 col-offset-1">
 						<div id="metadata"></div>
 					</div>
@@ -813,14 +813,14 @@
 			</fieldset>
 			<fieldset>
 				<legend>{t}Informations diverses{/t}</legend>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="uuid" class="form-label col-4">{t}UID universel (UUID) :{/t}</label>
 					<div class="col-8">
 						<input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
 					</div>
 				</div>
 				{if $data.sample_id > 0}
-				<div class="row mb-6">
+				<div class="row">
 					<label for="trashed" class="col-4 form-label">
 						{t}Échantillon en attente de suppression (mis à la corbeille) :{/t}
 					</label>
@@ -843,7 +843,7 @@
 				</div>
 				{/if}
 			</fieldset>
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 				{if $data.sample_id > 0 }
 				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

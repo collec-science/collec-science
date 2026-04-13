@@ -535,7 +535,7 @@
 			</div>
 		</div>
 		<div class="form-horizontal col-xs-12 col-10">
-			<div class="row mb-6">
+			<div class="row">
 				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 				<div class="col-xs-8">
 					<select id="cam-list" class="form-control ">
@@ -544,7 +544,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 				<div class="col-xs-8">
 					<select id="inversion-mode-select" class="form-control ">
@@ -555,7 +555,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
 				<div class="col-xs-8">
 					<span id="cam-has-flash"></span>

@@ -24,14 +24,14 @@
 <div class="row col-6">
       <form class="form-horizontal" id="sampleStage1" method="post" action="sampleImportStage2"
             enctype="multipart/form-data">
-            <div class="row mb-6">
+            <div class="row">
                   <label for="upfile" class="form-label col-4"><span class="red">*</span>
                         {t}Nom du fichier à importer (CSV) :{/t}</label>
                   <div class="col-8">
                         <input type="file" name="upfile" required class="form-control">
                   </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                   <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
                   <div class="col-8">
                         <select id="separator" name="separator" class="form-control">
@@ -41,7 +41,7 @@
                         </select>
                   </div>
             </div>
-            <div class="row mb-6">
+            <div class="row">
                   <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                   <div class="col-8">
                         <select id="utf8_encode" name="utf8_encode" class="form-control">
@@ -50,7 +50,7 @@
                         </select>
                   </div>
             </div>
-            <div class="row mb-6 center">
+            <div class="row center">
                   <button type="submit" class="btn btn-primary">{t}Vérifier le fichier{/t}</button>
             </div>
             {$csrf}
@@ -70,7 +70,7 @@
             <input type="hidden" name="realfilename" value="{$realfilename}">
             <input type="hidden" name="separator" value="{$separator}">
             <input type="hidden" name="utf8_encode" value="{$utf8_encode}">
-            <div class="row mb-6">
+            <div class="row">
                   <label for="filename" class="form-label col-4">{t}Fichier en cours de traitement :{/t}</label>
                   <div class="col-8">
                         <input type="text" id="filename" class="form-control" readonly name="filename"
@@ -81,7 +81,7 @@
             <fieldset>
                   <legend>{$kname}</legend>
                   {foreach $name as $val}
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="{$kname}-{$val}" class="form-label col-4">{$val}</label>
                         <div class="col-8">
                               <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
@@ -96,7 +96,7 @@
                   {/foreach}
             </fieldset>
             {/foreach}
-            <div class="row mb-6 center">
+            <div class="row center">
                   <button type="submit" class="btn btn-danger">{t}Déclencher l'import{/t}</button>
             </div>
             {$csrf}

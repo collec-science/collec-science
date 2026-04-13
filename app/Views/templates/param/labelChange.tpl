@@ -112,7 +112,7 @@
 			<input type="hidden" name="label_id" value="{$data.label_id}">
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
 			<input type="hidden" id="labelSent" name="label_xsl">
-			<div class="row mb-6">
+			<div class="row">
 				<label for="labelName" class="form-label col-4"><span class="red">*</span>
 					{t}Nom de l'étiquette :{/t}</label>
 				<div class="col-8">
@@ -120,7 +120,7 @@
 						autofocus required>
 				</div>
 			</div>
-			<div class="row mb-6">
+			<div class="row">
 				<label for="xsl" class="form-label col-4"><span class="red">*</span>
 					{t}Transformation XSL :{/t}</label>
 				<div class="col-8">
@@ -128,7 +128,7 @@
 						required>{$data.label_xsl}</textarea>
 				</div>
 			</div>
-			<div class="row mb-6 multipleFields" id="metadataDisplay">
+			<div class="row multipleFields" id="metadataDisplay">
 				<label for="metadata_id" class="form-label col-4">
 					{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 				<div class="col-8">
@@ -145,7 +145,7 @@
 			<fieldset>
 				<legend>{t}Premier code optique{/t}</legend>
 				<input type="hidden" name="label_optical_id" value="{$opticals[0].label_optical_id}">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="barcode_id" class="form-label col-4">{t}Type de code-barre :{/t}</label>
 					<div class="col-8">
 						<select id="barcode_id" name="barcode_id" class="form-control">
@@ -158,7 +158,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="content_type" class="form-label col-4">{t}Type de contenu :{/t}</label>
 					<div class="col-8">
 						<select id="content_type" class="form-control" name="content_type">
@@ -171,7 +171,7 @@
 						</select>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="radical" class="form-label col-4">
 						{t}Radical inséré avant l'attribut :{/t}
 					</label>
@@ -180,7 +180,7 @@
 							value="{$opticals[0].radical}">
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="optical_content" class="form-label col-4"><span class="red">*</span>
 						{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 					</label>
@@ -197,7 +197,7 @@
 				</legend>
 				<input type="hidden" name="label_optical_id2" value="{$opticals[1].label_optical_id}">
 				<div id="optical2" disabled hidden>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="barcode_id2" class="form-label col-4">{t}Type de code-barre :{/t}</label>
 						<div class="col-8">
 							<select id="barcode_id2" name="barcode_id2" class="form-control">
@@ -210,7 +210,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="content_type2" class="form-label col-4">{t}Type de contenu :{/t}</label>
 						<div class="col-8">
 							<select id="content_type2" class="form-control" name="content_type2">
@@ -223,7 +223,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="radical2" class="form-label col-4">
 							{t}Radical inséré avant l'attribut :{/t}
 						</label>
@@ -232,7 +232,7 @@
 								value="{$opticals[1].radical}">
 						</div>
 					</div>
-					<div class="row mb-6">
+					<div class="row">
 						<label for="optical_content2" class="form-label col-4"><span class="red">*</span>
 							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 						</label>
@@ -243,7 +243,7 @@
 					</div>
 				</div>
 			</fieldset>			
-			<div class="row mb-6">
+			<div class="row">
 				<label for="logo" class="form-label col-4">
 					{t}Logo à insérer dans l'étiquette (jpg, png) :{/t}
 				</label>
@@ -254,7 +254,7 @@
 					<input id="logo" type="file" class="form-control" name="logo">
 				</div>
 			</div>
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" id="stay" class="btn btn-primary">{t}Valider{/t}</button>
 				<button type="submit" id="write" class="btn btn-primary button-valid">{t}Valider et retour{/t}</button>
 				{if $data.label_id > 0 }

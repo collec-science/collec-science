@@ -25,7 +25,7 @@
         <form id="lotSearch" action="lotList" method="GET">
             <input type="hidden" name="moduleBase" value="lot">
             <div class="row">
-                <div class="row mb-6">
+                <div class="row">
                     <label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
                     <div class="col-3">
                         <select id="collection_id" class="form-control">

@@ -8,7 +8,7 @@
                   <input type="hidden" name="moduleBase" value="referent">
 
                   <input type="hidden" name="referent_id" value="{$data.referent_id}">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="referentName" class="form-label col-4"><span class="red">*</span>
                               {t}Nom :{/t}</label>
                         <div class="col-8">
@@ -16,14 +16,14 @@
                                     value="{$data.referent_name}" autofocus required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="firstname" class="form-label col-4"> {t}Prénom :{/t}</label>
                         <div class="col-8">
                               <input id="firstname" class="form-control" name="referent_firstname"
                                     value="{$data.referent_firstname}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="referent_organization" class="form-label col-4">
                               {t}Organisme :{/t}</label>
                         <div class="col-8">
@@ -31,21 +31,21 @@
                                     value="{$data.referent_organization}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="referentEmail" class="form-label col-4"> {t}Mail :{/t}</label>
                         <div class="col-8">
                               <input id="referentEmail" type="email" class="form-control" name="referent_email"
                                     value="{$data.referent_email}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="referentPhone" class="form-label col-4"> {t}Téléphone :{/t}</label>
                         <div class="col-8">
                               <input id="referentPhone" type="text" class="form-control" name="referent_phone"
                                     value="{$data.referent_phone}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="academical_directory" class="form-label col-4">
                               {t}Annuaire académique utilisé :{/t}</label>
                         <div class="col-8">
@@ -53,7 +53,7 @@
                                     value="{$data.academical_directory}" placeholder="https://orcid.org">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="academical_link" class="form-label col-4"> {t}Lien académique :{/t}</label>
                         <div class="col-8">
                               <input id="academical_link" class="form-control" name="academical_link"
@@ -62,28 +62,28 @@
                   </div>
                   <fieldset>
                         <legend>{t}Adresse postale{/t}</legend>
-                        <div class="row mb-6">
+                        <div class="row">
                               <label for="addressName" class="form-label col-4"> {t}Nom :{/t}</label>
                               <div class="col-8">
                                     <input id="addressName" type="text" class="form-control" name="address_name"
                                           value="{$data.address_name}">
                               </div>
                         </div>
-                        <div class="row mb-6">
+                        <div class="row">
                               <label for="addressLine2" class="form-label col-4"> {t}Seconde ligne :{/t}</label>
                               <div class="col-8">
                                     <input id="addressLine2" type="text" class="form-control" name="address_line2"
                                           value="{$data.address_line2}">
                               </div>
                         </div>
-                        <div class="row mb-6">
+                        <div class="row">
                               <label for="addressLine3" class="form-label col-4"> {t}Troisième ligne :{/t}</label>
                               <div class="col-8">
                                     <input id="addressLine3" type="text" class="form-control" name="address_line3"
                                           value="{$data.address_line3}">
                               </div>
                         </div>
-                        <div class="row mb-6">
+                        <div class="row">
                               <label for="addressCity" class="form-label col-4"> 
                                     {t}Code postal et ville :{/t}</label>
                               <div class="col-8">
@@ -91,7 +91,7 @@
                                           value="{$data.address_city}">
                               </div>
                         </div>
-                        <div class="row mb-6">
+                        <div class="row">
                               <label for="addressCountry" class="form-label col-4"> {t}Pays :{/t}</label>
                               <div class="col-8">
                                     <input id="addressCountry" type="text" class="form-control" name="address_country"
@@ -101,7 +101,7 @@
                   </fieldset>
 
 
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.referent_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

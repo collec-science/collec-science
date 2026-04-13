@@ -90,7 +90,7 @@
 			<legend>{t}Importer des métadonnées provenant d'une autre base de données Collec-Science{/t}</legend>
 			<form class="form-horizontal" id="metadataImport" method="post" action="metadataImport"
 				enctype="multipart/form-data">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="upfile" class="form-label col-4"><span class="red">*</span> 
 						{t}Nom du fichier à importer (CSV) :{/t}
 					</label>
@@ -98,7 +98,7 @@
 						<input class="form-control" type="file" name="upfile" required>
 					</div>
 				</div>
-				<div class="row mb-6 center">
+				<div class="row center">
 					<button type="submit" class="btn btn-primary">{t}Importer les métadonnées{/t}</button>
 				</div>
 				<div class="bg-info">
@@ -124,7 +124,7 @@
 					{t}La régénération consiste à reformater les modèles de métadonnées, pour les rendre compatibles avec la version v25.0.0 ou ultérieure de l'application{/t}
 					<br>
 					{t}La première option permet de reformater les modèles, la seconde recrée les index sur la table des échantillons{/t}
-					<div class="row mb-6">
+					<div class="row">
 						<label for="regenerateType" class="form-label col-4">
 							{t}Type d'opération à exécuter :{/t}
 						</label>
@@ -142,7 +142,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="row mb-6 center">
+					<div class="row center">
 						<button type="submit" class="btn btn-danger">{t}Lancer l'opération{/t}</button>
 					</div>
 				</div>
@@ -163,7 +163,7 @@
 						<li>{t}Modifier tous les modèles qui contiennent l'ancien nom{/t}</li>
 					</ul>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="oldName" class="form-label col-4">
 						{t}Ancien nom de la métadonnée :{/t}
 					</label>
@@ -171,7 +171,7 @@
 						<input class="form-control" id="oldName" name="oldName" required>
 					</div>
 				</div>
-				<div class="row mb-6">
+				<div class="row">
 					<label for="newName" class="form-label col-4">
 						{t}Nouveau nom de la métadonnée :{/t}
 					</label>
@@ -180,7 +180,7 @@
 						title="{t}Uniquement des minuscules (sans accents), des chiffres, ou le caractère _{/t}">
 					</div>
 				</div>
-				<div class="row mb-6 center">
+				<div class="row center">
 					<button type="submit" class="btn btn-danger">{t}Lancer l'opération{/t}</button>
 				</div>
 				{$csrf}

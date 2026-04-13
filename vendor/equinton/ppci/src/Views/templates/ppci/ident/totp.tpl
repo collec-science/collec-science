@@ -11,7 +11,7 @@
     <div class="row">
         <form id="otpform" class="form-horizontal protoform" method="post" action="totpVerifyExec">
             <input type="hidden" name="moduleCalled" value="{$moduleCalled}"">
-        <div class=" row mb-6">
+        <div class=" row">
             <label for="otpcode" class="form-label col-4">
                 {t}Code généré par le logiciel TOTP :{/t}
             </label>
@@ -21,7 +21,7 @@
             </div>
     </div>
     {if !$isAdmin}
-    <div class="row mb-6">
+    <div class="row">
         <label for="otptrusted" class="form-label col-4">
             {t}Faire confiance à ce navigateur :{/t}
         </label>

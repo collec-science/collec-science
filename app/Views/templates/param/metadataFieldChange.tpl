@@ -87,9 +87,9 @@
 </div>
 <form class="form-horizontal " id="metadataField" method="post" action="metadataFieldWrite">
     <input type="hidden" name="moduleBase" value="metadataField">
-    <input type="hidden" name="metadata_id" value="{$data.metadata_id}" <div class="row mb-6">
+    <input type="hidden" name="metadata_id" value="{$data.metadata_id}" <div class="row">
     <input type="hidden" name="oldname" value="{$data.name}">
-    <div class="row mb-6">
+    <div class="row">
         <label for="name" class="form-label col-4"><span class="red">*</span>
             {t}Nom du champ (minuscules, chiffres ou _, sans espace, sans tiret){/t}
         </label>
@@ -99,7 +99,7 @@
             required>
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="type" class="form-label col-4"><span class="red">*</span>
             {t}Type du champ{/t}
         </label>
@@ -135,7 +135,7 @@
             </select>
         </div>
     </div>
-    <div class="row mb-6" id="multipleGroup">
+    <div class="row" id="multipleGroup">
         <label for="multipleNo" class="form-label col-4"><span class="red">*</span>
             {t}Valeurs multiples ?{/t}
         </label>
@@ -146,7 +146,7 @@
                 }checked{/if} value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="row mb-6" id="choiceListGroup" hidden>
+    <div class="row" id="choiceListGroup" hidden>
         <label for="name" class="form-label col-4">
             {t}Valeurs{/t}
         </label>
@@ -180,7 +180,7 @@
 
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="defaultValue" class="form-label col-4">
             {t}Valeur par défaut{/t}
         </label>
@@ -188,7 +188,7 @@
             <input id="defaultValue" type="text" class="form-control" name="defaultValue" value="{$data.defaultValue}">
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="description" class="form-label col-4">
             <span class="red">*</span>
             {t}Description{/t}
@@ -197,7 +197,7 @@
             <input id="description" type="text" class="form-control" name="description" value="{$data.description}" required>
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="isSearchable0" class="form-label col-4"><span class="red">*</span>
             {t}Champ utilisé pour rechercher un échantillon ?{/t}
         </label>
@@ -209,7 +209,7 @@
                 value="yes">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="required0" class="form-label col-4"><span class="red">*</span>
             {t}Champ obligatoire ?{/t}
         </label>
@@ -221,7 +221,7 @@
                 value="true">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="measureUnit" class="form-label col-4">
             {t}Unité de mesure{/t}
         </label>
@@ -229,7 +229,7 @@
             <input id="measureUnit" type="text" class="form-control" name="measureUnit" value="{$data.measureUnit}">
         </div>
     </div>
-    <div class="row mb-6">
+    <div class="row">
         <label for="helperChoice" class="form-label col-4"><span class="red">*</span>
             {t}Affichage d'un message d'aide ?{/t}
         </label>
@@ -241,7 +241,7 @@
                 value="true" class="helperChoice">&nbsp;{t}oui{/t}
         </div>
     </div>
-    <div class="row mb-6" id="helperGroup" hidden>
+    <div class="row" id="helperGroup" hidden>
         <label for="helper" class="form-label col-4"><span class="red">*</span>
             {t}Message d'aide - vous pouvez copier ici la description de l'unité de mesure, par exemple{/t}
         </label>
@@ -249,7 +249,7 @@
             <input id="helper" type="text" class="form-control" name="helper" value="{$data.helper}">
         </div>
     </div>
-    <div class="row mb-6 center">
+    <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
     </div>
     {$csrf}

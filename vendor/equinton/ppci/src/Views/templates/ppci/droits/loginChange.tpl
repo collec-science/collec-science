@@ -8,7 +8,7 @@
                   <input type="hidden" name="moduleBase" value="acllogin">
                   <input type="hidden" name="action" value="Write">
                   <input type="hidden" name="acllogin_id" value="{$data.acllogin_id}">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="logindetail" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom de l'utilisateur :{/t}
                         </label>
@@ -17,7 +17,7 @@
                                     value="{$data.logindetail}" autofocus required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="login" class="form-label col-4"><span class="red">*</span>
                               {t}Login utilisé :{/t}
                         </label>
@@ -26,7 +26,7 @@
                                     required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="email" class="form-label col-4">
                               {t}Adresse email :{/t}
                         </label>
@@ -34,7 +34,7 @@
                               <input id="email" type="text" class="form-control" name="email" value="{$data.email}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="totp_reset" class="form-label col-4">
                               {t}Désactiver l'identification à double facteur :{/t}
                         </label>
@@ -42,7 +42,7 @@
                               <input id="totp_reset" type="checkbox" class="form-control" name="totp_reset" value="1">
                         </div>
                   </div>
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.acllogin_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

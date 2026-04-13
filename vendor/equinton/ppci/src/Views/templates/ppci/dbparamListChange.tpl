@@ -31,7 +31,7 @@
 			</table>
 
 
-			<div class="row mb-6 center">
+			<div class="row center">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
 			</div>
 		{$csrf}

@@ -129,7 +129,7 @@
             <input type="hidden" name="uid" value="{$sample.uid}">
             <input type="hidden" name="subsample_login" value="{$data.subsample_login}">
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="subsampling_date" class="form-label col-4"><span class="red">*</span>
                     {t}Date :{/t}
                 </label>
@@ -139,7 +139,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="movement_type_id" class="form-label col-4"><span class="red">*</span>
                     {t}Mouvement :{/t}
                 </label>
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="subsample_quantity" class="form-label col-4"><span class="red">*</span>
                     {t 1=$data.multiple_unit}Quantité (%1) :{/t}
                 </label>
@@ -165,7 +165,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="borrower_id" class="form-label col-4">{t}Emprunteur :{/t}</label>
                 <div class="col-8">
                     <select id="borrower_id" name="borrower_id" class="form-control">
@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="subsample_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
                 <div class="col-8">
                     <textarea id="subsample_comment" name="subsample_comment" class="form-control"
@@ -190,7 +190,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6">
+            <div class="row">
                 <label for="with_create" class="form-label col-4 lexical" data-lexical="composite">
                     {t}Avec création ou rattachement à un échantillon composé :{/t}
                 </label>
@@ -200,13 +200,13 @@
             </div>
 
             <div id="created" hidden>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="identifier" class="form-label col-4">{t}Identifiant ou nom :{/t}</label>
                     <div class="col-8">
                         <input id="identifier" type="text" name="identifier" class="form-control tocreate">
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="collection_id" class="form-label col-4"><span class="red">*</span>
                         {t}Collection :{/t}</label>
                     <div class="col-8">
@@ -219,7 +219,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="sample_type_id" class="form-label col-4"><span class="red">*</span>
                         {t}Type :{/t}
                     </label>
@@ -228,7 +228,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="uidsearch" class="col-4 form-label">
                         {t}Échantillon déjà existant - UID :{/t}</label>
                     <div class="col-2">
@@ -245,7 +245,7 @@
                         <img src="display/images/zoom.png" height="25">
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="uid" class="col-4 form-label">
                         {t}Échantillon composé correspondant :{/t}
                     </label>
@@ -254,7 +254,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="row mb-6">
+                <div class="row">
                     <label for="multiple_value" class="form-label col-4">
                         {t 1=$data.multiple_unit}Quantité affectée à l'échantillon (%1):{/t}</label>
                     <div class="col-8">
@@ -263,7 +263,7 @@
                 </div>
             </div>
 
-            <div class="row mb-6 center">
+            <div class="row center">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 {if $data.subsample_id > 0 }
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

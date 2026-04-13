@@ -116,7 +116,7 @@
   <div class="tab-content col-12 form-horizontal" id="search-tabContent">
       <div class="tab-pane active in" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
 				<div class="row">
-						<div class="row mb-6">
+						<div class="row">
 							<label for="uidsearch" class= "col-2 form-label">{t}UID :{/t}</label>
 							<div class="col-1">
 								<input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$containerSearch.uidsearch}">
@@ -132,7 +132,7 @@
 					</div>
 				</div>
 				<div class="row">
-						<div class="row mb-6">
+						<div class="row">
 								<label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
 								<div class="col-3">
 										<input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
@@ -143,7 +143,7 @@
 						</div>
 				</div>
 				<div class="row">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="container_family_id" class="col-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
 						<div class="col-4">
 							<select id="container_family_id" name="container_family_id" class="form-control">
@@ -169,7 +169,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="object_status_id" class="col-2 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
 						<div class="col-2">
 							<select id="object_status_id" name="object_status_id" class="form-control">
@@ -194,7 +194,7 @@
       </div>
 			<div class="tab-pane fade" id="navsearch-others" role="tabpanel" aria-labelledby="tabsearch-others">
 				<div class="row">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
 						<div class="col-6">
 							<select id="collection_id" name="collection_id" class="form-control">
@@ -209,7 +209,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="row mb-6">
+					<div class="row">
 						<label for="referent_id" class="col-3 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
 						<div class="col-6">
 							<select id="referent_id" name="referent_id" class="form-control">
@@ -224,7 +224,7 @@
 					</div>
 				</div>
 				<div class="row">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="event_type_id" class="col-3 form-label">{t}Type d'événement :{/t}</label>
 					<div class="col-6">
 						<select id="event_type_id" class="form-control" name="event_type_id">
@@ -237,7 +237,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="movement_reason_id" class="col-3 form-label">{t}Motif de déstockage :{/t}</label>
 					<div class="col-6">
 						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
@@ -252,7 +252,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="select_date" class="col-3 form-label">{t}Recherche par date :{/t}</label>
 					<div class="col-6">
 						<select class="form-control" id="select_date" name="select_date">
@@ -263,7 +263,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="row mb-6">
+				<div class="row">
 					<label for="date_from" class="col-1 col-offset-3 form-label">{t}du :{/t}</label>
 					<div class="col-2">
 							<input class="datepicker form-control" id="date_from" name="date_from" value="{$containerSearch.date_from}">

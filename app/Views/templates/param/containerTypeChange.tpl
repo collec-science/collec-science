@@ -7,7 +7,7 @@
             <form class="form-horizontal " id="containerTypeForm" method="post" action="containerTypeWrite">
                   <input type="hidden" name="container_type_id" value="{$data.container_type_id}">
                   <input type="hidden" name="moduleBase" value="containerType">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="containerTypeName" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom :{/t}
                         </label>
@@ -16,7 +16,7 @@
                                     value="{$data.container_type_name}" autofocus required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="container_family_id" class="form-label col-4"><span class="red">*</span>
                               {t}Famille :{/t}</label>
                         <div class="col-8">
@@ -30,7 +30,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="containerTypeDescription" class="form-label col-4">
                               {t}Description :{/t}
                         </label>
@@ -39,7 +39,7 @@
                                     id="containerTypeDescription">{$data.container_type_description}</textarea>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="lines" class="form-label col-4">
                               {t}Nombre de lignes :{/t}
                         </label>
@@ -47,7 +47,7 @@
                               <input id="lines" name="lines" value="{$data.lines}" class="nombre form-control">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="columns" class="form-label col-4">
                               {t}Nombre de colonnes :{/t}
                         </label>
@@ -55,7 +55,7 @@
                               <input id="columns" name="columns" value="{$data.columns}" class="nombre form-control">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="columns" class="form-label col-4">
                               {t}Position de la première ligne :{/t}
                         </label>
@@ -74,7 +74,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="columns" class="form-label col-4">
                               {t}Position de la première colonne :{/t}
                         </label>
@@ -93,7 +93,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="line_in_char" class="form-label col-4">
                               {t}Lignes identifiées par une lettre ?{/t}
                         </label>
@@ -112,7 +112,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="line_in_char" class="form-label col-4">
                               {t}Colonnes identifiées par une lettre ?{/t}
                         </label>
@@ -131,7 +131,7 @@
                               </div>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="nb_slots_max" class="form-label col-4">
                               {t}Nombre d'emplacements maximum :{/t}
                         </label>
@@ -140,7 +140,7 @@
                                     class="nombre form-control">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="nbobject_by_slot" class="form-label col-4">
                               {t}Nombre maxi d'objets par emplacement (ligne/colonne) :{/t}
                         </label>
@@ -149,7 +149,7 @@
                                     class="nombre form-control">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="storageConditionId" class="form-label col-4">
                               {t}Condition de stockage :{/t}
                         </label>
@@ -167,7 +167,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="product_id" class="form-label col-4">
                               {t}Produit utilisé :{/t}
                         </label>
@@ -185,7 +185,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="productNew" class="form-label col-4">
                               {t}ou nouveau produit :{/t}
                         </label>
@@ -193,7 +193,7 @@
                               <input id="productNew" type="text" class="form-control" name="productNew">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="risk_id" class="form-label col-4">
                               {t}Risque (code CLP) :{/t}
                         </label>
@@ -210,14 +210,14 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="riskNew" class="form-label col-4">
                               {t}ou nouveau risque :{/t}</label>
                         <div class="col-8">
                               <input id="riskNew" type="text" class="form-control" name="riskNew">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="labelId" class="form-label col-4">
                               {t}Modèle d'étiquette :{/t}
                         </label>
@@ -235,7 +235,7 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.container_type_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

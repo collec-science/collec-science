@@ -16,7 +16,7 @@
             <form class="form-horizontal " id="samplingPlaceForm" method="post" action="samplingPlaceWrite">
                   <input type="hidden" name="moduleBase" value="samplingPlace">
                   <input type="hidden" name="sampling_place_id" value="{$data.sampling_place_id}">
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="samplingPlaceName" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom :{/t}
                         </label>
@@ -25,14 +25,14 @@
                                     value="{$data.sampling_place_name}" autofocus required>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="samplingPlaceCode" class="form-label col-4">{t}Code métier :{/t}</label>
                         <div class="col-8">
                               <input id="samplingPlaceCode" type="text" class="form-control" name="sampling_place_code"
                                     value="{$data.sampling_place_code}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="collection_id" class="form-label col-4">
                               {t}Collection de rattachement :{/t}</label>
                         <div class="col-8">
@@ -48,21 +48,21 @@
                               </select>
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="wgs84_x" class="form-label col-4">{t}Longitude :{/t}</label>
                         <div class="col-8">
                               <input id="wgs84_x" type="text" class="form-control" name="sampling_place_x"
                                     value="{$data.sampling_place_x}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="wgs84_y" class="form-label col-4">{t}Latitude :{/t}</label>
                         <div class="col-8">
                               <input id="wgs84_y" type="text" class="form-control" name="sampling_place_y"
                                     value="{$data.sampling_place_y}">
                         </div>
                   </div>
-                  <div class="row mb-6">
+                  <div class="row">
                         <label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
                         <div class="col-8">
                               <select id="country_id" name="country_id" class="form-control">
@@ -78,7 +78,7 @@
                         </div>
                   </div>
 
-                  <div class="row mb-6 center">
+                  <div class="row center">
                         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                         {if $data.sampling_place_id > 0 }
                         <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

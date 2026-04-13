@@ -27,7 +27,7 @@
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="export_id" value="{$data.export_id}">
       <input type="hidden" name="lot_id" value="{$data.lot_id}">
-      <div class="row mb-6">
+      <div class="row">
         <label for="export_template_id" class="form-label col-4"><span class="red">*</span> {t}Modèle d'export :{/t}</label>
         <div class="col-8">
           <select id="export_template_id" name="export_template_id" class="form-control">
@@ -37,7 +37,7 @@
           </select>
         </div>
       </div>
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
         {if $data.export_template_id > 0 }
           <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>

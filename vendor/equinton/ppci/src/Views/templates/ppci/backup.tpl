@@ -9,7 +9,7 @@
     <form id="backup" method="post">
       <input type="hidden" name="moduleBase" value="backup">
       <input type="hidden" name="action" value="Exec">
-      <div class="row mb-6 center">
+      <div class="row center">
         <button type="submit" class="btn btn-primary button-valid">{t}Déclencher la sauvegarde{/t}</button>
       </div>
     {$csrf}

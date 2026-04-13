@@ -1,18 +1,19 @@
+<div class="container">
 <h2>{t}Affichage de la clé TOTP{/t}</h2>
 
 <div class="row">
-    <div class="col-lg-6 col-md-8">
+    <div class="col-6 col-8">
         <div class="bg-info ">
             {t}Ce module vous permet de visualiser les paramètres de votre clé TOTP, pour pouvoir configurer un autre appareil le cas échéant{/t}
         </div>
     </div>
 </div>
-<div class="col-md-6">
+<div class="col-6">
     {if empty($issuer)}
     <form id="otpform" class="form-horizontal protoform" method="post" action="totpShowCode">
         <div class="row mb-6">
-            <label for="otpcode" class="form-label col-md-4">{t}Code généré par le logiciel TOTP :{/t} </label>
-            <div class="col-md-8">
+            <label for="otpcode" class="form-label col-4">{t}Code généré par le logiciel TOTP :{/t} </label>
+            <div class="col-8">
                 <input id="otpcode" type="number" class="form-control" name="otpcode" class="nombre" required autofocus>
             </div>
         </div>
@@ -26,7 +27,7 @@
         <img src="totpGetQrcode" height="150" style="margin-top:2.5em">
     </div>
     <div class="row" id="displayCode">
-        <div class="form-display col-md-12">
+        <div class="form-display col-12">
             <dl class="dl-horizontal">
                 <dt>{t}Fournisseur{/t}</dt>
                 <dd>{$issuer}</dd>

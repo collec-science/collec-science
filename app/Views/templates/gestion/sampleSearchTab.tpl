@@ -104,11 +104,11 @@
         var lastSampletypeId = "{$sampleSearch.sample_type_id}";
         var datamd1 = "{$sampleSearch.metadata_value.1}";
         var datamd2 = "{$sampleSearch.metadata_value.2}";
-        if (datamd1.length > 0) {
-            $("#metadatarow1").show();
+        if (!datamd1.length > 0) {
+            $("#metadatarow1").hide();
         }
-        if (datamd2.length > 0) {
-            $("#metadatarow2").show();
+        if (!datamd2.length > 0) {
+            $("#metadatarow2").hide();
         }
         $("#showmetadata1").click(function () {
             $("#metadatarow1").show();
@@ -446,34 +446,34 @@
             <div class="tab-content form-horizontal" id="search-tabContent">
                 <div class="tab-pane active" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
                     <div class="row">
-                        <label for="uidsearch" class="col-sm-2 form-label">{t}UID :{/t}</label>
-                        <div class="col-sm-1">
+                        <label for="uidsearch" class="col-2 form-label">{t}UID :{/t}</label>
+                        <div class="col-1">
                             <input id="uidsearch" name="uidsearch" class="form-control nombre"
                                 value="{$sampleSearch.uidsearch}" autofocus>
                         </div>
-                        <label for="name" class="col-sm-3 form-label">
+                        <label for="name" class="col-3 form-label">
                             {t}Identifiant(s) ou UUID :{/t}
                             <img src="display/images/qrcode.png" height="25">
                         </label>
-                        <div class="col-sm-3">
+                        <div class="col-3">
                             <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}"
                                 title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
                         </div>
                     </div>
                     <div class="row">
-                        <label for="uid_min" class="col-sm-2 form-label">{t}UID entre :{/t}</label>
-                        <div class="col-sm-2">
+                        <label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
+                        <div class="col-2">
                             <input id="uid_min" name="uid_min" class="nombre form-control"
                                 value="{$sampleSearch.uid_min}">
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <input id="uid_max" name="uid_max" class="nombre form-control"
                                 value="{$sampleSearch.uid_max}">
                         </div>
                     </div>
                     <div class="row">
-                        <label for="collection_id" class="col-sm-2 form-label">{t}Collection :{/t}</label>
-                        <div class="col-sm-2">
+                        <label for="collection_id" class="col-2 form-label">{t}Collection :{/t}</label>
+                        <div class="col-2">
                             <select id="collection_id" name="collection_id" class="form-select">
                                 <option value="" {if $sampleSearch.collection_id=="" }selected{/if}>{t}Choisissez...{/t}
                                 </option>
@@ -485,8 +485,8 @@
                                 {/foreach}
                             </select>
                         </div>
-                        <label for="collections" class="col-sm-2 form-label">{t}Ou recherche multiple :{/t}</label>
-                        <div class="col-sm-3">
+                        <label for="collections" class="col-2 form-label">{t}Ou recherche multiple :{/t}</label>
+                        <div class="col-3">
                             <select id="collections" name="collections[]" class="form-select" multiple size="3">
                                 <option value="" {if count($sampleSearch.collections)==0}selected{/if}>
                                     {t}Choisissez...{/t}</option>
@@ -500,9 +500,9 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="object_status_id" class="col-sm-2 form-label lexical"
-                            data-lexical="status">{t}Statut :{/t}</label>
-                        <div class="col-sm-2">
+                        <label for="object_status_id" class="col-2 form-label lexical" data-lexical="status">
+                            {t}Statut :{/t}</label>
+                        <div class="col-2">
                             <select id="object_status_id" name="object_status_id" class="form-select">
                                 <option value="" {if $sampleSearch.object_status_id=="" }selected{/if}>
                                     {t}Choisissez...{/t}</option>
@@ -514,9 +514,9 @@
                                 {/section}
                             </select>
                         </div>
-                        <label for="trashed" class="col-sm-2 form-label lexical" data-lexical="trashed"
+                        <label for="trashed" class="col-2 form-label lexical" data-lexical="trashed"
                             title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <select id="trashed" name="trashed" class="form-select">
                                 <option value="" {if $sampleSearch.trashed=="" }selected{/if}>{t}Tous{/t}</option>
                                 <option value="1" {if $sampleSearch.trashed=="1" }selected{/if}>{t}Oui{/t}</option>
@@ -527,138 +527,120 @@
                 </div>
                 <div class="tab-pane fade" id="navsearch-type" role="tabpanel" aria-labelledby="tabsearch-type">
                     <div class="row">
-                        <div class="row">
-                            <label for="sample_type_id" class="col-sm-3 form-label">{t}Type d'échantillon :{/t}</label>
-                            <div class="col-sm-6">
-                                <select id="sample_type_id" name="sample_type_id" class="form-select ">
-                                    <option value="0" {if $sampleSearch.sample_type_id=="0" }selected{/if}>
-                                        {t}Choisissez...{/t}</option>
-                                    {section name=lst loop=$sample_type}
-                                    <option value="{$sample_type[lst].sample_type_id}" {if
-                                        $sample_type[lst].sample_type_id==$sampleSearch.sample_type_id}selected{/if}
-                                        title="{$sample_type[lst].sample_type_description}">
-                                        {$sample_type[lst].sample_type_name}
-                                    </option>
-                                    {/section}
-                                </select>
-                            </div>
+                        <label for="sample_type_id" class="col-3 form-label">{t}Type d'échantillon :{/t}</label>
+                        <div class="col-6">
+                            <select id="sample_type_id" name="sample_type_id" class="form-select ">
+                                <option value="0" {if $sampleSearch.sample_type_id=="0" }selected{/if}>
+                                    {t}Choisissez...{/t}</option>
+                                {section name=lst loop=$sample_type}
+                                <option value="{$sample_type[lst].sample_type_id}" {if
+                                    $sample_type[lst].sample_type_id==$sampleSearch.sample_type_id}selected{/if}
+                                    title="{$sample_type[lst].sample_type_description}">
+                                    {$sample_type[lst].sample_type_name}
+                                </option>
+                                {/section}
+                            </select>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="row">
-                            <!--
-                            <label for="metadata_field" class="col-md-2 form-label">Métadonnées :</label>
-                            -->
-                            <div id="metadatarow">
-                                <label for="metadata_field" class="col-sm-3 form-label">
-                                    {t}Rechercher dans les métadonnées :{/t}
-                                </label>
-                                <div class="col-sm-3">
-                                    <select class="form-select" id="metadata_field" name="metadata_field[]">
-                                        <option value="" {if $sampleSearch.metadata_field.0=="" }selected{/if}>
-                                            {t}Métadonnée :{/t}</option>
-                                        {if $rights.manage == 1 || consultSeesAll == 1}
-                                        {foreach $metadatas as $value}
-                                        <option value="{$value.fieldname}" {if
-                                            $sampleSearch.metadata_field.0==$value.fieldname}selected{/if}>
-                                            {$value.fieldname}
-                                        </option>
-                                        {/foreach}
-                                        {/if}
-                                    </select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value"
-                                        name="metadata_value[]" value="{$sampleSearch.metadata_value.0}"
-                                        title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
-                                </div>
-                                <div class="col-sm-1">
-                                    <img src="display/images/plus.png" height="25" id="showmetadata1">
-                                </div>
-                            </div>
+                    <div class="row" id="metadatarow">
+                        <label for="metadata_field" class="col-3 form-label">
+                            {t}Rechercher dans les métadonnées :{/t}
+                        </label>
+                        <div class="col-3">
+                            <select class="form-select" id="metadata_field" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.0=="" }selected{/if}>
+                                    {t}Métadonnée :{/t}</option>
+                                {if $rights.manage == 1 || consultSeesAll == 1}
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if
+                                    $sampleSearch.metadata_field.0==$value.fieldname}selected{/if}>
+                                    {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]"
+                                value="{$sampleSearch.metadata_value.0}"
+                                title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                        </div>
+                        <div class="col-1">
+                            <img src="display/images/plus.png" height="25" id="showmetadata1">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="row">
-                            <!--  metadonnees supplementaires -->
-                            <div id="metadatarow1" hidden>
-                                <label for="metadata_field1" class="col-sm-3 form-label">{t}et{/t}</label>
-                                <div class="col-sm-3">
-                                    <select class="form-select" id="metadata_field1" name="metadata_field[]">
-                                        <option value="" {if $sampleSearch.metadata_field.1=="" }selected{/if}>
-                                            {t}Métadonnée :{/t}</option>
-                                        {if $rights.manage == 1 || consultSeesAll == 1}
-                                        {foreach $metadatas as $value}
-                                        <option value="{$value.fieldname}" {if
-                                            $sampleSearch.metadata_field.1==$value.fieldname}selected{/if}>
-                                            {$value.fieldname}
-                                        </option>
-                                        {/foreach}
-                                        {/if}
-                                    </select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_1"
-                                        name="metadata_value[]" value="{$sampleSearch.metadata_value.1}"
-                                        title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
-                                </div>
-                                <div class="col-sm-1">
-                                    <img src="display/images/plus.png" height="25" id="showmetadata2">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row">
-                            <div id="metadatarow2" hidden>
-                                <label for="metadata_field2" class="col-sm-3 form-label">{t}et{/t}</label>
-                                <div class="col-sm-3">
-                                    <select class="form-select" id="metadata_field2" name="metadata_field[]">
-                                        <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
-                                            {t}Métadonnée :{/t}</option>
-                                        {if $rights.manage == 1 || consultSeesAll == 1}
-                                        {foreach $metadatas as $value}
-                                        <option value="{$value.fieldname}" {if
-                                            $sampleSearch.metadata_field.2==$value.fieldname}selected{/if}>
-                                            {$value.fieldname}
-                                        </option>
-                                        {/foreach}
-                                        {/if}
-                                    </select>
-                                </div>
-                                <div class="col-sm-3">
-                                    <input class="form-control metadatavalue" id="metadata_value_2"
-                                        name="metadata_value[]" value="{$sampleSearch.metadata_value.2}"
-                                        title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="row">
-                            <label for="metadatafilter" class="col-sm-3 form-label">
-                                {t}N'afficher qu'une métadonnée :{/t}
-                            </label>
-                            <div class="col-sm-3">
-                                <select class="form-select" id="metadatafilter" name="metadatafilter">
-                                    <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>{t}Métadonnée
-                                        à afficher :{/t}</option>
+                    <div class="row" id="metadatarow1">
+                        <!--  metadonnees supplementaires -->
+                            <label for="metadata_field1" class="col-3 form-label">{t}et{/t}</label>
+                            <div class="col-3">
+                                <select class="form-select" id="metadata_field1" name="metadata_field[]">
+                                    <option value="" {if $sampleSearch.metadata_field.1=="" }selected{/if}>
+                                        {t}Métadonnée :{/t}</option>
+                                    {if $rights.manage == 1 || consultSeesAll == 1}
                                     {foreach $metadatas as $value}
                                     <option value="{$value.fieldname}" {if
-                                        $sampleSearch.metadatafilter==$value.fieldname}selected{/if}>
+                                        $sampleSearch.metadata_field.1==$value.fieldname}selected{/if}>
                                         {$value.fieldname}
                                     </option>
                                     {/foreach}
+                                    {/if}
                                 </select>
                             </div>
+                            <div class="col-3">
+                                <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]"
+                                    value="{$sampleSearch.metadata_value.1}"
+                                    title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                            </div>
+                            <div class="col-1">
+                                <img src="display/images/plus.png" height="25" id="showmetadata2">
+                            </div>
+                    </div>
+                    <div class="row" id="metadatarow2">
+                            <label for="metadata_field2" class="col-3 form-label">{t}et{/t}</label>
+                            <div class="col-3">
+                                <select class="form-select" id="metadata_field2" name="metadata_field[]">
+                                    <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
+                                        {t}Métadonnée :{/t}</option>
+                                    {if $rights.manage == 1 || consultSeesAll == 1}
+                                    {foreach $metadatas as $value}
+                                    <option value="{$value.fieldname}" {if
+                                        $sampleSearch.metadata_field.2==$value.fieldname}selected{/if}>
+                                        {$value.fieldname}
+                                    </option>
+                                    {/foreach}
+                                    {/if}
+                                </select>
+                            </div>
+                            <div class="col-3">
+                                <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]"
+                                    value="{$sampleSearch.metadata_value.2}"
+                                    title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                            </div>
+                    </div>
+                    <div class="row">
+                        <label for="metadatafilter" class="col-3 form-label">
+                            {t}N'afficher qu'une métadonnée :{/t}
+                        </label>
+                        <div class="col-3">
+                            <select class="form-select" id="metadatafilter" name="metadatafilter">
+                                <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
+                                    {t}Métadonnée
+                                    à afficher :{/t}</option>
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if
+                                    $sampleSearch.metadatafilter==$value.fieldname}selected{/if}>
+                                    {$value.fieldname}
+                                </option>
+                                {/foreach}
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navsearch-date" role="tabpanel" aria-labelledby="tabsearch-date">
                     <div class="row">
                         <div class="row">
-                            <label for="select_date" class="col-sm-3 form-label">{t}Recherche par date :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="select_date" class="col-3 form-label">{t}Recherche par date :{/t}</label>
+                            <div class="col-2">
                                 <select class="form-select" id="select_date" name="select_date">
                                     <option value="" {if $sampleSearch.select_date=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -673,13 +655,13 @@
                                 </select>
                             </div>
 
-                            <label for="date_from" class="col-sm-1 form-label">{t}du :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="date_from" class="col-1 form-label">{t}du :{/t}</label>
+                            <div class="col-2">
                                 <input class="datepicker form-control" id="date_from" name="date_from"
                                     value="{$sampleSearch.date_from}">
                             </div>
-                            <label for="date_to" class="col-sm-1 form-label">{t}au :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="date_to" class="col-1 form-label">{t}au :{/t}</label>
+                            <div class="col-2">
                                 <input class="datepicker form-control" id="date_to" name="date_to"
                                     value="{$sampleSearch.date_to}">
                             </div>
@@ -687,8 +669,8 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="booking_type" class="col-sm-3 form-label">{t}Réservations :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="booking_type" class="col-3 form-label">{t}Réservations :{/t}</label>
+                            <div class="col-2">
                                 <select id="booking_type" name="booking_type" class="form-select">
                                     <option value="0" {if $sampleSearch.booking_type==-1}selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -698,13 +680,13 @@
                                         réservé{/t}</option>
                                 </select>
                             </div>
-                            <label for="booking_from" class="col-sm-1 form-label">{t}du :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="booking_from" class="col-1 form-label">{t}du :{/t}</label>
+                            <div class="col-2">
                                 <input class="datepicker form-control" id="booking_from" name="booking_from"
                                     value="{$sampleSearch.booking_from}">
                             </div>
-                            <label for="booking_to" class="col-sm-1 form-label">{t}au :{/t}</label>
-                            <div class="col-sm-2">
+                            <label for="booking_to" class="col-1 form-label">{t}au :{/t}</label>
+                            <div class="col-2">
                                 <input class="datepicker form-control" id="booking_to" name="booking_to"
                                     value="{$sampleSearch.booking_to}">
                             </div>
@@ -714,9 +696,9 @@
                 <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                     <div class="row">
                         <div class="row">
-                            <label for="referent_id" class="col-sm-3 form-label lexical"
+                            <label for="referent_id" class="col-3 form-label lexical"
                                 data-lexical="referent">{t}Référent :{/t}</label>
-                            <div class="col-sm-3">
+                            <div class="col-3">
                                 <select id="referent_id" name="referent_id" class="form-select">
                                     <option value="" {if $sampleSearch.referent_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -728,20 +710,20 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <label for="without_container" class="col-sm-2 form-label">
+                            <label for="without_container" class="col-2 form-check-label">
                                 {t}Échantillons sans contenants :{/t}
                             </label>
-                            <div class="col-sm-1">
+                            <div class="col-1">
                                 <input type="checkbox" id="without_container" name="without_container"
-                                    class="form-control" value="1" {if $sampleSearch.without_container==1}checked{/if}>
+                                    class="form-check-input" value="1" {if $sampleSearch.without_container==1}checked{/if}>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="campaign_id" class="col-sm-3 form-label lexical"
+                            <label for="campaign_id" class="col-3 form-label lexical"
                                 data-lexical="campaign">{t}Campagne de prélèvement :{/t}</label>
-                            <div class="col-sm-3">
+                            <div class="col-3">
                                 <select id="campaign_id" name="campaign_id" class="form-select">
                                     <option value="" {if $sampleSearch.campaign_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -752,9 +734,9 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <label for="authorization_number" class="col-sm-2 form-label lexical"
+                            <label for="authorization_number" class="col-2 form-label lexical"
                                 data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
-                            <div class="col-sm-3">
+                            <div class="col-3">
                                 <input id="authorization_number" name="authorization_number" class="form-control"
                                     value="{$sampleSearch.authorization_number}">
                             </div>
@@ -762,8 +744,8 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="event_type_id" class="col-sm-3 form-label">{t}Type d'événement :{/t}</label>
-                            <div class="col-sm-6">
+                            <label for="event_type_id" class="col-3 form-label">{t}Type d'événement :{/t}</label>
+                            <div class="col-3">
                                 <select id="event_type_id" class="form-select" name="event_type_id">
                                     <option value="" {if $sampleSearch.event_type_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -778,9 +760,9 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="movement_reason_id" class="col-sm-3 form-label">
+                            <label for="movement_reason_id" class="col-3 form-label">
                                 {t}Motif de déstockage :{/t}</label>
-                            <div class="col-sm-6">
+                            <div class="col-3">
                                 <select id="movement_reason_id" name="movement_reason_id" class="form-select">
                                     <option value="" {if $sampleSearch.movement_reason_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
@@ -796,14 +778,14 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="subsample_quantity_min" class="col-sm-3 form-label">{t}Quantité minimale
+                            <label for="subsample_quantity_min" class="col-3 form-label">{t}Quantité minimale
                                 disponible dans l'échantillon :{/t}</label>
-                            <div class="col-sm-3">
+                            <div class="col-3">
                                 <input class="form-control taux" id="subsample_quantity_min"
                                     name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
                             </div>
-                            <label for="subsample_quantity_max" class="col-sm-2 form-label">{t}maximale :{/t}</label>
-                            <div class="col-sm-3">
+                            <label for="subsample_quantity_max" class="col-2 form-label">{t}maximale :{/t}</label>
+                            <div class="col-3">
                                 <input class="form-control taux" id="subsample_quantity_max"
                                     name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
                             </div>
@@ -812,12 +794,12 @@
                 </div>
                 <div class="tab-pane fade" id="navsearch-loc" role="tabpanel" aria-labelledby="tabsearch-loc">
                     <div class="row">
-                        <div class="col-md-5 col-sm-12">
+                        <div class="col-5 col-12">
                             <div class="row">
                                 <div class="row">
-                                    <label for="sampling_place_id" class="col-sm-4 form-label">{t}Lieu de prélèvement
+                                    <label for="sampling_place_id" class="col-4 form-label">{t}Lieu de prélèvement
                                         :{/t}</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-8">
                                         <select id="sampling_place_id" name="sampling_place_id" class="form-select ">
                                             <option value="0" {if $sampleSearch.sampling_place_id=="0" }selected{/if}>
                                             </option>
@@ -834,9 +816,9 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="country_id_search" class="col-sm-4 form-label">
+                                    <label for="country_id_search" class="col-4 form-label">
                                         {t}Pays de collecte :{/t}</label>
-                                    <div class="col-sm-8">
+                                    <div class="col-8">
                                         <select id="country_id_search" name="country_id" class="form-select ">
                                             <option value="0" {if $country.country_id=="0" }selected{/if}></option>
                                             {section name=lst loop=$countries}
@@ -849,10 +831,10 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="country_origin_id_search" class="col-sm-4 form-label">
+                                    <label for="country_origin_id_search" class="col-4 form-label">
                                         {t}Pays de provenance :{/t}
                                     </label>
-                                    <div class="col-sm-8">
+                                    <div class="col-8">
                                         <select id="country_origin_id_search" name="country_origin_id"
                                             class="form-select ">
                                             <option value="0" {if $country.country_id=="0" }selected{/if}></option>
@@ -867,7 +849,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="map" class="hidden-sm col-md-6">
+                        <div id="map" class="hidden-sm col-6">
                             <div id="map" class="mapSearch"></div>
                         </div>
                     </div>
@@ -875,11 +857,12 @@
                 <div class="tab-pane fade" id="navsearch-record" role="tabpanel" aria-labelledby="tabsearch-record">
                     <div class="row">
                         <div class="row">
-                            <label for="samplesearch_id" class="col-sm-4 form-label">{t}Recherches enregistrées
+                            <label for="samplesearch_id" class="col-4 form-label">{t}Recherches enregistrées
                                 :{/t}</label>
-                            <div class="col-sm-6">
+                            <div class="col-6">
                                 <select id="samplesearch_id" class="form-select" name="samplesearch_id">
-                                    <option value="" {if $samplesearch_id==0}selected{/if}>{t}Sélectionnez une recherche
+                                    <option value="" {if $samplesearch_id==0}selected{/if}>{t}Sélectionnez une
+                                        recherche
                                         enregistrée{/t}</option>
                                     {foreach $samplesearches as $samplesearch}
                                     <option value="{$samplesearch.samplesearch_id}" {if
@@ -892,26 +875,26 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <div class="col-sm-2">
+                            <div class="col-2">
                                 <button type="button" id="samplesearchDeleteButton"
                                     class="btn btn-danger">{t}Supprimer{/t}</button>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <fieldset class="col-sm-12">
+                        <fieldset class="col-12">
                             <legend>{t}Enregistrer la recherche courante{/t}</legend>
                             <div class="row">
-                                <label for="samplesearch_name" class="col-sm-4 form-label"><span
-                                        class="red">*</span>{t}Nom de la recherche :{/t}</label>
-                                <div class="col-sm-6">
+                                <label for="samplesearch_name" class="col-4 form-label"><span class="red">*</span>{t}Nom
+                                    de la recherche :{/t}</label>
+                                <div class="col-6">
                                     <input id="samplesearch_name" name="samplesearch_name" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="samplesearch_collection" class="col-sm-4 form-label">{t}Enregistrer pour la
+                                <label for="samplesearch_collection" class="col-4 form-label">{t}Enregistrer pour la
                                     collection sélectionnée (le cas échéant) ?{/t}</label>
-                                <div id="samplesearch_collection" class="col-sm-8">
+                                <div id="samplesearch_collection" class="col-8">
                                     <label class="radio-inline">
                                         <input type="radio" name="samplesearch_collection" value="0" checked>{t}non{/t}
                                     </label>
@@ -925,39 +908,40 @@
                 </div>
 
                 <div class="row">
-                        <label for="limit" class="col-sm-3 form-label">{t}Nombre maxi à lire depuis la base de données
-                            (0 pour tous) :{/t}</label>
-                        <div class="col-sm-1">
-                            <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
-                        </div>
-                        <label for="page" class="col-sm-1 form-label">
-                            {t}À partir de la page{/t}
-                        </label>
-                        <div class="col-sm-1">
-                            <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre"
-                                type="number">
-                        </div>
-                        <div class="col-sm-4 center">
-                            <button type="submit" id="samplesearch_button"
-                                class="btn btn-primary">{t}Rechercher{/t}</button>
-                            <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
-                            {if $rights.manage == 1}
-                            <button type="button" id="exportCsv" class="btn btn-primary"
-                                title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
-                                {t}Export CSV direct{/t}
-                            </button>
-                            {/if}
-                            {$helpsamplesearch}
-                        </div>
-                        <label for="activateSearchByColumn" class="form-check-label col-sm-1">
-                            {t}Recherche par colonne :{/t}</label>
-                        <div class="col-sm-1">
-                            <input type="checkbox" id="activateSearchByColumn" class="form-check-input">
-                        </div>
+                    <label for="limit" class="col-3 form-label">{t}Nombre maxi à lire depuis la base de données
+                        (0 pour tous) :{/t}</label>
+                    <div class="col-1">
+                        <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                     </div>
+                    <label for="page" class="col-1 form-label">
+                        {t}À partir de la page{/t}
+                    </label>
+                    <div class="col-1">
+                        <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre"
+                            type="number">
+                    </div>
+                    <div class="col-4 center">
+                        <button type="submit" id="samplesearch_button"
+                            class="btn btn-success">{t}Rechercher{/t}</button>
+                        <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+                        {if $rights.manage == 1}
+                        <button type="button" id="exportCsv" class="btn btn-primary"
+                            title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
+                            {t}Export CSV direct{/t}
+                        </button>
+                        {/if}
+                        {$helpsamplesearch}
+                    </div>
+                    <label for="activateSearchByColumn" class="form-check-label col-1">
+                        {t}Recherche par colonne :{/t}</label>
+                    <div class="col-1">
+                        <input type="checkbox" id="activateSearchByColumn" class="form-check-input">
+                    </div>
+                </div>
             </div>
     </div>
-    {$csrf}</form>
+    {$csrf}
+    </form>
 </div>
 </div>
 {include file="mapDefault.tpl"}

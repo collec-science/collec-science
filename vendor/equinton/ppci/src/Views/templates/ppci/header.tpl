@@ -13,7 +13,7 @@
 
 		<!-- Affichage du menu -->
 		<div class="collapse navbar-collapse " id="navbar_collapse">
-			<ul class="nav navbar-nav me-auto mb-2 mb-lg-0">{$menu}
+			<ul class="nav navbar-nav me-auto mb-2 mb-0">{$menu}
 			</ul>
 
 			<!-- Boutons a droite du menu -->

@@ -1,15 +1,16 @@
 {* Paramètres > Motifs de déstockage > Nouveau > *}
+<div class="container">
 <h2>{t}Création - Modification des motifs de déstockage{/t}</h2>
 <div class="row">
-<div class="col-md-6">
+<div class="col-6">
 <a href="movementReasonList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal " id="movementReasonForm" method="post" action="movementReasonWrite">
 <input type="hidden" name="moduleBase" value="movementReason">
 <input type="hidden" name="movement_reason_id" value="{$data.movement_reason_id}">
 <div class="row mb-6">
-<label for="movementReasonName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
-<div class="col-md-8">
+<label for="movementReasonName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
+<div class="col-8">
 <input id="movementReasonName" type="text" class="form-control" name="movement_reason_name" value="{$data.movement_reason_name}" autofocus required></div>
 </div>
 
@@ -23,4 +24,6 @@
 {$csrf}</form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

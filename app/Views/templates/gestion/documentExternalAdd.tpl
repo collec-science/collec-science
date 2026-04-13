@@ -124,24 +124,24 @@
   <form id="fileExternal" class="form-horizontal" method="post" action="documentExternalAdd">
     <input type="hidden" name="uid" value="{$data.uid}">
     <div class="row mb-6 fields" hidden>
-			<label for="document_description_external" class="form-label col-md-4">
+			<label for="document_description_external" class="form-label col-4">
 				{t}Description :{/t} </label>
-			<div class="col-md-8">
+			<div class="col-8">
 				<input id="document_description_external" name="document_description" class="form-control">
 			</div>
 		</div>
 		<div class="row mb-6 fields" hidden>
-			<label for="document_creation_date_external" class="form-label col-md-4">
+			<label for="document_creation_date_external" class="form-label col-4">
 				{t}Date de création des documents :{/t} </label>
-			<div class="col-md-8">
+			<div class="col-8">
 				<input id="document_creation_date_external" name="document_creation_date"
 					class="form-control date">
 			</div>
 		</div>
     <div class="row mb-6">
-    <label for="root" class="form-label col-md-4">
+    <label for="root" class="form-label col-4">
 				{t}Fichiers à associer :{/t} </label>
-      <div id="treeview" class="col-md-8">
+      <div id="treeview" class="col-8">
         <ul class="treeview" id="root">
           <li>
             <input class="treeview-folder folder" type="checkbox" name="root" id="root-input" value="/">

@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Contenu du fichier {/t}{$filename}</h2>
 <div class="row">
     <a href="getLogFiles">
@@ -7,7 +8,7 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         <table class="table-hover">
             <tbody>
                 {foreach $logs as $log}

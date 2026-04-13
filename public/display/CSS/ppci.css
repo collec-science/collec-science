@@ -88,7 +88,7 @@ body {
 
 /* italique gris petit*/
 .messagebas {
-	color: var(--color-green);
+	color: var(--color-pri);
 	font-size: small;
 	font-style: italic;
 }
@@ -100,11 +100,11 @@ h1 {
 
 h2 {
 	font-size: large;
-	color:var(--color-pri);
+	color:var(--color-sec);
 }
 
 h3 {
-	font-size: large;
+	font-size: medium;
 	color:var(--color-sec);
 }
 
@@ -534,18 +534,21 @@ a:hover {
 }
 .btn-primary:hover {
 	background-color: var(--color-sec-7);
+	color: black;
 }
 .btn-secondary {
 	background-color: var(--color-pri);
 }
 .btn-secondary:hover {
 	background-color: var(--color-pri-7);
+	color: black;
 }
 .btn-danger {
 	background-color: var(--color-red);
 }
 .btn-danger:hover {
 	background-color: var(--color-red-7);
+	color: black;
 }
 .btn-warning {
 	background-color: var(--color-green);
@@ -553,14 +556,15 @@ a:hover {
 }
 .btn-warning:hover {
 	background-color: var(--color-green-7);
-	color: white;
+	color: black;
 }
 .btn-info {
 	background-color: var(--color-green);
-	color:var(--color-grey);
+	color:white;
 }
 .btn-info:hover {
 background-color: var(--color-green-7);
+	color: black;
 }
 .bg-info {
 	background-color: var(--color-green-3) !important;

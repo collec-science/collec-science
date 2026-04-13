@@ -96,7 +96,7 @@
 	});
 
 </script>
-<div class="row col-lg-10 col-md-12">
+<div class="row col-10 col-12">
 	<form class="" id="container_search" action="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}{if strlen($action)>0}{$action}{else}List{/if}" method="GET">
 		<input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
 		<input id="isSearch" type="hidden" name="isSearch" value="1">
@@ -113,39 +113,39 @@
         </a>
     	</li>
   	</ul>
-  <div class="tab-content col-lg-12 form-horizontal" id="search-tabContent">
+  <div class="tab-content col-12 form-horizontal" id="search-tabContent">
       <div class="tab-pane active in" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
 				<div class="row">
 						<div class="row mb-6">
-							<label for="uidsearch" class= "col-sm-2 form-label">{t}UID :{/t}</label>
-							<div class="col-sm-1">
+							<label for="uidsearch" class= "col-2 form-label">{t}UID :{/t}</label>
+							<div class="col-1">
 								<input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$containerSearch.uidsearch}">
 							</div>
 
-							<label for="name" class= "col-sm-2 form-label">
+							<label for="name" class= "col-2 form-label">
 								{t}Identifiant ou UUID :{/t}
 								<img src="display/images/qrcode.png" height="25">
 							</label>
-							<div class="col-sm-3">
+							<div class="col-3">
 									<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
 							</div>
 					</div>
 				</div>
 				<div class="row">
 						<div class="row mb-6">
-								<label for="uid_min" class="col-sm-2 form-label">{t}UID entre :{/t}</label>
-								<div class="col-sm-3">
+								<label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
+								<div class="col-3">
 										<input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
 								</div>
-								<div class="col-sm-3">
+								<div class="col-3">
 										<input id="uid_max" name="uid_max" class="nombre form-control" value="{$containerSearch.uid_max}">
 								</div>
 						</div>
 				</div>
 				<div class="row">
 					<div class="row mb-6">
-						<label for="container_family_id" class="col-sm-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
-						<div class="col-sm-4">
+						<label for="container_family_id" class="col-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
+						<div class="col-4">
 							<select id="container_family_id" name="container_family_id" class="form-control">
 								<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$containerFamily}
@@ -155,8 +155,8 @@
 								{/section}
 							</select>
 						</div>
-						<label for="container_type_id" class="col-sm-2 form-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
-						<div class="col-sm-3">
+						<label for="container_type_id" class="col-2 form-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
+						<div class="col-3">
 							<select id="container_type_id" name="container_type_id" class="form-control">
 								<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$container_type}
@@ -170,8 +170,8 @@
 				</div>
 				<div class="row">
 					<div class="row mb-6">
-						<label for="object_status_id" class="col-sm-2 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
-						<div class="col-sm-2">
+						<label for="object_status_id" class="col-2 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
+						<div class="col-2">
 							<select id="object_status_id" name="object_status_id" class="form-control">
 								<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$objectStatus}
@@ -181,8 +181,8 @@
 								{/section}
 							</select>
 					</div>
-					<label for="trashed" class="col-sm-4 form-label lexical" data-lexical="trashed" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
-					<div class="col-sm-2">
+					<label for="trashed" class="col-4 form-label lexical" data-lexical="trashed" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
+					<div class="col-2">
 							<select id="trashed" name="trashed" class="form-control">
 									<option value="" {if $containerSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
 									<option value="1" {if $containerSearch.trashed == "1"}selected{/if}>{t}Oui{/t}</option>
@@ -195,8 +195,8 @@
 			<div class="tab-pane fade" id="navsearch-others" role="tabpanel" aria-labelledby="tabsearch-others">
 				<div class="row">
 					<div class="row mb-6">
-						<label for="collection_id" class="col-sm-3 form-label">{t}Collection :{/t}</label>
-						<div class="col-sm-6">
+						<label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
+						<div class="col-6">
 							<select id="collection_id" name="collection_id" class="form-control">
 							<option value="" {if $containerSearch.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{foreach $collectionsSearch as $collection}
@@ -210,8 +210,8 @@
 				</div>
 				<div class="row">
 					<div class="row mb-6">
-						<label for="referent_id" class="col-sm-3 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
-						<div class="col-sm-6">
+						<label for="referent_id" class="col-3 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
+						<div class="col-6">
 							<select id="referent_id" name="referent_id" class="form-control">
 								<option value="" {if $containerSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{foreach $referents as $referent}
@@ -225,8 +225,8 @@
 				</div>
 				<div class="row">
 				<div class="row mb-6">
-					<label for="event_type_id" class="col-sm-3 form-label">{t}Type d'événement :{/t}</label>
-					<div class="col-sm-6">
+					<label for="event_type_id" class="col-3 form-label">{t}Type d'événement :{/t}</label>
+					<div class="col-6">
 						<select id="event_type_id" class="form-control" name="event_type_id">
 							<option value="" {if $containerSearch.event_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{foreach $eventType as $et}
@@ -238,8 +238,8 @@
 			</div>
 			<div class="row">
 				<div class="row mb-6">
-					<label for="movement_reason_id" class="col-sm-3 form-label">{t}Motif de déstockage :{/t}</label>
-					<div class="col-sm-6">
+					<label for="movement_reason_id" class="col-3 form-label">{t}Motif de déstockage :{/t}</label>
+					<div class="col-6">
 						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
 							<option value="" {if $containerSearch.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$movementReason}
@@ -253,8 +253,8 @@
 			</div>
 			<div class="row">
 				<div class="row mb-6">
-					<label for="select_date" class="col-sm-3 form-label">{t}Recherche par date :{/t}</label>
-					<div class="col-sm-6">
+					<label for="select_date" class="col-3 form-label">{t}Recherche par date :{/t}</label>
+					<div class="col-6">
 						<select class="form-control" id="select_date" name="select_date">
 							<option value="" {if $containerSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							<option value="ch" {if $containerSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
@@ -264,19 +264,19 @@
 			</div>
 			<div class="row">
 				<div class="row mb-6">
-					<label for="date_from" class="col-sm-1 col-sm-offset-3 form-label">{t}du :{/t}</label>
-					<div class="col-sm-2">
+					<label for="date_from" class="col-1 col-offset-3 form-label">{t}du :{/t}</label>
+					<div class="col-2">
 							<input class="datepicker form-control" id="date_from" name="date_from" value="{$containerSearch.date_from}">
 					</div>
-					<label for="date_to" class="col-sm-1 form-label">{t}au :{/t}</label>
-					<div class="col-sm-2">
+					<label for="date_to" class="col-1 form-label">{t}au :{/t}</label>
+					<div class="col-2">
 							<input class="datepicker form-control" id="date_to" name="date_to" value="{$containerSearch.date_to}">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-sm-offset-3 col-sm-6 center">
+			<div class="col-offset-3 col-6 center">
 				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
 				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>

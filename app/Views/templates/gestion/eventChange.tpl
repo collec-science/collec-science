@@ -18,10 +18,11 @@
         });
     } );
 </script>
+<div class="container">
 <h2>{t}Création - modification d'un événement{/t}</h2>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="{$moduleParent}">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -37,18 +38,18 @@
             <input type="hidden" name="activeTab" value="{$activeTab}">
 
             <div class="row mb-6">
-                <label for="event_date" class="form-label col-md-4">{t}Date :{/t}</label>
-                <div class="col-md-8">
+                <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
+                <div class="col-8">
                     <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
                 </div>
             </div>
 
 
             <div class="row mb-6">
-                <label for="container_status_id" class="form-label col-md-4"><span class="red">*</span> 
+                <label for="container_status_id" class="form-label col-4"><span class="red">*</span> 
                     {t}Type d'évenement :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <select id="event_type_id" name="event_type_id" class="form-control">
                         {section name=lst loop=$eventType}
                         <option value="{$eventType[lst].event_type_id}" {if
@@ -61,8 +62,8 @@
             </div>
             {if $moduleParent == "sample"}
             <div class="row mb-6">
-                <label for="still_available" class="form-label col-md-4">{t}Reste disponible :{/t}</label>
-                <div class="col-md-8">
+                <label for="still_available" class="form-label col-4">{t}Reste disponible :{/t}</label>
+                <div class="col-8">
                     <input id="still_available" type="text" name="still_available" value="{$data.still_available}"
                         class="form-control">
                 </div>
@@ -70,15 +71,15 @@
             {/if}
 
             <div class="row mb-6">
-                <label for="due_date" class="form-label col-md-4">{t}Date d'échéance :{/t}</label>
-                <div class="col-md-8">
+                <label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
+                <div class="col-8">
                     <input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker">
                 </div>
             </div>
 
             <div class="row mb-6">
-                <label for="event_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
-                <div class="col-md-8">
+                <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+                <div class="col-8">
                     <textarea id="event_comment" name="event_comment" class="form-control"
                         rows="3">{$data.event_comment}</textarea>
                 </div>
@@ -94,4 +95,6 @@
     </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

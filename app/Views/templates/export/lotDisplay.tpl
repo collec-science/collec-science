@@ -30,6 +30,7 @@
     } );
 </script>
 
+<div class="container">
 <h2>Affichage d'un lot d'export</h2>
 <div class="row">
     <a href="lotList"><img src="display/images/list.png" height="25">
@@ -38,7 +39,7 @@
 </div>
 <!-- Tab box -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <ul class="nav nav-tabs" id="datasetTab" role="tablist">
             <li class="nav-item active">
                 <a class="nav-link datasetTab" id="tabgeneral" data-bs-toggle="tab" role="tab" aria-controls="navgeneral"
@@ -57,7 +58,7 @@
         <div class="tab-content" id="tabContent">
             <div class="tab-pane active in" id="navgeneral" role="tabpanel" aria-labelledby="tabgeneral">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="form-display">
                             <dl class="dl-horizontal">
                                 <dt>{t}Collection :{/t}</dt>
@@ -125,7 +126,7 @@
                 <form action="lotDeleteSamples" method="post">
                     <input type="hidden" name="lot_id" value="{$data.lot_id}">
                     <div class="row">
-                        <div class="col-lg-6 col-md-8">
+                        <div class="col-6 col-8">
                             <table class="table table-bordered table-hover datatable display" data-order='[[1,"asc"]]'>
                                 <thead>
                                     <tr>
@@ -158,7 +159,7 @@
                     </div>
                     <div class="row">
 
-                        <div class="col-md-6 form-horizontal">
+                        <div class="col-6 form-horizontal">
                             {t}Supprimez les échantillons sélectionnés de la liste :{/t}
                             <button id="checkedButtonUid" class="btn btn-danger">
                                 {t}Supprimer{/t}

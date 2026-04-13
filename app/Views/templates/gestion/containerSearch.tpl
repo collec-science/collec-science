@@ -75,12 +75,12 @@
 		<input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}container{/if}">
 		<input id="isSearch" type="hidden" name="isSearch" value="1">
 		<div class="row mb-6">
-			<label for="name" class="col-md-2 form-label">{t}UID ou identifiant :{/t}</label>
-			<div class="col-md-4">
+			<label for="name" class="col-2 form-label">{t}UID ou identifiant :{/t}</label>
+			<div class="col-4">
 			<input id="name" type="text" class="form-control" name="name" value="{$containerSearch.name}" title="{t}uid, identifiant principal, identifiants secondaires (p. e. : cab:15 possible){/t}" >
 			</div>
-			<label for="object_status_id" class="col-md-1 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
-			<div class="col-md-3">
+			<label for="object_status_id" class="col-1 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
+			<div class="col-3">
 				<select id="object_status_id" name="object_status_id" class="form-control">
 					<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$objectStatus}
@@ -90,8 +90,8 @@
 					{/section}
 				</select>
 			</div>
-			<label for="trashed" class="col-md-1 form-label lexical" data-lexical="trashed" title="{t}Contenants en attente de suppression (mis à la corbeille){/t}">{t}Corbeille :{/t}</label>
-			<div class="col-md-1">
+			<label for="trashed" class="col-1 form-label lexical" data-lexical="trashed" title="{t}Contenants en attente de suppression (mis à la corbeille){/t}">{t}Corbeille :{/t}</label>
+			<div class="col-1">
 				<select id="trashed" name="trashed" class="form-control">
 					<option value="" {if $containerSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
 					<option value="1" {if $containerSearch.trashed == "1"}selected{/if}>{t}Oui{/t}</option>
@@ -100,32 +100,32 @@
 			</div>
 		</div>
 		<div class="row mb-6">
-			<label for="select_date" class="col-md-2 form-label">{t}Recherche par date :{/t}</label>
-			<div class="col-md-2">
+			<label for="select_date" class="col-2 form-label">{t}Recherche par date :{/t}</label>
+			<div class="col-2">
 				<select class="form-control" id="select_date" name="select_date">
 				<option value="" {if $containerSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
 				<option value="ch" {if $containerSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
 				</select>
 			</div>
-			<label for="date_from" class="col-md-1 form-label">{t}du :{/t}</label>
-			<div class="col-md-3">
+			<label for="date_from" class="col-1 form-label">{t}du :{/t}</label>
+			<div class="col-3">
 				<input class="datepicker form-control" id="date_from" name="date_from" value="{$containerSearch.date_from}">
 			</div>
-			<label for="date_to" class="col-md-1 form-label">{t}au :{/t}</label>
-			<div class="col-md-3">
+			<label for="date_to" class="col-1 form-label">{t}au :{/t}</label>
+			<div class="col-3">
 				<input class="datepicker form-control" id="date_to" name="date_to" value="{$containerSearch.date_to}">
 			</div>
 		</div>
 		<div class="row mb-6">
-			<label for="uid_min" class="col-md-2 form-label">{t}UID entre :{/t}</label>
-			<div class="col-md-2">
+			<label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
+			<div class="col-2">
 				<input id="uid_min" name="uid_min" class="nombre form-control" value="{$containerSearch.uid_min}">
 			</div>
-			<div class="col-md-2">
+			<div class="col-2">
 				<input id="uid_max" name="uid_max" class="nombre form-control" value="{$containerSearch.uid_max}">
 			</div>
-			<label for="container_family_id" class="col-md-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
-			<div class="col-md-4">
+			<label for="container_family_id" class="col-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
+			<div class="col-4">
 				<select id="container_family_id" name="container_family_id" class="form-control">
 					<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$containerFamily}
@@ -138,13 +138,13 @@
 		</div>
 		<div class="row mb-6">
 		<!--
-		<label for="limit" class="col-md-2 form-label">Nbre limite à afficher :</label>
-		<div class="col-md-2">
+		<label for="limit" class="col-2 form-label">Nbre limite à afficher :</label>
+		<div class="col-2">
 		<input type="number" id="limit" name="limit" value="{$containerSearch.limit}" class="form-control">
 		</div>
 		-->
-			<label for="referent_id" class="col-md-2 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
-			<div class="col-md-2">
+			<label for="referent_id" class="col-2 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
+			<div class="col-2">
 				<select id="referent_id" name="referent_id" class="form-control">
 					<option value="" {if $containerSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{foreach $referents as $referent}
@@ -152,13 +152,13 @@
 					{/foreach}
 				</select>
 			</div>
-			<div class="col-md-3 center">
+			<div class="col-3 center">
 				<input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
 
 				<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 			</div>
-			<label for="container_type_id" class="col-md-1 form-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
-			<div class="col-md-4">
+			<label for="container_type_id" class="col-1 form-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
+			<div class="col-4">
 				<select id="container_type_id" name="container_type_id" class="form-control">
 					<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$container_type}

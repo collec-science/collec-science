@@ -98,9 +98,10 @@
 
 </script>
 
+<div class="container">
 <h2>{t}Création - Modification d'une étiquette{/t}</h2>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-12">
 		<a href="labelList">
 			<img src="display/images/list.png" height="25">
 			{t}Retour à la liste{/t}</a>
@@ -112,25 +113,25 @@
 			<input type="hidden" name="metadata_id" value="{$metadata_id}">
 			<input type="hidden" id="labelSent" name="label_xsl">
 			<div class="row mb-6">
-				<label for="labelName" class="form-label col-md-4"><span class="red">*</span>
+				<label for="labelName" class="form-label col-4"><span class="red">*</span>
 					{t}Nom de l'étiquette :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<input id="labelName" type="text" class="form-control" name="label_name" value="{$data.label_name}"
 						autofocus required>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="xsl" class="form-label col-md-4"><span class="red">*</span>
+				<label for="xsl" class="form-label col-4"><span class="red">*</span>
 					{t}Transformation XSL :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<textarea id="label_xsl" class="form-control textarea-edit" rows="20"
 						required>{$data.label_xsl}</textarea>
 				</div>
 			</div>
 			<div class="row mb-6 multipleFields" id="metadataDisplay">
-				<label for="metadata_id" class="form-label col-md-4">
+				<label for="metadata_id" class="form-label col-4">
 					{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<select id="metadata_id" name="metadata_id" class="form-control">
 						<option value="" {if $data.metadata_id=="" }selected{/if}>{t}Choisissez...{/t}</option>
 						{foreach $metadata as $value}
@@ -145,8 +146,8 @@
 				<legend>{t}Premier code optique{/t}</legend>
 				<input type="hidden" name="label_optical_id" value="{$opticals[0].label_optical_id}">
 				<div class="row mb-6">
-					<label for="barcode_id" class="form-label col-md-4">{t}Type de code-barre :{/t}</label>
-					<div class="col-md-8">
+					<label for="barcode_id" class="form-label col-4">{t}Type de code-barre :{/t}</label>
+					<div class="col-8">
 						<select id="barcode_id" name="barcode_id" class="form-control">
 							{foreach $barcodes as $barcode}
 							<option value="{$barcode.barcode_id}" {if
@@ -158,8 +159,8 @@
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="content_type" class="form-label col-md-4">{t}Type de contenu :{/t}</label>
-					<div class="col-md-8">
+					<label for="content_type" class="form-label col-4">{t}Type de contenu :{/t}</label>
+					<div class="col-8">
 						<select id="content_type" class="form-control" name="content_type">
 							<option value="1" {if $opticals[0].content_type==1}selected{/if}>
 								{t}plusieurs valeurs différentes au format JSON (historique){/t}
@@ -171,19 +172,19 @@
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="radical" class="form-label col-md-4">
+					<label for="radical" class="form-label col-4">
 						{t}Radical inséré avant l'attribut :{/t}
 					</label>
-					<div class="col-md-8">
+					<div class="col-8">
 						<input id="radical" type="text" class="form-control" name="radical"
 							value="{$opticals[0].radical}">
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="optical_content" class="form-label col-md-4"><span class="red">*</span>
+					<label for="optical_content" class="form-label col-4"><span class="red">*</span>
 						{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 					</label>
-					<div class="col-md-8">
+					<div class="col-8">
 						<input id="optical_content" type="text" class="form-control" name="optical_content"
 							value="{$opticals[0].optical_content}" required>
 					</div>
@@ -197,8 +198,8 @@
 				<input type="hidden" name="label_optical_id2" value="{$opticals[1].label_optical_id}">
 				<div id="optical2" disabled hidden>
 					<div class="row mb-6">
-						<label for="barcode_id2" class="form-label col-md-4">{t}Type de code-barre :{/t}</label>
-						<div class="col-md-8">
+						<label for="barcode_id2" class="form-label col-4">{t}Type de code-barre :{/t}</label>
+						<div class="col-8">
 							<select id="barcode_id2" name="barcode_id2" class="form-control">
 								{foreach $barcodes as $barcode}
 								<option value="{$barcode.barcode_id}" {if
@@ -210,8 +211,8 @@
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="content_type2" class="form-label col-md-4">{t}Type de contenu :{/t}</label>
-						<div class="col-md-8">
+						<label for="content_type2" class="form-label col-4">{t}Type de contenu :{/t}</label>
+						<div class="col-8">
 							<select id="content_type2" class="form-control" name="content_type2">
 								<option value="1" {if $opticals[1].content_type==1}selected{/if}>
 									{t}plusieurs valeurs différentes au format JSON (historique){/t}
@@ -223,19 +224,19 @@
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="radical2" class="form-label col-md-4">
+						<label for="radical2" class="form-label col-4">
 							{t}Radical inséré avant l'attribut :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="radical2" type="text" class="form-control" name="radical2"
 								value="{$opticals[1].radical}">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="optical_content2" class="form-label col-md-4"><span class="red">*</span>
+						<label for="optical_content2" class="form-label col-4"><span class="red">*</span>
 							{t}Attribut inséré dans le code optique (si plusieurs attributs dans le format JSON, les séparer par une virgule, sans espace) :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="optical_content2" type="text" class="form-control" name="optical_content2"
 								value="{$opticals[1].optical_content}">
 						</div>
@@ -243,10 +244,10 @@
 				</div>
 			</fieldset>			
 			<div class="row mb-6">
-				<label for="logo" class="form-label col-md-4">
+				<label for="logo" class="form-label col-4">
 					{t}Logo à insérer dans l'étiquette (jpg, png) :{/t}
 				</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					{if $data.has_logo == 1}
 					<img src="labelGetLogo?label_id={$data.label_id}" height="30">
 					{/if}
@@ -324,4 +325,6 @@
 </div>
 </fieldset>
 
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

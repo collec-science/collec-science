@@ -41,9 +41,10 @@
     });
   });
 </script>
+<div class="container">
 <h2>{t}Modification d'un modèle d'export{/t}</h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-12">
     <a href="exportTemplateList">
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
@@ -52,31 +53,31 @@
 </div>
 <form id="exportTemplateForm" method="post" action="index.php">
   <div class="row">
-    <div class="col-md-6 form-horizontal">
+    <div class="col-6 form-horizontal">
       <input type="hidden" name="moduleBase" value="exportTemplate">
       <input type="hidden" name="action" value="Write">
       <input type="hidden" name="export_template_id" value="{$data.export_template_id}">
       <div class="row mb-6">
-        <label for="exportTemplateName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
-        <div class="col-md-8">
+        <label for="exportTemplateName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
+        <div class="col-8">
           <input id="exportTemplateName" type="text" class="form-control" name="export_template_name" value="{$data.export_template_name}" autofocus required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="exportTemplateDescription"  class="form-label col-md-4">{t}Description :{/t}</label>
-        <div class="col-md-8">
+        <label for="exportTemplateDescription"  class="form-label col-4">{t}Description :{/t}</label>
+        <div class="col-8">
           <textarea id="exportTemplateDescription" class="form-control" name="export_template_description" >{$data.export_template_description}</textarea>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="export_template_version"  class="form-label col-md-4">{t}Version :{/t}</label>
-        <div class="col-md-8">
+        <label for="export_template_version"  class="form-label col-4">{t}Version :{/t}</label>
+        <div class="col-8">
           <input id="export_template_version" type="text" class="form-control" name="export_template_version" value="{$data.export_template_version}">
         </div>
       </div>
       <div class="row mb-6">
-          <label for="is_zipped"  class="form-label col-md-4">{t}Fichier compressé (si un seul fichier généré) ?{/t}</label>
-          <div class="col-md-8" id="is_zipped">
+          <label for="is_zipped"  class="form-label col-4">{t}Fichier compressé (si un seul fichier généré) ?{/t}</label>
+          <div class="col-8" id="is_zipped">
             <div class="radio">
               <label>
                 <input type="radio" class="zipped" name="is_zipped" id="is_zipped0" value="0" {if $data.is_zipped != 1}checked{/if}>{t}non{/t}
@@ -90,18 +91,18 @@
           </div>
         </div>
       <div class="row mb-6">
-          <label for="filename"  class="form-label col-md-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
-          <div class="col-md-8">
+          <label for="filename"  class="form-label col-4"><span class="red">*</span> {t}Nom du fichier généré :{/t}</label>
+          <div class="col-8">
             <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
           </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-6">
       <!-- list of datasets-->
       <legend>{t}Liste des datasets à générer{/t}</legend>
       <div class="row  form-horizontal">
       {foreach $datasets as $dataset}
-        <div class="col-md-6">
+        <div class="col-6">
           <input class="dataset" type="checkbox" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.export_template_id > 0}checked{/if}>
         {$dataset.dataset_template_name} ({$dataset.dataset_type_name})</div>
       {/foreach}
@@ -118,4 +119,6 @@
 {$csrf}</form>
   </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

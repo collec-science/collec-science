@@ -39,6 +39,7 @@
 
 </script>
 
+<div class="container">
 <h2>{t}Détail du modèle de métadonnées{/t} <i>{$data.metadata_name}</i></h2>
 <div class="row">
     <a href="metadataList">
@@ -55,23 +56,23 @@
 </div>
 {if $rights.collection == 1}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
             <input type="hidden" name="moduleBase" value="metadata">
             <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
             <div class="row mb-6">
-                <label for="metadata_name" class="form-label col-md-2"><span class="red">*</span>
+                <label for="metadata_name" class="form-label col-2"><span class="red">*</span>
                     {t}Nom du modèle :{/t}
                 </label>
-                <div class="col-md-6">
+                <div class="col-6">
                     <input id="metadata_name" class="form-control" name="metadata_name" value="{$data.metadata_name}"
                         required>
                 </div>
-                <div class="col-md-2">
+                <div class="col-2">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
                 </div>
                 {if $data.metadata_id > 0 }
-                <div class="col-md-2">
+                <div class="col-2">
                     <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
                 </div>
                 {/if}
@@ -159,7 +160,7 @@
     </table>
 </div>
 <div class="row">
-    <div class="bg-info offset-md-3 col-md-6 center">
+    <div class="bg-info offset-3 col-6 center">
         {t}Vous pouvez également modifier l'ordre des champs en cliquant-déplaçant avec la souris sur la première colonne{/t}
     </div>
 </div>

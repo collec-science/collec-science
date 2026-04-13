@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Problème potentiel de sécurité{/t}</h2>
 {t 1=$login 2=$module 3=$date}Le compte %1 a essayé d'accéder au module %2 le %3 sans disposer des droits adéquats.{/t}
 <br>

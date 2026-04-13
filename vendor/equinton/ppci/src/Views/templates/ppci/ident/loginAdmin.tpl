@@ -15,29 +15,29 @@
 		});
 	});
 </script>
-<div class="col-sm-12 col-md-6">
+<div class="col-12 col-6">
 	<form id="login" method="POST" action="index.php">
 		<input type="hidden" name="module" value="loginExec">
 		<input type="hidden" name="moduleCalled" value="{$moduleCalled}">
 		<input type="hidden" name="loginAdmin" value="1">
 		<div class="form-horizontal protoform">
 			<div class="row mb-6">
-				<label for="login" class="form-label col-sm-4">
+				<label for="login" class="form-label col-4">
 					{t}Login :{/t}
 				</label>
-				<div class="col-sm-8">
+				<div class="col-8">
 					<input class="form-control input-lg" name="login" id="login" maxlength="64" required autofocus>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="login" class="form-label col-sm-4">
+				<label for="login" class="form-label col-4">
 					{t}Mot de passe :{/t}
 				</label>
-				<div class="col-sm-7">
+				<div class="col-7">
 					<input class="form-control input-lg" name="password" id="password" type="password" autocomplete="off" required
 						maxlength="256">
 				</div>
-				<div class="col-md-1">
+				<div class="col-1">
 					<img src="display/images/framework/visible-24.png" height="16" id="passVisible" class="passwordVisible">
 				</div>
 			</div>

@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Modèles d'exports{/t}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
   <a href="exportTemplateChange?export_template_id=0">
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}
@@ -43,13 +44,13 @@
 </div>
 
 {if $rights["param"] == 1}
-	<div class="row col-md-6">
+	<div class="row col-6">
 		<fieldset>
 			<legend>{t}Importer d'un modèle d'export provenant d'une autre base de données Collec-Science{/t}</legend>
 			<form class="form-horizontal" id="exportTemplateImport" method="post" action="exportTemplateImport" enctype="multipart/form-data">
 				<div class="row mb-6">
-					<label for="upfile" class="form-label col-md-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
-					<div class="col-md-8">
+					<label for="upfile" class="form-label col-4"><span class="red">*</span> {t}Nom du fichier à importer (JSON) :{/t}</label>
+					<div class="col-8">
 						<input class="form-control" type="file" name="upfile" required>
 					</div>
 				</div>

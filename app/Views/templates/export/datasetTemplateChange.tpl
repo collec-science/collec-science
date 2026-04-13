@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Modification d'un modèle de dataset{/t}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
     <a href="datasetTemplateList">
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
@@ -15,15 +16,15 @@
       <input type="hidden" name="moduleBase" value="datasetTemplate">
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
       <div class="row mb-6">
-        <label for="datasetTemplateName" class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
-        <div class="col-md-8">
+        <label for="datasetTemplateName" class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
+        <div class="col-8">
           <input id="datasetTemplateName" type="text" class="form-control" name="dataset_template_name"
             value="{$data.dataset_template_name}" autofocus required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="dataset_type_id" class="form-label col-md-4"><span class="red">*</span> {t}Type :{/t}</label>
-        <div class="col-md-8">
+        <label for="dataset_type_id" class="form-label col-4"><span class="red">*</span> {t}Type :{/t}</label>
+        <div class="col-8">
           <select id="dataset_type_id" name="dataset_type_id" class="form-control">
             {foreach $datasetTypes as $dt}
             <option value="{$dt.dataset_type_id}" {if $dt.dataset_type_id==$data.dataset_type_id}selected{/if}>
@@ -34,9 +35,9 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="export_format_id" class="form-label col-md-4"><span class="red">*</span> 
+        <label for="export_format_id" class="form-label col-4"><span class="red">*</span> 
             {t}Format d'export :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <select id="export_format_id" name="export_format_id" class="form-control">
             {foreach $exportFormats as $ef}
             <option value="{$ef.export_format_id}" {if $ef.export_format_id==$data.export_format_id}selected{/if}>
@@ -47,16 +48,16 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="filename" class="form-label col-md-4"><span class="red">*</span>
+        <label for="filename" class="form-label col-4"><span class="red">*</span>
              {t}Nom du fichier généré :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="filename" type="text" class="form-control" name="filename" value="{$data.filename}" required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="only_last_document" class="form-label col-md-4">
+        <label for="only_last_document" class="form-label col-4">
             {t}Uniquement le document le plus récent (type document) :{/t}</label>
-        <div class="col-md-8" id="only_last_document">
+        <div class="col-8" id="only_last_document">
           <div class="radio">
             <label>
               <input type="radio" name="only_last_document" id="old1" value="0" {if $data.only_last_document
@@ -72,8 +73,8 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="separator" class="form-label col-md-4">{t}Séparateur (fichiers CSV) :{/t}</label>
-        <div class="col-md-8">
+        <label for="separator" class="form-label col-4">{t}Séparateur (fichiers CSV) :{/t}</label>
+        <div class="col-8">
           <select id="separator" name="separator" class="form-control">
             <option value="" {if $data.separator=='' }selected{/if}>{t}Sélectionnez...{/t}</option>
             <option value="," {if $data.separator==',' }selected{/if}>{t}virgule{/t}</option>
@@ -83,22 +84,22 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="xmlroot" class="form-label col-md-4"> {t}Entête du fichier XML :{/t}</label>
-        <div class="col-md-8">
+        <label for="xmlroot" class="form-label col-4"> {t}Entête du fichier XML :{/t}</label>
+        <div class="col-8">
           <input id="xmlroot" type="text" class="form-control" name="xmlroot" value="{$data.xmlroot}">
         </div>
       </div>
       <div class="row mb-6">
-        <label for="xmlnodename" class="form-label col-md-4"> 
+        <label for="xmlnodename" class="form-label col-4"> 
             {t}Nom du nœud XML pour les lignes traitées (non utilisé pour la description de la collection) :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="xmlnodename" type="text" class="form-control" name="xmlnodename" value="{$data.xmlnodename}">
         </div>
       </div>
       <div class="row mb-6">
-        <label for="xslcontent" class="form-label col-md-4">
+        <label for="xslcontent" class="form-label col-4">
             {t}Transformation XSL appliquée sur le fichier XML généré :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <textarea class="form-control textarea-edit" id="xslcontent" name="xslcontent" rows="10" placeholder='<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 <xsl:template match="/">
@@ -124,4 +125,6 @@
     </form>
   </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

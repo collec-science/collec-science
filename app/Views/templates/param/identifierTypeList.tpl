@@ -1,7 +1,8 @@
 {* Paramètres > Types d'identifiants > *}
+<div class="container">
 <h2>{t}Types d'identifiants{/t}</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 {if $rights.param == 1}
 <a href="identifierTypeChange?identifier_type_id=0">
 {t}Nouveau...{/t}

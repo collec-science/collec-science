@@ -1,19 +1,20 @@
+<div class="container">
 <h2>{t}Création - Modification d'une extension de fichier téléchargeable{/t}</h2>
 <div class="row">
-<div class="col-md-6">
+<div class="col-6">
 <a href="mimeTypeList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal " id="mimeTypeForm" method="post" action="mimeTypeWrite">
 <input type="hidden" name="moduleBase" value="mimeType">
 <input type="hidden" name="mime_type_id" value="{$data.mime_type_id}">
 <div class="row mb-6">
-<label for="extension"  class="form-label col-md-4"><span class="red">*</span> {t}Extension :{/t}</label>
-<div class="col-md-8">
+<label for="extension"  class="form-label col-4"><span class="red">*</span> {t}Extension :{/t}</label>
+<div class="col-8">
 <input id="extension" type="text" class="form-control" name="extension" value="{$data.extension}" autofocus required></div>
 </div>
 <div class="row mb-6">
-    <label for="contentType"  class="form-label col-md-4"><span class="red">*</span> {t}Type mime normalisé :{/t}</label>
-    <div class="col-md-8">
+    <label for="contentType"  class="form-label col-4"><span class="red">*</span> {t}Type mime normalisé :{/t}</label>
+    <div class="col-8">
     <input id="contentType" type="text" class="form-control" name="content_type" value="{$data.content_type}" required></div>
     </div>
 
@@ -32,4 +33,6 @@
     <a href="https://www.iana.org/assignments/media-types/media-types.xhtml" target="_blank">https://www.iana.org/assignments/media-types/media-types.xhtml</a>
 
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

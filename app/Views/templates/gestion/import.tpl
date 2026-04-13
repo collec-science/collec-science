@@ -19,11 +19,12 @@
         });
       });
 </script>
+<div class="container">
 <h2>{t}Import d'échantillons ou de contenants à partir d'un fichier CSV{/t}</h2>
 {$help}
 <!-- Lancement de l'import -->
 {if $controleOk == 1}
-<div class="row col-md-8">
+<div class="row col-8">
       <form id="importForm" method="post" action="importImport">
             <input type="hidden" name="onlyCollectionSearch" value="{$onlyCollectionSearch}">
             {t}Contrôles OK.{/t} {t 1=$filename}Vous pouvez réaliser l'import du fichier (%1) :{/t}
@@ -34,7 +35,7 @@
 
 <!-- Affichage des erreurs decouvertes -->
 {if $erreur == 1}
-<div class="row col-md-12">
+<div class="row col-12">
       <table id="containerList" class="table table-bordered table-hover datatable display">
             <thead>
                   <tr>
@@ -56,20 +57,20 @@
 
 <!-- Selection du fichier a importer -->
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <form class="form-horizontal" id="controlForm" method="post" action="importControl"
                   enctype="multipart/form-data">
                   <div class="row mb-6">
-                        <label for="upfile" class="form-label col-md-4"><span class="red">*</span> 
+                        <label for="upfile" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom du fichier à importer (CSV) :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input type="file" name="upfile" class="form-control" required>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="separator" class="form-label col-md-4">{t}Séparateur utilisé :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
+                        <div class="col-8">
                               <select id="separator" name="separator" class="form-control">
                                     <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
                                     <option value=";" {if $separator==";" }selected{/if}>{t}Point-virgule{/t}</option>
@@ -78,8 +79,8 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="utf8_encode" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
+                        <div class="col-8">
                               <select id="utf8_encode" name="utf8_encode" class="form-control">
                                     <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
                                     <option value="1" {if $utf8_encode==1}selected{/if}>ISO-8859-x</option>
@@ -87,10 +88,10 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="onlyCollectionSearch" class="form-label col-md-4">
+                        <label for="onlyCollectionSearch" class="form-label col-4">
                               {t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="onlyCollectionSearch" name="onlyCollectionSearch" class="form-control">
                                     <option value="0" {if $onlyCollectionSearch==0}selected{/if}>{t}non{/t}</option>
                                     <option value="1" {if $onlyCollectionSearch==1}selected{/if}>{t}oui{/t}</option>
@@ -104,7 +105,7 @@
       </div>
 </div>
 <div class="row">
-<div class="col-md-6">
+<div class="col-6">
 <div class="bg-info">
 {t}Ce module permet d'importer des échantillons ou des contenants, et de créer le cas échéant les mouvements d'entrée.{/t}
 <br>
@@ -195,4 +196,6 @@
 </div>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

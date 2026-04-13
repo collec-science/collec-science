@@ -1,15 +1,16 @@
 {* Paramètres > Opérations > Nouveau > *}
+<div class="container">
 <h2>{t}Création - Modification d'une operation{/t}</h2>
 <div class="row">
-<div class="col-md-6">
+<div class="col-6">
 <a href="operationList">{t}Retour à la liste{/t}</a>
 
 <form class="form-horizontal " id="operationForm" method="post" action="operationWrite">
 <input type="hidden" name="moduleBase" value="operation">
 <input type="hidden" name="operation_id" value="{$data.operation_id}">
 <div class="row mb-6">
-<label for="protocolId"  class="form-label col-md-4"><span class="red">*</span> {t}Protocole :{/t}</label>
-<div class="col-md-8">
+<label for="protocolId"  class="form-label col-4"><span class="red">*</span> {t}Protocole :{/t}</label>
+<div class="col-8">
 <select id="protocolId" name="protocol_id" class="form-control" autofocus>
 {section name=lst loop=$protocol}
 <option value="{$protocol[lst].protocol_id}" {if $data.protocol_id == $protocol[lst].protocol_id}selected{/if}>
@@ -21,22 +22,22 @@
 </div>
 
 <div class="row mb-6">
-<label for="operationName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom de l'opération :{/t}</label>
-<div class="col-md-8">
+<label for="operationName"  class="form-label col-4"><span class="red">*</span> {t}Nom de l'opération :{/t}</label>
+<div class="col-8">
 <input id="operationName" type="text" class="form-control" name="operation_name" value="{$data.operation_name}" required>
 </div>
 </div>
 
 <div class="row mb-6">
-<label for="operationVersion"  class="form-label col-md-4"><span class="red">*</span> {t}Version de l'opération :{/t}</label>
-<div class="col-md-8">
+<label for="operationVersion"  class="form-label col-4"><span class="red">*</span> {t}Version de l'opération :{/t}</label>
+<div class="col-8">
 <input id="operationVersion" type="text" class="form-control" name="operation_version" value="{$data.operation_version}" required>
 </div>
 </div>
 
 <div class="row mb-6">
-<label for="operationOrder"  class="form-label col-md-4">{t}N° d'ordre :{/t}</label>
-<div class="col-md-8">
+<label for="operationOrder"  class="form-label col-4">{t}N° d'ordre :{/t}</label>
+<div class="col-8">
 <input id="operationOrder" type="number" class="form-control" name="operation_order" value="{$data.operation_order}">
 </div>
 </div>
@@ -52,4 +53,6 @@
 {$csrf}</form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

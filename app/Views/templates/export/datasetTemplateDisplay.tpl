@@ -20,9 +20,10 @@
    
 </script>
 
+<div class="container">
 <h2>{t}Affichage du modèle de dataset{/t} <i>{$data.dataset_template_name}</i></h2>
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <a href="datasetTemplateList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -31,7 +32,7 @@
 </div>
 <!-- Tab box -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <ul class="nav nav-tabs" id="datasetTab" role="tablist">
             <li class="nav-item active">
                 <a class="nav-link datasetTab" id="tabgeneral" data-bs-toggle="tab" role="tab" aria-controls="navgeneral"
@@ -56,7 +57,7 @@
                     </a>
                 </div>
                 <div class="row">
-                    <div class="form-display col-lg-6 col-md-8">
+                    <div class="form-display col-6 col-8">
                         <dl class="dl-horizontal">
                             <dt>{t}Format du fichier généré :{/t}</dt>
                             <dd>{$data.export_format_name}</dd>
@@ -90,7 +91,7 @@
                             <dl class="dl-horizontal">
                                 <dt>{t}Transformation XSL appliquée sur le fichier XML généré :{/t}</dt>
                                 <dd>
-                                    <textarea class="texteareaDisplay col-md-12" rows="5"
+                                    <textarea class="texteareaDisplay col-12" rows="5"
                                         readonly>{$data.xslcontent}</textarea>
                                 </dd>
                             </dl>
@@ -106,7 +107,7 @@
                     {t}Nouvelle colonne{/t}
                 </a>
                 <div class="row">
-                    <div class="col-lg-10">
+                    <div class="col-10">
                         {include file="export/datasetColumnTable.tpl"}
                     </div>
                 </div>

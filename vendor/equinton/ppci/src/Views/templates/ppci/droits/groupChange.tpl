@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Modification d'un groupe et rattachement des logins{/t}</h2>
 <div class="row">
-<div class="col-lg-6">
+<div class="col-6">
 <a href="groupList">{t}Retour à la liste des groupes{/t}</a>
 
 <form id="groupForm" method="post"  class="form-horizontal protoform"  action="index.php">
@@ -15,15 +16,15 @@
       {/if}
 </div>
 <div class="row mb-6">
-<label for="groupe" class="form-label col-md-4">
+<label for="groupe" class="form-label col-4">
 <span class="red">*</span> {t}Nom du groupe :{/t}
 </label>
-<div class="col-md-8"><input type="text" class="form-control" id="groupe" name="groupe" value="{$data.groupe}" autofocus required>
+<div class="col-8"><input type="text" class="form-control" id="groupe" name="groupe" value="{$data.groupe}" autofocus required>
 </div>
 </div>
 <div class="row mb-6">
-      <label for="aclgroup_id_parent" class="form-label col-md-4">{t}Groupe de rattachement{/t}</label>
-      <div class="col-md-8">
+      <label for="aclgroup_id_parent" class="form-label col-4">{t}Groupe de rattachement{/t}</label>
+      <div class="col-8">
             <select id="aclgroup_id_parent" name="aclgroup_id_parent" class="form-control">
             <option value="" {if $data.aclgroup_id_parent == ""}selected{/if}></option>
             {foreach $groups as $group}
@@ -37,10 +38,10 @@
       </div>
 </div>
 <div class="row mb-6">
-<fieldset class="col-lg-12">
+<fieldset class="col-12">
 <legend><span class="red">*</span> {t}Logins rattachés{/t}</legend>
 {section name=lst loop=$logins}
-<div class="col-md-2 col-sm-offset-2">
+<div class="col-2 col-offset-2">
       <div class="checkbox">
         <label>
 
@@ -57,4 +58,6 @@
 </form>
 </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

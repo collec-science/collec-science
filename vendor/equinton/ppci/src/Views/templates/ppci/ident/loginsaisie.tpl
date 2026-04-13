@@ -75,7 +75,8 @@
 
 </script>
 <div class="container">
-	<h2>{t}Saisie/modification d'un compte{/t}</h2>
+	<div class="container">
+<h2>{t}Saisie/modification d'un compte{/t}</h2>
 	<div class="row">
 		<a href="loginList">
 			<img src="display/images/list.png" height="25">
@@ -87,39 +88,39 @@
 			<input type="hidden" name="action" value="Write">
 			<input type="hidden" name="id" value="{$data.id}">
 			<div class="row mb-6">
-				<label for="login" class="form-label col-md-4"><span class="red">*</span> {t}Login :{/t}</label>
-				<div class="col-md-8">
+				<label for="login" class="form-label col-4"><span class="red">*</span> {t}Login :{/t}</label>
+				<div class="col-8">
 					<input id="login" type="text" class="form-control" name="login" value="{$data.login}" autofocus>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="nom" class="col-md-4 form-label">{t}Nom de famille :{/t} </label>
-				<div class="col-md-8">
+				<label for="nom" class="col-4 form-label">{t}Nom de famille :{/t} </label>
+				<div class="col-8">
 					<input id="nom" type="text" class="form-control" name="nom" value="{$data.nom}">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="prenom" class="col-md-4 form-label">{t}Prénom :{/t} </label>
-				<div class="col-md-8">
+				<label for="prenom" class="col-4 form-label">{t}Prénom :{/t} </label>
+				<div class="col-8">
 					<input id="prenom" type="text" class="form-control" name="prenom" value="{$data.prenom}">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="mail" class="col-md-4 form-label">{t}Adresse e-mail :{/t} </label>
-				<div class="col-md-8">
+				<label for="mail" class="col-4 form-label">{t}Adresse e-mail :{/t} </label>
+				<div class="col-8">
 					<input type="email" id="mail" class="form-control" name="mail" value="{$data.mail}">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="datemodif" class="col-md-4 form-label">{t}Date :{/t} </label>
-				<div class="col-md-8">
-					<input class="form-control" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
+				<label for="datemodif" class="col-4 form-label">{t}Date :{/t} </label>
+				<div class="col-8">
+					<input class="form-control-plaintext" id="datemodif" name="datemodif" value="{$data.datemodif}" readonly>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="is_clientws_group" class="col-md-4 form-label">{t}Compte utilisé pour service web :{/t}
+				<label for="is_clientws_group" class="col-4 form-label">{t}Compte utilisé pour service web :{/t}
 				</label>
-				<div class="col-md-8 ">
+				<div class="col-8 ">
 					<div id="is_clientws_group" class="form-check form-check-inline">
 						<input type="radio" class="form-check-input" id="is_clientws1" name="is_clientws" value="1" {if
 							$data.is_clientws=='t' }checked{/if}>
@@ -133,9 +134,9 @@
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="tokenws" class="col-md-4 form-label">{t}Jeton d'identification du service web :{/t}
+				<label for="tokenws" class="col-4 form-label">{t}Jeton d'identification du service web :{/t}
 				</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<input class="form-control" id="tokenws" name="tokenws" value="{$data.tokenws}" readonly>
 					<div class="input-group-append">
 						<button class="btn btn-info" id="tokenws_copy" type="button">
@@ -147,40 +148,40 @@
 			</div>
 			{if $data.dbconnect_provisional_nb > 3}
 			<div class="row mb-6">
-				<div class="col-md-12 center red">
+				<div class="col-12 center red">
 					{t}Le compte est verrouillé, le mot de passe n'a pas été changé après 3 connexions{/t}
 				</div>
 			</div>
 			{/if}
 			<div class="row mb-6">
-				<label for="pass1" class="col-md-4 form-label"><span class="red">*</span> {t}Mot de passe :{/t}
+				<label for="pass1" class="col-4 form-label"><span class="red">*</span> {t}Mot de passe :{/t}
 				</label>
-				<div class="col-md-7">
+				<div class="col-7">
 					<input class="form-control" type="password" autocomplete="off" id="pass1" name="pass1">
 				</div>
-				<div class="col-md-1">
+				<div class="col-1">
 					<img src="display/images/framework/eye-open.png" height="16" id="passVisible"
 						class="passwordVisible" data-fieldnumber="0">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="pass2" class="col-md-4 form-label"><span class="red">*</span>
+				<label for="pass2" class="col-4 form-label"><span class="red">*</span>
 					{t}Répétez le mot de passe :{/t}
 				</label>
-				<div class="col-md-7">
+				<div class="col-7">
 					<input type="password" class="form-control" id="pass2" autocomplete="off" name="pass2">
 				</div>
-				<div class="col-md-1">
+				<div class="col-1">
 					<img src="display/images/framework/eye-open.png" height="16" id="passVisible2"
 						class="passwordVisible" data-fieldnumber="1">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="generate" class="col-md-4 form-label">{t}Générez un mot de passe aléatoire{/t}</label>
-				<div class="col-md-2">
+				<label for="generate" class="col-4 form-label">{t}Générez un mot de passe aléatoire{/t}</label>
+				<div class="col-2">
 					<input id="generate" type="button" class="btn btn-info" name="generate" value="{t}Générez{/t}">
 				</div>
-				<div class="col-md-6">
+				<div class="col-6">
 					<label for="motdepasse" class="sr-only">{t}Mot de passe généré{/t}</label>
 					<input name="motdepasse" id="motdepasse" class="form-control">
 					<button class="btn btn-info" id="password_copy" type="button">
@@ -188,7 +189,7 @@
 					</button>
 				</div>
 			</div>
-			<div class="col-md-12">
+			<div class="col-12">
 				<div class="bg-info">
 					{t}Caractéristiques du mot de passe :{/t}
 					<ul>
@@ -205,8 +206,8 @@
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="actif" class="col-md-4 form-label">{t}Actif{/t}</label>
-				<div class="col-md-8">
+				<label for="actif" class="col-4 form-label">{t}Actif{/t}</label>
+				<div class="col-8">
 					<div class="form-check form-check-inline">
 						<input type="radio" id="actif1" class="form-check-input" name="actif" value="1" {if
 							$data.actif==1}checked{/if}>
@@ -223,27 +224,30 @@
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="attempts" class="col-md-4 form-label">{t}Essais de connexion infructueux et date du
+					<label for="attempts" class="col-4 form-label">{t}Essais de connexion infructueux et date du
 						dernier
 						essai :{/t}</label>
-					<div class="col-md-2">
+					<div class="col-2">
 						<input class="form-control" id="nbattempts" name="nbattempts" value="{$data.nbattempts}"
 							readonly>
 					</div>
-					<div class="col-md-4">
+					<div class="col-4">
 						<input class="form-control" id="lastattempt" name="lastattempts" value="{$data.lastattempt}"
 							readonly>
 					</div>
-					<div class="col-md-2">
+					<div class="col-2">
 						<input type="checkbox" class="form-control" id="resetattempts" name="resetattempts" value="1">
 						<label class="form-label">{t}Réinitialiser...{/t}</label>
 					</div>
 				</div>
-				<div class="row mb-6 mx-auto">
-					<div class="btn-group col-6 offset-3">
+				<div class="row d-flex justify-content-center">
+					<div class="col-auto">
 						<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+					</div>				
 						{if $data.id > 0 }
-						<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+						<div class="col-auto">
+							<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+						</div>		
 						{/if}
 					</div>
 				</div>
@@ -251,7 +255,7 @@
 		</form>
 	</div>
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-6">
 			<div id="message"></div>
 		</div>
 	</div>

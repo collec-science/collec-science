@@ -1,16 +1,17 @@
+<div class="container">
 <h2>{t}Création - Modification des risques de manipulation{/t}</h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="riskList">{t}Retour à la liste{/t}</a>
 
         <form class="form-horizontal " id="riskForm" method="post" action="riskWrite">
             <input type="hidden" name="moduleBase" value="risk">
             <input type="hidden" name="risk_id" value="{$data.risk_id}">
             <div class="row mb-6">
-                <label for="riskName" class="form-label col-md-4"><span class="red">*</span> 
+                <label for="riskName" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom du risque, selon la nomenclature CLP :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <input id="riskName" type="text" class="form-control" name="risk_name"
                         value="{$data.risk_name}" autofocus required>
                 </div>
@@ -25,4 +26,6 @@
         </form>
     </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

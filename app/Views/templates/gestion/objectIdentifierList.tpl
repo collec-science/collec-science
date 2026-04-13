@@ -6,7 +6,7 @@
 </a>
 {/if}
 <br>
-<div class="col-md-6">
+<div class="col-6">
 <table id="objectIdentifierList" class="table table-bordered table-hover datatable display" data-order='[[ 0, "asc" ],[1,"asc"]]' >
 <thead>
 <tr>

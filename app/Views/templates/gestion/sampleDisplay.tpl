@@ -342,7 +342,7 @@
 	} );
 </script>
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-8">
 		<img id="qrcode" src="display/images/qrcode.png" height="25" title="{t}Scan du QRCODE{/t}">
 		<a href="{$moduleListe}">
 			<img src="display/images/list.png" height="25">
@@ -395,7 +395,7 @@
 		</a>
 		
 	</div>
-	<div class="col-md-4">{$help}
+	<div class="col-4">{$help}
 		<div class="pull-right bg-info">
 			{if $rights.manage == 1}
 			<a href="sampleChangeTab?uid=0">
@@ -414,7 +414,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="form-horizontal col-xs-12 col-lg-10">
+	<div class="form-horizontal col-xs-12 col-10">
 		<div class="row mb-6">
 			<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 			<div class="col-xs-8">
@@ -449,18 +449,19 @@
 </div>
 
 <div class="row">
-	<div class="col-sm-8 col-md-8">
+	<div class="col-8 col-8">
 		{if $data.uid > 0}
-		<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
+		<div class="container">
+<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 		{/if}
 	</div>
-	<div id="rapidAccessForm" hidden class="col-sm-4 offset-lg-2 col-lg-2">
+	<div id="rapidAccessForm" hidden class="col-4 offset-2 col-2">
 		<form id="open" action="sampleDisplay" method="GET">
 			<div class="row mb-6">
-				<div class="col-md-6 col-sm-offset-2 offset-md-0 col-sm-4">
+				<div class="col-6 col-offset-2 offset-0 col-4">
 					<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
 				</div>
-				<input type="submit" id="searchExec" class="btn btn-warning col-md-6 col-sm-4" value="{t}Ouvrir{/t}">
+				<input type="submit" id="searchExec" class="btn btn-warning col-6 col-4" value="{t}Ouvrir{/t}">
 			</div>
 		{$csrf}</form>
 	</div>
@@ -543,7 +544,7 @@
 	</ul>
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
-			<div class="form-display col-md-6">
+			<div class="form-display col-6">
 				{if $rights.manage == 1}
 				<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
 					<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
@@ -803,14 +804,14 @@
 				</fieldset>
 				{/if}
 			</div>
-			<div class="col-md-6">
+			<div class="col-6">
 			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
 				{include file="gestion/objectMapDisplay.tpl"}
 			{/if}
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
-			<div class="col-md-12">
+			<div class="col-12">
 				<fieldset>
 					<legend class="lexical" data-lexical="event_type">{t}Événements{/t}</legend>
 					{include file="gestion/eventList.tpl"}
@@ -823,17 +824,17 @@
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/objectIdentifierList.tpl"}
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-movement" role="tabpanel" aria-labelledby="tab-movement">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/objectMovementList.tpl"}
 			</div>
 		</div>
 		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
-			<div class="col-md-12">
+			<div class="col-12">
 				{if $rights.manage == 1 && $modifiable == 1}
 				<a href="sampleChangeTab?uid=0&parent_uid={$data.uid}">
 					<img src="display/images/new.png" height="25">
@@ -845,7 +846,7 @@
 		</div>
 		{if $modifiable == 1 || $consultSeesAll == 1 }
 		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/documentList.tpl"}
 				{if $externalStorageEnabled == 1}
 				{include file="gestion/documentExternalAdd.tpl"}
@@ -854,20 +855,20 @@
 		</div>
 		{/if}
 		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/bookingList.tpl"}
 			</div>
 		</div>
 		{if $data.multiple_type_id > 0}
 		<div class="tab-pane fade" id="nav-subsample" role="tabpanel" aria-labelledby="tab-subsample">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/subsampleList.tpl"}
 			</div>
 		</div>
 		{/if}
 		{if $modifiable == 1 || $consultSeesAll == 1 }
 		<div class="tab-pane fade" id="nav-histo" role="tabpanel" aria-labelledby="tab-histo">
-			<div class="col-md-12">
+			<div class="col-12">
 				{include file="gestion/sampleHistory.tpl"}
 			</div>
 		</div>
@@ -875,7 +876,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12 messageBas">
+	<div class="col-12 messageBas">
 		{t}Activer le survol des onglets :{/t}
 		<input type="checkbox" id="tabHoverSelect">
 	</div>

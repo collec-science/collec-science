@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Liste des emprunts réalisés par {/t}<i>{$data.borrower_name}</i></h2>
 <div class="row">
     <a href="borrowerList">
@@ -11,7 +12,7 @@
     </a>
 </div>
 <div class="row">
-    <div class="form-display col-md-6">
+    <div class="form-display col-6">
         <dl class="dl-horizontal">
             <dt>{t}Nom :{/t}</dt>
             <dd>{$data.borrower_name}</dd>
@@ -19,7 +20,7 @@
         <dl class="dl-horizontal">
             <dt>{t}Adresse :{/t}</dt>
             <dd>
-                <textarea class="textareadisplay col-md-12" rows="5">{$data.borrower_address}</textarea>
+                <textarea class="textareadisplay col-12" rows="5">{$data.borrower_address}</textarea>
             </dd>
         </dl>
         <dl class="dl-horizontal">
@@ -36,7 +37,7 @@
         </dl>
     </div>
 </div>
-<fieldset class="row col-lg-6">
+<fieldset class="row col-6">
     <legend>{t}Emprunts d'échantillons{/t}</legend>
     <table class="table datatable table-bordered table-hover" data-sort='[[0,"desc"]]'>
         <thead>
@@ -65,7 +66,7 @@
         </tbody>
     </table>
 </fieldset>
-<fieldset class="row col-lg-6">
+<fieldset class="row col-6">
     <legend>{t}Emprunts de sous-échantillons{/t}</legend>
     <table id="subsampleList" class="table table-bordered table-hover datatable display" data-order='[[0,"asc"]]' >
         <thead>

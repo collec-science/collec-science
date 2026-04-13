@@ -18,9 +18,10 @@
         });
     });
 </script>
+<div class="container">
 <h2>{t}Création - Modification d'un modèle d'export de données{/t}</h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="exportModelList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -38,8 +39,8 @@
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
             </div>
             <div class="row mb-6">
-                <label for="export_model_name"  class="form-label col-md-4"><span class="red">*</span> {t}Nom du modèle :{/t}</label>
-                <div class="col-md-8">
+                <label for="export_model_name"  class="form-label col-4"><span class="red">*</span> {t}Nom du modèle :{/t}</label>
+                <div class="col-8">
                 <input id="export_model_name" type="text" class="form-control" name="export_model_name" value="{$data.export_model_name}" required autofocus>
                 </div>
             </div>
@@ -52,7 +53,7 @@
             </div>
         {$csrf}</form>
     </div>
-    <div class="col-md-6">
+    <div class="col-6">
         <div class="bg-info">
             <h3>{t}Description des champs à renseigner{/t}</h3>
             <ul>
@@ -83,4 +84,6 @@
         </div>
     </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

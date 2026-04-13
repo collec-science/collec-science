@@ -1,7 +1,8 @@
+<div class="container">
 <h2>{t}Création - modification d'un identifiant{/t}</h2>
 
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <a href="{$moduleListe}">
                   <img src="display/images/list.png" height="25">
                   {t}Retour à la liste{/t}
@@ -18,9 +19,9 @@
                   <input type="hidden" name="activeTab" value="{$activeTab}">
 
                   <div class="row mb-6">
-                        <label for="identifier_type_id" class="form-label col-md-4"><span class="red">*</span>
+                        <label for="identifier_type_id" class="form-label col-4"><span class="red">*</span>
                               {t}Type d'identifiant :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="identifier_type_id" name="identifier_type_id" class="form-control">
                                     {section name=lst loop=$identifierType}
                                     <option value="{$identifierType[lst].identifier_type_id}" {if
@@ -34,9 +35,9 @@
                   </div>
 
                   <div class="row mb-6">
-                        <label for="object_identifier_value" class="form-label col-md-4"><span class="red">*</span>
+                        <label for="object_identifier_value" class="form-label col-4"><span class="red">*</span>
                               {t}Valeur :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="object_identifier_value" name="object_identifier_value" required
                                     value="{$data.object_identifier_value}" class="form-control">
                         </div>
@@ -54,4 +55,6 @@
       </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

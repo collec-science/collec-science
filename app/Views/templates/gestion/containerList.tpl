@@ -1,12 +1,13 @@
+<div class="container">
 <h2>{t}Contenants{/t}</h2>
 
 <div class="row">
-	<div class="col-lg-10 col-md-10 col-sm-12">
+	<div class="col-10 col-10 col-12">
 	{include file='gestion/containerSearchTab.tpl'}
 	</div>
 </div>
 <div class="row">
-<div class="col-md-12">
+<div class="col-12">
 {if $rights.manage == 1}
 <a href="containerChange?uid=0"><img src="display/images/new.png" height="25">{t}Nouveau contenant{/t}</a>
 {/if}

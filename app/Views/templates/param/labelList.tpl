@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Modèles d'étiquette{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		{if $rights.collection == 1}
 		<a href="labelChange?label_id=0">
 			{t}Nouveau...{/t}

@@ -1,11 +1,11 @@
 <div class="row">
-    <div class="col-md-12 col-lg-8">
+    <div class="col-12 col-8">
         <div class="row">
             <form class="form-horizontal protoform" id="log_search" action="logList" method="POST">
                 <input id="isSearch" type="hidden" name="isSearch" value="1">
                 <div class="row mb-6">
-                    <label for="logmodule" class="col-md-2 form-label">{t}Nom du module :{/t}</label>
-                    <div class="col-md-10">
+                    <label for="logmodule" class="col-2 form-label">{t}Nom du module :{/t}</label>
+                    <div class="col-10">
                         <select id="logmodule" name="logmodule" class="form-control">
                             <option value="" {if $logmodule ==""}selected{/if}></option>
                             {foreach $modules as $module}
@@ -15,8 +15,8 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="loglogin" class="col-md-2 form-label">{t}Login concerné :{/t}</label>
-                    <div class="col-md-6">
+                    <label for="loglogin" class="col-2 form-label">{t}Login concerné :{/t}</label>
+                    <div class="col-6">
                         <select id="loglogin" name="loglogin" class="form-control">
                             <option value="" {if $loglogin ==""}selected{/if}></option>
                             {foreach $logins as $login}
@@ -24,17 +24,17 @@
                             {/foreach}
                         </select>
                     </div>
-                    <div class="col-md-2 offset-md-1">
+                    <div class="col-2 offset-1">
                         <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="date_from" class="col-md-2 form-label">{t}du :{/t}</label>
-                    <div class="col-md-2">
+                    <label for="date_from" class="col-2 form-label">{t}du :{/t}</label>
+                    <div class="col-2">
                         <input class="datepicker form-control" id="date_from" name="date_from" value="{$date_from}">
                     </div>
-                    <label for="date_to" class="col-md-1 form-label">{t}au :{/t}</label>
-                    <div class="col-md-2">
+                    <label for="date_to" class="col-1 form-label">{t}au :{/t}</label>
+                    <div class="col-2">
                         <input class="datepicker form-control" id="date_to" name="date_to" value="{$date_to}">
                     </div>
 

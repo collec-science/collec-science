@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Risques liés à la manipulation des contenants ou des échantillons{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		{if $rights.param == 1}
 		<a href="riskChange?risk_id=0">
 			{t}Nouveau...{/t}

@@ -405,29 +405,29 @@
 </script>
 <div id="resultMessage"></div>
 <div class="row">
-	<div class="col-xs-12 col-md-6">
+	<div class="col-xs-12 col-6">
 		<form class="form-horizontal" id="smallMovement" method="post" action="smallMovementWrite"
 			onsubmit="return(testScan());">
 			<input type="hidden" name="moduleBase" value="smallMovement">
 			<input type="hidden" name="movement_id" value="0">
 			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 			<div class="row">
-				<div class="col-xs-12 col-md-6">
+				<div class="col-xs-12 col-6">
 					<div class="row">
-						<div class="col-xs-9 col-md-8">
+						<div class="col-xs-9 col-8">
 							<input id="object_search" type="text" name="object_search"
 								placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value="" class="form-control "
 								autofocus autocomplete="off">
 						</div>
-						<div class="col-xs-3 col-md-4">
+						<div class="col-xs-3 col-4">
 							<button id="clear_object_search" class="btn btn-block  btn-info "
 								type="button">{t}Effacer{/t}</button>
 						</div>
-						<div class="col-xs-12 col-md-12">
+						<div class="col-xs-12 col-12">
 							<select id="object_uid" name="object_uid" class="form-control ">
 							</select>
 						</div>
-						<div class="col-xs-3 col-md-12">
+						<div class="col-xs-3 col-12">
 							<input id="position_stock" class="form-control " disabled value="">
 						</div>
 						<div class="col-xs-12">
@@ -445,27 +445,27 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-6">
+				<div class="col-xs-12 col-6">
 					<div class="row">
-						<div class="col-xs-9 col-md-8">
+						<div class="col-xs-9 col-8">
 							<input id="container_search" type="text" name="container_search"
 								placeholder="{t}Contenant de destination{/t}" value="" class="form-control " autofocus
 								autocomplete="off">
 						</div>
-						<div class="col-xs-3 col-md-4">
+						<div class="col-xs-3 col-4">
 							<button id="clear_container_search" class="btn btn-block btn-info "
 								type="button">{t}Effacer{/t}</button>
 						</div>
-						<div class="col-xs-12 col-md-12">
+						<div class="col-xs-12 col-12">
 							<select id="container_uid" name="container_uid" class="form-control ">
 							</select>
 						</div>
-						<div class="col-xs-2 col-md-2 ">{t}Col:{/t}</div>
-						<div class="col-xs-4 col-md-4 ">
+						<div class="col-xs-2 col-2 ">{t}Col:{/t}</div>
+						<div class="col-xs-4 col-4 ">
 							<input id="col" name="column_number" value="1" class="form-control ">
 						</div>
-						<div class="col-xs-2 col-md-2 ">{t}Ligne:{/t}</div>
-						<div class="col-xs-4 col-md-4">
+						<div class="col-xs-2 col-2 ">{t}Ligne:{/t}</div>
+						<div class="col-xs-4 col-4">
 							<input id="line" name="line_number" value="1" class="form-control ">
 						</div>
 					</div>
@@ -498,7 +498,7 @@
 <div class="row col-xs-12" id="optical">
 	<fieldset>
 		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
-		<div class="col-xs-12 col-lg-10">
+		<div class="col-xs-12 col-10">
 			<div class="form-horizontal ">
 				<div class="row">
 					<div class="col-xs-4">
@@ -534,7 +534,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="form-horizontal col-xs-12 col-lg-10">
+		<div class="form-horizontal col-xs-12 col-10">
 			<div class="row mb-6">
 				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 				<div class="col-xs-8">

@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Vol de session détecté{/t}</h2>
 {t 1=$login 2=$date}Une tentative d'usurpation de session a été détectée le %2 avec le compte %1.{/t}&nbsp;
 {t}La session a été réinitialisée.{/t}

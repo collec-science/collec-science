@@ -10,15 +10,16 @@
 	});
 </script>
 
+<div class="container">
 <h2>{t}Entrer ou déplacer dans des contenants ou sortir du stock{/t}</h2>
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-12">
 
 		<form id="movementConfirm" class="form-horizontal" method="post" action="movementBatchWrite">
 			<input type="hidden" name="moduleBase" value="movementBatch">
 			<div class="row mb-6">
-				<label for="movement_reason_id" class="form-label col-sm-4">{t}Motif du déstockage :{/t}</label>
-				<div class="col-sm-8">
+				<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
+				<div class="col-8">
 					<select id="movement_reason_id" name="movement_reason_id">
 					<option value="" {if empty($data.movement_reason_id)}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$movementReason}
@@ -41,7 +42,7 @@
 					<button type="submit" class="btn btn-primary">{t}Valider{/t}</button>
 				</div>
 			</div>
-			<div class="row col-sm-12">
+			<div class="row col-12">
 			<table id="movementList"
 				class="table table-bordered table-hover datatable-nopaging-nosort display"">
 				<thead>

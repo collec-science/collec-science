@@ -38,7 +38,7 @@ $(document).ready(function() {
 });
 </script>
 <div class="row">
-	<div class="col-lg-8 col-md-12">
+	<div class="col-8 col-12">
 		<a href="requestList">
 			<img src="display/images/list.png" height="25">
 			{t}Retour à la liste{/t}
@@ -54,16 +54,16 @@ $(document).ready(function() {
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<input type="hidden" name="body" id="bodySent">
 			<div class="row mb-6">
-				<label for="title" class="form-label col-md-4">
+				<label for="title" class="form-label col-4">
 					{t}Description de la requête :{/t} <span class="red">*</span>
 				</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<input class="form-control modif" id="title" name="title" type="text" value="{$data.title}" required autofocus/>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="collection_id" class="form-label col-md-4">{t}Collection autorisée :{/t}</label>
-				<div class="col-md-8">
+				<label for="collection_id" class="form-label col-4">{t}Collection autorisée :{/t}</label>
+				<div class="col-8">
 					<select class="form-control modif" id="collection_id" name="collection_id">
 						<option value="" {if $data.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 						{foreach $collections as $collection}
@@ -73,38 +73,38 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="body" class="form-label col-md-4"><span class="red">*</span> {t}Code SQL :{/t}</label>
-				<div class="col-md-8">
+				<label for="body" class="form-label col-4"><span class="red">*</span> {t}Code SQL :{/t}</label>
+				<div class="col-8">
 					<textarea id="body" class="form-control modif" cols="70" rows="10" wrap="soft" required>{$data.body}</textarea>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="datefields" class="form-label col-md-4">{t}Champs dates de la requête (séparés par une virgule) :{/t}</label>
-				<div class="col-md-8">
+				<label for="datefields" class="form-label col-4">{t}Champs dates de la requête (séparés par une virgule) :{/t}</label>
+				<div class="col-8">
 					<input class="form-control modif"  name="datefields" value="{$data.datefields}" placeholder="sampling_date,sample_creation_date">
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="create_date" class="form-label col-md-4">{t}date de création :{/t}</label>
-				<div class="col-md-8">
+				<label for="create_date" class="form-label col-4">{t}date de création :{/t}</label>
+				<div class="col-8">
 					<input id="create_date" class="form-control" name="create_date" value="{$data.create_date}" readonly>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="login" class="form-label col-md-4">{t}par :{/t}</label>
-				<div class="col-md-8">
+				<label for="login" class="form-label col-4">{t}par :{/t}</label>
+				<div class="col-8">
 					<input id="login" class="form-control" name="login" value="{$data.login}" readonly>
 				</div>
 			</div>
 			<div class="row mb-6">
-			<label for="last_exec" class="form-label col-md-4">{t}Date de dernière exécution :{/t}</label>
-				<div class="col-md-8">
+			<label for="last_exec" class="form-label col-4">{t}Date de dernière exécution :{/t}</label>
+				<div class="col-8">
 					<input id="last_exec" class="form-control" name="last_exec" value="{$data.last_exec}" readonly>
 				</div>
 			</div>
 
 			<div class="row mb-6">
-				<div class="col-md-12 center">
+				<div class="col-12 center">
 					<button type="submit" class="btn btn-primary button-valid" id="save">{t}Enregistrer{/t}</button>
 					{if $data.request_id > 0}
 						<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
@@ -119,7 +119,7 @@ $(document).ready(function() {
 </div>
 {if !empty($result)}
 	<div class="row">
-		<div class="col-lg-12">
+		<div class="col-12">
 			<table id="crequestList" class="table table-bordered table-hover datatable-export display">
 				<thead>
 					<tr>

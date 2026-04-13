@@ -18,9 +18,10 @@
       });
     });
 </script>
+<div class="container">
 <h2>{t}Campagnes de prélèvement{/t}</h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         {if $rights.param == 1}
         <a href="campaignChange?campaign_id=0">
             <img src="display/images/new.png" height="25">
@@ -72,21 +73,21 @@
     </div>
 </div>
 <div class="row">
-    <fieldset class="col-md-6">
+    <fieldset class="col-6">
         <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
         <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport"
             enctype="multipart/form-data">
             <div class="row mb-6">
-                <label for="upfile" class="form-label col-md-4"><span class="red">*</span> 
+                <label for="upfile" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom du fichier à importer :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <input type="file" name="upfile" class="form-control" required>
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="separator" class="form-label col-md-4">{t}Séparateur utilisé :{/t}</label>
-                <div class="col-md-8">
+                <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
+                <div class="col-8">
                       <select id="separator" name="separator" class="form-control">
                             <option value=",">{t}Virgule{/t}</option>
                             <option value=";">{t}Point-virgule{/t}</option>
@@ -95,8 +96,8 @@
                 </div>
           </div>
           <div class="row mb-6">
-                <label for="encoding" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
-                <div class="col-md-8">
+                <label for="encoding" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
+                <div class="col-8">
                       <select id="encoding" name="utf8_encode" class="form-control">
                             <option value="0" >UTF-8</option>
                             <option value="1" >ISO-8859-x</option>

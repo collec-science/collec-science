@@ -1,5 +1,6 @@
+<div class="container">
 <h2>{t}Liste des fichiers d'erreur{/t}</h2>
-<div class="col-md-8">
+<div class="col-8">
     <table class="datatable-nopaging table table-bordered table-hover " data-order='[[0,"desc"]]'>
         <thead>
             <tr>

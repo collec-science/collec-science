@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Modèles de datasets{/t}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
   <a href="datasetTemplateChange?dataset_template_id=0">
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}

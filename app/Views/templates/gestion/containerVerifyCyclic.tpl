@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
 <div class="row">
-    <div class="bg-info col-md-6">
+    <div class="bg-info col-6">
         {t}Si un contenant a été placé dans un contenant qu'il contient lui-même, au premier niveau ou dans la hiérarchie des contenants, certaines requêtes peuvent tourner indéfiniment.{/t}
         <br>
         {t}En cas de détection d'un problème de ce type, vous devrez créer un mouvement de sortie pour l'un des deux contenants, sans jamais chercher à ouvrir son détail. Passez par le menu : {/t}
@@ -12,7 +13,7 @@
 </div>
 <br>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <form class="form-horizontal" method="post" action="containerVerifyCyclicExec">
             <div class="center">
                 <button type="submit" class="button btn-primary">{t}Déclencher la recherche{/t}</button>
@@ -24,7 +25,7 @@
 
 {if $exec == 1}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <table class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>

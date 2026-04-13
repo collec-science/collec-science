@@ -1,7 +1,8 @@
 {* Paramètres > Conditions de stockage > *}
+<div class="container">
 <h2>{t}Conditions de stockage{/t}</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 {if $rights.param == 1}
 <a href="storageConditionChange?storage_condition_id=0">
 {t}Nouveau...{/t}

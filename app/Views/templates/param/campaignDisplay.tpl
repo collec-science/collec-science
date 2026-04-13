@@ -21,6 +21,7 @@
     });
 </script>
 <a href="campaignList"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
+<div class="container">
 <h2>{t}Campagne{/t} {$data.campaign_name}</h2>
 <!-- Tab box -->
 <ul class="nav nav-tabs" id="tabCampaignDetail" role="tablist">
@@ -49,7 +50,7 @@
         </a>
     </li>
 </ul>
-<div class="tab-content col-lg-12" id="campaignContent">
+<div class="tab-content col-12" id="campaignContent">
     <div class="tab-pane active in" id="navCampaignDetail" role="tabpanel" aria-labelledby="tabCampaignDetail">
         {if $rights.param == 1}
         <div class="row">
@@ -60,7 +61,7 @@
         </div>
         {/if}
         <div class="row">
-            <div class="col-md-8 col-lg-6">
+            <div class="col-8 col-6">
                 <div class="form-display">
                     <dl class="dl-horizontal">
                         <dt>{t}Nom de la campagne :{/t}</dt>
@@ -96,7 +97,7 @@
                 {t}Nouvelle réglementation{/t}</a>
         </div>
         <div class="row">
-            <div class="col-md-8 col-lg-6">
+            <div class="col-8 col-6">
                 <table class="table table-bordered table-hover datatable display">
                     <thead>
                         <tr>
@@ -126,14 +127,14 @@
     </div>
     <div class="tab-pane fade" id="navDocs" role="tabpanel" aria-labelledby="tabDocs">
         <div class="row">
-            <div class="col-lg-6 col-md-8">
+            <div class="col-6 col-8">
                 {include file="gestion/documentList.tpl"}
             </div>
         </div>
     </div>
     <div class="tab-pane fade" id="navGroups" role="tabpanel" aria-labelledby="tabGroups">
         <div class="row">
-            <div class="col-lg-6 col-md-8">
+            <div class="col-6 col-8">
                 {if $rights.param == 1}
                 <div class="row">
                     <a href="campaignChange?campaign_id={$data.campaign_id}">

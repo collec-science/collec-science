@@ -1,3 +1,4 @@
+<div class="container">
 <h2>À propos de <b>Collec-Science</b></h2>
 <p>
 Version {$version} of {$versiondate}.

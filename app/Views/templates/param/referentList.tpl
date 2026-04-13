@@ -1,7 +1,8 @@
 {* Paramètres > referents > *}
+<div class="container">
 <h2>{t}Référents{/t}</h2>
 	<div class="row">
-	<div class="col-md-8">
+	<div class="col-8">
 {if $rights.param == 1}
 <a href="referentChange?referent_id=0">
 {t}Nouveau...{/t}

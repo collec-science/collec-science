@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="{$moduleListe}">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -12,7 +12,7 @@
 </div>
 {if $rights.manage == 1}
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="{$moduleParentOnly}eventChange?event_id={$data.event_id}&uid={$data.uid}">
             <img src="display/images/edit.gif" height="25">
             {t}Modifier{/t}
@@ -21,8 +21,9 @@
 </div>
 {/if}
 <div class="row">
-    <h2>{t}Détail de l'événement{/t}</h2>
-    <div class="form-display col-md-6">
+    <div class="container">
+<h2>{t}Détail de l'événement{/t}</h2>
+    <div class="form-display col-6">
         <dl class="dl-horizontal">
             <dt>{t}Type d'événement :{/t}</dt>
             <dd>{$data.event_type_name}</dd>

@@ -7,34 +7,35 @@
             }
       });
 </script>
+<div class="container">
 <h2>{t}Création - Modification d'un lieu de prélèvement{/t}</h2>
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <a href="samplingPlaceList">{t}Retour à la liste{/t}</a>
 
             <form class="form-horizontal " id="samplingPlaceForm" method="post" action="samplingPlaceWrite">
                   <input type="hidden" name="moduleBase" value="samplingPlace">
                   <input type="hidden" name="sampling_place_id" value="{$data.sampling_place_id}">
                   <div class="row mb-6">
-                        <label for="samplingPlaceName" class="form-label col-md-4"><span class="red">*</span> 
+                        <label for="samplingPlaceName" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="samplingPlaceName" type="text" class="form-control" name="sampling_place_name"
                                     value="{$data.sampling_place_name}" autofocus required>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="samplingPlaceCode" class="form-label col-md-4">{t}Code métier :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="samplingPlaceCode" class="form-label col-4">{t}Code métier :{/t}</label>
+                        <div class="col-8">
                               <input id="samplingPlaceCode" type="text" class="form-control" name="sampling_place_code"
                                     value="{$data.sampling_place_code}">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="collection_id" class="form-label col-md-4">
+                        <label for="collection_id" class="form-label col-4">
                               {t}Collection de rattachement :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="collection_id" name="collection_id" class="form-control">
                                     <option value="" {if $data["collection_id"]=="" } selected{/if}>{t}Choisissez...{/t}
                                     </option>
@@ -48,22 +49,22 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="wgs84_x" class="form-label col-md-4">{t}Longitude :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="wgs84_x" class="form-label col-4">{t}Longitude :{/t}</label>
+                        <div class="col-8">
                               <input id="wgs84_x" type="text" class="form-control" name="sampling_place_x"
                                     value="{$data.sampling_place_x}">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="wgs84_y" class="form-label col-md-4">{t}Latitude :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="wgs84_y" class="form-label col-4">{t}Latitude :{/t}</label>
+                        <div class="col-8">
                               <input id="wgs84_y" type="text" class="form-control" name="sampling_place_y"
                                     value="{$data.sampling_place_y}">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="country_id" class="form-label col-md-4">{t}Pays :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
+                        <div class="col-8">
                               <select id="country_id" name="country_id" class="form-control">
                                     <option value="" {if $data["country_id"]=="" } selected{/if}>{t}Choisissez...{/t}
                                     </option>
@@ -86,8 +87,10 @@
                   {$csrf}
             </form>
       </div>
-      <div class="col-md-6 geographic">
+      <div class="col-6 geographic">
             {include file="gestion/objectMapDisplay.tpl"}
       </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

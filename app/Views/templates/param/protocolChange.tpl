@@ -18,9 +18,10 @@
       });
 </script>
 
+<div class="container">
 <h2>{t}Création - Modification d'un protocole{/t}</h2>
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <a href="protocolList">{t}Retour à la liste{/t}</a>
 
             <form class="form-horizontal " id="protocolForm" method="post" action="protocolWrite"
@@ -28,33 +29,33 @@
                   <input type="hidden" name="moduleBase" value="protocol">
                   <input type="hidden" name="protocol_id" value="{$data.protocol_id}">
                   <div class="row mb-6">
-                        <label for="protocolName" class="form-label col-md-4"><span class="red">*</span>
+                        <label for="protocolName" class="form-label col-4"><span class="red">*</span>
                               {t}Nom du protocole :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="protocolName" type="text" class="form-control" name="protocol_name"
                                     value="{$data.protocol_name}" autofocus required>
                         </div>
                   </div>
 
                   <div class="row mb-6">
-                        <label for="protocolVersion" class="form-label col-md-4"><span class="red">*</span>
+                        <label for="protocolVersion" class="form-label col-4"><span class="red">*</span>
                               {t}Version :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="protocolVersion" type="text" class="form-control" name="protocol_version"
                                     value="{$data.protocol_version}" required>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="protocolYear" class="form-label col-md-4">{t}Année :{/t}</label>
-                        <div class="col-md-8">
+                        <label for="protocolYear" class="form-label col-4">{t}Année :{/t}</label>
+                        <div class="col-8">
                               <input id="protocolYear" class="form-control nombre" name="protocol_year"
                                     value="{$data.protocol_year}">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="collection_id" class="form-label col-md-4">
+                        <label for="collection_id" class="form-label col-4">
                               {t}Collection de rattachement :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select name="collection_id" id="collection_id" class="form-control">
                                     {foreach $collections as $value}
                                     <option value="{$value.collection_id}" {if
@@ -66,33 +67,33 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="authorization_number" class="form-label col-md-4">
+                        <label for="authorization_number" class="form-label col-4">
                               {t}N° de l'autorisation de prélèvement :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="authorization_number" class="form-control" name="authorization_number"
                                     value="{$data.authorization_number}">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="authorization_date" class="form-label col-md-4">
+                        <label for="authorization_date" class="form-label col-4">
                               {t}Date de l'autorisation de prélèvement :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="authorization_date" class="form-control datepicker" name="authorization_date"
                                     value="{$data.authorization_date}">
                         </div>
                   </div>
 
                   <div class="row mb-6">
-                        <label for="protocolFile" class="form-label col-md-4">
+                        <label for="protocolFile" class="form-label col-4">
                               {t}Fichier PDF de description :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="protocolFile" type="file" class="form-control" name="protocol_file">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="documentDelete" class="form-label col-md-4">
+                        <label for="documentDelete" class="form-label col-4">
                               {t}Supprimer le document joint :{/t}</label>
-                        <div class="checkbox col-md-8">
+                        <div class="checkbox col-8">
                               <label>
                                     <input type="checkbox" value="1" name="documentDelete">
                               </label>
@@ -110,4 +111,6 @@
             </form>
       </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

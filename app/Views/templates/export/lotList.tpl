@@ -18,15 +18,16 @@
         });
     });
 </script>
+<div class="container">
 <h2>Liste des lots d'export</h2>
 <div class="row">
-    <div class="col-md-6 form-horizontal">
+    <div class="col-6 form-horizontal">
         <form id="lotSearch" action="lotList" method="GET">
             <input type="hidden" name="moduleBase" value="lot">
             <div class="row">
                 <div class="row mb-6">
-                    <label for="collection_id" class="col-sm-3 form-label">{t}Collection :{/t}</label>
-                    <div class="col-sm-3">
+                    <label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
+                    <div class="col-3">
                         <select id="collection_id" class="form-control">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">{$collection.collection_name}</option>
@@ -43,13 +44,13 @@
     </div>
 </div>
 <div class="row ">
-    <div class="col-md-6 bg-info">
+    <div class="col-6 bg-info">
         {t}Les lots doivent être créés depuis le module de recherche des échantillons.{/t}
     </div>
 </div>
 {if !empty($lots) }
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <table class="table table-bordered table-hover datatable display" data-order='[[1, "desc"]]'>
             <thead>
                 <tr>

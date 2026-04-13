@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Collections{/t}</h2>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-12">
 		{if $rights.param == 1}
 		<a href="collectionChange?collection_id=0">
 			{t}Nouveau...{/t}

@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Création - Modification d'un prêt{/t}</h2>
 <script>
     $(document).ready(function(){
@@ -28,7 +29,7 @@
 </script>
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-6">
             <a href="{$moduleListe}">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -44,10 +45,10 @@
             <input type="hidden" name="activeTab" value="{$activeTab}">
 
             <div class="row mb-6" >
-                <label for="borrower_id"class="form-label col-md-4">
+                <label for="borrower_id"class="form-label col-4">
                      {t}Emprunteur :{/t}<span class="red">*</span>
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <select id="borrower_id" name="borrower_id" class="form-control">
                         {foreach $borrowers as $borrower}
                             <option value="{$borrower.borrower_id}" {if $data.borrower.id == $borrower.borrower_id}selected{/if}>
@@ -58,26 +59,26 @@
                 </div>
             </div>
             <div class="row mb-6" >
-                <label for="borrowing_date" class="form-label col-md-4">{t}Date d'emprunt :{/t}<span class="red">*</span></label>
-                <div class="col-md-8">
+                <label for="borrowing_date" class="form-label col-4">{t}Date d'emprunt :{/t}<span class="red">*</span></label>
+                <div class="col-8">
                     <input id="borrowing_date" name="borrowing_date" value="{$data.borrowing_date}" class="form-control datepicker" >
                 </div>
             </div>
             <div class="row mb-6" >
-                <label for="expected_return_date" class="form-label col-md-4">{t}Date de retour escomptée :{/t}</label>
-                <div class="col-md-8">
+                <label for="expected_return_date" class="form-label col-4">{t}Date de retour escomptée :{/t}</label>
+                <div class="col-8">
                     <input id="expected_return_date" name="expected_return_date" value="{$data.expected_return_date}" class="form-control datepicker" >
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="borrowing_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
-                <div class="col-md-8">
+                <label for="borrowing_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+                <div class="col-8">
                 <textarea id="borrowing_comment" name="borrowing_comment"  class="form-control" rows="3">{$data.borrowing_comment}</textarea>
                 </div>
                 </div>
             <div class="row mb-6" >
-                    <label for="return_date" class="form-label col-md-4">{t}Date de retour réelle :{/t}</label>
-                    <div class="col-md-8">
+                    <label for="return_date" class="form-label col-4">{t}Date de retour réelle :{/t}</label>
+                    <div class="col-8">
                         <input id="return_date" name="return_date" value="{$data.return_date}" class="form-control datepicker" >
                     </div>
                 </div>
@@ -90,4 +91,6 @@
       {$csrf}</form>
   </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

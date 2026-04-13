@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Liste des applications disponibles dans le module de gestion des droits{/t}</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 <a href="appliChange?aclappli_id=0">
 {t}Nouvelle application...{/t}
 </a>

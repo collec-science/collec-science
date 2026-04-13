@@ -1,7 +1,8 @@
 {* Paramètres > Types d'échantillons > *}
+<div class="container">
 <h2>{t}Types d'échantillons{/t}</h2>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-12">
 		{if $rights.param == 1}
 		<a href="sampleTypeChange?sample_type_id=0">
 			<img src="display/images/new.png" height="25">
@@ -12,7 +13,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-12">
 		<table id="sampleTypeList" class="table table-bordered table-hover datatable-export-paging display">
 			<thead>
 				<tr>

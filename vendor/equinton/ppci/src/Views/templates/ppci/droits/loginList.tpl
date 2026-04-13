@@ -22,9 +22,10 @@
 		});
 	});
 </script>
+<div class="container">
 <h2>{t}Liste des logins déclarés dans le module de gestion des droits{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		<a href="aclloginChange?acllogin_id=0">
 			{t}Nouveau login...{/t}
 		</a>
@@ -56,16 +57,16 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-12">
 		<form class="form-horizontal">
 			<div class="row mb-6">
-				<label for="mails" class="form-label col-md-2">
+				<label for="mails" class="form-label col-2">
 					{t}Adresses mails :{/t}
 				</label>
-				<div class="col-md-9">
+				<div class="col-9">
 					<input class="form-control" id="mails" readonly>
 				</div>
-				<div class="col-md-1">
+				<div class="col-1">
 					<img src="display/images/copy.png" height="24" id="copyMails">
 				</div>
 			</div>

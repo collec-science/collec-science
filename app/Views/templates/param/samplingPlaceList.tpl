@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Lieux de prélèvement{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		{if $rights.param == 1}
 		<a href="samplingPlaceChange?sampling_place_id=0">
 			{t}Nouveau...{/t}
@@ -44,22 +45,22 @@
 </div>
 
 {if $rights["param"] == 1}
-<div class="row col-md-6">
+<div class="row col-6">
 	<fieldset>
 		<legend>{t}Importer des emplacements depuis un fichier CSV{/t}</legend>
 		<form class="form-horizontal " id="metadataImport" method="post" action="samplingPlaceImport"
 			enctype="multipart/form-data">
 			<div class="row mb-6">
-				<label for="upfile" class="form-label col-md-4"><span class="red">*</span>
+				<label for="upfile" class="form-label col-4"><span class="red">*</span>
 					{t}Nom du fichier à importer (CSV) :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<input type="file" name="upfile" required>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="separator" class="form-label col-md-4"><span class="red">*</span>
+				<label for="separator" class="form-label col-4"><span class="red">*</span>
 					{t}Séparateur :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<select id="separator" class="form-control" name="separator">
 						<option value=";">{t}Point-virgule{/t}</option>
 						<option value=",">{t}Virgule{/t}</option>
@@ -69,9 +70,9 @@
 			</div>
 
 			<div class="row mb-6">
-				<label for="collection_id" class="form-label col-md-4">
+				<label for="collection_id" class="form-label col-4">
 					{t}Collection éventuelle de rattachement :{/t}</label>
-				<div class="col-md-8">
+				<div class="col-8">
 					<select id="collection_id" name="collection_id" class="form-control">
 						<option value="" {if $data["collection_id"]=="" } selected{/if}>{t}Choisissez...{/t}</option>
 						{foreach $collections as $collection}

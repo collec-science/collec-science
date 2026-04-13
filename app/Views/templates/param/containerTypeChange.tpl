@@ -1,24 +1,25 @@
+<div class="container">
 <h2>{t}Création - Modification d'un type de contenant{/t}</h2>
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <a href="containerTypeList">{t}Retour à la liste{/t}</a>
 
             <form class="form-horizontal " id="containerTypeForm" method="post" action="containerTypeWrite">
                   <input type="hidden" name="container_type_id" value="{$data.container_type_id}">
                   <input type="hidden" name="moduleBase" value="containerType">
                   <div class="row mb-6">
-                        <label for="containerTypeName" class="form-label col-md-4"><span class="red">*</span> 
+                        <label for="containerTypeName" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="containerTypeName" type="text" class="form-control" name="container_type_name"
                                     value="{$data.container_type_name}" autofocus required>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="container_family_id" class="form-label col-md-4"><span class="red">*</span>
+                        <label for="container_family_id" class="form-label col-4"><span class="red">*</span>
                               {t}Famille :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="container_family_id" name="container_family_id" class="form-control">
                                     {section name=lst loop=$containerFamily}
                                     <option value="{$containerFamily[lst].container_family_id}" {if
@@ -30,35 +31,35 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="containerTypeDescription" class="form-label col-md-4">
+                        <label for="containerTypeDescription" class="form-label col-4">
                               {t}Description :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <textarea class="form-control" rows="3" name="container_type_description"
                                     id="containerTypeDescription">{$data.container_type_description}</textarea>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="lines" class="form-label col-md-4">
+                        <label for="lines" class="form-label col-4">
                               {t}Nombre de lignes :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="lines" name="lines" value="{$data.lines}" class="nombre form-control">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="columns" class="form-label col-md-4">
+                        <label for="columns" class="form-label col-4">
                               {t}Nombre de colonnes :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="columns" name="columns" value="{$data.columns}" class="nombre form-control">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="columns" class="form-label col-md-4">
+                        <label for="columns" class="form-label col-4">
                               {t}Position de la première ligne :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <div class="radio">
                                     <label>
                                           <input type="radio" name="first_line" id="first_line_t" value="T" {if
@@ -74,10 +75,10 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="columns" class="form-label col-md-4">
+                        <label for="columns" class="form-label col-4">
                               {t}Position de la première colonne :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <div class="radio">
                                     <label>
                                           <input type="radio" name="first_column" id="first_column_l" value="L" {if
@@ -93,10 +94,10 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="line_in_char" class="form-label col-md-4">
+                        <label for="line_in_char" class="form-label col-4">
                               {t}Lignes identifiées par une lettre ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <div class="radio">
                                     <label>
                                           <input type="radio" name="line_in_char" id="line_in_char1" value="1" {if
@@ -112,10 +113,10 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="line_in_char" class="form-label col-md-4">
+                        <label for="line_in_char" class="form-label col-4">
                               {t}Colonnes identifiées par une lettre ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <div class="radio">
                                     <label>
                                           <input type="radio" name="column_in_char" id="column_in_char1" value="1" {if
@@ -131,28 +132,28 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="nb_slots_max" class="form-label col-md-4">
+                        <label for="nb_slots_max" class="form-label col-4">
                               {t}Nombre d'emplacements maximum :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="nb_slots_max" name="nb_slots_max" value="{$data.nb_slots_max}"
                                     class="nombre form-control">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="nbobject_by_slot" class="form-label col-md-4">
+                        <label for="nbobject_by_slot" class="form-label col-4">
                               {t}Nombre maxi d'objets par emplacement (ligne/colonne) :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="nbobject_by_slot" name="nbobject_by_slot" value="{$data.nbobject_by_slot}"
                                     class="nombre form-control">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="storageConditionId" class="form-label col-md-4">
+                        <label for="storageConditionId" class="form-label col-4">
                               {t}Condition de stockage :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="storageConditionId" name="storage_condition_id" class="form-control">
                                     <option value="" {if $data.storage_condition_id=="" }selected{/if}>
                                           {t}Choisissez...{/t}
@@ -167,10 +168,10 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="product_id" class="form-label col-md-4">
+                        <label for="product_id" class="form-label col-4">
                               {t}Produit utilisé :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select class="form-control" id="product_id" name="product_id">
                                     <option value="" {if $data.product_id=="" }selected{/if}>
                                           {t}Choisissez...{/t}
@@ -185,18 +186,18 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="productNew" class="form-label col-md-4">
+                        <label for="productNew" class="form-label col-4">
                               {t}ou nouveau produit :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="productNew" type="text" class="form-control" name="productNew">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="risk_id" class="form-label col-md-4">
+                        <label for="risk_id" class="form-label col-4">
                               {t}Risque (code CLP) :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select class="form-control" id="risk_id" name="risk_id">
                                     <option value="" {if $data.risk_id=="" }selected{/if}>
                                           {t}Choisissez...{/t}
@@ -210,17 +211,17 @@
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="riskNew" class="form-label col-md-4">
+                        <label for="riskNew" class="form-label col-4">
                               {t}ou nouveau risque :{/t}</label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="riskNew" type="text" class="form-control" name="riskNew">
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="labelId" class="form-label col-md-4">
+                        <label for="labelId" class="form-label col-4">
                               {t}Modèle d'étiquette :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <select id="labelId" name="label_id" class="form-control">
                                     <option value="" {if $data.label_id=="" }selected{/if}>
                                           {t}Choisissez...{/t}
@@ -244,4 +245,6 @@
             </form>
       </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

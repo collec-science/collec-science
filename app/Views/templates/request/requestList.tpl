@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Liste des requêtes SQL{/t}</h2>
 {if $rights.param == 1}
 <a href="requestChange?request_id=0">

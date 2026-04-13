@@ -9,32 +9,32 @@
 {/if}
 <h3>{t}Création/modification d'une campagne{/t}</h3>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-8">
         <form class="form-horizontal " id="campaignChange" method="post" action="campaignWrite">
             <input type="hidden" name="moduleBase" value="campaign">
             <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
             <div class="row mb-6">
-                <label for="campaign_name" class="form-label col-md-4"><span class="red">*</span> 
+                <label for="campaign_name" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom de la campagne :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <input id="campaign_name" type="text" class="form-control" name="campaign_name"
                         value="{$data.campaign_name}" autofocus required>
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="campaign_description" class="form-label col-md-4">
+                <label for="campaign_description" class="form-label col-4">
                     {t}Description de la campagne :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <textarea class="form-control" name="campaign_description" id="campaign_description">{$data.campaign_description}</textarea>
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="referent_id" class="form-label col-md-4">
+                <label for="referent_id" class="form-label col-4">
                     {t}Responsable ou référent de la campagne :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <select id="referent_id" name="referent_id" class="form-control">
                         <option value="" {if $data.referent_id=="" }selected{/if}>{t}Choisissez{/t}</option>
                         {foreach $referents as $referent}
@@ -47,32 +47,32 @@
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="campaign_from" class="form-label col-md-4">{t}Date de début :{/t}</label>
-                <div class="col-md-8">
+                <label for="campaign_from" class="form-label col-4">{t}Date de début :{/t}</label>
+                <div class="col-8">
                     <input id="campaign_from" type="text" class="form-control datepicker" name="campaign_from"
                         value="{$data.campaign_from}">
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="campaign_to" class="form-label col-md-4">{t}Date de fin :{/t}</label>
-                <div class="col-md-8">
+                <label for="campaign_to" class="form-label col-4">{t}Date de fin :{/t}</label>
+                <div class="col-8">
                     <input id="campaign_to" type="text" class="form-control datepicker" name="campaign_to"
                         value="{$data.campaign_to}">
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="uuid" class="form-label col-md-4">{t}UID universel (UUID) :{/t}</label>
-                <div class="col-md-8">
+                <label for="uuid" class="form-label col-4">{t}UID universel (UUID) :{/t}</label>
+                <div class="col-8">
                     <input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="groupes" class="form-label col-md-4">
+                <label for="groupes" class="form-label col-4">
                     {t}Droits de modification attribués aux groupes :{/t}
                 </label>
-                <div class="col-md-7">
+                <div class="col-7">
                     {section name=lst loop=$groupes}
-                    <div class="col-md-2 col-sm-offset-3">
+                    <div class="col-2 col-offset-3">
                         <div class="checkbox">
                             <label>
                                 <input type="checkbox" name="groupes[]" value="{$groupes[lst].aclgroup_id}" 

@@ -37,9 +37,10 @@
     isMetadata();
   } );
 </script>
+<div class="container">
 <h2>{t}Modification des colonnes du modèle{/t} {$template.dataset_template_name}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
       <a href="datasetTemplateList">
           <img src="display/images/list.png" height="25">
           {t}Retour à la liste{/t}
@@ -58,9 +59,9 @@
       <input type="hidden" name="dataset_template_id" value="{$data.dataset_template_id}">
       <input type="hidden" name="dataset_column_id" value="{$data.dataset_column_id}">
       <div class="row mb-6">
-        <label for="column_name" class="form-label col-md-4"><span class="red">*</span> {t}Nom de la colonne à
+        <label for="column_name" class="form-label col-4"><span class="red">*</span> {t}Nom de la colonne à
           exporter :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <select id="column_name" name="column_name" class="form-control">
             {foreach $fields as $field}
               <option value="{$field}" {if $field==$data.column_name} selected{/if}>{$field} </option>
@@ -69,24 +70,24 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="subfield_name" class="form-label col-md-4"><span class="red">*</span>
+        <label for="subfield_name" class="form-label col-4"><span class="red">*</span>
           {t}Nom du champ dans les métadonnées ou nom de l'identifiant secondaire :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="subfield_name" type="text" class="form-control" name="subfield_name" value="{$data.subfield_name}" >
         </div>
       </div>
       <div class="row mb-6">
-        <label for="export_name" class="form-label col-md-4"><span class="red">*</span>
+        <label for="export_name" class="form-label col-4"><span class="red">*</span>
           {t}Nom dans l'export :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="export_name" type="text" class="form-control" name="export_name" value="{$data.export_name}" required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="translator_id" class="form-label col-md-4 lexical" data-lexical="translationTable"> {t}Nom de la table de correspondance :{/t}</label>
-        <div class="col-md-8">
+        <label for="translator_id" class="form-label col-4 lexical" data-lexical="translationTable"> {t}Nom de la table de correspondance :{/t}</label>
+        <div class="col-8">
           <select id="translator_id" name="translator_id" class="form-control">
             <option value="" {if $data.translator_id == ""} selected{/if}>{t}Choisissez...{/t}</option>
             {foreach $translators as $translator}
@@ -96,8 +97,8 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="mandatory"  class="form-label col-md-4">{t}Contenu obligatoire pour l'export ?{/t}</label>
-        <div class="col-md-8" id="mandatory">
+        <label for="mandatory"  class="form-label col-4">{t}Contenu obligatoire pour l'export ?{/t}</label>
+        <div class="col-8" id="mandatory">
           <div class="radio">
             <label>
               <input type="radio" name="mandatory" id="mandatory0" value="0" {if $data.mandatory != 1}checked{/if}>{t}non{/t}
@@ -111,34 +112,34 @@
         </div>
       </div>
       <div class="row mb-6">
-        <label for="default_value" class="form-label col-md-4">
+        <label for="default_value" class="form-label col-4">
           {t}Valeur par défaut, si aucune n'est renseignée, ou contenu du fichier pour le type arbitrary_content :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <textarea id="default_value" type="text" class="form-control" name="default_value" rows="5">{$data.default_value}</textarea>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="date_format" class="form-label col-md-4">
+        <label for="date_format" class="form-label col-4">
           {t}Formatage de la date (format PHP). Exemple : d/m/Y H:i:s{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="date_format" type="text" class="form-control" name="date_format" value="{$data.date_format}" >
         </div>
       </div>
       <div class="row mb-6">
-        <label for="column_order" class="form-label col-md-4"><span class="red">*</span>
+        <label for="column_order" class="form-label col-4"><span class="red">*</span>
           {t}Numéro d'ordre dans l'export :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="column_order" type="number" class="form-control number" name="column_order" value="{$data.column_order}" required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="sort_order" class="form-label col-md-4">
+        <label for="sort_order" class="form-label col-4">
           {t}Pour les importations, ordre de recherche parmi les différents identifiants possibles :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="search_order" type="number" class="form-control number" name="search_order" value="{$data.search_order}">
         </div>
       </div>
@@ -151,9 +152,11 @@
     {$csrf}</form>
   </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>
 <div class="row">
-  <div class="col-lg-12">
+  <div class="col-12">
     {include file="export/datasetColumnTable.tpl"}
   </div>
 </div>

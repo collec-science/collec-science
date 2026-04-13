@@ -1,30 +1,31 @@
+<div class="container">
 <h2>{t}Vérification du compte avec la double authentification{/t}</h2>
 <div class="row">
-    <div class="col-lg-6 col-md-8">
+    <div class="col-6 col-8">
         <div class="bg-info ">
             {t}Pour vérifier votre identification, veuillez taper le code TOTP que vous avez configuré dans votre smartphone{/t}
         </div>
     </div>
 </div>
-<div class="col-lg-6 col-md-8">
+<div class="col-6 col-8">
     <div class="row">
         <form id="otpform" class="form-horizontal protoform" method="post" action="totpVerifyExec">
             <input type="hidden" name="moduleCalled" value="{$moduleCalled}"">
         <div class=" row mb-6">
-            <label for="otpcode" class="form-label col-md-4">
+            <label for="otpcode" class="form-label col-4">
                 {t}Code généré par le logiciel TOTP :{/t}
             </label>
-            <div class="col-md-8">
+            <div class="col-8">
                 <input id="otpcode" type="number" class="form-control nombre" name="otpcode" required autofocus
                     autocomplete="off">
             </div>
     </div>
     {if !$isAdmin}
     <div class="row mb-6">
-        <label for="otptrusted" class="form-label col-md-4">
+        <label for="otptrusted" class="form-label col-4">
             {t}Faire confiance à ce navigateur :{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input type="checkbox" id="otptrusted" class="form-control" name="otptrusted">
         </div>
     </div>

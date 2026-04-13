@@ -1,7 +1,7 @@
 <script >
   scroll = "75vh";
 </script>
-<div class="col-md-12">
+<div class="col-12">
   <div class="row">
   <table class="datatable-nopaging display table table-bordered table-hover">
     <thead>

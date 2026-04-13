@@ -1,22 +1,23 @@
+<div class="container">
 <h2>{t}Modification d'une application (module de gestion des droits){/t}</h2>
 <div class="row">
-      <div class="col-md-6">
+      <div class="col-6">
             <a href="appliList">{t}Retour à la liste des applications{/t}</a>
             <form class="form-horizontal" id="appliForm" method="post" action="appliWrite">
                   <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
                   <input type="hidden" name="moduleBase" value="appli">
                   <div class="row mb-6">
-                        <label for="appli" class="form-label col-md-4"><span class="red">*</span> 
+                        <label for="appli" class="form-label col-4"><span class="red">*</span> 
                               {t}Nom de l'application :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                               <input id="appli" type="text" name="appli" class="form-control" value="{$data.appli}"
                                     autofocus required>
                         </div>
                   </div>
                   <div class="row mb-6">
-                        <label for="applidetail" class="form-label col-md-4">{t}Description :{/t} </label>
-                        <div class="col-md-8">
+                        <label for="applidetail" class="form-label col-4">{t}Description :{/t} </label>
+                        <div class="col-8">
                               <input id="applidetail" type="text" class="form-control" name="applidetail"
                                     value="{$data.applidetail}">
                         </div>
@@ -32,4 +33,6 @@
       </div>
 </div>
 
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

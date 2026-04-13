@@ -100,10 +100,11 @@
         setSubmit();
     });
 </script>
+<div class="container">
 <h2>{t}Générer un modèle d'import de masse{/t}</h2> {$help}
 
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-6">
         <form class="form-horizontal" id="template" action="importTemplateGenerate" method="post">
             <fieldset id="containersFieldset">
                 <legend>
@@ -111,10 +112,10 @@
                     <input type="checkbox" id="containerEnable" name="containerEnable" value="1">
                 </legend>
                  <div class="row mb-6">
-                    <label for="containerCollection" class="col-md-4 form-label">
+                    <label for="containerCollection" class="col-4 form-label">
                         {t}Collection de destination :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="containerCollection" name="containerCollection" class="form-control containers">
                             <option value="" selected></option>
                             {foreach $collections as $collection}
@@ -126,10 +127,10 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="container_family_id" class="form-label col-md-4">
+                    <label for="container_family_id" class="form-label col-4">
                         {t}Famille :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="container_family_id" name="container_family_id" class="form-control containers">
                             {section name=lst loop=$containerFamily}
                                 <option value="{$containerFamily[lst].container_family_id}">
@@ -140,20 +141,20 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="containerTypeName" class="form-label col-md-4">
+                    <label for="containerTypeName" class="form-label col-4">
                         {t}Type :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="containerTypeName" name="containerTypeName" class="form-control containers">
                         </select>
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="containerFields" class="col-md-4 form-label">
+                    <label for="containerFields" class="col-4 form-label">
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
-                    <div class="col-md-8">
-                        <table class="col-md-11">
+                    <div class="col-8">
+                        <table class="col-11">
                             <tr>
                                 <td>{t}Rangement du contenant dans un autre contenant :{/t}</td>
                                 <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerLocation" ></td>
@@ -176,10 +177,10 @@
                     <input type="checkbox" id="sampleEnable" name="sampleEnable" value="1">
                 </legend>
                 <div class="row mb-6">
-                    <label for="sampleCollection" class="col-md-4 form-label">
+                    <label for="sampleCollection" class="col-4 form-label">
                         <span class="red">*</span> {t}Collection de destination :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="sampleCollection" name="sampleCollection" class="form-control samples">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">
@@ -190,10 +191,10 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="sampleTypes" class="col-md-4 form-label">
+                    <label for="sampleTypes" class="col-4 form-label">
                         <span class="red">*</span> {t}Types d'échantillons à importer :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="sampleTypes" class="samples form-control" name="sampleTypes[]" multiple 
                         title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                         >
@@ -201,10 +202,10 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="referent_name" class="col-md-4 form-label">
+                    <label for="referent_name" class="col-4 form-label">
                         {t}Référent :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="referent_name" name="referent_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $referents as $referent}
@@ -216,10 +217,10 @@
                     </div>
                 </div>
                 <div class="row mb-6 ">
-                    <label for="country_name" class="form-label col-md-4">
+                    <label for="country_name" class="form-label col-4">
                         {t}Pays de collecte :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="country_name" name="country_name" class="form-control samples">
                             <option value="" selected>
                             </option>
@@ -232,10 +233,10 @@
                     </div>
                 </div>
                 <div class="row mb-6 ">
-                    <label for="country_origin_name" class="form-label col-md-4" >
+                    <label for="country_origin_name" class="form-label col-4" >
                         {t}Pays de provenance :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="country_origin_name" name="country_origin_name" class="form-control samples">
                             <option value="" selected></option>
                             {foreach $countries as $country}
@@ -247,10 +248,10 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="campaign_name" class="col-md-4 form-label">
+                    <label for="campaign_name" class="col-4 form-label">
                         {t}Campagne de prélèvement :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="campaign_name" name="campaign_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $campaigns as $campaign}
@@ -260,10 +261,10 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="sampling_place_name" class="col-md-4 form-label">
+                    <label for="sampling_place_name" class="col-4 form-label">
                         {t}Lieu de prélèvement :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <select id="sampling_place_name" name="sampling_place_name" class="samples form-control">
                             <option value="" selected></option>
                             {foreach $samplingPlaces as $samplingPlace}
@@ -275,11 +276,11 @@
                     </div>
                 </div>
                 <div class="row mb-6">
-                    <label for="sampleFields" class="col-md-4 form-label">
+                    <label for="sampleFields" class="col-4 form-label">
                         {t}Colonnes complémentaires à ajouter :{/t}
                     </label>
-                    <div class="col-md-8">
-                        <table class="col-md-11">
+                    <div class="col-8">
+                        <table class="col-11">
                             <tr>
                                 <td>{t}Date d'expiration de l'échantillon :{/t}</td>
                                 <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="expiration_date" ></td>
@@ -315,10 +316,10 @@
             <fieldset id="identifiers">
                 <legend>{t}Informations communes aux contenants et aux échantillons{/t}</legend>
 					<div class="row mb-6 ">
-						<label for="identifiers" class="form-label col-md-4">
+						<label for="identifiers" class="form-label col-4">
 							{t}Identifiants complémentaires :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<select id="identifiers" name="identifiers[]" class="form-control" multiple
                             title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                             >
@@ -339,7 +340,7 @@
             {$csrf}
         </form>
     </div>
-    <div class="col-lg-6 bg-info">
+    <div class="col-6 bg-info">
         {t}Ce module permet de générer un modèle de fichier pour réaliser une importation de masse. Le modèle ne contient que les colonnes principales, basées sur les libellés plutôt que sur les numéros informatiques. Vous pourrez le compléter si nécessaire avec les colonnes décrites ci-dessous.{/t}
         <br>
         {t}Voici la liste des colonnes qui sont autorisées dans le fichier :{/t}

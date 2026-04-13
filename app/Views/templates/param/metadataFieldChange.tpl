@@ -73,6 +73,7 @@
     });
 
 </script>
+<div class="container">
 <h2>{t}Modification du modèle de métadonnées{/t} <i>{$data.metadata_name}</i> - {t}champ{/t} <i>{$data.name}</i></h2>
 <div class="row">
     <a href="metadataList">
@@ -89,20 +90,20 @@
     <input type="hidden" name="metadata_id" value="{$data.metadata_id}" <div class="row mb-6">
     <input type="hidden" name="oldname" value="{$data.name}">
     <div class="row mb-6">
-        <label for="name" class="form-label col-md-4"><span class="red">*</span>
+        <label for="name" class="form-label col-4"><span class="red">*</span>
             {t}Nom du champ (minuscules, chiffres ou _, sans espace, sans tiret){/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input id="name" type="text" class="form-control" name="name" value="{$data.name}" pattern="[a-z0-9_]*" 
             title="{t}Uniquement des minuscules (sans accents), des chiffres, ou le caractère _{/t}"
             required>
         </div>
     </div>
     <div class="row mb-6">
-        <label for="type" class="form-label col-md-4"><span class="red">*</span>
+        <label for="type" class="form-label col-4"><span class="red">*</span>
             {t}Type du champ{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <select class="form-control" id="type" name="type">
                 <option value="string" {if $data.type=="string" || $data.type=="" }selected{/if}>
                     {t}Texte (une ligne){/t}
@@ -135,10 +136,10 @@
         </div>
     </div>
     <div class="row mb-6" id="multipleGroup">
-        <label for="multipleNo" class="form-label col-md-4"><span class="red">*</span>
+        <label for="multipleNo" class="form-label col-4"><span class="red">*</span>
             {t}Valeurs multiples ?{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input class="multiple" type="radio" name="multiple" id="multipleNo" {if $data.multiple !='yes'
                 }checked{/if} value="no">&nbsp;{t}non{/t}
             <input type="radio" class="multiple" name="multiple" id="multipleYes" {if $data.multiple=='yes'
@@ -146,10 +147,10 @@
         </div>
     </div>
     <div class="row mb-6" id="choiceListGroup" hidden>
-        <label for="name" class="form-label col-md-4">
+        <label for="name" class="form-label col-4">
             {t}Valeurs{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <table id="multiples">
                 {$numligne = 1000}
                 {foreach $data.choiceList as $choice}
@@ -180,27 +181,27 @@
         </div>
     </div>
     <div class="row mb-6">
-        <label for="defaultValue" class="form-label col-md-4">
+        <label for="defaultValue" class="form-label col-4">
             {t}Valeur par défaut{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input id="defaultValue" type="text" class="form-control" name="defaultValue" value="{$data.defaultValue}">
         </div>
     </div>
     <div class="row mb-6">
-        <label for="description" class="form-label col-md-4">
+        <label for="description" class="form-label col-4">
             <span class="red">*</span>
             {t}Description{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input id="description" type="text" class="form-control" name="description" value="{$data.description}" required>
         </div>
     </div>
     <div class="row mb-6">
-        <label for="isSearchable0" class="form-label col-md-4"><span class="red">*</span>
+        <label for="isSearchable0" class="form-label col-4"><span class="red">*</span>
             {t}Champ utilisé pour rechercher un échantillon ?{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input type="radio" name="isSearchable" id="isSearchable0" {if $data.isSearchable !="yes" }checked{/if}
                 value="no">
             {t}non{/t}
@@ -209,10 +210,10 @@
         </div>
     </div>
     <div class="row mb-6">
-        <label for="required0" class="form-label col-md-4"><span class="red">*</span>
+        <label for="required0" class="form-label col-4"><span class="red">*</span>
             {t}Champ obligatoire ?{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input type="radio" name="required" id="required0" {if $data.required !="true" }checked{/if}
                 value="false">&nbsp;
             {t}non{/t}
@@ -221,18 +222,18 @@
         </div>
     </div>
     <div class="row mb-6">
-        <label for="measureUnit" class="form-label col-md-4">
+        <label for="measureUnit" class="form-label col-4">
             {t}Unité de mesure{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input id="measureUnit" type="text" class="form-control" name="measureUnit" value="{$data.measureUnit}">
         </div>
     </div>
     <div class="row mb-6">
-        <label for="helperChoice" class="form-label col-md-4"><span class="red">*</span>
+        <label for="helperChoice" class="form-label col-4"><span class="red">*</span>
             {t}Affichage d'un message d'aide ?{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input type="radio" name="helperChoice" id="helperChoice0" {if $data.helperChoice !="true" }checked{/if}
                 value="false" class="helperChoice">&nbsp;
             {t}non{/t}
@@ -241,10 +242,10 @@
         </div>
     </div>
     <div class="row mb-6" id="helperGroup" hidden>
-        <label for="helper" class="form-label col-md-4"><span class="red">*</span>
+        <label for="helper" class="form-label col-4"><span class="red">*</span>
             {t}Message d'aide - vous pouvez copier ici la description de l'unité de mesure, par exemple{/t}
         </label>
-        <div class="col-md-8">
+        <div class="col-8">
             <input id="helper" type="text" class="form-control" name="helper" value="{$data.helper}">
         </div>
     </div>
@@ -253,4 +254,6 @@
     </div>
     {$csrf}
 </form>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

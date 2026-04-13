@@ -1,14 +1,15 @@
 {* Paramètres > Types de contenants > *}
+<div class="container">
 <h2>{t}Types de contenants{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		{if $rights.param == 1}
 			<a href="containerTypeChange?container_type_id=0">
 				{t}Nouveau...{/t}
 			</a>
 		{/if}
 	</div>
-	<div class="col-md-12">
+	<div class="col-12">
 		<table id="containerTypeList" class="table table-bordered table-hover datatable-searching display" >
 			<thead>
 				<tr>

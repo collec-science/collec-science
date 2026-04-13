@@ -1,7 +1,8 @@
 {* Paramètres > Types d'événement > *}
+<div class="container">
 <h2>{t}Types d'événement{/t}</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 {if $rights.param == 1}
 <a href="eventTypeChange?event_type_id=0">
 {t}Nouveau...{/t}

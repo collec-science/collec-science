@@ -1,16 +1,17 @@
+<div class="container">
 <h2>{t}Création - Modification des produits ajoutés aux contenants ou aux échantillons{/t}</h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <a href="productList">{t}Retour à la liste{/t}</a>
 
         <form class="form-horizontal " id="productForm" method="post" action="productWrite">
             <input type="hidden" name="moduleBase" value="product">
             <input type="hidden" name="product_id" value="{$data.product_id}">
             <div class="row mb-6">
-                <label for="productName" class="form-label col-md-4"><span class="red">*</span> 
+                <label for="productName" class="form-label col-4"><span class="red">*</span> 
                     {t}Nom du produit :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <input id="productName" type="text" class="form-control" name="product_name"
                         value="{$data.product_name}" autofocus required>
                 </div>
@@ -25,4 +26,6 @@
         </form>
     </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

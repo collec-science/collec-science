@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Licences utilisables pour publier les collections{/t}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
     {if $rights.param == 1}
     <a href="licenseChange?license_id=0">
       {t}Nouveau...{/t}

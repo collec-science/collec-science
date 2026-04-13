@@ -1,11 +1,12 @@
+<div class="container">
 <h2>{t}Liste des tables de correspondance{/t}</h2>
 <div class="row">
-  <div class="col-md-6 bg-info">
+  <div class="col-6 bg-info">
     {t}Les tables de correspondance permettent de remplacer un libellé présent dans la base de données par un libellé attendu dans le système d'informations destinataire de l'export{/t}
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
   <a href="translatorChange?translator_id=0">
     <img src="display/images/new.png" height="25">
   {t}Nouveau...{/t}

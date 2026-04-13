@@ -32,25 +32,25 @@
 		<input type="hidden" name="parentKeyName" value="{$parentKeyName}">
 		<input type="hidden" name="activeTab" value="tab-document">
 		<div class="row mb-6">
-			<label for="documentName" class="form-label col-md-4">
+			<label for="documentName" class="form-label col-4">
 				{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 			</label>
-			<div class="col-md-8">
+			<div class="col-8">
 				<input id="documentName" type="file" class="form-control"
 					name="documentName[]" multiple>
 			</div>
 		</div>
 		<div class="row mb-6">
-			<label for="document_description" class="form-label col-md-4">
+			<label for="document_description" class="form-label col-4">
 				{t}Description :{/t} </label>
-			<div class="col-md-8">
+			<div class="col-8">
 				<input id="document_description" name="document_description" class="form-control">
 			</div>
 		</div>
 		<div class="row mb-6">
-			<label for="document_creation_date" class="form-label col-md-4">
+			<label for="document_creation_date" class="form-label col-4">
 				{t}Date de création du document :{/t} </label>
-			<div class="col-md-8">
+			<div class="col-8">
 				<input id="document_creation_date" name="document_creation_date"
 					class="form-control datepicker">
 			</div>

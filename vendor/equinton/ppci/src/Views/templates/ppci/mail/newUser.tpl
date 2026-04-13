@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Nouvel utilisateur{/t}</h2>
 {t 1=$login 2=$name 3=$appName}%2 a créé son compte avec le login %1 dans l'application %3. Le compte est actuellement inactif.{/t}
 <br>

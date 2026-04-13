@@ -1,3 +1,4 @@
+<div class="container">
 <h2>About <b>APP</b></h2>
 <p>
 Version {$version} of {$versiondate}.

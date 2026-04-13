@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Types de réglementations{/t}</h2>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
     {if $rights.param == 1}
       <a href="regulationChange?regulation_id=0">
         {t}Nouveau...{/t}

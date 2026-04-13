@@ -2,12 +2,13 @@
     <img src="display/images/list.png" height="25">
     {t}Retour à la liste des applications{/t}
 </a>
+<div class="container">
 <h2>{t}Liste des droits disponibles pour l'application{/t}
     <a href="appliChange?aclappli_id={$data.aclappli_id}">
         {$data.appli} {if $data.applidetail}({$data.applidetail}){/if}
     </a>
 </h2>
-<div class="col-md-6">
+<div class="col-6">
     <a href="appliChange?aclappli_id={$data.aclappli_id}">
         <img src="display/images/edit.gif" height="25">
         {t}Modifier...{/t}

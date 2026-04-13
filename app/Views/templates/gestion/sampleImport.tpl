@@ -18,21 +18,22 @@
             });
       });
 </script>
+<div class="container">
 <h2>{t}Import d'échantillons provenant d'une base externe à partir d'un fichier CSV{/t}</h2>
 
-<div class="row col-md-6">
+<div class="row col-6">
       <form class="form-horizontal" id="sampleStage1" method="post" action="sampleImportStage2"
             enctype="multipart/form-data">
             <div class="row mb-6">
-                  <label for="upfile" class="form-label col-md-4"><span class="red">*</span>
+                  <label for="upfile" class="form-label col-4"><span class="red">*</span>
                         {t}Nom du fichier à importer (CSV) :{/t}</label>
-                  <div class="col-md-8">
+                  <div class="col-8">
                         <input type="file" name="upfile" required class="form-control">
                   </div>
             </div>
             <div class="row mb-6">
-                  <label for="separator" class="form-label col-md-4">{t}Séparateur utilisé :{/t}</label>
-                  <div class="col-md-8">
+                  <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
+                  <div class="col-8">
                         <select id="separator" name="separator" class="form-control">
                               <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
                               <option value=";" {if $separator==";" }selected{/if}>{t}Point-virgule{/t}</option>
@@ -41,8 +42,8 @@
                   </div>
             </div>
             <div class="row mb-6">
-                  <label for="utf8_encode" class="form-label col-md-4">{t}Encodage du fichier :{/t}</label>
-                  <div class="col-md-8">
+                  <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
+                  <div class="col-8">
                         <select id="utf8_encode" name="utf8_encode" class="form-control">
                               <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
                               <option value="1" {if $utf8_encode==1}selected{/if}>ISO-8859-x</option>
@@ -56,11 +57,13 @@
       </form>
 
 
-      <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+      	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>
 </div>
 
 {if $stage > 1}
-<fieldset class="row col-md-12">
+<fieldset class="row col-12">
       <legend>{t}Tableau de correspondance entre les libellés fournis et ceux de la base de données locale{/t}</legend>
       <form class="form-horizontal " id="sampleStage2" method="post" action="sampleImportStage3"
             enctype="multipart/form-data">
@@ -68,8 +71,8 @@
             <input type="hidden" name="separator" value="{$separator}">
             <input type="hidden" name="utf8_encode" value="{$utf8_encode}">
             <div class="row mb-6">
-                  <label for="filename" class="form-label col-md-4">{t}Fichier en cours de traitement :{/t}</label>
-                  <div class="col-md-8">
+                  <label for="filename" class="form-label col-4">{t}Fichier en cours de traitement :{/t}</label>
+                  <div class="col-8">
                         <input type="text" id="filename" class="form-control" readonly name="filename"
                               value="{$filename}">
                   </div>
@@ -79,8 +82,8 @@
                   <legend>{$kname}</legend>
                   {foreach $name as $val}
                   <div class="row mb-6">
-                        <label for="{$kname}-{$val}" class="form-label col-md-4">{$val}</label>
-                        <div class="col-md-8">
+                        <label for="{$kname}-{$val}" class="form-label col-4">{$val}</label>
+                        <div class="col-8">
                               <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
                                     {foreach $dataClass[$kname] as $svalue}
                                     <option value="{$svalue[$kname]}" {if
@@ -102,7 +105,7 @@
 {/if}
 
 <div class="row">
-      <div class="col-sm-12">
+      <div class="col-12">
             <div class="bg-info">
                   {t}Ce module permet, à partir d'un fichier CSV :{/t}
                   <br>

@@ -31,7 +31,7 @@
 </a>
 {/if}
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-12">
         <!-- Tab box -->
         <ul class="nav nav-tabs" id="collectionTab" role="tablist">
             <li class="nav-item active">
@@ -60,11 +60,11 @@
             </li>
         </ul>
         <!-- description des boites-->
-        <div class="tab-content col-lg-12" id="tabcontent">
+        <div class="tab-content col-12" id="tabcontent">
             <!-- donnees generales-->
             <div class="tab-pane active in" id="navGeneral" role="tabpanel" aria-labelledby="tabGeneral">
                 <div class="row">
-                    <div class="col-md-8 col-lg-6">
+                    <div class="col-8 col-6">
                         <div class="form-display">
                             <dl class="dl-horizontal">
                                 <dt>{t}Nom de la collection :{/t}</dt>
@@ -127,14 +127,14 @@
             <!--sample and event types-->
             <div class="tab-pane fade" id="navsampletypes" role="tabpanel" aria-labelledby="tabsampletypes">
                 <div class="row">
-                    <div class="col-md-8 col-lg-6">
+                    <div class="col-8 col-6">
                         <div class="form-display">
                             <fieldset>
                                 <legend>{t}Types d'échantillons rattachés{/t}</legend>
                             </fieldset>
                             <div class="row">
                                 {foreach $sampletypes as $row}
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     {$row.sample_type_name}
                                 </div>
                                 {/foreach}
@@ -145,7 +145,7 @@
                             </fieldset>
                             <div class="row">
                                 {foreach $eventtypes as $row}
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     {$row.event_type_name}
                                 </div>
                                 {/foreach}
@@ -157,12 +157,12 @@
             <!-- notifications -->
             <div class="tab-pane fade" id="navnotifications" role="tabpanel" aria-labelledby="tabnotifications">
                 <div class="row">
-                    <div class="col-md-8 col-lg-6">
+                    <div class="col-8 col-6">
                         <div class="form-display">
                             <fieldset>
                                 <legend>{t}Groupes autorisés à modifier les échantillons{/t}</legend>
                                 {foreach $groups as $row}
-                                <div class="col-md-4">
+                                <div class="col-4">
                                     {$row.groupe}
                                 </div>
                                 {/foreach}
@@ -193,7 +193,7 @@
             <!-- documents-->
             <div class="tab-pane fade" id="navDocs" role="tabpanel" aria-labelledby="tabDocs">
                 <div class="row">
-                    <div class="col-lg-6 col-md-8">
+                    <div class="col-6 col-8">
                         {include file="gestion/documentList.tpl"}
                     </div>
                 </div>

@@ -692,11 +692,13 @@
 	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
 	<div class="container-fluid">
 		{if $rights.manage == 1}
-		<div class="row">
-			<div class="center">
-				<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>
-				<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample">
-				<select id="labels" name="label_id" class="">
+		<div class="row align-items-center">
+			<div class="col-auto ">
+				<label id="lsamplecheck" for="checkSample" class="form-check-label">{t}Tout cocher{/t}</label>
+				<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample form-check-inline">
+			</div>
+			<div class="col-auto ">
+				<select id="labels" name="label_id" class="form-select">
 					<option value="" {if $label_id=="" }selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
 					<option value="{$labels[lst].label_id}" {if $labels[lst].label_id==$label_id}selected{/if}>
@@ -704,29 +706,42 @@
 					</option>
 					{/section}
 				</select>
+			</div>
+			<div class="col-auto">
 				<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
-
-				{if !empty($printers)}
-				<select id="printers" name="printer_id">
+			</div>
+			{if !empty($printers)}
+			<div class="col-auto">
+				<select id="printers" name="printer_id" class="form-select">
 					{section name=lst loop=$printers}
 					<option value="{$printers[lst].printer_id}">
 						{$printers[lst].printer_name}
 					</option>
 					{/section}
 				</select>
+			</div>
+			<div class="col-auto ">
 				<button id="sampledirect" class="btn btn-primary">{t}Impression directe{/t}</button>
-				{/if}
+			</div>
+			{/if}
+			<div class="col-auto ">
 				<button id="samplecsvfile" class="btn btn-primary">{t}Fichier CSV pour impression externe{/t}</button>
-				{if $rights["manage"] == 1}
+			</div>
+
+			{if $rights["manage"] == 1}
+			<div class="col-auto ">
 				<button id="sampleExport" class="btn btn-primary"
 					title="{t}Export pour import dans une autre base Collec-Science{/t}">
 					{t}Export vers autre base{/t}</button>
-				{/if}
+			</div>
+
+			{/if}
+			<div class="col-auto ">
 				{$helpsamplelist}
 			</div>
 		</div>
-		{/if}
 	</div>
+	{/if}
 	<div class="container-fluid">
 		<div class="row">
 			<table id="sampleList" class="table table-bordered table-hover display">
@@ -739,7 +754,7 @@
 						<th>{t}UID{/t}</th>
 						<th>{t}Identifiant ou nom{/t}</th>
 						<th>{t}Autres identifiants{/t}</th>
-						<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
+						<th class="d-none d-table-cell">{t}Collection{/t}</th>
 						<th>{t}Type{/t}</th>
 						<th>{t}Statut{/t}</th>
 						<th>{t}Parent{/t}</th>
@@ -881,13 +896,13 @@
 			<div id="nbSampleChecked"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-10 form-horizontal">
+			<div class="col-10 form-horizontal">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">
 				<input type="hidden" name="collection_id" value="{$sampleSearch.collection_id}">
 				<input type="hidden" name="is_action" value="1">
-				<select id="checkedActionSample" class="form-control">
+				<select id="checkedActionSample" class="form-select">
 					<option value="" selected>{t}Choisissez{/t}</option>
 					<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 					<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
@@ -911,7 +926,7 @@
 					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
 				</select>
 				<div class="referentid">
-					<select id="referentid" name="referent_id" class="form-control">
+					<select id="referentid" name="referent_id" class="form-select">
 						<option value="">{t}Choisissez le référent...{/t}</option>
 						{foreach $referents as $referent}
 						<option value="{$referent.referent_id}">
@@ -923,21 +938,21 @@
 				<!-- Ajout d'un nouvel evenement-->
 				<div class="event">
 					<div class="row mb-6">
-						<label for="due_date" class="form-label col-md-4">{t}Date d'échéance :{/t}</label>
-						<div class="col-md-8">
+						<label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
+						<div class="col-8">
 							<input id="due_date" name="due_date" value="" class="form-control datepicker">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="event_date" class="form-label col-md-4">{t}Date{/t} :</label>
-						<div class="col-md-8">
+						<label for="event_date" class="form-label col-4">{t}Date{/t} :</label>
+						<div class="col-8">
 							<input id="event_date" name="event_date" value="" class="form-control datepicker">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="eventsType" class="form-label col-md-4"><span class="red">*</span> {t}Type
+						<label for="eventsType" class="form-label col-4"><span class="red">*</span> {t}Type
 							d'événement :{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<select id="eventsType" name="event_type_id" class="form-control">
 								{section name=lst loop=$eventType}
 								<option value="{$eventType[lst].event_type_id}">
@@ -948,8 +963,8 @@
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="event_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
-						<div class="col-md-8">
+						<label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+						<div class="col-8">
 							<textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
 						</div>
 					</div>
@@ -957,11 +972,11 @@
 				<!-- add a borrowing -->
 				<div class="borrowing">
 					<div class="row mb-6 ">
-						<label for="borrower_id" class="form-label col-md-4">
+						<label for="borrower_id" class="form-label col-4">
 							<span class="red">*</span>{t}Emprunteur :{/t}
 						</label>
-						<div class="col-md-8">
-							<select id="borrower_id" name="borrower_id" class="form-control">
+						<div class="col-8">
+							<select id="borrower_id" name="borrower_id" class="form-select">
 								{foreach $borrowers as $borrower}
 								<option value="{$borrower.borrower_id}">
 									{$borrower.borrower_name}
@@ -971,17 +986,17 @@
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="borrowing_date" class="form-label col-md-4"><span class="red">*</span>{t}Date
+						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>{t}Date
 							d'emprunt :{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}"
 								class="form-control datepicker">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="expected_return_date" class="form-label col-md-4">{t}Date de retour escomptée
+						<label for="expected_return_date" class="form-label col-4">{t}Date de retour escomptée
 							:{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}"
 								class="form-control datepicker">
 						</div>
@@ -990,9 +1005,9 @@
 				<!-- set Trashed-->
 				<div class="trashedgroupsample">
 					<div class="row mb-6 ">
-						<label for="trashed" class="form-label col-md-4">{t}Traitement de la corbeille{/t}</label>
-						<div class="col-md-8">
-							<select class="form-control" name="settrashed" id="trashedbin">
+						<label for="trashed" class="form-label col-4">{t}Traitement de la corbeille{/t}</label>
+						<div class="col-8">
+							<select class="form-select" name="settrashed" id="trashedbin">
 								<option value="1">{t}Mettre à la corbeille{/t}</option>
 								<option value="0">{t}Sortir de la corbeille{/t}</option>
 							</select>
@@ -1029,17 +1044,17 @@
 				</script>
 				<div class="entry">
 					<div class="row mb-6 ">
-						<label for="container_uidChange" class="form-label col-md-4"><span class="red">*</span> {t}UID
+						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> {t}UID
 							du contenant :{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="container_uidChange" name="container_uid" value="" type="number"
 								class="form-control slotFull">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="container_family_id" class="form-label col-md-4">{t}ou recherchez :{/t}</label>
-						<div class="col-md-8">
-							<select id="container_family_id" name="container_family_id" class="form-control">
+						<label for="container_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
+						<div class="col-8">
+							<select id="container_family_id" name="container_family_id" class="form-select">
 								<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
 								{section name=lst loop=$containerFamily}
 								<option value="{$containerFamily[lst].container_family_id}">
@@ -1047,33 +1062,33 @@
 								</option>
 								{/section}
 							</select>
-							<select id="container_type_id" name="container_type_id" class="form-control">
+							<select id="container_type_id" name="container_type_id" class="form-select">
 								<option value=""></option>
 							</select>
-							<select id="containersSample" name="containers" class="form-control">
+							<select id="containersSample" name="containers" class="form-select">
 								<option value=""></option>
 							</select>
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="storage_location" class="form-label col-md-4">
+						<label for="storage_location" class="form-label col-4">
 							{t}Emplacement dans le contenant (format libre) :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="storage_location" name="storage_location" value="{$data.storage_location}"
 								type="text" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="line_number" class="form-label col-sm-4">{t}N° de ligne :{/t}</label>
-						<div class="col-sm-8">
+						<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
+						<div class="col-8">
 							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull"
 								title="{t}N° de la ligne de rangement dans le contenant{/t}">
 						</div>
 					</div>
 					<div class="row mb-6 ">
-						<label for="column_number" class="form-label col-sm-4">{t}N° de colonne :{/t}</label>
-						<div class="col-sm-8">
+						<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
+						<div class="col-8">
 							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull"
 								title="{t}N° de la colonne de rangement dans le contenant{/t}">
 						</div>
@@ -1082,9 +1097,9 @@
 				<!-- set country -->
 				<div class="country">
 					<div class="row mb-6 ">
-						<label for="country_id" class="form-label col-sm-4">{t}Pays :{/t}</label>
-						<div class="col-sm-8">
-							<select id="country_id" name="country_id" class="form-control">
+						<label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
+						<div class="col-8">
+							<select id="country_id" name="country_id" class="form-select">
 								<option value="0" {if $country.country_id=="0" }selected{/if}>{t}Choisissez...{/t}
 								</option>
 								{section name=lst loop=$countries}
@@ -1099,10 +1114,10 @@
 				<!-- set collection-->
 				<div class="collection">
 					<div class="row mb-6 ">
-						<label for="collection_id_change" class="form-label col-sm-4">{t}Nouvelle collection
+						<label for="collection_id_change" class="form-label col-4">{t}Nouvelle collection
 							:{/t}</label>
-						<div class="col-sm-8">
-							<select id="collection_id_change" name="collection_id_change" class="form-control">
+						<div class="col-8">
+							<select id="collection_id_change" name="collection_id_change" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $collections as $collection}
 								<option value="{$collection.collection_id}">
@@ -1116,9 +1131,9 @@
 				<!-- set campaign -->
 				<div class="campaign">
 					<div class="row mb-6 ">
-						<label for="campaign_id_change" class="form-label col-sm-4">{t}Nouvelle campagne :{/t}</label>
-						<div class="col-sm-8">
-							<select id="campaign_id_change" name="campaign_id" class="form-control">
+						<label for="campaign_id_change" class="form-label col-4">{t}Nouvelle campagne :{/t}</label>
+						<div class="col-8">
+							<select id="campaign_id_change" name="campaign_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $campaigns as $campaign}
 								<option value="{$campaign.campaign_id}">{$campaign.campaign_name}</option>
@@ -1130,9 +1145,9 @@
 				<!-- set status -->
 				<div class="status">
 					<div class="row mb-6 ">
-						<label for="object_status_id" class="col-sm-4 form-label">{t}Statut :{/t}</label>
-						<div class="col-sm-8">
-							<select id="object_status_id" name="object_status_id" class="form-control">
+						<label for="object_status_id" class="col-4 form-label">{t}Statut :{/t}</label>
+						<div class="col-8">
+							<select id="object_status_id" name="object_status_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $objectStatus as $status}
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
@@ -1144,11 +1159,11 @@
 				<!-- change sampleType-->
 				<div class="samplestype">
 					<div class="row mb-6">
-						<label for="samplesTypeId" class="col-sm-4 form-label">
+						<label for="samplesTypeId" class="col-4 form-label">
 							{t}Nouveau type d'échantillon :{/t}
 						</label>
-						<div class="col-sm-8">
-							<select id="samplesTypeId" name="sample_type_id" class="form-control">
+						<div class="col-8">
+							<select id="samplesTypeId" name="sample_type_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $sample_type as $st}
 								<option value="{$st.sample_type_id}">
@@ -1162,18 +1177,18 @@
 				<!-- set parent -->
 				<div class="parentid">
 					<div class="row mb-6">
-						<label for="parent_search" class="form-label col-sm-4"> {t}Recherchez le parent :{/t}</label>
-						<div class="col-sm-6">
+						<label for="parent_search" class="form-label col-4"> {t}Recherchez le parent :{/t}</label>
+						<div class="col-6">
 							<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-2">
 							<img src="display/images/zoom.png" height="25" title="{t}Chercher{/t}">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="parent_sample_id" class="form-label col-sm-4"> {t}Parent à affecter :{/t}</label>
-						<div class="col-sm-8">
-							<select id="parent_sample_id" name="parent_sample_id" class="form-control">
+						<label for="parent_sample_id" class="form-label col-4"> {t}Parent à affecter :{/t}</label>
+						<div class="col-8">
+							<select id="parent_sample_id" name="parent_sample_id" class="form-select">
 							</select>
 						</div>
 					</div>
@@ -1181,24 +1196,24 @@
 				<div class="document">
 					<input type="hidden" name="parentKeyName" value="uid">
 					<div class="row mb-6">
-						<label for="documentName2" class="form-label col-md-4">
+						<label for="documentName2" class="form-label col-4">
 							{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="documentName2" type="file" class="form-control" name="documentName[]" multiple>
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="documentDescription2" class="form-label col-md-4">
+						<label for="documentDescription2" class="form-label col-4">
 							{t}Description :{/t} </label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="documentDescription2" name="document_description" class="form-control">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="document_creation_date2" class="form-label col-md-4">
+						<label for="document_creation_date2" class="form-label col-4">
 							{t}Date de création du document :{/t} </label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="document_creation_date2" name="document_creation_date" class="form-control date">
 						</div>
 					</div>
@@ -1284,27 +1299,27 @@
 				</script>
 				<div class="createComposite">
 					<div class="row mb-6">
-						<label for="subsample_quantity" class="form-label col-md-4"><span class="red">*</span>
+						<label for="subsample_quantity" class="form-label col-4"><span class="red">*</span>
 							{t}Quantité à retirer de chacun des échantillons sélectionnés :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}"
 								class="form-control taux">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="identifierComposite" class="form-label col-md-4">{t}Identifiant ou nom :{/t}</label>
-						<div class="col-md-8">
+						<label for="identifierComposite" class="form-label col-4">{t}Identifiant ou nom :{/t}</label>
+						<div class="col-8">
 							<input id="identifierComposite" type="text" name="identifierComposite"
 								class="form-control tocreate">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="collection_idComposite" class="form-label col-md-4"><span class="red">*</span>
+						<label for="collection_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Collection :{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<select id="collection_idComposite" name="collection_idComposite"
-								class="form-control tocreate" autofocus>
+								class="form-select tocreate" autofocus>
 								{foreach $collections as $collection}
 								<option value="{$collection.collection_id}" {if
 									$sampleSearch.collection_id==$collection.collection_id}selected{/if}>
@@ -1315,47 +1330,47 @@
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="sample_type_idComposite" class="form-label col-md-4"><span class="red">*</span>
+						<label for="sample_type_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Type :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<select id="sample_type_idComposite" name="sample_type_idComposite"
-								class="form-control tocreate">
+								class="form-select tocreate">
 							</select>
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="uidsearchComposite" class="col-md-4 form-label">
+						<label for="uidsearchComposite" class="col-4 form-label">
 							{t}Échantillon déjà existant - UID :{/t}</label>
-						<div class="col-md-2">
+						<div class="col-2">
 							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre"
 								value="{$data.created_uid}">
 						</div>
-						<label for="namesearchComposite" class="col-md-2 form-label">
+						<label for="namesearchComposite" class="col-2 form-label">
 							{t}ou identifiant ou UUID :{/t}
 						</label>
-						<div class="col-md-3">
+						<div class="col-3">
 							<input id="namesearchComposite" type="text" class="form-control" name="nameComposite"
 								title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
 						</div>
-						<div class="col-md-1">
+						<div class="col-1">
 							<img src="display/images/zoom.png" height="25">
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="uidComposite" class="col-md-4 form-label">
+						<label for="uidComposite" class="col-4 form-label">
 							{t}Échantillon composé correspondant :{/t}
 						</label>
-						<div class="col-md-8">
-							<select id="uidComposite" name="uidComposite" class="form-control">
+						<div class="col-8">
+							<select id="uidComposite" name="uidComposite" class="form-select">
 							</select>
 						</div>
 					</div>
 					<div class="row mb-6">
-						<label for="multiple_valueComposite" class="form-label col-md-4">
+						<label for="multiple_valueComposite" class="form-label col-4">
 							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création
 							uniquement):{/t}</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="multiple_valueComposite" class="form-control taux tocreate"
 								name="multiple_valueComposite">
 						</div>
@@ -1366,7 +1381,7 @@
 					<button id="checkedButtonSample" class="btn btn-danger">{t}Exécuter{/t}</button>
 				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-2">
 				{$helpsamplegroup}
 			</div>
 		</div>

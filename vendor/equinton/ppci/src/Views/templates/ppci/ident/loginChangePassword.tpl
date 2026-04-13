@@ -83,9 +83,10 @@ $("#pass1").on('input', function()
 
 </script>
 
+<div class="container">
 <h2>{t}Modifier le mot de passe{/t}</h2>
 <div class="row">
-<div class="col-lg-6">
+<div class="col-6">
 <form id="formPassword" method="post" class="form-horizontal" action="{if $passwordLost == 1}passwordlostReinitwrite{else}loginChangePasswordExec{/if}">
 <input type="hidden" name="id" value="{$data.id}">
 <input type="hidden" name="is_expired" value="0">
@@ -93,39 +94,39 @@ $("#pass1").on('input', function()
 <input type="hidden" name="token" value="{$token}">
 {else}
 <div class="row mb-6">
-<label for="oldPassword" class="form-label col-md-4">{t}Ancien mot de passe :{/t}</label>
-<div class="col-md-7">
+<label for="oldPassword" class="form-label col-4">{t}Ancien mot de passe :{/t}</label>
+<div class="col-7">
 <input id="pass3" class="form-control" type="password" name="oldPassword" autocomplete="off" autofocus>
 </div>
-<div class="col-md-1">
+<div class="col-1">
 	<img src="display/images/framework/visible-24.png" height="16" id="passVisible" class="passwordVisible" data-fieldnumber="2">
 </div>
 </div>
 {/if}
 <div class="row mb-6">
-<label for="pass1" class="form-label col-md-4">
+<label for="pass1" class="form-label col-4">
 {t}Nouveau mot de passe :{/t}
 </label>
-<div class="col-md-7">
+<div class="col-7">
 <input type="password" id="pass1" class="form-control" autocomplete="off" name="pass1">
 </div>
-<div class="col-md-1">
+<div class="col-1">
 	<img src="display/images/framework/visible-24.png" height="16" id="passVisible" class="passwordVisible" data-fieldnumber="0">
 </div>
-<div class="col-md-12 center">
+<div class="col-12 center">
 	<meter min="0" low="1" optimum="2" high="3" max="4" id="password-strength-meter"></meter>
 	<div id="messageZxcvbn" class="messageLevel"></div>
 </div>
 
 </div>
 <div class="row mb-6">
-<label for="pass2" class="form-label col-md-4">
+<label for="pass2" class="form-label col-4">
 {t}Répétez le mot de passe :{/t}
 </label>
-<div class="col-md-7">
+<div class="col-7">
 <input type="password" id="pass2" name="pass2" class="form-control" autocomplete="off">
 </div>
-<div class="col-md-1">
+<div class="col-1">
 	<img src="display/images/framework/visible-24.png" height="16" id="passVisible2" class="passwordVisible" data-fieldnumber="1">
 </div>
 </div>

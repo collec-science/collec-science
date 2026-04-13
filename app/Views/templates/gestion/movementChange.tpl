@@ -224,7 +224,7 @@ var type_movement = "{$data.movement_type_id}";
 
 </script>
 <div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 		<a href="{$moduleListe}">
 			<img src="display/images/list.png" height="25">
 			{if $moduleParent == "container"}{t}Retour à la liste des contenants{/t}{else}{t}Retour à la liste des échantillons{/t}{/if}
@@ -243,8 +243,8 @@ var type_movement = "{$data.movement_type_id}";
 		<input type="hidden" name="activeTab" value="{$activeTab}">
 
 		<div class="row mb-6">
-			<label for="uid" class="form-label col-md-4">{t}Objet :{/t}</label>
-			<div class="col-md-8">
+			<label for="uid" class="form-label col-4">{t}Objet :{/t}</label>
+			<div class="col-8">
 				<input id="uid" name="uid" value="{$data.uid}" readonly >
 				<input id="identifier" name="identifier" value="{$object.identifier}" readonly>
 			</div>
@@ -253,14 +253,14 @@ var type_movement = "{$data.movement_type_id}";
 			<fieldset>
 				<legend>{t}Entrer ou déplacer dans :{/t}</legend>
 				<div class="row mb-6">
-					<label for="container_uid" class="form-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
-					<div class="col-md-8">
+					<label for="container_uid" class="form-label col-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
+					<div class="col-8">
 						<input id="container_uid" name="container_uid" value="{$data.container_uid}" type="number" class="form-control slotFull">
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="container_family_id" class="form-label col-md-4">{t}ou recherchez :{/t}</label>
-					<div class="col-md-8">
+					<label for="container_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
+					<div class="col-8">
 						<select id="container_family_id" name="container_family_id" class="form-control">
 							<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$containerFamily}
@@ -282,29 +282,29 @@ var type_movement = "{$data.movement_type_id}";
 		<fieldset>
 			<legend>{t}Détails :{/t}</legend>
 			<div class="row mb-6">
-				<label for="movement_date" class="form-label col-md-4"><span class="red">*</span> {t}Date :{/t}</label>
-				<div class="col-md-8">
+				<label for="movement_date" class="form-label col-4"><span class="red">*</span> {t}Date :{/t}</label>
+				<div class="col-8">
 					<input id="movement_date" name="movement_date" value="{$data.movement_date}" required class="datetimepicker form-control">
 				</div>
 			</div>
 			{if $data.movement_type_id == 1}
 				<div class="row mb-6">
-					<label for="storage_location" class="form-label col-md-4">{t}Emplacement dans le contenant
+					<label for="storage_location" class="form-label col-4">{t}Emplacement dans le contenant
 					(format libre) :{/t}</label>
-					<div class="col-md-8">
+					<div class="col-8">
 						<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="line_number" class="form-label col-sm-4">{t}N° de ligne :{/t}</label>
-					<div class="col-sm-8">
+					<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
+					<div class="col-8">
 						<input id="line_number" name="line_number"
 							value="{$data.line_number}" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 					</div>
 				</div>
 				<div class="row mb-6">
-					<label for="column_number" class="form-label col-sm-4">{t}N° de colonne :{/t}</label>
-					<div class="col-sm-8">
+					<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
+					<div class="col-8">
 						<input id="column_number" name="column_number"
 							value="{$data.column_number}" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 					</div>
@@ -314,8 +314,8 @@ var type_movement = "{$data.movement_type_id}";
 				<input type="hidden" name="line_number" id="line_number" value="1">
 				<input type="hidden" name="column_number" id="column_number" value="1">
 				<div class="row mb-6">
-					<label for="movement_reason_id" class="form-label col-sm-4">{t}Motif du déstockage :{/t}</label>
-					<div class="col-sm-8">
+					<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
+					<div class="col-8">
 						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
 							<option value="" {if $data.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$movementReason}
@@ -328,14 +328,14 @@ var type_movement = "{$data.movement_type_id}";
 				</div>
 			{/if}
 			<div class="row mb-6">
-				<label for="movement_comment" class="form-label col-md-4">{t}Commentaire :{/t}</label>
-				<div class="col-md-8">
+				<label for="movement_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+				<div class="col-8">
 					<textarea id="movement_comment" name="movement_comment" class="form-control" rows="3">{$data.movement_comment}</textarea>
 				</div>
 			</div>
 			<div class="row mb-6">
-				<label for="login" class="form-label col-md-4">{t}Utilisateur :{/t}</label>
-				<div class="col-md-8">
+				<label for="login" class="form-label col-4">{t}Utilisateur :{/t}</label>
+				<div class="col-8">
 					<input id="login" name="login" value="{$data.login}" type="text" readonly class="form-control">
 				</div>
 			</div>
@@ -345,8 +345,10 @@ var type_movement = "{$data.movement_type_id}";
 		</div>
 	{$csrf}</form>
 	</div>
-	<div class="col-md-6">
+	<div class="col-6">
 		<div id="container-content"></div>	
 	</div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

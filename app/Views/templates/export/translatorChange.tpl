@@ -12,9 +12,10 @@
     })
   });
 </script>
+<div class="container">
 <h2>{t}Modification d'une table de correspondance{/t}</h2>
 <div class="row">
-  <div class="col-md-12">
+  <div class="col-12">
     <a href="translatorList">
       <img src="display/images/list.png" height="25">
       {t}Retour à la liste{/t}
@@ -22,7 +23,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
     <form id="translatorId" class="form-horizontal" action="translatorWrite" method="POST">
       <input type="hidden" name="moduleBase" value="translator">
       <input type="hidden" name="translator_id" value="{$data.translator_id}">
@@ -30,8 +31,8 @@
         <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
       </div>
       <div class="row mb-6">
-        <label for="translatorName"  class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
-        <div class="col-md-8">
+        <label for="translatorName"  class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
+        <div class="col-8">
           <input id="translatorName" type="text" class="form-control" name="translator_name" value="{$data.translator_name}" autofocus required>
         </div>
       </div>

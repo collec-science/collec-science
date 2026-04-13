@@ -22,12 +22,12 @@ $(document).ready(function() {
 </script>
 
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-12">
 	{include file='gestion/sampleSearchTab.tpl'}
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+	<div class="col-xs-12 col-12 col-12 col-12 col-xl-12">
 		{if $rights.manage == 1}
 			<a href="sampleChangeTab?uid=0"><img src="display/images/new.png" height="25">{t}Nouvel échantillon{/t}</a>
 		{/if}
@@ -47,7 +47,7 @@ $(document).ready(function() {
 						</a>
 				</li>
 			</ul>
-			<div class="tab-content tab-content-white col-lg-12 form-horizontal" id="tabresult-content">
+			<div class="tab-content tab-content-white col-12 form-horizontal" id="tabresult-content">
 				<div class="tab-pane active in" id="navlist" role="tabpanel" aria-labelledby="tablist">
 					{include file='gestion/sampleListDetail.tpl'}
 				</div>

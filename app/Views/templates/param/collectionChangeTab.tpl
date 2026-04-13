@@ -29,9 +29,10 @@
     } );
 </script>
 
+<div class="container">
 <h2>{t}Création - Modification d'une collection{/t}</h2>
 <div class="row">
-    <div class="col-md-10 col-lg-8">
+    <div class="col-10 col-8">
         <a href="collectionList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -82,49 +83,49 @@
                 </li>
             </ul>
             <!-- description des boites-->
-            <div class="tab-content col-lg-12 form-horizontal" id="tabContent">
+            <div class="tab-content col-12 form-horizontal" id="tabContent">
                 <!-- donnees generales-->
                 <div class="tab-pane active in" id="navgeneral" role="tabpanel" aria-labelledby="tabgeneral">
                     <div class="row mb-6">
-                        <label for="collectionName" class="form-label col-md-4">
+                        <label for="collectionName" class="form-label col-4">
                             <span class="red">*</span> {t}Nom :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input id="collectionName" type="text" class="form-control" name="collection_name"
                                 value="{$data.collection_name}" autofocus required>
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="collectionDisplayname" class="form-label col-md-4">
+                        <label for="collectionDisplayname" class="form-label col-4">
                             {t}Nom public, communiqué à l'extérieur :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input id="collectionDisplayname" type="text" class="form-control"
                                 name="collection_displayname" value="{$data.collection_displayname}">
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="collection_description" class="form-label col-md-4">
+                        <label for="collection_description" class="form-label col-4">
                             {t}Description de la collection :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <textarea class="form-control" name="collection_description" id="collection_description">{$data.collection_description}</textarea>
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="collectionKeywords" class="form-label col-md-4">
+                        <label for="collectionKeywords" class="form-label col-4">
                             {t}Mots clés, séparés par une virgule :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input id="collectionKeywords" type="text" class="form-control" name="collection_keywords"
                                 value="{$data.collection_keywords}">
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="referentId" class="form-label col-md-4">
+                        <label for="referentId" class="form-label col-4">
                             {t}Référent de la collection :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <select id="referentId" name="referent_id" class="form-control">
                                 <option value="" {if $data.referent_id=="" }selected{/if}>Choisissez...</option>
                                 {foreach $referents as $referent}
@@ -137,10 +138,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="sau0" class="form-label col-md-4">
+                        <label for="sau0" class="form-label col-4">
                             {t}Les identifiants des échantillons doivent être uniques :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="sample_name_unique" id="sau0" value="f" {if
@@ -156,10 +157,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="columns" class="form-label col-md-4">
+                        <label for="columns" class="form-label col-4">
                             {t}Flux de modification entrants autorisés :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="allowed_import_flow" id="aif_1" value="f" {if
@@ -175,10 +176,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="allowed_export_flow" class="form-label col-md-4">
+                        <label for="allowed_export_flow" class="form-label col-4">
                             {t}Flux d'interrogation externes autorisés :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio" id="allowed_export_flow">
                                 <label>
                                     <input type="radio" name="allowed_export_flow" id="aef_1" value="f" {if
@@ -194,10 +195,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="public_collection" class="form-label col-md-4">
+                        <label for="public_collection" class="form-label col-4">
                             {t}Collection publique ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio" id="public_collection">
                                 <label>
                                     <input type="radio" name="public_collection" id="pub1" value="f" {if
@@ -213,10 +214,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="license_id" class="form-label col-md-4">
+                        <label for="license_id" class="form-label col-4">
                             {t}Licence de diffusion :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <select id="license_id" name="license_id" class="form-control">
                                 <option value="" {if $data.license_id=="" }selected{/if}>{t}Choisissez...{/t}
                                 </option>
@@ -229,10 +230,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="no_localization" class="form-label col-md-4">
+                        <label for="no_localization" class="form-label col-4">
                             {t}Collection sans gestion de la localisation des échantillons ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="no_localization" id="no_localization0" value="f" {if
@@ -249,10 +250,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="external_storage_enabled" class="form-label col-md-4">
+                        <label for="external_storage_enabled" class="form-label col-4">
                             {t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="external_storage_enabled" id="external_storage_enabled0"
@@ -269,10 +270,10 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="external_storage_root" class="form-label col-md-4">
+                        <label for="external_storage_root" class="form-label col-4">
                             {t}Chemin d'accès aux fichiers externes :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input id="external_storage_root" type="text" class="form-control"
                                 name="external_storage_root" value="{$data.external_storage_root}">
                         </div>
@@ -281,12 +282,12 @@
                 <!--groupes-->
                 <div class="tab-pane fade" id="navgroups" role="tabpanel" aria-labelledby="tabgroups">
                     <div class="row mb-6">
-                        <label for="groupes" class="form-label col-md-4">
+                        <label for="groupes" class="form-label col-4">
                             {t}Groupes :{/t}
                         </label>
-                        <div class="col-md-7">
+                        <div class="col-7">
                             {section name=lst loop=$groupes}
-                            <div class="col-md-2 col-sm-offset-3">
+                            <div class="col-2 col-offset-3">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if
@@ -302,15 +303,15 @@
                 <!--sample types-->
                 <div class="tab-pane fade" id="navsampletypes" role="tabpanel" aria-labelledby="tabsampletypes">
                     <div class="row mb-6">
-                        <label for="sampletypes" class="form-label col-md-4">
+                        <label for="sampletypes" class="form-label col-4">
                             {t}Types d'échantillons spécifiques de la collection :{/t}
                             <br>
                             {t}(dé)sélectionnez tous :{/t}
                             <input type="checkbox" id="sampletypecheck">
                         </label>
-                        <div class="col-md-7">
+                        <div class="col-7">
                             {section name=lst loop=$sampletypes}
-                            <div class="col-md-6 ">
+                            <div class="col-6 ">
                                 <div class="checkbox">
                                     <label>
                                         <input class="sampletypecheck" type="checkbox" name="sampletypes[]"
@@ -327,12 +328,12 @@
                 <!-- event types -->
                 <div class="tab-pane fade" id="naveventtypes" role="tabpanel" aria-labelledby="tabeventtypes">
                     <div class="row mb-6">
-                        <label for="eventtypes" class="form-label col-md-4">
+                        <label for="eventtypes" class="form-label col-4">
                             {t}Types d'événements spécifiques de la collection :{/t}
                         </label>
-                        <div class="col-md-7">
+                        <div class="col-7">
                             {section name=lst loop=$eventtypes}
-                            <div class="col-md-6 ">
+                            <div class="col-6 ">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="eventtypes[]"
@@ -349,10 +350,10 @@
                 <!-- notifications -->
                 <div class="tab-pane fade" id="navnotifications" role="tabpanel" aria-labelledby="tabnotifications">
                     <div class="row mb-6">
-                        <label for="ne0" class="form-label col-md-4">
+                        <label for="ne0" class="form-label col-4">
                             {t}Activer les notifications ?{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <div class="radio">
                                 <label>
                                     <input type="radio" class="notificationEnabled" name="notification_enabled"
@@ -368,29 +369,29 @@
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="notification_mails" class="col-md-4 form-label">
+                        <label for="notification_mails" class="col-4 form-label">
                             <span class="red">*</span>
                             {t}Mails des destinataires des notifications, séparés par une virgule :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input type="text" class="form-control notificationField" id="notification_mails"
                                 name="notification_mails" value="{$data.notification_mails}" required>
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="expiration_delay" class="col-md-4 form-label">
+                        <label for="expiration_delay" class="col-4 form-label">
                             {t}Délai avant l'expiration des échantillons, en jours (0 : pas de notification) :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input type="text" class="form-control notificationField" id="expiration_delay"
                                 name="expiration_delay" value="{$data.expiration_delay}">
                         </div>
                     </div>
                     <div class="row mb-6">
-                        <label for="event_due_delay" class="col-md-4 form-label">
+                        <label for="event_due_delay" class="col-4 form-label">
                             {t}Délai avant la date d'échéance d'un événement, en jours (0 : pas de notification) :{/t}
                         </label>
-                        <div class="col-md-8">
+                        <div class="col-8">
                             <input type="text" class="form-control notificationField" id="event_due_delay"
                                 name="event_due_delay" value="{$data.event_due_delay}">
                         </div>
@@ -400,4 +401,6 @@
         {$csrf}</form>
     </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

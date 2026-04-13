@@ -1,7 +1,8 @@
 {* Administration > ACL - groupes de logins > *}
+<div class="container">
 <h2>{t}Liste des groupes de logins{/t}</h2>
 	<div class="row">
-	<div class="col-md-6">
+	<div class="col-6">
 <a href="groupChange?aclgroup_id=0">
 {t}Nouveau groupe racine...{/t}
 </a>

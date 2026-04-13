@@ -1,25 +1,25 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <form class="form-horizontal " id="movement_search" action="movementList" method="GET">
             <input id="moduleBase" type="hidden" name="moduleBase" value="movement">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
             <div class="row mb-6">
-                <label for="login" class="col-md-2 form-label">{t}Login à rechercher :{/t}</label>
-                <div class="col-md-4">
+                <label for="login" class="col-2 form-label">{t}Login à rechercher :{/t}</label>
+                <div class="col-4">
                     <input id="login" name="login" class="form-control" value="{$movementSearch.login}">
                 </div>
-                <div class="col-md-2 offset-md-3">
+                <div class="col-2 offset-3">
                     <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
                 </div>
             </div>
             <div class="row mb-6">
-                <label for="date_start" class="col-md-2 form-label">{t}Du :{/t}</label>
-                <div class="col-md-4">
+                <label for="date_start" class="col-2 form-label">{t}Du :{/t}</label>
+                <div class="col-4">
                     <input class="datepicker form-control" name="date_start" id="date_start"
                         value="{$movementSearch.date_start}">
                 </div>
-                <label for="date_end" class="col-md-2 form-label">{t}Au :{/t}</label>
-                <div class="col-md-4">
+                <label for="date_end" class="col-2 form-label">{t}Au :{/t}</label>
+                <div class="col-4">
                     <input class="datepicker form-control" name="date_end" id="date_end"
                         value="{$movementSearch.date_end}">
                 </div>
@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         {if $movementSearch.isSearch > 0}
         <table id="movementList" class="table table-bordered table-hover datatable-export display"
             data-order='[[1,"desc"],[3,"asc"]]'>

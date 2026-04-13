@@ -8,33 +8,34 @@
     });
   });
 </script>
+<div class="container">
 <h2>{t}Création - Modification d'un type d'identifiant{/t}</h2>
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-6">
     <a href="identifierTypeList">{t}Retour à la liste{/t}</a>
 
     <form class="form-horizontal " id="identifierTypeForm" method="post" action="identifierTypeWrite">
       <input type="hidden" name="moduleBase" value="identifierType">
       <input type="hidden" name="identifier_type_id" value="{$data.identifier_type_id}">
       <div class="row mb-6">
-        <label for="identifierTypeName" class="form-label col-md-4"><span class="red">*</span> {t}Nom :{/t}</label>
-        <div class="col-md-8">
+        <label for="identifierTypeName" class="form-label col-4"><span class="red">*</span> {t}Nom :{/t}</label>
+        <div class="col-8">
           <input id="identifierTypeName" type="text" class="form-control" name="identifier_type_name"
             value="{$data.identifier_type_name}" autofocus required>
         </div>
       </div>
       <div class="row mb-6">
-        <label for="identifierTypeCode" class="form-label col-md-4">
+        <label for="identifierTypeCode" class="form-label col-4">
           {t}Code utilisé (étiquettes, recherche, import) :{/t}</label>
-        <div class="col-md-8">
+        <div class="col-8">
           <input id="identifierTypeCode" type="text" class="form-control" name="identifier_type_code"
             value="{$data.identifier_type_code}">
         </div>
       </div>
       <div class="row mb-6">
-        <label for="search" class="form-label col-md-4"><span class="red">*</span> 
+        <label for="search" class="form-label col-4"><span class="red">*</span> 
           {t}Identifiant utilisé dans les recherches ?{/t}</label>
-        <div class="col-md-8" id="search">
+        <div class="col-8" id="search">
           <div class="radio">
             <label>
               <input type="radio" name="used_for_search" id="ufs1" value="1" {if $data.used_for_search=='t'}checked{/if}>
@@ -61,4 +62,6 @@
     </form>
   </div>
 </div>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	<div class="row col-12 d-inline">
+		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+	</div>

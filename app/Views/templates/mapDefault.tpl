@@ -1,3 +1,4 @@
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <script>
     var mapFields, zoom, mapData, osm;
     function setMap(tagName = "map") {
@@ -40,6 +41,7 @@
             minZoom: mapData.mapMinZoom,
             maxZoom: mapData.mapMaxZoom,
             attribution: osmAttrib,
+            referrerPolicy: 'strict-origin-when-cross-origin',
             useCache: true,
             crossOrigin: "anonymous",
             cacheMaxAge: mapData["cacheMaxAge"]

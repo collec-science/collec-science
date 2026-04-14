@@ -1,3 +1,5 @@
 <div class="container">
 <h2>{t}PHP info{/t}</h2>
-{$phpinfo}
+<div class="row">
+   {$phpinfo} 
+</div>

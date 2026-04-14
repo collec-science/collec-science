@@ -18,7 +18,16 @@ class Acllogin extends PpciLibrary
     function list()
     {
         $vue = service("Smarty");
-        $vue->set($this->dataclass->getListLogins(), "data");
+        $vue->set($data = $this->dataclass->getListLogins(), "data");
+        $mails = "";
+        $sep = "";
+        foreach ($data as $row) {
+            if (!empty($row["email"])) {
+                $mails .= $sep.$row["email"];
+                $sep = ";";
+            }
+        }
+        $vue->set($mails, "emails");
         $vue->set("ppci/droits/loginList.tpl", "corps");
         return $vue->send();
     }

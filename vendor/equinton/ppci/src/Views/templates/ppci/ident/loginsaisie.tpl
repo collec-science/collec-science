@@ -1,7 +1,7 @@
 <script>
 	$(document).ready(function () {
 		var visible = [false, false];
-		var minLength = { $passwordMinLength };
+		var minLength = {$passwordMinLength};
 		$("#formLogin").submit(function (event) {
 			var error = false;
 			var message = "";
@@ -16,7 +16,7 @@
 					message = "{t}Les mots de passe ne sont pas identiques{/t}";
 				} else if (mdp1.length < minLength) {
 					error = true;
-					message = "{t}Le mot de passe est trop court. Minimum : {/t}" + { $passwordMinLength } + " {t}caractères{/t}";
+					message = "{t}Le mot de passe est trop court. Minimum : {/t}" + {$passwordMinLength} + " {t}caractères{/t}";
 				} else if (verifyComplexity(mdp1) == false) {
 					error = true;
 					message = "{t}Le mot de passe n'est pas assez complexe (mixez 3 jeux de caractères parmi les minuscules, majuscules, chiffres et signes de ponctuation){/t}";
@@ -224,9 +224,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<label for="attempts" class="col-4 form-label">{t}Essais de connexion infructueux et date du
-						dernier
-						essai :{/t}</label>
+					<label for="attempts" class="col-4 form-label">
+						{t}Essais de connexion infructueux et date du dernier essai :{/t}
+					</label>
 					<div class="col-2">
 						<input class="form-control" id="nbattempts" name="nbattempts" value="{$data.nbattempts}"
 							readonly>
@@ -236,8 +236,8 @@
 							readonly>
 					</div>
 					<div class="col-2">
-						<input type="checkbox" class="form-control" id="resetattempts" name="resetattempts" value="1">
-						<label class="form-label">{t}Réinitialiser...{/t}</label>
+						<input type="checkbox" class="form-check-input" id="resetattempts" name="resetattempts" value="1">
+						<label class="form-check-label" for="resetattempts">{t}Réinitialiser...{/t}</label>
 					</div>
 				</div>
 				<div class="row d-flex justify-content-center">

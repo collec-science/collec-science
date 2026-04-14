@@ -2,6 +2,7 @@
 	<h2>{t}Liste des groupes de logins{/t}</h2>
 	<div class="row">
 		<a href="groupChange?aclgroup_id=0">
+			<img src="display/images/new.png" height="25">
 			{t}Nouveau groupe racine...{/t}
 		</a>
 		<table id="groupListe" class="table table-bordered table-hover display">

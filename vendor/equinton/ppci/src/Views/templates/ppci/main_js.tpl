@@ -63,6 +63,8 @@
 <!-- specific code -->
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
 
+<!-- icons-->
+<link rel="stylesheet" type="text/css" href="display/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
 <!-- ppci.css-->
  <link rel="stylesheet" type="text/css" href="display/CSS/ppci.css">
 

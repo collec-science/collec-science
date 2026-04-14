@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "datatables.net": "^2.1.8",
     "datatables.net-bs": "^2.1.8",
     "datatables.net-bs5": "^2.3.7",

@@ -1,16 +1,5 @@
-<script >
+<script>
 	$(document).ready(function () {
-		var mails = "";
-		$(".mail").each(function (i, elem) {
-			var mail = $(elem).text();
-			if (mail.length > 0) {
-				if (mails.length > 0) {
-					mails += ";";
-				}
-				mails += mail;
-			}
-		});
-		$("#mails").val(mails);
 		$("#copyMails").click(function () {
 			var temp = $("<input>");
 			$("body").append(temp);
@@ -23,14 +12,13 @@
 	});
 </script>
 <div class="container">
-<h2>{t}Liste des logins déclarés dans le module de gestion des droits{/t}</h2>
-<div class="row">
-	<div class="col-6">
+	<h2>{t}Liste des logins déclarés dans le module de gestion des droits{/t}</h2>
+	<div class="row">
 		<a href="aclloginChange?acllogin_id=0">
 			{t}Nouveau login...{/t}
 		</a>
-		<table id="loginListe" class="table table-bordered table-hover datatable-searching display" id="table_id" data-order='[[ 0, "asc" ]]'
-			data-page-length='25'>
+		<table id="loginListe" class="table table-bordered table-hover datatable-searching display" id="table_id"
+			data-order='[[ 0, "asc" ]]' data-page-length='25'>
 			<thead>
 				<tr>
 					<th>{t}Utilisateur{/t}</th>
@@ -48,28 +36,31 @@
 						</a>
 					</td>
 					<td>{$data[lst].login}</td>
-					<td class="nowrap"><div class="mail">{$data[lst].email}</div></td>
+					<td class="nowrap">
+						<div class="mail">{$data[lst].email}</div>
+					</td>
 					<td class="center">{if $data[lst].totp_key == 1}{t}oui{/t}{/if}</td>
 				</tr>
 				{/section}
 			</tbody>
 		</table>
 	</div>
-</div>
-<div class="row">
-	<div class="col-12">
-		<form class="form-horizontal">
-			<div class="row">
-				<label for="mails" class="form-label col-2">
-					{t}Adresses mails :{/t}
-				</label>
-				<div class="col-9">
-					<input class="form-control" id="mails" readonly>
+
+	<div class="row">
+		<div class="col-12">
+			<form class="form-horizontal">
+				<div class="row">
+					<label for="mails" class="form-label col-2">
+						{t}Adresses mails :{/t}
+					</label>
+					<div class="col-9">
+						<input class="form-control" id="mails" value="{$emails}" readonly>
+					</div>
+					<div class="col-1">
+						<img src="display/images/copy.png" height="24" id="copyMails">
+					</div>
 				</div>
-				<div class="col-1">
-					<img src="display/images/copy.png" height="24" id="copyMails">
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	</div>
 </div>

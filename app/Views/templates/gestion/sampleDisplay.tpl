@@ -447,7 +447,7 @@
 </div>
 
 <div class="row">
-	<div class="col-8 col-8">
+	<div class="col-lg-8 col-md-12">
 		{if $data.uid > 0}
 		<div class="container">
 			<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
@@ -536,7 +536,7 @@
 </div>
 <div class="tab-content" id="nav-tabContent">
 	<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
-		<div class="form-display col-6">
+		<div class="form-display col-lg-6">
 			{if $rights.manage == 1}
 			<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
 				<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
@@ -662,9 +662,7 @@
 			</dl>
 			{/if}
 			<dl class="dl-horizontal">
-				<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">
-					{t}Date de modification :{/t}
-				</dt>
+				<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification :{/t}</dt>
 				<dd>{$data.change_date}</dd>
 			</dl>
 			{if $data.multiple_type_id > 0}

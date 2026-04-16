@@ -594,3 +594,10 @@ background-color: var(--color-green-7) !important;
   right: 20px;
   display: none;
 }
+dl {
+	display: grid;
+    grid-template-columns: 30% 70%;
+}
+dt {
+	font-weight: normal;
+}

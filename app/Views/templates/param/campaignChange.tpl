@@ -6,9 +6,9 @@
     {t}Retour au détail{/t}
 </a>
 {/if}
-<h3>{t}Création/modification d'une campagne{/t}</h3>
-<div class="row">
-    <div class="col-8">
+<div class="container">
+    <h2>{t}Création/modification d'une campagne{/t}</h2>
+    <div class="row">
         <form class="form-horizontal " id="campaignChange" method="post" action="campaignWrite">
             <input type="hidden" name="moduleBase" value="campaign">
             <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
@@ -68,8 +68,7 @@
                 <div class="col-7">
                     {section name=lst loop=$groupes}
                     <div class="col-md-2 col-md-offset-3">
-                        <input type="checkbox" class="form-check-input" id="groupes{$smarty.section.lst.index}"
-                        name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
+                        <input type="checkbox" class="form-check-input" id="groupes{$smarty.section.lst.index}" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
                         <label for="groupes{$smarty.section.lst.index}" class="form-check-label">
                             {$groupes[lst].groupe}
                         </label>
@@ -77,10 +76,14 @@
                     {/section}
                 </div>
             </div>
-            <div class="row center">
-                <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-                {if $data.campaign_id > 0}
-                <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                </div>
+                {if $data.campaign_id > 0 }
+                <div class="col-auto">
+                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                </div>
                 {/if}
             </div>
             {$csrf}

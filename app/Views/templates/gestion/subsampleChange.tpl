@@ -110,10 +110,9 @@
     });
 </script>
 <div class="container">
-<h2>{t}Création - modification d'un prélèvement ou d'une restitution de sous-échantillon{/t}</h2>
+    <h2>{t}Création - modification d'un prélèvement ou d'une restitution de sous-échantillon{/t}</h2>
 
-<div class="row">
-    <div class="col-6">
+    <div class="row">
         <a href="{$moduleListe}">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
@@ -134,8 +133,7 @@
                     {t}Date :{/t}
                 </label>
                 <div class="col-8">
-                    <input id="subsample_date" name="subsample_date" required value="{$data.subsample_date}"
-                        class="form-control datetimepicker">
+                    <input id="subsample_date" name="subsample_date" required value="{$data.subsample_date}" class="form-control datetimepicker">
                 </div>
             </div>
 
@@ -145,12 +143,10 @@
                 </label>
                 <div class="col-8">
                     <label class="radio-inline">
-                        <input class="movement_type " type="radio" name="movement_type_id" id="movement_type_id1"
-                            value="1" {if $data.movement_type_id==1}checked{/if}> {t}Entrée dans le stock{/t}
+                        <input class="movement_type " type="radio" name="movement_type_id" id="movement_type_id1" value="1" {if $data.movement_type_id==1}checked{/if}> {t}Entrée dans le stock{/t}
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" class="movement_type " name="movement_type_id" id="movement_type_id2"
-                            value="2" {if $data.movement_type_id==2}checked{/if}> {t}Sortie du stock{/t}
+                        <input type="radio" class="movement_type " name="movement_type_id" id="movement_type_id2" value="2" {if $data.movement_type_id==2}checked{/if}> {t}Sortie du stock{/t}
                     </label>
                 </div>
             </div>
@@ -160,8 +156,7 @@
                     {t 1=$data.multiple_unit}Quantité (%1) :{/t}
                 </label>
                 <div class="col-8">
-                    <input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}"
-                        class="form-control taux">
+                    <input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}" class="form-control taux">
                 </div>
             </div>
 
@@ -173,8 +168,7 @@
                             {t}Choisissez...{/t}
                         </option>
                         {foreach $borrowers as $borrower}
-                        <option value="{$borrower.borrower_id}" {if
-                            $borrower.borrower_id==$data.borrower_id}selected{/if}>
+                        <option value="{$borrower.borrower_id}" {if $borrower.borrower_id==$data.borrower_id}selected{/if}>
                             {$borrower.borrower_name}
                         </option>
                         {/foreach}
@@ -185,8 +179,7 @@
             <div class="row">
                 <label for="subsample_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
                 <div class="col-8">
-                    <textarea id="subsample_comment" name="subsample_comment" class="form-control"
-                        rows="3">{$data.subsample_comment}</textarea>
+                    <textarea id="subsample_comment" name="subsample_comment" class="form-control" rows="3">{$data.subsample_comment}</textarea>
                 </div>
             </div>
 
@@ -238,8 +231,7 @@
                         {t}ou identifiant ou UUID :{/t}
                     </label>
                     <div class="col-3">
-                        <input id="namesearch" type="text" class="form-control" name="name"
-                            title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+                        <input id="namesearch" type="text" class="form-control" name="name" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
                     </div>
                     <div class="col-1">
                         <img src="display/images/zoom.png" height="25">
@@ -262,18 +254,20 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row center">
-                <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                </div>
                 {if $data.subsample_id > 0 }
-                <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                <div class="col-auto">
+                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                </div>
                 {/if}
             </div>
             {$csrf}
         </form>
     </div>
+    <div class="row col-12 d-inline">
+        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+    </div>
 </div>
-
-	<div class="row col-12 d-inline">
-		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-	</div>

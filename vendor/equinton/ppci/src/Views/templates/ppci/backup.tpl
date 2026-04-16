@@ -13,12 +13,13 @@
             <form id="backup" method="post">
                 <input type="hidden" name="moduleBase" value="backup">
                 <input type="hidden" name="action" value="Exec">
-                <div class="row center">
-                    <button type="submit" class="btn btn-primary button-valid">{t}Déclencher la sauvegarde{/t}</button>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary button-valid">{t}Déclencher la sauvegarde{/t}</button>
+                    </div>
                 </div>
                 {$csrf}
             </form>
         </div>
     </div>
-
 </div>

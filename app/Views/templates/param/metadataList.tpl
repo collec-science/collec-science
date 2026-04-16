@@ -31,10 +31,10 @@
 			<div class="row">
 				<div class="center">
 					{t}Exporter les métadonnées :{/t} 
-					<label id="lmetadatacheck" for="checkMetadata">
+					<label id="lmetadatacheck" for="checkMetadata" class="form-check-label">
 						{t}Tout décocher{/t}
 					</label> 
-					<input type="checkbox" id="checkMetadata" checked>
+					<input type="checkbox" class="form-check-input" id="checkMetadata" checked>
 					<button type="submit" class="btn btn-primary">{t}Déclencher l'export{/t}</button>
 				</div>
 			</div>
@@ -70,7 +70,7 @@
 						</td>
 						{/if}
 						<td class="center">
-							<input type="checkbox" class="checkMetadata" name="metadata_id[]"
+							<input type="checkbox" class="checkMetadata form-check-input" name="metadata_id[]"
 								value="{$data[lst].metadata_id}" checked>
 						</td>
 					</tr>

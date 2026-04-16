@@ -68,7 +68,7 @@
 						<td>{$data[lst].identifier}</td>
 						<td>{$data[lst].object_type}</td>
 						<td>{$data[lst].type_name}</td>
-						<td class="center"><input type="checkbox"
+						<td class="center"><input type="checkbox" class="form-check-input"
 							name="container{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
 							{if $data[lst].object_type=="container"}checked{/if}></td>
 						<td class="center">

@@ -933,7 +933,8 @@
                         {$helpsamplesearch}
                     </div>
                     <label for="activateSearchByColumn" class="form-check-label col-1">
-                        {t}Recherche par colonne :{/t}</label>
+                        {t}Recherche par colonne :{/t}
+                    </label>
                     <div class="col-1">
                         <input type="checkbox" id="activateSearchByColumn" class="form-check-input">
                     </div>

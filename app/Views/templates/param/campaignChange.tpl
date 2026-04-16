@@ -2,10 +2,9 @@
     {t}Retour à la liste{/t}
 </a>
 {if $data.campaign_id > 0}
-&nbsp;<a href="campaignDisplay?campaign_id={$data.campaign_id}"><img src="display/images/display.png"
-        height="25">
-        {t}Retour au détail{/t}
-    </a>
+&nbsp;<a href="campaignDisplay?campaign_id={$data.campaign_id}"><img src="display/images/display.png" height="25">
+    {t}Retour au détail{/t}
+</a>
 {/if}
 <h3>{t}Création/modification d'une campagne{/t}</h3>
 <div class="row">
@@ -14,12 +13,11 @@
             <input type="hidden" name="moduleBase" value="campaign">
             <input type="hidden" name="campaign_id" value="{$data.campaign_id}">
             <div class="row">
-                <label for="campaign_name" class="form-label col-4"><span class="red">*</span> 
+                <label for="campaign_name" class="form-label col-4"><span class="red">*</span>
                     {t}Nom de la campagne :{/t}
                 </label>
                 <div class="col-8">
-                    <input id="campaign_name" type="text" class="form-control" name="campaign_name"
-                        value="{$data.campaign_name}" autofocus required>
+                    <input id="campaign_name" type="text" class="form-control" name="campaign_name" value="{$data.campaign_name}" autofocus required>
                 </div>
             </div>
             <div class="row">
@@ -38,8 +36,7 @@
                     <select id="referent_id" name="referent_id" class="form-control">
                         <option value="" {if $data.referent_id=="" }selected{/if}>{t}Choisissez{/t}</option>
                         {foreach $referents as $referent}
-                        <option value="{$referent.referent_id}" {if
-                            $referent.referent_id==$data.referent_id}selected{/if}>
+                        <option value="{$referent.referent_id}" {if $referent.referent_id==$data.referent_id}selected{/if}>
                             {$referent.referent_name}
                         </option>
                         {/foreach}
@@ -49,15 +46,13 @@
             <div class="row">
                 <label for="campaign_from" class="form-label col-4">{t}Date de début :{/t}</label>
                 <div class="col-8">
-                    <input id="campaign_from" type="text" class="form-control datepicker" name="campaign_from"
-                        value="{$data.campaign_from}">
+                    <input id="campaign_from" type="text" class="form-control datepicker" name="campaign_from" value="{$data.campaign_from}">
                 </div>
             </div>
             <div class="row">
                 <label for="campaign_to" class="form-label col-4">{t}Date de fin :{/t}</label>
                 <div class="col-8">
-                    <input id="campaign_to" type="text" class="form-control datepicker" name="campaign_to"
-                        value="{$data.campaign_to}">
+                    <input id="campaign_to" type="text" class="form-control datepicker" name="campaign_to" value="{$data.campaign_to}">
                 </div>
             </div>
             <div class="row">
@@ -72,14 +67,12 @@
                 </label>
                 <div class="col-7">
                     {section name=lst loop=$groupes}
-                    <div class="col-2 col-offset-3">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" name="groupes[]" value="{$groupes[lst].aclgroup_id}" 
-                                {if $groupes[lst].checked==1}checked{/if}>
-                                {$groupes[lst].groupe}
-                            </label>
-                        </div>
+                    <div class="col-md-2 col-md-offset-3">
+                        <input type="checkbox" class="form-check-input" id="groupes{$smarty.section.lst.index}"
+                        name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
+                        <label for="groupes{$smarty.section.lst.index}" class="form-check-label">
+                            {$groupes[lst].groupe}
+                        </label>
                     </div>
                     {/section}
                 </div>
@@ -90,6 +83,7 @@
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
                 {/if}
             </div>
-        {$csrf}</form>
+            {$csrf}
+        </form>
     </div>
 </div>

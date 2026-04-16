@@ -131,8 +131,8 @@
                                 <thead>
                                     <tr>
                                         <th class="center">
-                                            {t}Sélectionnez{/t}
-                                            <input type="checkbox" id="checkUid" class="checkUidSelect checkUid">
+                                            <label for="checkUid" class="form-check-label" >{t}Sélectionnez{/t}</label>
+                                            <input type="checkbox" id="checkUid" class="checkUidSelect checkUid form-check-input">
                                         </th>
                                         <th class="center">{t}uid{/t}</th>
                                         <th>{t}Identifiant métier{/t}</th>
@@ -143,7 +143,7 @@
                                     {foreach $samples as $sample}
                                     <tr>
                                         <td class="center">
-                                            <input type="checkbox" class="checkUid" name="samples[]"
+                                            <input type="checkbox" class="checkUid form-check-input" name="samples[]"
                                                 value="{$sample.sample_id}">
                                         </td>
                                         <td class="center">

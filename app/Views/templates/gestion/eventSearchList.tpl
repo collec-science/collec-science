@@ -327,7 +327,7 @@
                     {t}Activer la recherche par colonne :{/t}
                 </label>
                 <div class="col-1">
-                    <input type="checkbox" id="activateSearchByColumn" class="form-control">
+                    <input type="checkbox" id="activateSearchByColumn" class="form-check-input">
                 </div>
 
             </div>
@@ -346,7 +346,7 @@
             <thead>
                 <tr>
                     <th class="center">
-                        <input id="events" type="checkbox" value="{$events[ls].event_id}">
+                        <input id="events" type="checkbox" value="{$events[ls].event_id}" class="form-check-input">
                     </th>
                     <th>Id</th>
                     <th>{t}Date{/t}</th>
@@ -365,7 +365,7 @@
                 {section name=lst loop=$events}
                 <tr>
                     <td class="center">
-                        <input type="checkbox" class="events" name="events[]" value="{$events[lst].event_id}">
+                        <input type="checkbox" class="events form-check-input" name="events[]" value="{$events[lst].event_id}">
                     </td>
                     <td>
                         <a

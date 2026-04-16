@@ -40,7 +40,7 @@
                         <th>{t}Modifier{/t}</th>
                         <th>{t}Dupliquer{/t}</th>
                         <th class="center">
-                            <input type="checkbox" id="export" class="checkSelect" checked>
+                            <input type="checkbox" id="export" class="form-check-input" checked>
                         </th>
                         {/if}
                     </tr>
@@ -69,7 +69,7 @@
                             </a </td>
                         <td class="center">
                             <input type="checkbox" id="export{$row.export_model_id}" name="keys[]"
-                                value={$row.export_model_id} class="check" checked>
+                                value={$row.export_model_id} class="form-check-input" checked>
                         </td>
                         {/if}
                     </tr>

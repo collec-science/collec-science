@@ -567,7 +567,7 @@
 						for (var lst = 0; lst < samples.length; lst++) {
 							var row = "";
 							if (isGestion == 1) {
-								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid + '"></td>';
+								row += '<td class="center"> <input type="checkbox" class="checkSample form-check-input" name="uids[]" value="' + samples[lst].uid + '"></td>';
 							}
 							row += '<td class="text-center">';
 							row += '<a href="sampleDisplay?uid=' + samples[lst].uid + '" title="{t}Consultez le détail{/t}">';
@@ -748,7 +748,7 @@
 				<thead class="nowrap">
 					<tr>{if $rights.manage == 1}
 						<th class="center">
-							<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
+							<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample form-check-input">
 						</th>
 						{/if}
 						<th>{t}UID{/t}</th>
@@ -779,7 +779,7 @@
 					<tr>
 						{if $rights.manage == 1}
 						<td class="center">
-							<input type="checkbox" class="checkSample checkSampleList" name="uids[]"
+							<input type="checkbox" class="checkSample checkSampleList form-check-input" name="uids[]"
 								value="{$samples[lst].uid}">
 						</td>
 						{/if}

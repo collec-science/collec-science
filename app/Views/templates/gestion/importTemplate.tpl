@@ -108,8 +108,10 @@
         <form class="form-horizontal" id="template" action="importTemplateGenerate" method="post">
             <fieldset id="containersFieldset">
                 <legend>
-                    {t}Importer des contenants : {/t}
-                    <input type="checkbox" id="containerEnable" name="containerEnable" value="1">
+                    <label for="containerEnable" class="form-check-label">
+                        {t}Importer des contenants : {/t}
+                    </label>
+                    <input type="checkbox" class="form-check-input" id="containerEnable" name="containerEnable" value="1">
                 </legend>
                  <div class="row">
                     <label for="containerCollection" class="col-4 form-label">
@@ -157,15 +159,15 @@
                         <table class="col-11">
                             <tr>
                                 <td>{t}Rangement du contenant dans un autre contenant :{/t}</td>
-                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="containerLocation" ></td>
+                                <td class="center"><input type="checkbox" class="containers form-check-input" name="containerFields[]" value="containerLocation" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Commentaire :{/t}</td>
-                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="container_comment" ></td>
+                                <td class="center"><input type="checkbox" class="containers form-check-input" name="containerFields[]" value="container_comment" ></td>
                             </tr>
                             <tr>
                                 <td>{t}UUID connu :{/t}</td>
-                                <td class="center"><input type="checkbox" class="containers form-control" name="containerFields[]" value="container_uuid" ></td>
+                                <td class="center"><input type="checkbox" class="containers form-check-input" name="containerFields[]" value="container_uuid" ></td>
                             </tr>
                         </table>
                     </div>
@@ -173,8 +175,10 @@
             </fieldset>
             <fieldset id="samplesFieldset">
                 <legend>
-                    {t}Importer des échantillons : {/t}
-                    <input type="checkbox" id="sampleEnable" name="sampleEnable" value="1">
+                    <label for="sampleEnable" class="form-check-label">
+                        {t}Importer des échantillons : {/t}
+                    </label>
+                    <input type="checkbox" id="sampleEnable" name="sampleEnable" class="form-check-input" value="1">
                 </legend>
                 <div class="row">
                     <label for="sampleCollection" class="col-4 form-label">
@@ -283,31 +287,31 @@
                         <table class="col-11">
                             <tr>
                                 <td>{t}Date d'expiration de l'échantillon :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="expiration_date" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="expiration_date" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Identifiant dans la base de données d'origine :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="dbuid_origin" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="dbuid_origin" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Rangement de l'échantillon dans un contenant :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleLocation" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="sampleLocation" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Échantillon dérivé (ajout du parent) :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sample_parent_identifier" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="sample_parent_identifier" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Échantillon composé (plusieurs parents) :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleComposite" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="sampleComposite" ></td>
                             </tr>
                             <tr>
                                 <td>{t}Localisation GPS :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sampleGps" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="sampleGps" ></td>
                             </tr>
                             <tr>
                                 <td>{t}UUID connu :{/t}</td>
-                                <td class="center"><input type="checkbox" class="samples form-control" name="sampleFields[]" value="sample_uuid" ></td>
+                                <td class="center"><input type="checkbox" class="samples form-check-input" name="sampleFields[]" value="sample_uuid" ></td>
                             </tr>
                         </table>
                     </div>

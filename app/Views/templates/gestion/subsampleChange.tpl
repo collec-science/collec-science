@@ -191,11 +191,11 @@
             </div>
 
             <div class="row">
-                <label for="with_create" class="form-label col-4 lexical" data-lexical="composite">
+                <label for="with_create" class="form-check-label col-4 lexical" data-lexical="composite">
                     {t}Avec création ou rattachement à un échantillon composé :{/t}
                 </label>
                 <div class="col-8 center">
-                    <input type="checkbox" id="with_create" name="composite_create" value="1" class="form-control">
+                    <input type="checkbox" id="with_create" name="composite_create" value="1" class="form-check-input">
                 </div>
             </div>
 

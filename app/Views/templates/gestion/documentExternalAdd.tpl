@@ -20,7 +20,7 @@
           var obj = JSON.parse( content );
           var html = '<ul>';
           obj.forEach( function ( value ) {
-            html += '<li><input type="checkbox" class="treeview-checkbox';
+            html += '<li><input type="checkbox" class="treeview-checkbox form-check-input';
               if (value.folder) {
                 html += ' folder';
               }
@@ -144,8 +144,8 @@
       <div id="treeview" class="col-8">
         <ul class="treeview" id="root">
           <li>
-            <input class="treeview-folder folder" type="checkbox" name="root" id="root-input" value="/">
-            <label for="root-input" class="custom-unchecked">
+            <input class="treeview-folder folder form-check-input" type="checkbox" name="root" id="root-input" value="/">
+            <label for="root-input" class="custom-unchecked form-check-label">
               <span class="glyphicon glyphicon-folder-open blue"></span>
               /
             </label>

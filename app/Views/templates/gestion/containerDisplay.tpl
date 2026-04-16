@@ -651,8 +651,10 @@
 </div>
 <div class="row">
 	<div class="col-12 messageBas">
-		{t}Activer le survol des onglets :{/t}
-	<input type="checkbox" id="tabHoverSelect">
+		<label class="form-check-label" for="tabHoverSelect">
+			{t}Activer le survol des onglets :{/t}
+		</label>	
+	<input type="checkbox" class="form-check-input" id="tabHoverSelect">
 	</div>
 </div>
 {/if}

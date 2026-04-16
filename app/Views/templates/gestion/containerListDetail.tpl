@@ -348,7 +348,7 @@ $(document).ready(function () {
 						for (var lst = 0; lst < containers.length; lst++) {
 							var row = "";
 							if (gestion == 1) {
-								row += '<td class="center"><input type="checkbox" class="checkContainer" name="uids[]" value="'+containers[lst].uid+'" ></td>';
+								row += '<td class="center"><input type="checkbox" class="checkContainer form-check-input" name="uids[]" value="'+containers[lst].uid+'" ></td>';
 							}
 							row += '<td class="center">';
 							row += '<a href="containerDisplay?uid='+containers[lst].uid+'" title="{t}Consultez le détail{/t}">'+ containers[lst].uid + '</a>';
@@ -421,8 +421,10 @@ $(document).ready(function () {
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row">
 			<div class="center">
-				<label id="lcheckContainer" for="check">{t}Tout cocher{/t}</label>
-				<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer" >
+				<label id="lcheckContainer" for="checkContainer1" class="form-check-label">
+					{t}Tout cocher{/t}
+				</label>
+				<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer form-check-input" >
 				<select id="labels" name="label_id">
 					<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
@@ -452,7 +454,7 @@ $(document).ready(function () {
 				<tr>
 					{if $rights.manage == 1}
 						<th class="center">
-							<input type="checkbox" id="checkContainer2" class="checkContainerSelect checkContainer" >
+							<input type="checkbox" id="checkContainer2" class="checkContainerSelect checkContainer form-check-input" >
 						</th>
 					{/if}
 					<th>{t}UID{/t}</th>
@@ -478,7 +480,7 @@ $(document).ready(function () {
 					<tr>
 						{if $rights.manage == 1}
 							<td class="center">
-								<input type="checkbox" class="checkContainer checkContainerList" name="uids[]" value="{$containers[lst].uid}" >
+								<input type="checkbox" class="checkContainer checkContainerList form-check-input" name="uids[]" value="{$containers[lst].uid}" >
 							</td>
 						{/if}
 						<td class="center">

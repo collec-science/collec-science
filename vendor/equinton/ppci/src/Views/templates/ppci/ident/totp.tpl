@@ -22,11 +22,11 @@
     </div>
     {if !$isAdmin}
     <div class="row">
-        <label for="otptrusted" class="form-label col-4">
+        <label for="otptrusted" class="form-check-label col-4">
             {t}Faire confiance à ce navigateur :{/t}
         </label>
         <div class="col-8">
-            <input type="checkbox" id="otptrusted" class="form-control" name="otptrusted">
+            <input type="checkbox" id="otptrusted" class="form-check-input" name="otptrusted">
         </div>
     </div>
     <div class="bg-info ">

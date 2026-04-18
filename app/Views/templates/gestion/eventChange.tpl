@@ -50,7 +50,7 @@
                     {t}Type d'évenement :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="event_type_id" name="event_type_id" class="form-control">
+                    <select id="event_type_id" name="event_type_id" class="form-select">
                         {section name=lst loop=$eventType}
                         <option value="{$eventType[lst].event_type_id}" {if
                             $eventType[lst].event_type_id==$data.event_type_id}selected{/if}>

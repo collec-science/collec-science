@@ -62,7 +62,7 @@
         <label for="column_name" class="form-label col-4"><span class="red">*</span> {t}Nom de la colonne à
           exporter :{/t}</label>
         <div class="col-8">
-          <select id="column_name" name="column_name" class="form-control">
+          <select id="column_name" name="column_name" class="form-select">
             {foreach $fields as $field}
               <option value="{$field}" {if $field==$data.column_name} selected{/if}>{$field} </option>
             {/foreach}
@@ -88,7 +88,7 @@
       <div class="row">
         <label for="translator_id" class="form-label col-4 lexical" data-lexical="translationTable"> {t}Nom de la table de correspondance :{/t}</label>
         <div class="col-8">
-          <select id="translator_id" name="translator_id" class="form-control">
+          <select id="translator_id" name="translator_id" class="form-select">
             <option value="" {if $data.translator_id == ""} selected{/if}>{t}Choisissez...{/t}</option>
             {foreach $translators as $translator}
               <option value="{$translator.translator_id}" {if $translator.translator_id==$data.translator_id} selected{/if}>{$translator.translator_name} </option>

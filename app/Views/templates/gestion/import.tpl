@@ -71,7 +71,7 @@
                   <div class="row">
                         <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
                         <div class="col-8">
-                              <select id="separator" name="separator" class="form-control">
+                              <select id="separator" name="separator" class="form-select">
                                     <option value="," {if $separator=="," }selected{/if}>{t}Virgule{/t}</option>
                                     <option value=";" {if $separator==";" }selected{/if}>{t}Point-virgule{/t}</option>
                                     <option value="tab" {if $separator=="tab" }selected{/if}>{t}Tabulation{/t}</option>
@@ -81,7 +81,7 @@
                   <div class="row">
                         <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                         <div class="col-8">
-                              <select id="utf8_encode" name="utf8_encode" class="form-control">
+                              <select id="utf8_encode" name="utf8_encode" class="form-select">
                                     <option value="0" {if $utf8_encode==0}selected{/if}>UTF-8</option>
                                     <option value="1" {if $utf8_encode==1}selected{/if}>ISO-8859-x</option>
                               </select>
@@ -92,7 +92,7 @@
                               {t}Rechercher les échantillons parents uniquement dans la collection des enfants :{/t}
                         </label>
                         <div class="col-8">
-                              <select id="onlyCollectionSearch" name="onlyCollectionSearch" class="form-control">
+                              <select id="onlyCollectionSearch" name="onlyCollectionSearch" class="form-select">
                                     <option value="0" {if $onlyCollectionSearch==0}selected{/if}>{t}non{/t}</option>
                                     <option value="1" {if $onlyCollectionSearch==1}selected{/if}>{t}oui{/t}</option>
                               </select>

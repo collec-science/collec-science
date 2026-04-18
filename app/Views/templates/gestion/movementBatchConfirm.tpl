@@ -20,7 +20,7 @@
 			<div class="row">
 				<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-8">
-					<select id="movement_reason_id" name="movement_reason_id">
+					<select id="movement_reason_id" name="movement_reason_id" class="form-select">
 					<option value="" {if empty($data.movement_reason_id)}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$movementReason}
 					<option value="{$movementReason[lst].movement_reason_id}" {if !empty($data.movement_reason_id) && $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>

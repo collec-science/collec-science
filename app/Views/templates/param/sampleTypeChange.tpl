@@ -30,7 +30,7 @@
             <div class="row">
                 <label for="container_type_id" class="form-label col-4">{t}Type de contenant :{/t}</label>
                 <div class="col-8">
-                    <select id="container_type_id" name="container_type_id" class="form-control">
+                    <select id="container_type_id" name="container_type_id" class="form-select">
                         <option value="" {if $data.container_type_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -48,7 +48,7 @@
                     {t}Protocole / opération :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="operation_id" name="operation_id" class="form-control">
+                    <select id="operation_id" name="operation_id" class="form-select">
                         <option value="" {if $data.operation_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -74,7 +74,7 @@
                     {t}Modèle de métadonnées :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="metadata_id" name="metadata_id" class="form-control">
+                    <select id="metadata_id" name="metadata_id" class="form-select">
                         <option value="" {if $data.metadata_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -94,7 +94,7 @@
                         {t}Produit utilisé :{/t}
                     </label>
                     <div class="col-8">
-                        <select class="form-control" id="product_id" name="product_id">
+                        <select class="form-select" id="product_id" name="product_id">
                             <option value="" {if $data.product_id=="" }selected{/if}>
                                 {t}Choisissez...{/t}
                             </option>
@@ -119,7 +119,7 @@
                         {t}Risque (code CLP) :{/t}
                     </label>
                     <div class="col-8">
-                        <select class="form-control" id="risk_id" name="risk_id">
+                        <select class="form-select" id="risk_id" name="risk_id">
                             <option value="" {if $data.risk_id=="" }selected{/if}>
                                 {t}Choisissez...{/t}
                             </option>
@@ -148,7 +148,7 @@
                         {t}Nature :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="multiple_type_id" name="multiple_type_id" class="form-control">
+                        <select id="multiple_type_id" name="multiple_type_id" class="form-select">
                             <option value="" {if $data.multiple_type_id=="" }selected{/if}>
                                 {t}Choisissez...{/t}</option>
                             {section name=lst loop=$multiple_type}

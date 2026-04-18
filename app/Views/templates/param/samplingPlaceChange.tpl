@@ -38,7 +38,7 @@
                     <label for="collection_id" class="form-label col-4">
                         {t}Collection de rattachement :{/t}</label>
                     <div class="col-8">
-                        <select id="collection_id" name="collection_id" class="form-control">
+                        <select id="collection_id" name="collection_id" class="form-select">
                             <option value="" {if $data["collection_id"]=="" } selected{/if}>{t}Choisissez...{/t}
                             </option>
                             {foreach $collections as $collection}
@@ -64,7 +64,7 @@
                 <div class="row">
                     <label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
                     <div class="col-8">
-                        <select id="country_id" name="country_id" class="form-control">
+                        <select id="country_id" name="country_id" class="form-select">
                             <option value="" {if $data["country_id"]=="" } selected{/if}>{t}Choisissez...{/t}
                             </option>
                             {foreach $countries as $country}

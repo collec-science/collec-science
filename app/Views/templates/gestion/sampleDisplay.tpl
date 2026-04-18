@@ -416,7 +416,7 @@
 		<div class="row">
 			<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 			<div class="col-xs-8">
-				<select id="cam-list" class="form-control ">
+				<select id="cam-list" class="form-select ">
 					<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
 					<option value="user">{t}Caméra frontale{/t}</option>
 				</select>
@@ -425,7 +425,7 @@
 		<div class="row">
 			<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 			<div class="col-xs-8">
-				<select id="inversion-mode-select" class="form-control ">
+				<select id="inversion-mode-select" class="form-select ">
 					<option value="original">Scan original (dark QR code on bright background)</option>
 					<option value="invert">Scan with inverted colors (bright QR code on dark background)
 					</option>
@@ -554,7 +554,7 @@
 						</select>
 						<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
 						{if !empty($printers)}
-						<select id="printers2" name="printer_id">
+						<select id="printers2" name="printer_id" class="form-select">
 							{section name=lst loop=$printers}
 							<option value="{$printers[lst].printer_id}">
 								{$printers[lst].printer_name}

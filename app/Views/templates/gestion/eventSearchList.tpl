@@ -233,7 +233,7 @@
             <div class="row">
                 <label for="search_type" class="col-2 form-label">{t}Recherche par :{/t}</label>
                 <div class="col-2">
-                    <select class='form-control' name="search_type" id="search_type">
+                    <select class='form-select' name="search_type" id="search_type">
                         <option value="due_date" {if $eventSearch["search_type"]=="due_date" }selected{/if}>
                             {t}Date d'échéance{/t}
                         </option>
@@ -247,7 +247,7 @@
                 </div>
                 <label for="is_done" class="col-2 form-label">{t}État de l'événement :{/t}</label>
                 <div class="col-2">
-                    <select id="is_done" name="is_done" class="form-control">
+                    <select id="is_done" name="is_done" class="form-select">
                         <option value="-1" {if $eventSearch["is_done"]==-1}selected{/if}>{t}non réalisé{/t}</option>
                         <option value="0" {if $eventSearch["is_done"]==0}selected{/if}>{t}indifférent{/t}</option>
                         <option value="1" {if $eventSearch["is_done"]==1}selected{/if}>{t}réalisé{/t}</option>
@@ -261,7 +261,7 @@
                     {/if}
                 </label>
                 <div class="col-2">
-                    <select class="form-control" name="object_type_id" id="object_type_id">
+                    <select class="form-select" name="object_type_id" id="object_type_id">
                         <option value="0" {if $eventSearch["object_type_id"]==0}selected{/if}>{t}Indifférent{/t}
                         </option>
                         {foreach $objectTypes as $objecttype}
@@ -292,7 +292,7 @@
                 </div>
                 <label for="object_type" class="col-2 form-label">{t}Type d'objet :{/t}</label>
                 <div class="col-2">
-                    <select id="object_type" name="object_type" class="form-control typeEventSearch">
+                    <select id="object_type" name="object_type" class="form-select typeEventSearch">
                         <option value="1" {if $eventSearch["object_type"]==1}selected{/if}>{t}Échantillon{/t}</option>
                         <option value="2" {if $eventSearch["object_type"]==2}selected{/if}>{t}Contenant{/t}</option>
                     </select>
@@ -301,7 +301,7 @@
             <div class="row">
                 <label for="event_type_id" class="col-2 form-label">{t}Type d'événement{/t}</label>
                 <div class="col-2">
-                    <select class="form-control" id="event_type_id" name="event_type_id">
+                    <select class="form-select" id="event_type_id" name="event_type_id">
                         <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $eventTypes as $eventType}
                         <option value="{$eventType.event_type_id}" {if
@@ -313,7 +313,7 @@
                 </div>
                 <label for="collection_id" class="col-2 form-label">{t}Collection :{/t}</label>
                 <div class="col-2">
-                    <select class="typeEventSearch form-control" id="collection_id" name="collection_id" {if
+                    <select class="typeEventSearch form-select" id="collection_id" name="collection_id" {if
                         $eventSearch.object_type==2}disabled{/if}>
                         <option value="0" {if $eventSearch.collection_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $collections as $collection}
@@ -401,7 +401,7 @@
         <div class="col-6  form-horizontal">
             {t}Pour les éléments cochés :{/t}
             <input type="hidden" name="is_action" value="1">
-            <select id="checkedActionEvent" class="form-control">
+            <select id="checkedActionEvent" class="form-select">
                 <option value="" selected>{t}Choisissez{/t}</option>
                 <option value="eventsChange">{t}Modifier les événements{/t}</option>
                 <option value="eventsDelete">{t}Supprimer les événements{/t}</option>
@@ -421,7 +421,7 @@
                     <label for="container_status_id" class="form-label col-4">
                         {t}Type d'évenement :{/t}</label>
                     <div class="col-8">
-                        <select class="form-control" id="event_type_id" name="event_type_id">
+                        <select class="form-select" id="event_type_id" name="event_type_id">
                             <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>
                                 {t}Choisissez{/t}
                             </option>

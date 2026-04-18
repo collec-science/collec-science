@@ -64,7 +64,7 @@
 			<div class="row">
 				<label for="collection_id" class="form-label col-4">{t}Collection autorisée :{/t}</label>
 				<div class="col-8">
-					<select class="form-control modif" id="collection_id" name="collection_id">
+					<select class="form-select modif" id="collection_id" name="collection_id">
 						<option value="" {if $data.collection_id=="" }selected{/if}>{t}Choisissez...{/t}</option>
 						{foreach $collections as $collection}
 						<option value="{$collection.collection_id}" {if $data.collection_id==$collection.collection_id}selected{/if}>{$collection.collection_name}</option>

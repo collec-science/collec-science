@@ -129,7 +129,7 @@
 				<label for="metadata_id" class="form-label col-4">
 					{t}Modèle de métadonnées rattaché à l'étiquette :{/t}</label>
 				<div class="col-8">
-					<select id="metadata_id" name="metadata_id" class="form-control">
+					<select id="metadata_id" name="metadata_id" class="form-select">
 						<option value="" {if $data.metadata_id=="" }selected{/if}>{t}Choisissez...{/t}</option>
 						{foreach $metadata as $value}
 						<option value="{$value.metadata_id}" {if $value.metadata_id==$data.metadata_id}selected{/if}>
@@ -145,7 +145,7 @@
 				<div class="row">
 					<label for="barcode_id" class="form-label col-4">{t}Type de code-barre :{/t}</label>
 					<div class="col-8">
-						<select id="barcode_id" name="barcode_id" class="form-control">
+						<select id="barcode_id" name="barcode_id" class="form-select">
 							{foreach $barcodes as $barcode}
 							<option value="{$barcode.barcode_id}" {if $barcode.barcode_id==$opticals[0].barcode_id}selected{/if}>
 								{$barcode.barcode_name}
@@ -157,7 +157,7 @@
 				<div class="row">
 					<label for="content_type" class="form-label col-4">{t}Type de contenu :{/t}</label>
 					<div class="col-8">
-						<select id="content_type" class="form-control" name="content_type">
+						<select id="content_type" class="form-select" name="content_type">
 							<option value="1" {if $opticals[0].content_type==1}selected{/if}>
 								{t}plusieurs valeurs différentes au format JSON (historique){/t}
 							</option>
@@ -197,7 +197,7 @@
 					<div class="row">
 						<label for="barcode_id2" class="form-label col-4">{t}Type de code-barre :{/t}</label>
 						<div class="col-8">
-							<select id="barcode_id2" name="barcode_id2" class="form-control">
+							<select id="barcode_id2" name="barcode_id2" class="form-select">
 								{foreach $barcodes as $barcode}
 								<option value="{$barcode.barcode_id}" {if $barcode.barcode_id==$opticals[1].barcode_id}selected{/if}>
 									{$barcode.barcode_name}
@@ -209,7 +209,7 @@
 					<div class="row">
 						<label for="content_type2" class="form-label col-4">{t}Type de contenu :{/t}</label>
 						<div class="col-8">
-							<select id="content_type2" class="form-control" name="content_type2">
+							<select id="content_type2" class="form-select" name="content_type2">
 								<option value="1" {if $opticals[1].content_type==1}selected{/if}>
 									{t}plusieurs valeurs différentes au format JSON (historique){/t}
 								</option>

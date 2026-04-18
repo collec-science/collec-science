@@ -375,7 +375,7 @@
 		<div class="row">
 			<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 			<div class="col-xs-8">
-				<select id="inversion-mode-select" class="form-control ">
+				<select id="inversion-mode-select" class="form-select ">
 					<option value="original">Scan original (dark QR code on bright background)</option>
 					<option value="invert">Scan with inverted colors (bright QR code on dark background)
 					</option>

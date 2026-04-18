@@ -118,7 +118,7 @@
                         {t}Collection de destination :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="containerCollection" name="containerCollection" class="form-control containers">
+                        <select id="containerCollection" name="containerCollection" class="form-select containers">
                             <option value="" selected></option>
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_name}">
@@ -133,7 +133,7 @@
                         {t}Famille :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="container_family_id" name="container_family_id" class="form-control containers">
+                        <select id="container_family_id" name="container_family_id" class="form-select containers">
                             {section name=lst loop=$containerFamily}
                                 <option value="{$containerFamily[lst].container_family_id}">
                                 {$containerFamily[lst].container_family_name}
@@ -147,7 +147,7 @@
                         {t}Type :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="containerTypeName" name="containerTypeName" class="form-control containers">
+                        <select id="containerTypeName" name="containerTypeName" class="form-select containers">
                         </select>
                     </div>
                 </div>
@@ -185,7 +185,7 @@
                         <span class="red">*</span> {t}Collection de destination :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="sampleCollection" name="sampleCollection" class="form-control samples">
+                        <select id="sampleCollection" name="sampleCollection" class="form-select samples">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">
                                 {$collection.collection_name}
@@ -199,7 +199,7 @@
                         <span class="red">*</span> {t}Types d'échantillons à importer :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="sampleTypes" class="samples form-control" name="sampleTypes[]" multiple 
+                        <select id="sampleTypes" class="samples form-select" name="sampleTypes[]" multiple 
                         title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                         >
                         </select>
@@ -210,7 +210,7 @@
                         {t}Référent :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="referent_name" name="referent_name" class="samples form-control">
+                        <select id="referent_name" name="referent_name" class="samples form-select">
                             <option value="" selected></option>
                             {foreach $referents as $referent}
                             <option value="{$referent.referent_name} {$referent.referent_firstname}">
@@ -225,7 +225,7 @@
                         {t}Pays de collecte :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="country_name" name="country_name" class="form-control samples">
+                        <select id="country_name" name="country_name" class="form-select samples">
                             <option value="" selected>
                             </option>
                             {foreach $countries as $country}
@@ -241,7 +241,7 @@
                         {t}Pays de provenance :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="country_origin_name" name="country_origin_name" class="form-control samples">
+                        <select id="country_origin_name" name="country_origin_name" class="form-select samples">
                             <option value="" selected></option>
                             {foreach $countries as $country}
                             <option value="{$country.country_name}">
@@ -269,7 +269,7 @@
                         {t}Lieu de prélèvement :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="sampling_place_name" name="sampling_place_name" class="samples form-control">
+                        <select id="sampling_place_name" name="sampling_place_name" class="samples form-select">
                             <option value="" selected></option>
                             {foreach $samplingPlaces as $samplingPlace}
                             <option value="{$samplingPlace.sampling_place_name}">
@@ -324,7 +324,7 @@
 							{t}Identifiants complémentaires :{/t}
 						</label>
 						<div class="col-8">
-							<select id="identifiers" name="identifiers[]" class="form-control" multiple
+							<select id="identifiers" name="identifiers[]" class="form-select" multiple
                             title="{t}Vous pouvez sélectionner plusieurs éléments avec ctrl + clic{/t}"
                             >
 								{foreach $identifiers as $identifier}

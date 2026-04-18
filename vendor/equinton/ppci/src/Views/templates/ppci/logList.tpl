@@ -19,7 +19,7 @@
             <div class="row">
                 <label for="loglogin" class="col-2 form-label">{t}Login concerné :{/t}</label>
                 <div class="col-6">
-                    <select id="loglogin" name="loglogin" class="form-control">
+                    <select id="loglogin" name="loglogin" class="form-select">
                         <option value="" {if $loglogin=="" }selected{/if}></option>
                         {foreach $logins as $login}
                         <option value="{$login.val}" {if $login.val==$loglogin}selected{/if}>{$login.val}</option>

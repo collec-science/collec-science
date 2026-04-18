@@ -55,7 +55,7 @@
                 <label for="collection_id" class="form-label col-4">
                     {t}Collection de rattachement :{/t}</label>
                 <div class="col-8">
-                    <select name="collection_id" id="collection_id" class="form-control">
+                    <select name="collection_id" id="collection_id" class="form-select">
                         {foreach $collections as $value}
                         <option value="{$value.collection_id}" {if $value.collection_id==$data.collection_id}selected{/if}>
                             {$value.collection_name}

@@ -129,7 +129,7 @@
 							{t}Type d'opération à exécuter :{/t}
 						</label>
 						<div class="col-8">
-							<select id="regenerateType" name="regenerateType" class="form-control">
+							<select id="regenerateType" name="regenerateType" class="form-select">
 								<option value="0" selected>
 									{t}Choisissez{/t}
 								</option>

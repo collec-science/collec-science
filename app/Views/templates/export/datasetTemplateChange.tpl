@@ -25,7 +25,7 @@
       <div class="row">
         <label for="dataset_type_id" class="form-label col-4"><span class="red">*</span> {t}Type :{/t}</label>
         <div class="col-8">
-          <select id="dataset_type_id" name="dataset_type_id" class="form-control">
+          <select id="dataset_type_id" name="dataset_type_id" class="form-select">
             {foreach $datasetTypes as $dt}
             <option value="{$dt.dataset_type_id}" {if $dt.dataset_type_id==$data.dataset_type_id}selected{/if}>
               {$dt.dataset_type_name}
@@ -38,7 +38,7 @@
         <label for="export_format_id" class="form-label col-4"><span class="red">*</span> 
             {t}Format d'export :{/t}</label>
         <div class="col-8">
-          <select id="export_format_id" name="export_format_id" class="form-control">
+          <select id="export_format_id" name="export_format_id" class="form-select">
             {foreach $exportFormats as $ef}
             <option value="{$ef.export_format_id}" {if $ef.export_format_id==$data.export_format_id}selected{/if}>
               {$ef.export_format_name}
@@ -75,7 +75,7 @@
       <div class="row">
         <label for="separator" class="form-label col-4">{t}Séparateur (fichiers CSV) :{/t}</label>
         <div class="col-8">
-          <select id="separator" name="separator" class="form-control">
+          <select id="separator" name="separator" class="form-select">
             <option value="" {if $data.separator=='' }selected{/if}>{t}Sélectionnez...{/t}</option>
             <option value="," {if $data.separator==',' }selected{/if}>{t}virgule{/t}</option>
             <option value=";" {if $data.separator==';' }selected{/if}>{t}point-virgule{/t}</option>

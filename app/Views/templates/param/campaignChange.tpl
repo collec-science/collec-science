@@ -33,7 +33,7 @@
                     {t}Responsable ou référent de la campagne :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="referent_id" name="referent_id" class="form-control">
+                    <select id="referent_id" name="referent_id" class="form-select">
                         <option value="" {if $data.referent_id=="" }selected{/if}>{t}Choisissez{/t}</option>
                         {foreach $referents as $referent}
                         <option value="{$referent.referent_id}" {if $referent.referent_id==$data.referent_id}selected{/if}>

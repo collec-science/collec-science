@@ -140,7 +140,7 @@ if (container_type_id > 0) {
 		<div class="row">
 			<label for="referentId"  class="form-label col-4">{t}Référent du contenant :{/t}</label>
 			<div class="col-8">
-				<select id="referentId" name="referent_id" class="form-control">
+				<select id="referentId" name="referent_id" class="form-select">
 					<option value="" {if $data.referent_id == ""}selected{/if}>Choisissez...</option>
 					{foreach $referents as $referent}
 						<option value="{$referent.referent_id}" {if $data.referent_id == $referent.referent_id}selected{/if}>
@@ -153,7 +153,7 @@ if (container_type_id > 0) {
 		<div class="row">
 			<label for="collection_id" class="form-label col-4">{t}Collection :{/t}</label>
 			<div class="col-8">
-				<select id="collection_id" name="collection_id" class="form-control">
+				<select id="collection_id" name="collection_id" class="form-select">
 					<option value=""  {if $data.collection_id == ""}selected{/if}>
 						{t}Choisissez...{/t}
 					</option>
@@ -168,7 +168,7 @@ if (container_type_id > 0) {
 		<div class="row">
 			<label for="object_status_id" class="form-label col-4"><span class="red">*</span>  {t}Statut :{/t}</label>
 			<div class="col-8">
-				<select id="object_status_id" name="object_status_id" class="form-control">
+				<select id="object_status_id" name="object_status_id" class="form-select">
 				{section name=lst loop=$objectStatus}
 					<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $data.object_status_id}selected{/if}>
 						{$objectStatus[lst].object_status_name}
@@ -229,7 +229,7 @@ if (container_type_id > 0) {
 		<div class="row">
 			<label for="container_family_id" class="form-label col-4"><span class="red">*</span> {t}Famille :{/t}</label>
 			<div class="col-8">
-				<select id="container_family_id" name="container_family_id" class="form-control">
+				<select id="container_family_id" name="container_family_id" class="form-select">
 					<option value="" {if $data.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 					{section name=lst loop=$containerFamily}
 						<option value="{$containerFamily[lst].container_family_id}" {if $data.container_family_id == $containerFamily[lst].container_family_id}selected{/if}>
@@ -242,7 +242,7 @@ if (container_type_id > 0) {
 		<div class="row">
 			<label for="container_type_id" class="form-label col-4"><span class="red">*</span> {t}Type :{/t}</label>
 			<div class="col-8">
-				<select id="container_type_id" name="container_type_id" class="form-control">
+				<select id="container_type_id" name="container_type_id" class="form-select">
 					{section name=lst loop=$container_type}
 						<option value="{$container_type[lst].container_type_id}" {if $container_type[lst].container_type_id == $data.container_type_id}selected{/if}>
 							{$container_type[lst].container_type_name}

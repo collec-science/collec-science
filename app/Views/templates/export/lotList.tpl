@@ -28,7 +28,7 @@
                 <div class="row">
                     <label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
                     <div class="col-3">
-                        <select id="collection_id" class="form-control">
+                        <select id="collection_id" class="form-select">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">{$collection.collection_name}</option>
                             {/foreach}

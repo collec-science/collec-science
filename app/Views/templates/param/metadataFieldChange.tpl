@@ -102,7 +102,7 @@
                 {t}Type du champ{/t}
             </label>
             <div class="col-8">
-                <select class="form-control" id="type" name="type">
+                <select class="form-select" id="type" name="type">
                     <option value="string" {if $data.type=="string" || $data.type=="" }selected{/if}>
                         {t}Texte (une ligne){/t}
                     </option>

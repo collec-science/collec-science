@@ -30,7 +30,7 @@
       <div class="row">
         <label for="export_template_id" class="form-label col-4"><span class="red">*</span> {t}Modèle d'export :{/t}</label>
         <div class="col-8">
-          <select id="export_template_id" name="export_template_id" class="form-control">
+          <select id="export_template_id" name="export_template_id" class="form-select">
             {foreach $templates as $template}
               <option value="{$template.export_template_id}" {if $template.export_template_id==$data.export_template_id} selected{/if}>{$template.export_template_name} </option>
             {/foreach}

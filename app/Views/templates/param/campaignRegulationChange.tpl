@@ -12,7 +12,7 @@
                 <div class="row">
                     <label for="referent_id" class="form-label col-4">{t}Réglementation :{/t}</label>
                     <div class="col-8">
-                        <select id="regulation_id" name="regulation_id" class="form-control" autofocus>
+                        <select id="regulation_id" name="regulation_id" class="form-select" autofocus>
                             {foreach $regulations as $regulation}
                             <option value="{$regulation.regulation_id}" {if $regulation.regulation_id==$data.regulation_id}selected{/if}>
                                 {$regulation.regulation_name}

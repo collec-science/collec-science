@@ -63,7 +63,7 @@
 						<label for="separator" class="form-label col-4"><span class="red">*</span>
 							{t}Séparateur :{/t}</label>
 						<div class="col-8">
-							<select id="separator" class="form-control" name="separator">
+							<select id="separator" class="form-select" name="separator">
 								<option value=";">{t}Point-virgule{/t}</option>
 								<option value=",">{t}Virgule{/t}</option>
 								<option value="t">{t}Tabulation{/t}</option>
@@ -75,7 +75,7 @@
 						<label for="collection_id" class="form-label col-4">
 							{t}Collection éventuelle de rattachement :{/t}</label>
 						<div class="col-8">
-							<select id="collection_id" name="collection_id" class="form-control">
+							<select id="collection_id" name="collection_id" class="form-select">
 								<option value="" {if $data["collection_id"]=="" } selected{/if}>{t}Choisissez...{/t}</option>
 								{foreach $collections as $collection}
 								<option value="{$collection.collection_id}" {if $collection.collection_id==$data.collection_id} selected {/if}>

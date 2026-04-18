@@ -121,7 +121,7 @@
                             {t}Référent de la collection :{/t}
                         </label>
                         <div class="col-8">
-                            <select id="referentId" name="referent_id" class="form-control">
+                            <select id="referentId" name="referent_id" class="form-select">
                                 <option value="" {if $data.referent_id=="" }selected{/if}>Choisissez...</option>
                                 {foreach $referents as $referent}
                                 <option value="{$referent.referent_id}" {if $data.referent_id==$referent.referent_id}selected{/if}>
@@ -204,7 +204,7 @@
                             {t}Licence de diffusion :{/t}
                         </label>
                         <div class="col-8">
-                            <select id="license_id" name="license_id" class="form-control">
+                            <select id="license_id" name="license_id" class="form-select">
                                 <option value="" {if $data.license_id=="" }selected{/if}>{t}Choisissez...{/t}
                                 </option>
                                 {foreach $licenses as $license}

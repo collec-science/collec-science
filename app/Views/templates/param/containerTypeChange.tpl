@@ -21,7 +21,7 @@
                 <label for="container_family_id" class="form-label col-4"><span class="red">*</span>
                     {t}Famille :{/t}</label>
                 <div class="col-8">
-                    <select id="container_family_id" name="container_family_id" class="form-control">
+                    <select id="container_family_id" name="container_family_id" class="form-select">
                         {section name=lst loop=$containerFamily}
                         <option value="{$containerFamily[lst].container_family_id}" {if $containerFamily[lst].container_family_id==$data.container_family_id}selected{/if}>
                             {$containerFamily[lst].container_family_name}
@@ -143,7 +143,7 @@
                     {t}Condition de stockage :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="storageConditionId" name="storage_condition_id" class="form-control">
+                    <select id="storageConditionId" name="storage_condition_id" class="form-select">
                         <option value="" {if $data.storage_condition_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -160,7 +160,7 @@
                     {t}Produit utilisé :{/t}
                 </label>
                 <div class="col-8">
-                    <select class="form-control" id="product_id" name="product_id">
+                    <select class="form-select" id="product_id" name="product_id">
                         <option value="" {if $data.product_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -185,7 +185,7 @@
                     {t}Risque (code CLP) :{/t}
                 </label>
                 <div class="col-8">
-                    <select class="form-control" id="risk_id" name="risk_id">
+                    <select class="form-select" id="risk_id" name="risk_id">
                         <option value="" {if $data.risk_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -209,7 +209,7 @@
                     {t}Modèle d'étiquette :{/t}
                 </label>
                 <div class="col-8">
-                    <select id="labelId" name="label_id" class="form-control">
+                    <select id="labelId" name="label_id" class="form-select">
                         <option value="" {if $data.label_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>

@@ -22,7 +22,7 @@
                         <label for="identifier_type_id" class="form-label col-4"><span class="red">*</span>
                               {t}Type d'identifiant :{/t}</label>
                         <div class="col-8">
-                              <select id="identifier_type_id" name="identifier_type_id" class="form-control">
+                              <select id="identifier_type_id" name="identifier_type_id" class="form-select">
                                     {section name=lst loop=$identifierType}
                                     <option value="{$identifierType[lst].identifier_type_id}" {if
                                           $identifierType[lst].identifier_type_id==$data.identifier_type_id}selected{/if}>

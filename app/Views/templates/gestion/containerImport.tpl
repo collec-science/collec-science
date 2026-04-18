@@ -12,7 +12,7 @@
             <div class="row">
                 <label for="utf8_encode" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                 <div class="col-8">
-                    <select id="utf8_encode" name="utf8_encode">
+                    <select id="utf8_encode" name="utf8_encode" class="form-select">
                         <option value="0" {if $utf8_encode == 0}selected{/if}>UTF-8</option>
                         <option value="1" {if $utf8_encode == 1}selected{/if}>ISO-8859-x</option>
                     </select>
@@ -50,7 +50,7 @@
                         <div class="row">
                             <label for="{$kname}-{$val}" class="form-label col-4">{$val}</label>
                             <div class="col-8">
-                                <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-control">
+                                <select id="{$kname}-{$val}" name="{$kname}-{$val}" class="form-select">
                                     {foreach $dataClass[$kname] as $svalue}
                                         <option value="{$svalue[$kname]}" {if strtoupper($svalue[$kname]) == strtoupper($val)}selected{/if}>{$svalue[$kname]}</option>
                                     {/foreach}

@@ -425,7 +425,7 @@ $(document).ready(function () {
 					{t}Tout cocher{/t}
 				</label>
 				<input type="checkbox" id="checkContainer1" class="checkContainerSelect checkContainer form-check-input" >
-				<select id="labels" name="label_id">
+				<select id="labels" name="label_id" class="form-select">
 					<option value="" {if $label_id == ""}selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
 						<option value="{$labels[lst].label_id}" {if $labels[lst].label_id == $label_id}selected{/if}>
@@ -436,7 +436,7 @@ $(document).ready(function () {
 				<button id="containerlabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
 				<button id="containercsvfile" class="btn btn-primary">{t}Fichier CSV{/t}</button>
 				{if count($printers) > 0}
-					<select id="printers" name="printer_id">
+					<select id="printers" name="printer_id" class="form-select">
 						{section name=lst loop=$printers}
 							<option value="{$printers[lst].printer_id}">
 								{$printers[lst].printer_name}
@@ -548,7 +548,7 @@ $(document).ready(function () {
 					<input type="hidden" name="lastModule" value="{$lastModule}">
 					<input type="hidden" name="uid" value="{$data.uid}">
 					<input type="hidden" name="is_action" value="1">
-					<select id="checkedActionContainer" class="form-control">
+					<select id="checkedActionContainer" class="form-select">
 						<option value="" selected>{t}Choisissez{/t}</option>
 						<option value="containersLending">{t}Prêter les contenants et leurs contenus{/t}</option>
 						<option value="containersSetReferent">{t}Assigner un référent aux contenants{/t}</option>
@@ -566,7 +566,7 @@ $(document).ready(function () {
 								<span class="red">*</span> {t}Emprunteur :{/t}
 							</label>
 							<div class="col-8">
-								<select id="borrower_id" name="borrower_id" class="form-control">
+								<select id="borrower_id" name="borrower_id" class="form-select">
 									{foreach $borrowers as $borrower}
 										<option value="{$borrower.borrower_id}">
 											{$borrower.borrower_name}
@@ -590,7 +590,7 @@ $(document).ready(function () {
 					</div>
 					<!-- add a referent to the list -->
 					<div class="referent" hidden>
-						<select id="referentid" name="referent_id" class="form-control">
+						<select id="referentid" name="referent_id" class="form-select">
 							<option value="">{t}Choisissez le référent...{/t}</option>
 							{foreach $referents as $referent}
 							<option value="{$referent.referent_id}">
@@ -603,7 +603,7 @@ $(document).ready(function () {
 							<div class="row " >
 							<label for="trashedbin" class="form-label col-4">{t}Traitement de la corbeille{/t}</label>
 							<div class="col-8">
-								<select class="form-control" name="settrashed" id="trashedbin">
+								<select class="form-select" name="settrashed" id="trashedbin">
 									<option value="1">{t}Mettre à la corbeille{/t}</option>
 									<option value="0">{t}Sortir de la corbeille{/t}</option>
 								</select>
@@ -647,7 +647,7 @@ $(document).ready(function () {
 						<div class="row " >
 							<label for="containers_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
 								<div class="col-8">
-									<select id="containers_family_id" class="form-control">
+									<select id="containers_family_id" class="form-select">
 										<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
 										{section name=lst loop=$containerFamily}
 											<option value="{$containerFamily[lst].container_family_id}">
@@ -655,10 +655,10 @@ $(document).ready(function () {
 											</option>
 										{/section}
 									</select>
-									<select id="containers_type_id" class="form-control">
+									<select id="containers_type_id" class="form-select">
 										<option value=""></option>
 									</select>
-									<select id="containers" >
+									<select id="containers" class="form-select">
 										<option value=""></option>
 									</select>
 								</div>
@@ -690,7 +690,7 @@ $(document).ready(function () {
 			<div class="row status" hidden>
 				<label for="object_status_id" class="col-4 form-label">{t}Statut :{/t}</label>
 				<div class="col-8">
-						<select id="object_status_id" name="object_status_id" class="form-control">
+						<select id="object_status_id" name="object_status_id" class="form-select">
 							<option value="" selected>{t}Choisissez...{/t}</option>
 							{foreach $objectStatus as $status}
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
@@ -703,7 +703,7 @@ $(document).ready(function () {
 				<div class="row ">
 					<label for="collection_id_change" class="form-label col-4">{t}Nouvelle collection :{/t}</label>
 					<div class="col-8">
-						<select id="collection_id_change" name="collection_id_change" class="form-control">
+						<select id="collection_id_change" name="collection_id_change" class="form-select">
 							<option value="" selected>{t}Choisissez...{/t}</option>
 							{foreach $collections as $collection}
 							<option value="{$collection.collection_id}">

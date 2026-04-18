@@ -49,7 +49,7 @@
                      {t}Emprunteur :{/t}<span class="red">*</span>
                 </label>
                 <div class="col-8">
-                    <select id="borrower_id" name="borrower_id" class="form-control">
+                    <select id="borrower_id" name="borrower_id" class="form-select">
                         {foreach $borrowers as $borrower}
                             <option value="{$borrower.borrower_id}" {if $data.borrower.id == $borrower.borrower_id}selected{/if}>
                                 {$borrower.borrower_name}

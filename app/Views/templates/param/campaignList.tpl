@@ -86,7 +86,7 @@
                 <div class="row">
                     <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
                     <div class="col-8">
-                        <select id="separator" name="separator" class="form-control">
+                        <select id="separator" name="separator" class="form-select">
                             <option value=",">{t}Virgule{/t}</option>
                             <option value=";">{t}Point-virgule{/t}</option>
                             <option value="tab">{t}Tabulation{/t}</option>
@@ -96,7 +96,7 @@
                 <div class="row">
                     <label for="encoding" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
                     <div class="col-8">
-                        <select id="encoding" name="utf8_encode" class="form-control">
+                        <select id="encoding" name="utf8_encode" class="form-select">
                             <option value="0">UTF-8</option>
                             <option value="1">ISO-8859-x</option>
                         </select>

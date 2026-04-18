@@ -146,7 +146,7 @@
 					<div class="row">
 						<label for="container_family_id" class="col-2 form-label lexical" data-lexical="container_family">{t}Famille :{/t}</label>
 						<div class="col-4">
-							<select id="container_family_id" name="container_family_id" class="form-control">
+							<select id="container_family_id" name="container_family_id" class="form-select">
 								<option value="" {if $containerSearch.container_family_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$containerFamily}
 									<option value="{$containerFamily[lst].container_family_id}" {if $containerFamily[lst].container_family_id == $containerSearch.container_family_id}selected{/if}>
@@ -157,7 +157,7 @@
 						</div>
 						<label for="container_type_id" class="col-2 form-label lexical" data-lexical="container_type">{t}Type :{/t}</label>
 						<div class="col-3">
-							<select id="container_type_id" name="container_type_id" class="form-control">
+							<select id="container_type_id" name="container_type_id" class="form-select">
 								<option value="" {if $containerSearch.container_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$container_type}
 									<option value="{$container_type[lst].container_type_id}" {if $container_type[lst].container_type_id == $containerSearch.container_type_id}selected{/if} title="{$container_type[lst].container_type_description}">
@@ -172,7 +172,7 @@
 					<div class="row">
 						<label for="object_status_id" class="col-2 form-label lexical" data-lexical="status">{t}Statut :{/t}</label>
 						<div class="col-2">
-							<select id="object_status_id" name="object_status_id" class="form-control">
+							<select id="object_status_id" name="object_status_id" class="form-select">
 								<option value="" {if $containerSearch.object_status_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{section name=lst loop=$objectStatus}
 									<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id == $containerSearch.object_status_id}selected{/if}>
@@ -183,7 +183,7 @@
 					</div>
 					<label for="trashed" class="col-4 form-label lexical" data-lexical="trashed" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
 					<div class="col-2">
-							<select id="trashed" name="trashed" class="form-control">
+							<select id="trashed" name="trashed" class="form-select">
 									<option value="" {if $containerSearch.trashed == ""}selected{/if}>{t}Tous{/t}</option>
 									<option value="1" {if $containerSearch.trashed == "1"}selected{/if}>{t}Oui{/t}</option>
 									<option value="0" {if $containerSearch.trashed == "0"}selected{/if}>{t}Non{/t}</option>
@@ -197,7 +197,7 @@
 					<div class="row">
 						<label for="collection_id" class="col-3 form-label">{t}Collection :{/t}</label>
 						<div class="col-6">
-							<select id="collection_id" name="collection_id" class="form-control">
+							<select id="collection_id" name="collection_id" class="form-select">
 							<option value="" {if $containerSearch.collection_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{foreach $collectionsSearch as $collection}
 							<option value="{$collection.collection_id}" {if $collection.collection_id == $containerSearch.collection_id}selected{/if}>
@@ -212,7 +212,7 @@
 					<div class="row">
 						<label for="referent_id" class="col-3 form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
 						<div class="col-6">
-							<select id="referent_id" name="referent_id" class="form-control">
+							<select id="referent_id" name="referent_id" class="form-select">
 								<option value="" {if $containerSearch.referent_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 								{foreach $referents as $referent}
 									<option value="{$referent.referent_id}" {if $containerSearch.referent_id == $referent.referent_id}selected{/if}>
@@ -227,7 +227,7 @@
 				<div class="row">
 					<label for="event_type_id" class="col-3 form-label">{t}Type d'événement :{/t}</label>
 					<div class="col-6">
-						<select id="event_type_id" class="form-control" name="event_type_id">
+						<select id="event_type_id" class="form-select" name="event_type_id">
 							<option value="" {if $containerSearch.event_type_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{foreach $eventType as $et}
 								<option value="{$et.event_type_id}" {if $containerSearch.event_type_id == $et.event_type_id}selected{/if}>{$et.event_type_name}</option>
@@ -240,7 +240,7 @@
 				<div class="row">
 					<label for="movement_reason_id" class="col-3 form-label">{t}Motif de déstockage :{/t}</label>
 					<div class="col-6">
-						<select id="movement_reason_id" name="movement_reason_id" class="form-control">
+						<select id="movement_reason_id" name="movement_reason_id" class="form-select">
 							<option value="" {if $containerSearch.movement_reason_id == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							{section name=lst loop=$movementReason}
 								<option value="{$movementReason[lst].movement_reason_id}" {if $movementReason[lst].movement_reason_id == $containerSearch.movement_reason_id}selected{/if}>
@@ -255,7 +255,7 @@
 				<div class="row">
 					<label for="select_date" class="col-3 form-label">{t}Recherche par date :{/t}</label>
 					<div class="col-6">
-						<select class="form-control" id="select_date" name="select_date">
+						<select class="form-select" id="select_date" name="select_date">
 							<option value="" {if $containerSearch.select_date == ""}selected{/if}>{t}Choisissez...{/t}</option>
 							<option value="ch" {if $containerSearch.select_date == "ch"}selected{/if}>{t}Date technique de dernier changement{/t}</option>
 						</select>

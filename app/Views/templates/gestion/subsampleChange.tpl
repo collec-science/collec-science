@@ -163,7 +163,7 @@
             <div class="row">
                 <label for="borrower_id" class="form-label col-4">{t}Emprunteur :{/t}</label>
                 <div class="col-8">
-                    <select id="borrower_id" name="borrower_id" class="form-control">
+                    <select id="borrower_id" name="borrower_id" class="form-select">
                         <option value="" {if $data.borrower_id=="" }selected{/if}>
                             {t}Choisissez...{/t}
                         </option>
@@ -203,7 +203,7 @@
                     <label for="collection_id" class="form-label col-4"><span class="red">*</span>
                         {t}Collection :{/t}</label>
                     <div class="col-8">
-                        <select id="collection_id" name="collection_id" class="form-control tocreate" autofocus>
+                        <select id="collection_id" name="collection_id" class="form-select tocreate" autofocus>
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">
                                 {$collection.collection_name}
@@ -217,7 +217,7 @@
                         {t}Type :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="sample_type_id" name="sample_type_id" class="form-control tocreate">
+                        <select id="sample_type_id" name="sample_type_id" class="form-select tocreate">
                         </select>
                     </div>
                 </div>
@@ -242,7 +242,7 @@
                         {t}Échantillon composé correspondant :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="createdsample_id" name="createdsample_id" class="form-control">
+                        <select id="createdsample_id" name="createdsample_id" class="form-select">
                         </select>
                     </div>
                 </div>

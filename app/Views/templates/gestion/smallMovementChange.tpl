@@ -424,14 +424,14 @@
 								type="button">{t}Effacer{/t}</button>
 						</div>
 						<div class="col-xs-12 col-12">
-							<select id="object_uid" name="object_uid" class="form-control ">
+							<select id="object_uid" name="object_uid" class="form-select ">
 							</select>
 						</div>
 						<div class="col-xs-3 col-12">
 							<input id="position_stock" class="form-control " disabled value="">
 						</div>
 						<div class="col-xs-12">
-							<select id="movement_reason_id" name="movement_reason_id" class="form-control ">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-select ">
 								<option value="" {if $movement_reason_id=="" }selected{/if}>
 									{t}Motif du déstockage...{/t}
 								</option>
@@ -457,7 +457,7 @@
 								type="button">{t}Effacer{/t}</button>
 						</div>
 						<div class="col-xs-12 col-12">
-							<select id="container_uid" name="container_uid" class="form-control ">
+							<select id="container_uid" name="container_uid" class="form-select ">
 							</select>
 						</div>
 						<div class="col-xs-2 col-2 ">{t}Col:{/t}</div>
@@ -538,7 +538,7 @@
 			<div class="row">
 				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
 				<div class="col-xs-8">
-					<select id="cam-list" class="form-control ">
+					<select id="cam-list" class="form-select ">
 						<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
 						<option value="user">{t}Caméra frontale{/t}</option>
 					</select>
@@ -547,7 +547,7 @@
 			<div class="row">
 				<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
 				<div class="col-xs-8">
-					<select id="inversion-mode-select" class="form-control ">
+					<select id="inversion-mode-select" class="form-select ">
 						<option value="original">Scan original (dark QR code on bright background)</option>
 						<option value="invert">Scan with inverted colors (bright QR code on dark background)
 						</option>

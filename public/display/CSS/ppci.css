@@ -579,7 +579,7 @@ background-color: var(--color-green-7) !important;
 }
 
 .bg-info {
-	background-color: var(--color-green-3) !important;
+	background-color: var(--color-sec-1) !important;
 }
 .tooltip-inner {
     white-space:pre-wrap;
@@ -598,11 +598,19 @@ background-color: var(--color-green-7) !important;
 }
 dl {
 	display: grid;
-    grid-template-columns: 30% 70%;
+    grid-template-columns: 30% 65%;
+	gap: 10px;
 }
 dt {
 	font-weight: normal;
+	text-align: right;
+}
+dt::after {
+	content: "\00a0";
 }
 input:read-only {
 	background-color: var(--color-text-muted);
+}
+.form-label.col-4 {
+	text-align: right;
 }

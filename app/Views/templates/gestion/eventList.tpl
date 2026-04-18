@@ -27,11 +27,14 @@
 {if $rights.manage == 1}
 <a href="{$moduleParent}eventChange?event_id=0&uid={$data.uid}">
     <img src="display/images/new.png" height="25">{t}Nouveau...{/t}
-    </a>
-    &nbsp;
-    {t}Délai pour reprogrammer un événement :{/t}
-    <input type="number" id="eventDueDelay" name="eventDueDelay" value="365">
+</a>
+{if !empty($events)}
+&nbsp;
+{t}Délai pour reprogrammer un événement :{/t}
+<input type="number" id="eventDueDelay" name="eventDueDelay" value="365">
 {/if}
+{/if}
+{if !empty($events)}
 <table id="eventList" class="table table-bordered table-hover datatable display" data-order='[[1,"desc"],[3,"desc"]]'>
     <thead>
         <tr>
@@ -84,8 +87,7 @@
                 <span class="textareaDisplay">{$events[lst].event_comment}</span>
                 {if $rights.manage == 1}
             <td class="center">
-                <img class="duplicate" src="display/images/copy.png" height="25" title="{t}Reprogrammer{/t}"
-                    data-eventid="{$events[lst].event_id}" data-uid="{$events[lst].uid}">
+                <img class="duplicate" src="display/images/copy.png" height="25" title="{t}Reprogrammer{/t}" data-eventid="{$events[lst].event_id}" data-uid="{$events[lst].uid}">
             </td>
             {/if}
             </td>
@@ -93,3 +95,4 @@
         {/section}
     </tbody>
 </table>
+{/if}

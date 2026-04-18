@@ -536,7 +536,7 @@
 </div>
 <div class="tab-content" id="nav-tabContent">
 	<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
-		<div class="form-display col-lg-6">
+		<div class="form-display col-md-6">
 			{if $rights.manage == 1}
 			<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
 				<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
@@ -794,7 +794,7 @@
 			</fieldset>
 			{/if}
 		</div>
-		<div class="col-6">
+		<div class="col-md-6">
 			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
 			{include file="gestion/objectMapDisplay.tpl"}
 			{/if}

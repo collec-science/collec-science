@@ -837,105 +837,107 @@
 					</div>
 				</div>
 				<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
-					<div class="col-6 form-horizontal">
-						<div class="row ">
-							<label for="country_id" class="form-label col-4 lexical" data-lexical="country">
-								{t}Pays de collecte :{/t}
-							</label>
-							<div class="col-8">
-								<select id="country_id" name="country_id" class="form-select">
-									<option value="" {if $data.country_id=="" }selected{/if}>{t}Choisissez...{/t}
-									</option>
-									{foreach $countries as $country}
-									<option value="{$country.country_id}" {if $data.country_id==$country.country_id}selected{/if}>
-										{$country.country_name}
-									</option>
-									{/foreach}
-								</select>
+					<div class="row">
+						<div class="col-md-6 form-horizontal">
+							<div class="row ">
+								<label for="country_id" class="form-label col-4 lexical" data-lexical="country">
+									{t}Pays de collecte :{/t}
+								</label>
+								<div class="col-8">
+									<select id="country_id" name="country_id" class="form-select">
+										<option value="" {if $data.country_id=="" }selected{/if}>{t}Choisissez...{/t}
+										</option>
+										{foreach $countries as $country}
+										<option value="{$country.country_id}" {if $data.country_id==$country.country_id}selected{/if}>
+											{$country.country_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="country_origin_id" class="form-label col-4 lexical" data-lexical="country_origin">
+									{t}Pays de provenance :{/t}
+								</label>
+								<div class="col-8">
+									<select id="country_origin_id" name="country_origin_id" class="form-select">
+										<option value="" {if $data.country_origin_id=="" }selected{/if}>{t}Choisissez...{/t}
+										</option>
+										{foreach $countries as $country}
+										<option value="{$country.country_id}" {if $data.country_origin_id==$country.country_id}selected{/if}>
+											{$country.country_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="sampling_place_id" class="form-label col-4">
+									{t}Lieu de prélèvement :{/t}
+								</label>
+								<div class="col-8">
+									<select id="sampling_place_id" name="sampling_place_id" class="form-select ">
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<label for="" class="form-label col-4">
+									{t}Mode de calcul des coordonnées GPS :{/t}
+								</label>
+								<div class="col-8">
+									<table>
+										<tr>
+											<td>
+												{t}Données initiales en degrés/minutes décimales{/t}
+											</td>
+											<td>
+												<input name="degreType" type="radio" checked value="1">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												{t}Données initiales en degrés/minutes/secondes{/t}
+											</td>
+											<td>
+												<input name="degreType" type="radio" value="0">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="wy" class="form-label col-4">{t}Latitude :{/t}</label>
+								<div class="col-8" id="wy">
+									{t}Format sexagesimal (45°01,234N) :{/t}
+									<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+									{t}Format décimal (45.081667) :{/t}
+									<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
+								</div>
+							</div>
+							<div class="row ">
+								<label for="wx" class="form-label col-4">{t}Longitude :{/t}</label>
+								<div class="col-8" id="wx">
+									{t}Format sexagesimal (0°01,234W) :{/t}
+									<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
+									{t}Format décimal (-0.081667) :{/t}
+									<input id="wgs84_x" name="wgs84_x" placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+								</div>
+							</div>
+							<div class="row ">
+								<label for="location_accuracy" class="form-label col-4 lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
+								<div class="col-8">
+									<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
+								</div>
 							</div>
 						</div>
-						<div class="row ">
-							<label for="country_origin_id" class="form-label col-4 lexical" data-lexical="country_origin">
-								{t}Pays de provenance :{/t}
-							</label>
-							<div class="col-8">
-								<select id="country_origin_id" name="country_origin_id" class="form-select">
-									<option value="" {if $data.country_origin_id=="" }selected{/if}>{t}Choisissez...{/t}
-									</option>
-									{foreach $countries as $country}
-									<option value="{$country.country_id}" {if $data.country_origin_id==$country.country_id}selected{/if}>
-										{$country.country_name}
-									</option>
-									{/foreach}
-								</select>
-							</div>
+						<div class="col-md-6 ">
+							{include file="gestion/objectMapDisplay.tpl"}
 						</div>
-						<div class="row ">
-							<label for="sampling_place_id" class="form-label col-4">
-								{t}Lieu de prélèvement :{/t}
-							</label>
-							<div class="col-8">
-								<select id="sampling_place_id" name="sampling_place_id" class="form-select ">
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<label for="" class="form-label col-4">
-								{t}Mode de calcul des coordonnées GPS :{/t}
-							</label>
-							<div class="col-8">
-								<table>
-									<tr>
-										<td>
-											{t}Données initiales en degrés/minutes décimales{/t}
-										</td>
-										<td>
-											<input name="degreType" type="radio" checked value="1">
-										</td>
-									</tr>
-									<tr>
-										<td>
-											{t}Données initiales en degrés/minutes/secondes{/t}
-										</td>
-										<td>
-											<input name="degreType" type="radio" value="0">
-										</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-						<div class="row ">
-							<label for="wy" class="form-label col-4">{t}Latitude :{/t}</label>
-							<div class="col-8" id="wy">
-								{t}Format sexagesimal (45°01,234N) :{/t}
-								<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
-								{t}Format décimal (45.081667) :{/t}
-								<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
-							</div>
-						</div>
-						<div class="row ">
-							<label for="wx" class="form-label col-4">{t}Longitude :{/t}</label>
-							<div class="col-8" id="wx">
-								{t}Format sexagesimal (0°01,234W) :{/t}
-								<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
-								{t}Format décimal (-0.081667) :{/t}
-								<input id="wgs84_x" name="wgs84_x" placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
-							</div>
-						</div>
-						<div class="row ">
-							<label for="location_accuracy" class="form-label col-4 lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
-							<div class="col-8">
-								<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
-							</div>
-						</div>
-					</div>
-					<div class="col-6 ">
-						{include file="gestion/objectMapDisplay.tpl"}
 					</div>
 				</div>
 				<div class="tab-pane fade" id="nav-metadata" role="tabpanel" aria-labelledby="tab-metadata" data-error="metadata-error">
 					<div class="row form-horizontal">
-						<div class="col-6 form-horizontal">
+						<div class="form-horizontal">
 							<div id="metadata"></div>
 						</div>
 					</div>

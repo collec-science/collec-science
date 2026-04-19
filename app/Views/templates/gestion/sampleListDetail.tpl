@@ -280,7 +280,10 @@
 		function initializeBootstrapTooltip() {
 			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-				return new bootstrap.Tooltip(tooltipTriggerEl)
+				tooltipTriggerEl.setAttribute('title', 'content');
+				return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    delay: { show: 1000}
+                })
 			})
 		}
 		initializeBootstrapTooltip();
@@ -579,7 +582,7 @@
 								row += 'data-uid="' + samples[lst].uid + '" src="display/images/plus.png" height="10">';
 							}
 							row += '</td>';
-							row += '<td class="sample nowrap" data-uid="' + samples[lst].uid + '" title="">';
+							row += '<td class="sample nowrap" data-uid="' + samples[lst].uid + '" >';
 							row += '<a  class="" href="sampleDisplay?uid=' + samples[lst].uid + '">';
 							row += samples[lst].identifier;
 							row += '</a>';
@@ -792,7 +795,7 @@
 								src="display/images/plus.png" height="15">
 							{/if}
 						</td>
-						<td class="nowrap" title="">
+						<td class="nowrap" >
 							<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="empty"
 								data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
 								{$samples[lst].identifier}

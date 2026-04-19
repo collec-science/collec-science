@@ -135,7 +135,7 @@
 			snd.play();
 			scanner.stop();
 			$("#scannerDiv").hide();
-			$("#open").submit();
+			$("#rapidAccessForm").submit();
 		}
 
 		function extractUidValFromJson(valeur) {
@@ -282,7 +282,7 @@
 					});
 			}
 		});
-		$("#open").submit(function (event) {
+		$("#rapidAccessForm").submit(function (event) {
 			/**
 			* Recherche si un sample existe
 			*/
@@ -340,62 +340,78 @@
 			$("#rapidAccessForm").show();
 			$("#search").focus();
 		});
+		$("#rapidAccessForm").hide();
 	});
 </script>
-<div class="row">
-	<div class="col-8">
-		<img id="qrcode" src="display/images/qrcode.png" height="25" title="{t}Scan du QRCODE{/t}">
-		<a href="{$moduleListe}">
-			<img src="display/images/list.png" height="25">
-			{t}Retour à la liste{/t}
-		</a>
-		&nbsp;
-		<a href="#" id="rapidAccess">
-			<img src="display/images/boxopen.png" height="25">
-			{t}Accès rapide{/t}
-		</a>
+<div class="container-fluid">
+	<div class="row align-items-center">
+		<div class="col-auto">
+			<img id="qrcode" src="display/images/qrcode.png" height="25" title="{t}Scan du QRCODE{/t}">
+			<a href="{$moduleListe}">
+				<img src="display/images/list.png" height="25">
+				{t}Retour à la liste{/t}
+			</a>
+		</div>
+		<div class="col-auto">
+			<a href="#" id="rapidAccess">
+				<img src="display/images/boxopen.png" height="25">
+				{t}Accès rapide{/t}
+			</a>
+		</div>
 		{if $rights.manage == 1}
-		<a href="sampleChangeTab?uid=0">
-			<img src="display/images/new.png" height="25">
-			{t}Nouvel échantillon{/t}
-		</a>
+		<div class="col-auto">
+			<a href="sampleChangeTab?uid=0">
+				<img src="display/images/new.png" height="25">
+				{t}Nouvel échantillon{/t}
+			</a>
+		</div>
+
 		{if $data.uid > 0}
-		&nbsp;
-		<a href="sampleChangeTab?uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
-			<img src="display/images/copy.png" height="25">
-			{t}Dupliquer{/t}
-		</a>
+		<div class="col-auto">
+			<a href="sampleChangeTab?uid=0&last_sample_id={$data.uid}&is_duplicate=1" title="{t}Nouvel échantillon avec duplication des informations, dont le parent{/t}">
+				<img src="display/images/copy.png" height="25">
+				{t}Dupliquer{/t}
+			</a>
+		</div>
 		{if $modifiable == 1}
-		&nbsp;
-		<a href="sampleChangeTab?uid={$data.uid}">
-			<img src="display/images/edit.gif" height="25">
-			{t}Modifier{/t}
-		</a>
+		<div class="col-auto">
+			<a href="sampleChangeTab?uid={$data.uid}">
+				<img src="display/images/edit.gif" height="25">
+				{t}Modifier{/t}
+			</a>
+		</div>
 		{/if}
 		<!-- Entrée ou sortie -->
-		<span id="input">
-			<a href="movementsampleInput?movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
-				<img src="display/images/input.png" height="25">
-				{t}Entrer ou déplacer...{/t}
-			</a>
-		</span>
-		<span id="output">
-			<a href="movementsampleOutput?movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
-				<img src="display/images/output.png" height="25">
-				{t}Sortir du stock...{/t}
-			</a>
-		</span>
-		{/if}
-		{/if}
-		&nbsp;
-		<a href="sampleDisplay?uid={$data.uid}">
-			<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
-		</a>
+		<div class="col-auto">
+			<span id="input">
+				<a href="movementsampleInput?movement_id=0&uid={$data.uid}" id="input" title="{t}Entrer ou déplacer l'échantillon dans un contenant{/t}">
+					<img src="display/images/input.png" height="25">
+					{t}Entrer ou déplacer...{/t}
+				</a>
+			</span>
+		</div>
+		<div class="col-auto">
+			<span id="output">
+				<a href="movementsampleOutput?movement_id=0&uid={$data.uid}" id="output" title="{t}Sortir l'échantillon du stock{/t}">
+					<img src="display/images/output.png" height="25">
+					{t}Sortir du stock...{/t}
+				</a>
+			</span>
+		</div>
 
-	</div>
-	<div class="col-4">{$help}
-		<div class="pull-right bg-info">
-			{if $rights.manage == 1}
+		{/if}
+		{/if}
+		<div class="col-auto">
+
+			<a href="sampleDisplay?uid={$data.uid}">
+				<img src="display/images/refresh.png" title="{t}Rafraîchir la page{/t}" height="15">
+			</a>
+		</div>
+		<div class="col-auto">
+			{$help}
+		</div>
+		{if $rights.manage == 1}
+		<div class="col-auto pull-right bg-info">
 			<a href="sampleChangeTab?uid=0">
 				<img src="display/images/new.png" height="25">
 				{t}Nouvel échantillon{/t}
@@ -403,473 +419,475 @@
 			{/if}
 		</div>
 	</div>
-</div>
-<div id="scannerDiv" hidden>
+	<div id="scannerDiv" hidden>
+		<div class="row">
+			<div class="col-xs-12 center">
+				<div id="video-container">
+					<video id="qr-video"></video>
+				</div>
+			</div>
+		</div>
+		<div class="form-horizontal col-xs-12 col-10">
+			<div class="row">
+				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
+				<div class="col-xs-8">
+					<select id="cam-list" class="form-select ">
+						<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
+						<option value="user">{t}Caméra frontale{/t}</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
+				<div class="col-xs-8">
+					<select id="inversion-mode-select" class="form-select ">
+						<option value="original">Scan original (dark QR code on bright background)</option>
+						<option value="invert">Scan with inverted colors (bright QR code on dark background)
+						</option>
+						<option value="both">Scan both</option>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
+				<div class="col-xs-8">
+					<span id="cam-has-flash" class=""></span>
+					<button id="flash-toggle" class="">
+						📸 Flash: <span id="flash-state" class="">{t}off{/t}</span>
+					</button>
+				</div>
+			</div>
+			<span id="cam-qr-result" hidden></span>
+		</div>
+	</div>
+
+	<form id="rapidAccessForm" action="sampleDisplay" method="GET">
+		<div class="row align-items-center">
+			<div class="col-md-4">
+				<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
+			</div>
+			<div class="col-md-4">
+				<input type="submit" id="searchExec" class="btn btn-primary active" value="{t}Ouvrir{/t}">
+			</div>
+		</div>
+		{$csrf}
+	</form>
+	{if $data.uid > 0}
+	<h2>
+		{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i>
+	</h2>
+	{/if}
+
+	{if $data.uid > 0}
+	<!-- boite d'onglets -->
 	<div class="row">
-		<div class="col-xs-12 center">
-			<div id="video-container">
-				<video id="qr-video"></video>
-			</div>
-		</div>
-	</div>
-	<div class="form-horizontal col-xs-12 col-10">
-		<div class="row">
-			<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
-			<div class="col-xs-8">
-				<select id="cam-list" class="form-select ">
-					<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
-					<option value="user">{t}Caméra frontale{/t}</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
-			<div class="col-xs-8">
-				<select id="inversion-mode-select" class="form-select ">
-					<option value="original">Scan original (dark QR code on bright background)</option>
-					<option value="invert">Scan with inverted colors (bright QR code on dark background)
-					</option>
-					<option value="both">Scan both</option>
-				</select>
-			</div>
-		</div>
-		<div class="row">
-			<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
-			<div class="col-xs-8">
-				<span id="cam-has-flash" class=""></span>
-				<button id="flash-toggle" class="">
-					📸 Flash: <span id="flash-state" class="">{t}off{/t}</span>
-				</button>
-			</div>
-		</div>
-		<span id="cam-qr-result" hidden></span>
-	</div>
-</div>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="tab-detail" data-bs-toggle="tab" role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
+					<img src="display/images/zoom.png" height="25">
+					{t}Détails{/t}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id" data-bs-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+					<img src="display/images/label.png" height="25">
+					{t}Identifiants{/t}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-event" href="#nav-event" data-bs-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
+					<img src="display/images/events.png" height="25">
+					{t}Événements/prêts{/t}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-movement" href="#nav-movement" data-bs-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
+					<img src="display/images/movement.png" height="25">
+					{t}Mouvements{/t}
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link lexical" data-lexical="sample_derivated" id="tab-sample" href="#nav-sample" data-bs-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
+					<img src="display/images/sample.png" height="25">
+					{t}Échantillons dérivés{/t}
+				</a>
+			</li>
+			{if $modifiable == 1 || $consultSeesAll == 1}
+			<li class="nav-item">
+				<a class="nav-link" id="tab-document" href="#nav-document" data-bs-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
+					<img src="display/images/camera.png" height="25">
+					{t}Documents associés{/t}
+				</a>
+			</li>
 
-<div class="row">
-	<div class="col-lg-8 col-md-12">
-		{if $data.uid > 0}
-		<div class="container">
-			<h2>{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 			{/if}
-		</div>
-		<div id="rapidAccessForm" hidden class="col-4 offset-2 col-2">
-			<form id="open" action="sampleDisplay" method="GET">
-				<div class="row">
-					<div class="col-6 col-offset-2 offset-0 col-4">
-						<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
-					</div>
-					<input type="submit" id="searchExec" class="btn btn-warning col-6 col-4" value="{t}Ouvrir{/t}">
-				</div>
-				{$csrf}
-			</form>
-		</div>
-	</div>
-</div>
-{if $data.uid > 0}
-
-<!-- boite d'onglets -->
-<div class="row">
-	<ul class="nav nav-tabs" id="myTab" role="tablist">
-		<li class="nav-item">
-			<a class="nav-link active" id="tab-detail" data-bs-toggle="tab" role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
-				<img src="display/images/zoom.png" height="25">
-				{t}Détails{/t}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id" data-bs-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
-				<img src="display/images/label.png" height="25">
-				{t}Identifiants{/t}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="tab-event" href="#nav-event" data-bs-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
-				<img src="display/images/events.png" height="25">
-				{t}Événements/prêts{/t}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="tab-movement" href="#nav-movement" data-bs-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
-				<img src="display/images/movement.png" height="25">
-				{t}Mouvements{/t}
-			</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link lexical" data-lexical="sample_derivated" id="tab-sample" href="#nav-sample" data-bs-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
-				<img src="display/images/sample.png" height="25">
-				{t}Échantillons dérivés{/t}
-			</a>
-		</li>
-		{if $modifiable == 1 || $consultSeesAll == 1}
-		<li class="nav-item">
-			<a class="nav-link" id="tab-document" href="#nav-document" data-bs-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
-				<img src="display/images/camera.png" height="25">
-				{t}Documents associés{/t}
-			</a>
-		</li>
-
-		{/if}
-		<li class="nav-item">
-			<a class="nav-link" id="tab-booking" href="#nav-booking" data-bs-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
-				<img src="display/images/crossed-calendar.png" height="25">
-				{t}Réservations{/t}
-			</a>
-		</li>
-		{if $data.multiple_type_id > 0}
-		<li class="nav-item">
-			<a class="nav-link" id="tab-subsample" href="#nav-subsample" data-bs-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
-				<img src="display/images/subsample.png" height="25">
-				{t}Sous-échantillonnage{/t}
-			</a>
-		</li>
-		{/if}
-		{if $modifiable == 1 || $consultSeesAll == 1}
-		<li class="nav-item">
-			<a class="nav-link" id="tab-histo" href="#nav-histo" data-bs-toggle="tab" role="tab" aria-controls="nav-histo" aria-selected="false">
-				<img src="display/images/history.png" height="25">
-				{t}Historique des modifications{/t}
-			</a>
-		</li>
-		{/if}
-	</ul>
-</div>
-<div class="tab-content" id="nav-tabContent">
-	<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
-		<div class="form-display col-md-6">
-			{if $rights.manage == 1}
-			<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
-				<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
-				<input type="hidden" name="uid" value="{$data.uid}">
-				<input type="hidden" name="lastModule" value="sampleDisplay">
-				<div class="row">
-					<div class="center">
-						<select id="labels2" name="label_id">
-							<option value="" {if $label_id=="" }selected{/if}>{t}Étiquette par défaut{/t}</option>
-							{section name=lst loop=$labels}
-							<option value="{$labels[lst].label_id}" {if $labels[lst].label_id==$label_id}selected{/if}>
-								{$labels[lst].label_name}
-							</option>
-							{/section}
-						</select>
-						<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
-						{if !empty($printers)}
-						<select id="printers2" name="printer_id" class="form-select">
-							{section name=lst loop=$printers}
-							<option value="{$printers[lst].printer_id}">
-								{$printers[lst].printer_name}
-							</option>
-							{/section}
-						</select>
-						<button id="sampledirect2" class="btn btn-primary">{t}Impression directe{/t}</button>
-						{/if}
-					</div>
-				</div>
-				{$csrf}
-			</form>
-			{/if}
-			<dl class="dl-horizontal">
-				<dt>{t}UID et identifiant métier :{/t}</dt>
-				<dd>{$data.uid} {$data.identifier}</dd>
-			</dl>
-			{if count ($objectIdentifiers) > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="identifier-type">{t}Identifiants complémentaires :{/t}</dt>
-				<dd>
-					{$i = 0}
-					{foreach $objectIdentifiers as $oi}
-					{if $i > 0}<br>{/if}
-					{$oi.identifier_type_name} {if
-					!empty($oi.identifier_type_code)}({$oi.identifier_type_code}){/if}:&nbsp;{$oi.object_identifier_value}
-					{$i = $i + 1}
-					{/foreach}
-				</dd>
-			</dl>
-			{/if}
-			{if strlen($data.dbuid_origin) > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="dbuid">{t}DB et UID d'origine :{/t}</dt>
-				<dd>{$data.dbuid_origin}</dd>
-			</dl>
-			{/if}
-			<dl class="dl-horizontal">
-				<dt>{t}Collection :{/t}</dt>
-				<dd title="{$data.collection_description}">{$data.collection_name}</dd>
-			</dl>
-			{if (!empty($data.referent_id))}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
-				<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_firstname} {$data.referent_name}</a></dd>
-			</dl>
-			{/if}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="sample_type">{t}Type :{/t}</dt>
-				<dd>{$data.sample_type_name}
-					{if strlen($data.container_type_name) > 0}
-					<br>
-					{t}Contenant associé :{/t} {$data.container_type_name}
-					{/if}
-					{if strlen($data.risk_name) > 0}
-					<br>
-					{t}Risque :{/t} {$data.risk_name}
-					{/if}
-					{if strlen($data.product_name) > 0}
-					<br>
-					{t}Produit utilisé :{/t} {$data.product_name}
-					{/if}
-				</dd>
-			</dl>
-			{if $data.operation_id > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="protocol">{t}Protocole et opération :{/t}</dt>
-				<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name}
-					{$data.operation_version}
-				</dd>
-			</dl>
-			{/if}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
-				<dd>{$data.object_status_name}
-					{if $data.trashed == 't'}
-					<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
-					{/if}
-					{if $data.object_status_id == 6}
-					&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
-					&nbsp;{t}à{/t}&nbsp;
-					<a href="borrowerDisplay?borrower_id={$data.borrower_id}">
-						{$data.borrower_name}
-					</a>
-
-					<br>
-					{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
-					{/if}
-				</dd>
-			</dl>
-
-			<dl class="dl-horizontal">
-				<dt>{t}Date de création de l'échantillon (d'échantillonnage) :{/t}</dt>
-				<dd>{$data.sampling_date}</dd>
-			</dl>
-			<dl class="dl-horizontal">
-				<dt>{t}Date d'import dans la base de données :{/t}
-				</dt>
-				<dd>{$data.sample_creation_date}</dd>
-			</dl>
-			{if strlen($data.expiration_date) > 0}
-			<dl class="dl-horizontal">
-				<dt title="{t}Date d'expiration de l'échantillon{/t}">{t}Date d'expiration :{/t}</dt>
-				<dd>{$data.expiration_date}</dd>
-			</dl>
-			{/if}
-			<dl class="dl-horizontal">
-				<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification :{/t}</dt>
-				<dd>{$data.change_date}</dd>
-			</dl>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-booking" href="#nav-booking" data-bs-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
+					<img src="display/images/crossed-calendar.png" height="25">
+					{t}Réservations{/t}
+				</a>
+			</li>
 			{if $data.multiple_type_id > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="subsample" title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t
-					1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
-				<dd>{$data.multiple_value}</dd>
-			</dl>
+			<li class="nav-item">
+				<a class="nav-link" id="tab-subsample" href="#nav-subsample" data-bs-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
+					<img src="display/images/subsample.png" height="25">
+					{t}Sous-échantillonnage{/t}
+				</a>
+			</li>
 			{/if}
-			{if $data.parent_uid > 0}
-			<dl class="dl-horizontal">
-				<dt title="{t}Échantillon parent{/t}">{t}Échantillon parent :{/t}</dt>
-				<dd>
-					<a href="sampleDisplay?uid={$data.parent_uid}">
-						{$data.parent_uid} {$data.parent_identifier}
-					</a>
-				</dd>
-			</dl>
+			{if $modifiable == 1 || $consultSeesAll == 1}
+			<li class="nav-item">
+				<a class="nav-link" id="tab-histo" href="#nav-histo" data-bs-toggle="tab" role="tab" aria-controls="nav-histo" aria-selected="false">
+					<img src="display/images/history.png" height="25">
+					{t}Historique des modifications{/t}
+				</a>
+			</li>
 			{/if}
-			{if !empty($sampleparents)}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="composite">{t}Parents (échantillon composé){/t}</dt>
-				<dd>
-					{foreach $sampleparents as $p}
-					<a href="sampleDisplay?uid={$p.uid}">
-						{$p.uid}&nbsp;{$p.identifier}
-					</a><br>
-					{/foreach}
-				</dd>
-			</dl>
-			{/if}
-			{if $data.no_localization != 't'}
-			{if $data.campaign_id > 0}
-			<dl class="dl-horizontal">
-				<dt>{t}Campagne de prélèvement :{/t}</dt>
-				<dd title="{$data.campaign_description}"><a href="campaignDisplay?campaign_id={$data.campaign_id}">
-						{$data.campaign_name}
-					</a>
-				</dd>
-			</dl>
-			{/if}
-			{if $data.sampling_place_id > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="sampling_place">{t}Lieu de prélèvement :{/t}</dt>
-				<dd>{$data.sampling_place_name}</dd>
-			</dl>
-			{/if}
-			{if $data.country_id > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
-				<dd>{$data.country_name}</dd>
-			</dl>
-			{/if}
-			{if $data.country_origin_id > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
-				<dd>{$data.country_origin_name}</dd>
-			</dl>
-			{/if}
-			{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>
-				<dd>{$data.wgs84_y}</dd>
-			</dl>
-			<dl class="dl-horizontal">
-				<dt>{t}Longitude :{/t}</dt>
-				<dd>{$data.wgs84_x}</dd>
-			</dl>
-			{if $data.location_accuracy > 0}
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</dt>
-				<dd>{$data.location_accuracy}</dd>
-			</dl>
-			{/if}
-			{/if}
-			{/if}
-			<dl class="dl-horizontal">
-				<dt>{t}Commentaire :{/t}</dt>
-				<dd class="textareaDisplay">{$data.object_comment}</dd>
-			</dl>
-			<dl class="dl-horizontal">
-				<dt>{t}Emplacement :{/t}</dt>
-				<dd>
-					{section name=lst loop=$parents}
-					<a href="containerDisplay?uid={$parents[lst].uid}">
-						{$parents[lst].uid} {$parents[lst].identifier} {$container_type_name}
-					</a>
-					{if not $smarty.section.lst.last}
-					<br>
-					{/if}
-					{/section}
-				</dd>
-			</dl>
-			<dl class="dl-horizontal">
-				<dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
-				<dd>{$data.uuid}</dd>
-			</dl>
-			{if !empty($metadata)}
-			<fieldset>
-				<legend class="lexical" data-lexical="metadata">{t}Métadonnées associées{/t}</legend>
-				{foreach $metadata as $key=>$value}
+		</ul>
+	</div>
+	<div class="tab-content" id="nav-tabContent">
+		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
+			<div class="form-display col-md-6">
+				{if $rights.manage == 1}
+				<form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
+					<input type="hidden" id="uid2" name="uids" value="{$data.uid}">
+					<input type="hidden" name="uid" value="{$data.uid}">
+					<input type="hidden" name="lastModule" value="sampleDisplay">
+					<div class="row justify-content-center">
+						<div class="col-auto">
+							<select id="labels2" name="label_id" class="form-select">
+								<option value="" {if $label_id=="" }selected{/if}>{t}Étiquette par défaut{/t}</option>
+								{section name=lst loop=$labels}
+								<option value="{$labels[lst].label_id}" {if $labels[lst].label_id==$label_id}selected{/if}>
+									{$labels[lst].label_name}
+								</option>
+								{/section}
+							</select>
+						</div>
+						<div class="col-auto">
+							<button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
+						</div>
+						{if !empty($printers)}
+						<div class="col-auto">
+							<select id="printers2" name="printer_id" class="form-select">
+								{section name=lst loop=$printers}
+								<option value="{$printers[lst].printer_id}">
+									{$printers[lst].printer_name}
+								</option>
+								{/section}
+							</select>
+						</div>
+						<div class="col-auto">
+							<button id="sampledirect2" class="btn btn-primary">{t}Impression directe{/t}</button>
+						</div>
+						{/if}
+					</div>
+					{$csrf}
+				</form>
+				{/if}
 				<dl class="dl-horizontal">
-					<dt>{t 1=$key}%1 :{/t}</dt>
+					<dt>{t}UID et identifiant métier :{/t}</dt>
+					<dd>{$data.uid} {$data.identifier}</dd>
+				</dl>
+				{if count ($objectIdentifiers) > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="identifier-type">{t}Identifiants complémentaires :{/t}</dt>
 					<dd>
-						{if is_array($value) }
-						{foreach $value as $val}
-						{if is_array($val)}
-						{$last = ""}
-						{foreach $val as $val1}
-						{if $val1 != $last}
-						{$val1}<br>
-						{$last = $val1}
-						{/if}
+						{$i = 0}
+						{foreach $objectIdentifiers as $oi}
+						{if $i > 0}<br>{/if}
+						{$oi.identifier_type_name} {if
+						!empty($oi.identifier_type_code)}({$oi.identifier_type_code}){/if}:&nbsp;{$oi.object_identifier_value}
+						{$i = $i + 1}
 						{/foreach}
-						{else}
-						{$val}<br>
+					</dd>
+				</dl>
+				{/if}
+				{if strlen($data.dbuid_origin) > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="dbuid">{t}DB et UID d'origine :{/t}</dt>
+					<dd>{$data.dbuid_origin}</dd>
+				</dl>
+				{/if}
+				<dl class="dl-horizontal">
+					<dt>{t}Collection :{/t}</dt>
+					<dd title="{$data.collection_description}">{$data.collection_name}</dd>
+				</dl>
+				{if (!empty($data.referent_id))}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="referent">{t}Référent :{/t}</dt>
+					<dd id="referent_name" title="{t}Cliquez pour la description complète{/t}"><a href="#">{$data.referent_firstname} {$data.referent_name}</a></dd>
+				</dl>
+				{/if}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="sample_type">{t}Type :{/t}</dt>
+					<dd>{$data.sample_type_name}
+						{if strlen($data.container_type_name) > 0}
+						<br>
+						{t}Contenant associé :{/t} {$data.container_type_name}
 						{/if}
-						{/foreach}
-						{else}
-						{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}
-						<a href="{$value}" target="_blank">{$value}</a>
-						{else}
-						{$value}
+						{if strlen($data.risk_name) > 0}
+						<br>
+						{t}Risque :{/t} {$data.risk_name}
 						{/if}
+						{if strlen($data.product_name) > 0}
+						<br>
+						{t}Produit utilisé :{/t} {$data.product_name}
 						{/if}
 					</dd>
 				</dl>
-				{/foreach}
-			</fieldset>
-			{/if}
-		</div>
-		<div class="col-md-6">
-			{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
-			{include file="gestion/objectMapDisplay.tpl"}
-			{/if}
-		</div>
-	</div>
-	<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
-		<div class="col-12">
-			<fieldset>
-				<legend class="lexical" data-lexical="event_type">{t}Événements{/t}</legend>
-				{include file="gestion/eventList.tpl"}
-			</fieldset>
-			<fieldset>
-				<legend>{t}Liste des prêts{/t}</legend>
-				{include file="gestion/borrowingList.tpl"}
-			</fieldset>
+				{if $data.operation_id > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="protocol">{t}Protocole et opération :{/t}</dt>
+					<dd>{$data.protocol_year} {$data.protocol_name} {$data.protocol_version} / {$data.operation_name}
+						{$data.operation_version}
+					</dd>
+				</dl>
+				{/if}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="status">{t}Statut :{/t}</dt>
+					<dd>{$data.object_status_name}
+						{if $data.trashed == 't'}
+						<span class="red">&nbsp;{t}Échantillon mis à la corbeille{/t}</span>
+						{/if}
+						{if $data.object_status_id == 6}
+						&nbsp;{t}le{/t}&nbsp;{$data.borrowing_date}
+						&nbsp;{t}à{/t}&nbsp;
+						<a href="borrowerDisplay?borrower_id={$data.borrower_id}">
+							{$data.borrower_name}
+						</a>
 
+						<br>
+						{t}Retour prévu le{/t}&nbsp;{$data.expected_return_date}
+						{/if}
+					</dd>
+				</dl>
+
+				<dl class="dl-horizontal">
+					<dt>{t}Date de création de l'échantillon (d'échantillonnage) :{/t}</dt>
+					<dd>{$data.sampling_date}</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}Date d'import dans la base de données :{/t}
+					</dt>
+					<dd>{$data.sample_creation_date}</dd>
+				</dl>
+				{if strlen($data.expiration_date) > 0}
+				<dl class="dl-horizontal">
+					<dt title="{t}Date d'expiration de l'échantillon{/t}">{t}Date d'expiration :{/t}</dt>
+					<dd>{$data.expiration_date}</dd>
+				</dl>
+				{/if}
+				<dl class="dl-horizontal">
+					<dt title="{t}Date technique de dernière modification de l'échantillon{/t}">{t}Date de modification :{/t}</dt>
+					<dd>{$data.change_date}</dd>
+				</dl>
+				{if $data.multiple_type_id > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="subsample" title="{t 1=$data.multiple_unit}Quantité de sous-échantillons (%1){/t}">{t
+						1=$data.multiple_unit}Qté de sous-échantillons (%1) :{/t}</dt>
+					<dd>{$data.multiple_value}</dd>
+				</dl>
+				{/if}
+				{if $data.parent_uid > 0}
+				<dl class="dl-horizontal">
+					<dt title="{t}Échantillon parent{/t}">{t}Échantillon parent :{/t}</dt>
+					<dd>
+						<a href="sampleDisplay?uid={$data.parent_uid}">
+							{$data.parent_uid} {$data.parent_identifier}
+						</a>
+					</dd>
+				</dl>
+				{/if}
+				{if !empty($sampleparents)}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="composite">{t}Parents (échantillon composé){/t}</dt>
+					<dd>
+						{foreach $sampleparents as $p}
+						<a href="sampleDisplay?uid={$p.uid}">
+							{$p.uid}&nbsp;{$p.identifier}
+						</a><br>
+						{/foreach}
+					</dd>
+				</dl>
+				{/if}
+				{if $data.no_localization != 't'}
+				{if $data.campaign_id > 0}
+				<dl class="dl-horizontal">
+					<dt>{t}Campagne de prélèvement :{/t}</dt>
+					<dd title="{$data.campaign_description}"><a href="campaignDisplay?campaign_id={$data.campaign_id}">
+							{$data.campaign_name}
+						</a>
+					</dd>
+				</dl>
+				{/if}
+				{if $data.sampling_place_id > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="sampling_place">{t}Lieu de prélèvement :{/t}</dt>
+					<dd>{$data.sampling_place_name}</dd>
+				</dl>
+				{/if}
+				{if $data.country_id > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="country">{t}Pays de collecte :{/t}</dt>
+					<dd>{$data.country_name}</dd>
+				</dl>
+				{/if}
+				{if $data.country_origin_id > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="country_origin">{t}Pays de provenance :{/t}</dt>
+					<dd>{$data.country_origin_name}</dd>
+				</dl>
+				{/if}
+				{if strlen($data.wgs84_x) > 0 || strlen($data.wgs84_y) > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="sample_latlong">{t}Latitude :{/t}</dt>
+					<dd>{$data.wgs84_y}</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}Longitude :{/t}</dt>
+					<dd>{$data.wgs84_x}</dd>
+				</dl>
+				{if $data.location_accuracy > 0}
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</dt>
+					<dd>{$data.location_accuracy}</dd>
+				</dl>
+				{/if}
+				{/if}
+				{/if}
+				<dl class="dl-horizontal">
+					<dt>{t}Commentaire :{/t}</dt>
+					<dd class="textareaDisplay">{$data.object_comment}</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>{t}Emplacement :{/t}</dt>
+					<dd>
+						{section name=lst loop=$parents}
+						<a href="containerDisplay?uid={$parents[lst].uid}">
+							{$parents[lst].uid} {$parents[lst].identifier} {$container_type_name}
+						</a>
+						{if not $smarty.section.lst.last}
+						<br>
+						{/if}
+						{/section}
+					</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
+					<dd>{$data.uuid}</dd>
+				</dl>
+				{if !empty($metadata)}
+				<fieldset>
+					<legend class="lexical" data-lexical="metadata">{t}Métadonnées associées{/t}</legend>
+					{foreach $metadata as $key=>$value}
+					<dl class="dl-horizontal">
+						<dt>{t 1=$key}%1 :{/t}</dt>
+						<dd>
+							{if is_array($value) }
+							{foreach $value as $val}
+							{if is_array($val)}
+							{$last = ""}
+							{foreach $val as $val1}
+							{if $val1 != $last}
+							{$val1}<br>
+							{$last = $val1}
+							{/if}
+							{/foreach}
+							{else}
+							{$val}<br>
+							{/if}
+							{/foreach}
+							{else}
+							{if substr($value, 0, 5) == "http:" || substr($value, 0, 6) == "https:"}
+							<a href="{$value}" target="_blank">{$value}</a>
+							{else}
+							{$value}
+							{/if}
+							{/if}
+						</dd>
+					</dl>
+					{/foreach}
+				</fieldset>
+				{/if}
+			</div>
+			<div class="col-md-6">
+				{if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
+				{include file="gestion/objectMapDisplay.tpl"}
+				{/if}
+			</div>
 		</div>
-	</div>
-	<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
-		<div class="col-12">
-			{include file="gestion/objectIdentifierList.tpl"}
+		<div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="tab-event">
+			<div class="col-12">
+				<fieldset>
+					<legend class="lexical" data-lexical="event_type">{t}Événements{/t}</legend>
+					{include file="gestion/eventList.tpl"}
+				</fieldset>
+				<fieldset>
+					<legend>{t}Liste des prêts{/t}</legend>
+					{include file="gestion/borrowingList.tpl"}
+				</fieldset>
+
+			</div>
 		</div>
-	</div>
-	<div class="tab-pane fade" id="nav-movement" role="tabpanel" aria-labelledby="tab-movement">
-		<div class="col-12">
-			{include file="gestion/objectMovementList.tpl"}
+		<div class="tab-pane fade" id="nav-id" role="tabpanel" aria-labelledby="tab-id">
+			<div class="col-12">
+				{include file="gestion/objectIdentifierList.tpl"}
+			</div>
 		</div>
-	</div>
-	<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
-		<div class="col-12">
-			{if $rights.manage == 1 && $modifiable == 1}
-			<a href="sampleChangeTab?uid=0&parent_uid={$data.uid}">
-				<img src="display/images/new.png" height="25">
-				{t}Nouvel échantillon dérivé...{/t}
-			</a>
-			{/if}
-			{include file="gestion/sampleListDetail.tpl"}
+		<div class="tab-pane fade" id="nav-movement" role="tabpanel" aria-labelledby="tab-movement">
+			<div class="col-12">
+				{include file="gestion/objectMovementList.tpl"}
+			</div>
 		</div>
-	</div>
-	{if $modifiable == 1 || $consultSeesAll == 1 }
-	<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
-		<div class="col-12">
-			{include file="gestion/documentList.tpl"}
-			{if $externalStorageEnabled == 1}
-			{include file="gestion/documentExternalAdd.tpl"}
-			{/if}
+		<div class="tab-pane fade" id="nav-sample" role="tabpanel" aria-labelledby="tab-sample">
+			<div class="col-12">
+				{if $rights.manage == 1 && $modifiable == 1}
+				<a href="sampleChangeTab?uid=0&parent_uid={$data.uid}">
+					<img src="display/images/new.png" height="25">
+					{t}Nouvel échantillon dérivé...{/t}
+				</a>
+				{/if}
+				{include file="gestion/sampleListDetail.tpl"}
+			</div>
 		</div>
-	</div>
-	{/if}
-	<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
-		<div class="col-12">
-			{include file="gestion/bookingList.tpl"}
+		{if $modifiable == 1 || $consultSeesAll == 1 }
+		<div class="tab-pane fade" id="nav-document" role="tabpanel" aria-labelledby="tab-document">
+			<div class="col-12">
+				{include file="gestion/documentList.tpl"}
+				{if $externalStorageEnabled == 1}
+				{include file="gestion/documentExternalAdd.tpl"}
+				{/if}
+			</div>
 		</div>
-	</div>
-	{if $data.multiple_type_id > 0}
-	<div class="tab-pane fade" id="nav-subsample" role="tabpanel" aria-labelledby="tab-subsample">
-		<div class="col-12">
-			{include file="gestion/subsampleList.tpl"}
+		{/if}
+		<div class="tab-pane fade" id="nav-booking" role="tabpanel" aria-labelledby="tab-booking">
+			<div class="col-12">
+				{include file="gestion/bookingList.tpl"}
+			</div>
 		</div>
+		{if $data.multiple_type_id > 0}
+		<div class="tab-pane fade" id="nav-subsample" role="tabpanel" aria-labelledby="tab-subsample">
+			<div class="col-12">
+				{include file="gestion/subsampleList.tpl"}
+			</div>
+		</div>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1 }
+		<div class="tab-pane fade" id="nav-histo" role="tabpanel" aria-labelledby="tab-histo">
+			<div class="col-12">
+				{include file="gestion/sampleHistory.tpl"}
+			</div>
+		</div>
+		{/if}
 	</div>
-	{/if}
-	{if $modifiable == 1 || $consultSeesAll == 1 }
-	<div class="tab-pane fade" id="nav-histo" role="tabpanel" aria-labelledby="tab-histo">
-		<div class="col-12">
-			{include file="gestion/sampleHistory.tpl"}
+	<div class="row">
+		<div class="col-12 messageBas">
+			<label for="tabHoverSelect" class="form-check-label">
+				{t}Activer le survol des onglets :{/t}
+			</label>
+			<input type="checkbox" id="tabHoverSelect" class="form-check-input">
 		</div>
 	</div>
 	{/if}
 </div>
-<div class="row">
-	<div class="col-12 messageBas">
-		<label for="tabHoverSelect" class="form-check-label">
-			{t}Activer le survol des onglets :{/t}
-		</label>
-		<input type="checkbox" id="tabHoverSelect" class="form-check-input">
-	</div>
-</div>
-{/if}

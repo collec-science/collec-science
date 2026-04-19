@@ -20,7 +20,8 @@ red: var(--color-red), rgb(213,19,23);
 	--color-red-5: rgba(213, 19, 23, 0.5);
 	--color-red-7:rgba(213, 19, 23, 0.7);
 	--color-grey: #000000c8;
-	--color-text-muted: #bec8c8;
+	/*--color-text-muted: #bec8c8;*/
+	/*--color-text-muted: rgba(0,158,224,0.3);*/
 
 }
 /* Wrapper for page content to push down footer */
@@ -538,8 +539,10 @@ a:hover {
 .btn-primary {
 	background-color: var(--color-sec);
 }
+.btn-primary:link,
 .btn-primary:hover,
-.btn-primary:active {
+.btn-primary:active
+{
 	background-color: var(--color-sec-7) !important;
 	color: black;
 }

@@ -20,7 +20,9 @@
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('.lexical'));
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                 tooltipTriggerEl.setAttribute('title', 'lexical');
-                return new bootstrap.Tooltip(tooltipTriggerEl)
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    delay: { show: 2000}
+                })
             });
         }
         initializeBootstrapTooltip();
@@ -38,20 +40,14 @@
                         if (d) {
                             d = JSON.parse(d);
                             var content = d[0];
-                            /*var content = d[0].split(" ");
-                            var length = 0;
-                            tooltipContent = "";
-                            content.forEach(function (word) {
-                                if (length > 40) {
-                                    tooltipContent += "<br>";
-                                    length = 0;
-                                }
-                                tooltipContent += word + " ";
-                                length += word.length + 1;
-                            });*/
+                            /*
+                             * decode html entities
+                             */
+                            const parser = new DOMParser();
+                            const contentdecoded = parser.parseFromString(content, 'text/html');
+                            content = contentdecoded.body.textContent;
                             tip.setContent({ '.tooltip-inner': content });
                             $(this).attr("title", content);
-                            console.log(content);
                             if (document.querySelector('.tooltip.show')) {
                                 tip.show();
                             }

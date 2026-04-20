@@ -342,6 +342,7 @@
 		});
 		$("#rapidAccessForm").hide();
 		$("#scannerDiv").hide();
+		setTimeout( backToTop, 0);
 	});
 </script>
 <div class="container-fluid">
@@ -481,7 +482,7 @@
 
 	{if $data.uid > 0}
 	<!-- boite d'onglets -->
-	<div class="row">
+
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="tab-detail" data-bs-toggle="tab" role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
@@ -545,7 +546,7 @@
 			</li>
 			{/if}
 		</ul>
-	</div>
+
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 			<div class="form-display col-md-6">

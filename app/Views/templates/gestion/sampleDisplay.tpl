@@ -341,6 +341,7 @@
 			$("#search").focus();
 		});
 		$("#rapidAccessForm").hide();
+		$("#scannerDiv").hide();
 	});
 </script>
 <div class="container-fluid">
@@ -419,7 +420,7 @@
 			{/if}
 		</div>
 	</div>
-	<div id="scannerDiv" hidden>
+	<div id="scannerDiv" >
 		<div class="row">
 			<div class="col-xs-12 center">
 				<div id="video-container">

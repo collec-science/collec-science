@@ -19,16 +19,32 @@ class Document extends PpciController
     }
     function write($origin)
     {
-        if (!(
-            $origin == "collection" &&
-            ($_SESSION["userRights"]["param"] == 1 || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$_REQUEST["collection_id"]]))
-            )
-        )) {
-            $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
-            $lib = new Collection;
-            return $lib->display();
+        $ok = false;
+        if ($_SESSION["userRights"]["param"] == 1) {
+            $ok = true;
         }
-        return $this->returnToOrigin($origin,  $this->lib->write());
+        /*collection*/
+        if (
+            !$ok &&
+            $origin == "collection" && ($_SESSION["userRights"]["param"] == 1
+                || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$_REQUEST["collection_id"]]))
+            )
+        ) {
+            $ok = true;
+        }
+        /* sample */
+        if (!$ok && $origin == "sample" && !empty($_SESSION["collections"][$_REQUEST["collection_id"]])) {
+            $ok = true;
+        }
+        if (!$ok && $origin != "collection" && $origin != "sample") {
+            $ok = true;
+        }
+        if (!$ok) {
+            $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
+            return $this->returnToOrigin($origin, true);
+        } else {
+            return $this->returnToOrigin($origin,  $this->lib->write());
+        }
     }
     function delete($origin)
     {

@@ -26,11 +26,12 @@
 				documentChangeShow = 0;
 			}
 		} );
+		$("#documentChange").hide();
 	} );
 </script>
 {if $rights["manage"] == 1 && $modifiable == 1 }
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
-<div id="documentChange" hidden="true">
+<div id="documentChange">
 	{include file="gestion/documentChange.tpl"}
 	{if $externalStorageEnabled == "t"}
 		{include file="gestion/documentExternalAdd.tpl"}

@@ -1,22 +1,20 @@
 <script>
-	$(document).ready(function() {
-		var maxUploadSize = "{$maxUploadSize}" * 1024 *1024;
-		$("#documentName").on ("change", function() {
+	$(document).ready(function () {
+		var maxUploadSize = "{$maxUploadSize}" * 1024 * 1024;
+		$("#documentName").on("change", function () {
 			var totalSize = 0;
 			var docs = document.getElementById("documentName");
 			for (file of docs.files) {
 				totalSize += file.size;
 			}
 			if (totalSize > maxUploadSize) {
-				alert ("{t}La taille du ou des fichiers dépasse celle autorisée{/t}");
+				alert("{t}La taille du ou des fichiers dépasse celle autorisée{/t}");
 				docs.value = "";
 			}
 		});
 		$("#documentForm").on("submit", function (e) {
 			if (!$("#documentName").val()) {
 				e.preventDefault();
-			} else {
-				$("#documentSpinner").show();
 			}
 		});
 	});
@@ -36,8 +34,7 @@
 				{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 			</label>
 			<div class="col-8">
-				<input id="documentName" type="file" class="form-control"
-					name="documentName[]" multiple>
+				<input id="documentName" type="file" class="form-control" name="documentName[]" multiple>
 			</div>
 		</div>
 		<div class="row">
@@ -51,13 +48,14 @@
 			<label for="document_creation_date" class="form-label col-4">
 				{t}Date de création du document :{/t} </label>
 			<div class="col-8">
-				<input id="document_creation_date" name="document_creation_date"
-					class="form-control datepicker">
+				<input id="document_creation_date" name="document_creation_date" class="form-control datepicker">
 			</div>
 		</div>
-		<div class="row center">
-			<button type="submit" class="btn btn-primary">{t}Envoyer le fichier{/t}</button>
-			<img id="documentSpinner" src="display/images/spinner.gif" height="25" hidden>
+		<div class="row d-flex justify-content-center">
+			<div class="col-auto">
+				<button type="submit" class="btn btn-primary ">{t}Envoyer le fichier{/t}</button>
+			</div>
 		</div>
-	{$csrf}</form>
+		{$csrf}
+	</form>
 </div>

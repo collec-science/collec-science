@@ -19,20 +19,21 @@ class Document extends PpciController
     }
     function write($origin)
     {
-        if (!(
-            $origin == "collection" &&
-            ($_SESSION["userRights"]["param"] == 1 || ($_SESSION["userRights"]["collection"] == 1 && !empty($_SESSION["collections"][$_REQUEST["collection_id"]]))
-            )
-        )) {
+        if (!$this->verifyRights($origin)) {
             $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
-            $lib = new Collection;
-            return $lib->display();
+            return $this->returnToOrigin($origin, true);
+        } else {
+            return $this->returnToOrigin($origin,  $this->lib->write());
         }
-        return $this->returnToOrigin($origin,  $this->lib->write());
     }
     function delete($origin)
     {
-        return $this->returnToOrigin($origin,  $this->lib->delete());
+        if (!$this->verifyRights($origin)) {
+            $this->message->set(_("Vous ne disposez pas des droits suffisants pour cette opération"), true);
+            return $this->returnToOrigin($origin, true);
+        } else {
+            return $this->returnToOrigin($origin,  $this->lib->delete());
+        }
     }
     function get()
     {
@@ -80,6 +81,18 @@ class Document extends PpciController
             } else {
                 return $lib->display();
             }
+        }
+    }
+    function verifyRights($origin)
+    {
+        if ($origin == "sample") {
+            $lib = new Sample;
+            return $lib->verifyRights($_REQUEST["uid"]);
+        } elseif ($origin == "collection") {
+            $lib = new Collection;
+            return $lib->verifyRights($_REQUEST["collection_id"]);
+        } else {
+            return true;
         }
     }
 }

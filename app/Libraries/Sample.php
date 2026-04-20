@@ -1046,4 +1046,7 @@ class Sample extends PpciLibrary
     {
         $this->dataclass->reindex();
     }
+    function verifyRights(int $uid) {
+        return $this->dataclass->verifyCollectionFromUid($uid);
+    }
 }

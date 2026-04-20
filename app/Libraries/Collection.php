@@ -26,6 +26,9 @@ class Collection extends PpciLibrary
     function __construct()
     {
         parent::__construct();
+        /**
+         * @var ModelsCollection
+         */
         $this->dataclass = new ModelsCollection();
         $this->keyName = "collection_id";
         if (isset($_REQUEST[$this->keyName])) {
@@ -84,7 +87,7 @@ class Collection extends PpciLibrary
             $this->vue->set($document->getMaxUploadSize(), "maxUploadSize");
             $this->vue->set(1, "modifiable");
             $this->vue->set("collection", "moduleParent");
-        $this->vue->set("collection_id", "parentKeyName");
+            $this->vue->set("collection_id", "parentKeyName");
         }
         return $this->vue->send();
     }
@@ -192,6 +195,16 @@ class Collection extends PpciLibrary
                  */
                 $dbparam->setParameter("notificationLastDate", date('Y-m-d'));
             }
+        }
+    }
+    function verifyRights(int $collection_id)
+    {
+        if ($_SESSION["userRights"]["manage"] == 1 && !empty($_SESSION["collections"][$collection_id])) {
+            return true;
+        } elseif ($_SESSION["userRights"]["param"] == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

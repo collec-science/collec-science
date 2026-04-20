@@ -882,7 +882,8 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
-    function setSampleType() {
+    function setSampleType()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
                 throw new PpciException(_("Pas d'échantillons sélectionnés"));
@@ -1045,5 +1046,9 @@ class Sample extends PpciLibrary
     function reindex()
     {
         $this->dataclass->reindex();
+    }
+    function verifyRights(int $uid)
+    {
+        return $this->dataclass->verifyCollectionFromUid($uid);
     }
 }

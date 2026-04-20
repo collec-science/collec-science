@@ -342,7 +342,7 @@
 		});
 		$("#rapidAccessForm").hide();
 		$("#scannerDiv").hide();
-		setTimeout( backToTop, 0);
+		setTimeout(backToTop, 0);
 	});
 </script>
 <div class="container-fluid">
@@ -361,12 +361,6 @@
 			</a>
 		</div>
 		{if $rights.manage == 1}
-		<div class="col-auto">
-			<a href="sampleChangeTab?uid=0">
-				<img src="display/images/new.png" height="25">
-				{t}Nouvel échantillon{/t}
-			</a>
-		</div>
 
 		{if $data.uid > 0}
 		<div class="col-auto">
@@ -421,7 +415,7 @@
 			{/if}
 		</div>
 	</div>
-	<div id="scannerDiv" >
+	<div id="scannerDiv">
 		<div class="row">
 			<div class="col-xs-12 center">
 				<div id="video-container">
@@ -469,7 +463,7 @@
 				<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
 			</div>
 			<div class="col-md-4">
-				<input type="submit" id="searchExec" class="btn btn-primary active" value="{t}Ouvrir{/t}">
+				<button type="submit" id="searchExec" class="btn btn-primary">{t}Ouvrir{/t}</button>
 			</div>
 		</div>
 		{$csrf}
@@ -483,69 +477,69 @@
 	{if $data.uid > 0}
 	<!-- boite d'onglets -->
 
-		<ul class="nav nav-tabs" id="myTab" role="tablist">
-			<li class="nav-item">
-				<a class="nav-link active" id="tab-detail" data-bs-toggle="tab" role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
-					<img src="display/images/zoom.png" height="25">
-					{t}Détails{/t}
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id" data-bs-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
-					<img src="display/images/label.png" height="25">
-					{t}Identifiants{/t}
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="tab-event" href="#nav-event" data-bs-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
-					<img src="display/images/events.png" height="25">
-					{t}Événements/prêts{/t}
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="tab-movement" href="#nav-movement" data-bs-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
-					<img src="display/images/movement.png" height="25">
-					{t}Mouvements{/t}
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link lexical" data-lexical="sample_derivated" id="tab-sample" href="#nav-sample" data-bs-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
-					<img src="display/images/sample.png" height="25">
-					{t}Échantillons dérivés{/t}
-				</a>
-			</li>
-			{if $modifiable == 1 || $consultSeesAll == 1}
-			<li class="nav-item">
-				<a class="nav-link" id="tab-document" href="#nav-document" data-bs-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
-					<img src="display/images/camera.png" height="25">
-					{t}Documents associés{/t}
-				</a>
-			</li>
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="tab-detail" data-bs-toggle="tab" role="tab" aria-controls="nav-detail" aria-selected="true" href="#nav-detail">
+				<img src="display/images/zoom.png" height="25">
+				{t}Détails{/t}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link lexical" data-lexical="identifier_type" id="tab-id" href="#nav-id" data-bs-toggle="tab" role="tab" aria-controls="nav-id" aria-selected="false">
+				<img src="display/images/label.png" height="25">
+				{t}Identifiants{/t}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="tab-event" href="#nav-event" data-bs-toggle="tab" role="tab" aria-controls="nav-event" aria-selected="false">
+				<img src="display/images/events.png" height="25">
+				{t}Événements/prêts{/t}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="tab-movement" href="#nav-movement" data-bs-toggle="tab" role="tab" aria-controls="nav-movement" aria-selected="false">
+				<img src="display/images/movement.png" height="25">
+				{t}Mouvements{/t}
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link lexical" data-lexical="sample_derivated" id="tab-sample" href="#nav-sample" data-bs-toggle="tab" role="tab" aria-controls="nav-sample" aria-selected="false">
+				<img src="display/images/sample.png" height="25">
+				{t}Échantillons dérivés{/t}
+			</a>
+		</li>
+		{if $modifiable == 1 || $consultSeesAll == 1}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-document" href="#nav-document" data-bs-toggle="tab" role="tab" aria-controls="nav-document" aria-selected="false">
+				<img src="display/images/camera.png" height="25">
+				{t}Documents associés{/t}
+			</a>
+		</li>
 
-			{/if}
-			<li class="nav-item">
-				<a class="nav-link" id="tab-booking" href="#nav-booking" data-bs-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
-					<img src="display/images/crossed-calendar.png" height="25">
-					{t}Réservations{/t}
-				</a>
-			</li>
-			{if $data.multiple_type_id > 0}
-			<li class="nav-item">
-				<a class="nav-link" id="tab-subsample" href="#nav-subsample" data-bs-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
-					<img src="display/images/subsample.png" height="25">
-					{t}Sous-échantillonnage{/t}
-				</a>
-			</li>
-			{/if}
-			{if $modifiable == 1 || $consultSeesAll == 1}
-			<li class="nav-item">
-				<a class="nav-link" id="tab-histo" href="#nav-histo" data-bs-toggle="tab" role="tab" aria-controls="nav-histo" aria-selected="false">
-					<img src="display/images/history.png" height="25">
-					{t}Historique des modifications{/t}
-				</a>
-			</li>
-			{/if}
-		</ul>
+		{/if}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-booking" href="#nav-booking" data-bs-toggle="tab" role="tab" aria-controls="nav-booking" aria-selected="false">
+				<img src="display/images/crossed-calendar.png" height="25">
+				{t}Réservations{/t}
+			</a>
+		</li>
+		{if $data.multiple_type_id > 0}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-subsample" href="#nav-subsample" data-bs-toggle="tab" role="tab" aria-controls="nav-subsample" aria-selected="false">
+				<img src="display/images/subsample.png" height="25">
+				{t}Sous-échantillonnage{/t}
+			</a>
+		</li>
+		{/if}
+		{if $modifiable == 1 || $consultSeesAll == 1}
+		<li class="nav-item">
+			<a class="nav-link" id="tab-histo" href="#nav-histo" data-bs-toggle="tab" role="tab" aria-controls="nav-histo" aria-selected="false">
+				<img src="display/images/history.png" height="25">
+				{t}Historique des modifications{/t}
+			</a>
+		</li>
+		{/if}
+	</ul>
 
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">

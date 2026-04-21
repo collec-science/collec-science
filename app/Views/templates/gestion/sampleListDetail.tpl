@@ -121,10 +121,10 @@
 				"searching": true,
 				//scrollY:scrolly,
 				scrollX: true,
-				fixedHeader: {
+				/*fixedHeader: {
 					header: true,
 					footer: true
-				},
+				},*/
 				"stateDuration": 60 * 60 * 24 * 30,
 				"columnDefs": [
 					{
@@ -757,7 +757,7 @@
 						<th>{t}UID{/t}</th>
 						<th>{t}Identifiant ou nom{/t}</th>
 						<th>{t}Autres identifiants{/t}</th>
-						<th class="d-none d-table-cell">{t}Collection{/t}</th>
+						<th>{t}Collection{/t}</th>
 						<th>{t}Type{/t}</th>
 						<th>{t}Statut{/t}</th>
 						<th>{t}Parent{/t}</th>

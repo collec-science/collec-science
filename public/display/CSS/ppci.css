@@ -24,34 +24,6 @@ red: var(--color-red), rgb(213,19,23);
 	/*--color-text-muted: rgba(0,158,224,0.3);*/
 
 }
-/* Wrapper for page content to push down footer */
-html,
-body {
-	height: 99%;
-}
-
-/*@media (max-width: 991px) {
-    .form-control, .btn, li, ul, .dropdown-menu, .center-block,
-    #message, label, div {font-size: 1.1em;}
-}
-@media (max-width: 991px) {
-	select {min-height: 2em;}
-}
-*/
-
-#wrap {
-	min-height: 100%;
-	height: auto !important;
-	height: 99%;
-	/* Negative indent footer by its height */
-	margin: 0 auto -80px;
-	/* Pad bottom by footer height */
-	padding: 0 0 80px;
-}
-
-#footer {
-	height: 80px;
-}
 
 .form-horizontal {
 	border-style: solid;

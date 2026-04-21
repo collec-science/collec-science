@@ -9,16 +9,16 @@
     {include file="app_js.tpl" }
 </head>
 
-<body>
-    <div id="wrap">
-        <div class="container-fluid">
-            {include file=$header}
-            {include file=$corps}
+<body class="d-flex flex-column min-vh-100">
+    <div class="container-fluid">
+        {include file=$header}
+        {include file=$corps}
+    </div>
+    <footer class="mt-auto">
+        <div id="footer" class="container">
+            {include file=$footer}
         </div>
-    </div>
-    <div id="footer">
-        {include file=$footer}
-    </div>
+    </footer>
 </body>
 
 </html>

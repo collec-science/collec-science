@@ -20,41 +20,43 @@
         });
     });
 </script>
-<a href="collectionList">
-    <img src="display/images/list.png" height="25">
-    {t}Retour à la liste{/t}
-</a>
-{if $rights.param == 1}
-<a href="collectionChange?collection_id={$data.collection_id}">
-    <img src="display/images/edit.gif" height="25">
-    {t}Modifier...{/t}
-</a>
-{/if}
+<div class="row align-items-center">
+    <div class="col-auto">
+        <a href="collectionList">
+            <img src="display/images/list.png" height="25">
+            {t}Retour à la liste{/t}
+        </a>
+    </div>
+    {if $rights.param == 1}
+    <div class="col-auto">
+        <a href="collectionChange?collection_id={$data.collection_id}">
+            <img src="display/images/edit.gif" height="25">
+            {t}Modifier...{/t}
+        </a>
+    </div>
+    {/if}
+</div>
 <div class="row">
     <div class="col-12">
         <!-- Tab box -->
         <ul class="nav nav-tabs" id="collectionTab" role="tablist">
-            <li class="nav-item active">
-                <a class="nav-link collectionTab" id="tabGeneral" data-bs-toggle="tab" role="tab"
-                    aria-controls="navGeneral" aria-selected="true" href="#navGeneral">
+            <li class="nav-item ">
+                <a class="nav-link collectionTab active" id="tabGeneral" data-bs-toggle="tab" role="tab" aria-controls="navGeneral" aria-selected="true" href="#navGeneral">
                     {t}Informations générales{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collectionTab" id="tabsampletypes" href="#navsampletypes" data-bs-toggle="tab"
-                    role="tab" aria-controls="navsampletypes" aria-selected="false">
+                <a class="nav-link collectionTab" id="tabsampletypes" href="#navsampletypes" data-bs-toggle="tab" role="tab" aria-controls="navsampletypes" aria-selected="false">
                     {t}Types d'échantillons et d'évenements rattachés{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collectionTab" id="tabnotifications" href="#navnotifications" data-bs-toggle="tab"
-                    role="tab" aria-controls="navnotifications" aria-selected="false">
+                <a class="nav-link collectionTab" id="tabnotifications" href="#navnotifications" data-bs-toggle="tab" role="tab" aria-controls="navnotifications" aria-selected="false">
                     {t}Groupes et notifications{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="tabDocs" href="#navDocs" data-bs-toggle="tab" role="tab" aria-controls="navDocs"
-                    aria-selected="false">
+                <a class="nav-link" id="tabDocs" href="#navDocs" data-bs-toggle="tab" role="tab" aria-controls="navDocs" aria-selected="false">
                     {t}Documents associés{/t}
                 </a>
             </li>

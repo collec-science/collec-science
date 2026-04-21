@@ -589,3 +589,6 @@ input:read-only {
 .form-label.col-4 {
 	text-align: right;
 }
+.form-check-input:not(:checked) {
+	background-color: white !important;
+}

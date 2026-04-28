@@ -234,6 +234,7 @@ class Document extends PpciLibrary
 				$sample = new Sample();
 				$dsample = $sample->lire($_REQUEST["uid"]);
 				if (!$sample->verifyCollection($dsample)) {
+					return false;
 				}
 			}
 			$dir = $this->appConfig->external_document_path . "/" . $_SESSION["collections"][$dsample["collection_id"]]["external_storage_root"];
@@ -243,7 +244,6 @@ class Document extends PpciLibrary
 				$dir .= $_REQUEST["path"];
 			}
 			$localPath = str_replace(array("..", "//"), array("", "/"), $_REQUEST["path"]);
-
 			if (is_dir($dir) && !is_link($dir)) {
 				if ($dh = opendir($dir)) {
 					while (($file = readdir($dh)) !== false) {
@@ -252,7 +252,6 @@ class Document extends PpciLibrary
 							if (filetype($dir . "/" . $file) == "dir") {
 								$f["folder"] = true;
 							}
-
 							$listFiles[] = $f;
 						}
 					}
@@ -260,7 +259,6 @@ class Document extends PpciLibrary
 			}
 		} catch (PpciException) {
 		}
-
 		helper('appfunctions');
 		usort($listFiles, "cmp");
 		$this->vue->set($listFiles);
@@ -294,7 +292,8 @@ class Document extends PpciLibrary
 								"uid" => $_REQUEST["uid"],
 								"external_storage_path" => str_replace("//", "/", $file),
 								"document_description" => $_REQUEST["document_description"],
-								"document_creation_date" => $_REQUEST["document_creation_date"]
+								"document_creation_date" => $_REQUEST["document_creation_date"],
+								"collection_id" => $dsample["collection_id"]
 							);
 							$this->dataclass->writeExternal($dsample["collection_id"], $dfile);
 						}

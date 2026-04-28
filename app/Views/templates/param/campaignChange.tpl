@@ -65,15 +65,18 @@
                 <label for="groupes" class="form-label col-4">
                     {t}Droits de modification attribués aux groupes :{/t}
                 </label>
-                <div class="col-7">
-                    {section name=lst loop=$groupes}
-                    <div class="col-md-2 col-md-offset-3">
-                        <input type="checkbox" class="form-check-input" id="groupes{$smarty.section.lst.index}" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
-                        <label for="groupes{$smarty.section.lst.index}" class="form-check-label">
-                            {$groupes[lst].groupe}
-                        </label>
+                <div class="col-md-8">
+                    <div class="row align-items-center">
+                        {section name=lst loop=$groupes}
+                        <div class="col-md-2 col-md-offset-3">
+                            <input type="checkbox" class="form-check-input" id="groupes{$smarty.section.lst.index}" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
+                            <label for="groupes{$smarty.section.lst.index}" class="form-check-label">
+                                {$groupes[lst].groupe}
+                            </label>
+                        </div>
+                        {/section}
                     </div>
-                    {/section}
+
                 </div>
             </div>
             <div class="row d-flex justify-content-center">

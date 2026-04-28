@@ -33,7 +33,11 @@
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
 <div id="documentChange">
 	<div class="row">
+		{if $externalStorageEnabled == "t"}
 		<div class="col-lg-6">
+		{else}
+		<div class="col-lg-12">
+		{/if}
 			{include file="gestion/documentChange.tpl"}
 		</div>
 		{if $externalStorageEnabled == "t"}

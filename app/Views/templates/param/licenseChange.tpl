@@ -7,7 +7,7 @@
         </a>
     </div>
     <div class="row">
-        <form class="form-horizontal " id="licenseForm" method="post" action="licenseWrite">
+        <form class="form-horizontal" id="licenseForm" method="post" action="licenseWrite">
             <input type="hidden" name="moduleBase" value="license">
             <input type="hidden" name="action" value="Write">
             <input type="hidden" name="license_id" value="{$data.license_id}">

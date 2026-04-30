@@ -446,22 +446,22 @@
             <div class="tab-content form-horizontal" id="search-tabContent">
                 <div class="tab-pane active" id="navsearch-uid" role="tabpanel" aria-labelledby="tabsearch-uid">
                     <div class="row">
-                        <label for="uidsearch" class="col-2 form-label">{t}UID :{/t}</label>
+                        <label for="uidsearch" class="col-2 text-end form-label">{t}UID :{/t}</label>
                         <div class="col-1">
                             <input id="uidsearch" name="uidsearch" class="form-control nombre"
                                 value="{$sampleSearch.uidsearch}" autofocus>
                         </div>
-                        <label for="name" class="col-3 form-label">
+                        <label for="name" class="col-3 text-end offset-md-2 text-end form-label">
                             {t}Identifiant(s) ou UUID :{/t}
                             <img src="display/images/qrcode.png" height="25">
                         </label>
-                        <div class="col-3">
+                        <div class="col-4">
                             <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}"
                                 title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
                         </div>
                     </div>
                     <div class="row">
-                        <label for="uid_min" class="col-2 form-label">{t}UID entre :{/t}</label>
+                        <label for="uid_min" class="col-2 text-end form-label">{t}UID entre :{/t}</label>
                         <div class="col-2">
                             <input id="uid_min" name="uid_min" class="nombre form-control"
                                 value="{$sampleSearch.uid_min}">
@@ -472,8 +472,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="collection_id" class="col-2 form-label">{t}Collection :{/t}</label>
-                        <div class="col-2">
+                        <label for="collection_id" class="col-2 text-end form-label">{t}Collection :{/t}</label>
+                        <div class="col-4">
                             <select id="collection_id" name="collection_id" class="form-select">
                                 <option value="" {if $sampleSearch.collection_id=="" }selected{/if}>{t}Choisissez...{/t}
                                 </option>
@@ -485,8 +485,8 @@
                                 {/foreach}
                             </select>
                         </div>
-                        <label for="collections" class="col-2 form-label">{t}Ou recherche multiple :{/t}</label>
-                        <div class="col-3">
+                        <label for="collections" class="col-2 text-end form-label">{t}Ou recherche multiple :{/t}</label>
+                        <div class="col-4">
                             <select id="collections" name="collections[]" class="form-select" multiple size="3">
                                 <option value="" {if count($sampleSearch.collections)==0}selected{/if}>
                                     {t}Choisissez...{/t}</option>
@@ -500,7 +500,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="object_status_id" class="col-2 form-label lexical" data-lexical="status">
+                        <label for="object_status_id" class="col-2 text-end form-label lexical" data-lexical="status">
                             {t}Statut :{/t}</label>
                         <div class="col-2">
                             <select id="object_status_id" name="object_status_id" class="form-select">
@@ -514,7 +514,7 @@
                                 {/section}
                             </select>
                         </div>
-                        <label for="trashed" class="col-2 form-label lexical" data-lexical="trashed"
+                        <label for="trashed" class="col-2 offset-md-2 text-end form-label lexical" data-lexical="trashed"
                             title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
                         <div class="col-2">
                             <select id="trashed" name="trashed" class="form-select">
@@ -527,7 +527,7 @@
                 </div>
                 <div class="tab-pane fade" id="navsearch-type" role="tabpanel" aria-labelledby="tabsearch-type">
                     <div class="row">
-                        <label for="sample_type_id" class="col-3 form-label">{t}Type d'échantillon :{/t}</label>
+                        <label for="sample_type_id" class="col-3 text-end form-label">{t}Type d'échantillon :{/t}</label>
                         <div class="col-6">
                             <select id="sample_type_id" name="sample_type_id" class="form-select ">
                                 <option value="0" {if $sampleSearch.sample_type_id=="0" }selected{/if}>
@@ -543,7 +543,7 @@
                         </div>
                     </div>
                     <div class="row" id="metadatarow">
-                        <label for="metadata_field" class="col-3 form-label">
+                        <label for="metadata_field" class="col-3 text-end form-label">
                             {t}Rechercher dans les métadonnées :{/t}
                         </label>
                         <div class="col-3">
@@ -571,7 +571,7 @@
                     </div>
                     <div class="row" id="metadatarow1">
                         <!--  metadonnees supplementaires -->
-                            <label for="metadata_field1" class="col-3 form-label">{t}et{/t}</label>
+                            <label for="metadata_field1" class="col-3 text-end form-label">{t}et{/t}</label>
                             <div class="col-3">
                                 <select class="form-select" id="metadata_field1" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.1=="" }selected{/if}>
@@ -596,7 +596,7 @@
                             </div>
                     </div>
                     <div class="row" id="metadatarow2">
-                            <label for="metadata_field2" class="col-3 form-label">{t}et{/t}</label>
+                            <label for="metadata_field2" class="col-3 text-end form-label">{t}et{/t}</label>
                             <div class="col-3">
                                 <select class="form-select" id="metadata_field2" name="metadata_field[]">
                                     <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
@@ -618,7 +618,7 @@
                             </div>
                     </div>
                     <div class="row">
-                        <label for="metadatafilter" class="col-3 form-label">
+                        <label for="metadatafilter" class="col-3 text-end form-label">
                             {t}N'afficher qu'une métadonnée :{/t}
                         </label>
                         <div class="col-3">
@@ -639,7 +639,7 @@
                 <div class="tab-pane fade" id="navsearch-date" role="tabpanel" aria-labelledby="tabsearch-date">
                     <div class="row">
                         <div class="row">
-                            <label for="select_date" class="col-3 form-label">{t}Recherche par date :{/t}</label>
+                            <label for="select_date" class="col-3 text-end form-label">{t}Recherche par date :{/t}</label>
                             <div class="col-2">
                                 <select class="form-select" id="select_date" name="select_date">
                                     <option value="" {if $sampleSearch.select_date=="" }selected{/if}>
@@ -655,12 +655,12 @@
                                 </select>
                             </div>
 
-                            <label for="date_from" class="col-1 form-label">{t}du :{/t}</label>
+                            <label for="date_from" class="col-1 text-end form-label">{t}du :{/t}</label>
                             <div class="col-2">
                                 <input class="datepicker form-control" id="date_from" name="date_from"
                                     value="{$sampleSearch.date_from}">
                             </div>
-                            <label for="date_to" class="col-1 form-label">{t}au :{/t}</label>
+                            <label for="date_to" class="col-1 text-end form-label">{t}au :{/t}</label>
                             <div class="col-2">
                                 <input class="datepicker form-control" id="date_to" name="date_to"
                                     value="{$sampleSearch.date_to}">
@@ -669,7 +669,7 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="booking_type" class="col-3 form-label">{t}Réservations :{/t}</label>
+                            <label for="booking_type" class="col-3 text-end form-label">{t}Réservations :{/t}</label>
                             <div class="col-2">
                                 <select id="booking_type" name="booking_type" class="form-select">
                                     <option value="0" {if $sampleSearch.booking_type==-1}selected{/if}>
@@ -680,12 +680,12 @@
                                         réservé{/t}</option>
                                 </select>
                             </div>
-                            <label for="booking_from" class="col-1 form-label">{t}du :{/t}</label>
+                            <label for="booking_from" class="col-1 text-end form-label">{t}du :{/t}</label>
                             <div class="col-2">
                                 <input class="datepicker form-control" id="booking_from" name="booking_from"
                                     value="{$sampleSearch.booking_from}">
                             </div>
-                            <label for="booking_to" class="col-1 form-label">{t}au :{/t}</label>
+                            <label for="booking_to" class="col-1 text-end form-label">{t}au :{/t}</label>
                             <div class="col-2">
                                 <input class="datepicker form-control" id="booking_to" name="booking_to"
                                     value="{$sampleSearch.booking_to}">
@@ -696,7 +696,7 @@
                 <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                     <div class="row">
                         <div class="row">
-                            <label for="referent_id" class="col-3 form-label lexical"
+                            <label for="referent_id" class="col-3 text-end form-label lexical"
                                 data-lexical="referent">{t}Référent :{/t}</label>
                             <div class="col-3">
                                 <select id="referent_id" name="referent_id" class="form-select">
@@ -710,10 +710,10 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <label for="without_container" class="col-2 form-check-label">
+                            <label for="without_container" class="col-2 text-end form-check-label">
                                 {t}Échantillons sans contenants :{/t}
                             </label>
-                            <div class="col-1">
+                            <div class="col-1 text-end">
                                 <input type="checkbox" id="without_container" name="without_container"
                                     class="form-check-input" value="1" {if $sampleSearch.without_container==1}checked{/if}>
                             </div>
@@ -734,7 +734,7 @@
                                     {/foreach}
                                 </select>
                             </div>
-                            <label for="authorization_number" class="col-2 form-label lexical"
+                            <label for="authorization_number" class="col-2 text-end form-label lexical"
                                 data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
                             <div class="col-3">
                                 <input id="authorization_number" name="authorization_number" class="form-control"
@@ -744,7 +744,7 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="event_type_id" class="col-3 form-label">{t}Type d'événement :{/t}</label>
+                            <label for="event_type_id" class="col-3 text-end form-label">{t}Type d'événement :{/t}</label>
                             <div class="col-3">
                                 <select id="event_type_id" class="form-select" name="event_type_id">
                                     <option value="" {if $sampleSearch.event_type_id=="" }selected{/if}>
@@ -760,7 +760,7 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="movement_reason_id" class="col-3 form-label">
+                            <label for="movement_reason_id" class="col-3 text-end form-label">
                                 {t}Motif de déstockage :{/t}</label>
                             <div class="col-3">
                                 <select id="movement_reason_id" name="movement_reason_id" class="form-select">
@@ -797,7 +797,7 @@
                         <div class="col-5 col-12">
                             <div class="row">
                                 <div class="row">
-                                    <label for="sampling_place_id" class="col-4 form-label">{t}Lieu de prélèvement
+                                    <label for="sampling_place_id" class="col-4 text-end form-label">{t}Lieu de prélèvement
                                         :{/t}</label>
                                     <div class="col-8">
                                         <select id="sampling_place_id" name="sampling_place_id" class="form-select ">
@@ -816,7 +816,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="country_id_search" class="col-4 form-label">
+                                    <label for="country_id_search" class="col-4 text-end form-label">
                                         {t}Pays de collecte :{/t}</label>
                                     <div class="col-8">
                                         <select id="country_id_search" name="country_id" class="form-select ">
@@ -831,7 +831,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <label for="country_origin_id_search" class="col-4 form-label">
+                                    <label for="country_origin_id_search" class="col-4 text-end form-label">
                                         {t}Pays de provenance :{/t}
                                     </label>
                                     <div class="col-8">
@@ -857,7 +857,7 @@
                 <div class="tab-pane fade" id="navsearch-record" role="tabpanel" aria-labelledby="tabsearch-record">
                     <div class="row">
                         <div class="row">
-                            <label for="samplesearch_id" class="col-4 form-label">{t}Recherches enregistrées
+                            <label for="samplesearch_id" class="col-4 text-end form-label">{t}Recherches enregistrées
                                 :{/t}</label>
                             <div class="col-6">
                                 <select id="samplesearch_id" class="form-select" name="samplesearch_id">
@@ -885,14 +885,14 @@
                         <fieldset class="col-12">
                             <legend>{t}Enregistrer la recherche courante{/t}</legend>
                             <div class="row">
-                                <label for="samplesearch_name" class="col-4 form-label"><span class="red">*</span>{t}Nom
+                                <label for="samplesearch_name" class="col-4 text-end form-label"><span class="red">*</span>{t}Nom
                                     de la recherche :{/t}</label>
                                 <div class="col-6">
                                     <input id="samplesearch_name" name="samplesearch_name" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="samplesearch_collection" class="col-4 form-label">{t}Enregistrer pour la
+                                <label for="samplesearch_collection" class="col-4 text-end form-label">{t}Enregistrer pour la
                                     collection sélectionnée (le cas échéant) ?{/t}</label>
                                 <div id="samplesearch_collection" class="col-8">
                                     <label class="radio-inline">
@@ -908,12 +908,12 @@
                 </div>
 
                 <div class="row">
-                    <label for="limit" class="col-3 form-label">{t}Nombre maxi à lire depuis la base de données
+                    <label for="limit" class="col-3 text-end form-label">{t}Nombre maxi à lire depuis la base de données
                         (0 pour tous) :{/t}</label>
                     <div class="col-1">
                         <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                     </div>
-                    <label for="page" class="col-1 form-label">
+                    <label for="page" class="col-1 text-end form-label">
                         {t}À partir de la page{/t}
                     </label>
                     <div class="col-1">
@@ -932,7 +932,7 @@
                         {/if}
                         {$helpsamplesearch}
                     </div>
-                    <label for="activateSearchByColumn" class="form-check-label col-1">
+                    <label for="activateSearchByColumn" class="form-check-label  text-end col-1">
                         {t}Recherche par colonne :{/t}
                     </label>
                     <div class="col-1">

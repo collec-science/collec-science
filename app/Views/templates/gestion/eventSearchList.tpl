@@ -224,10 +224,12 @@
                 event.preventDefault();
             }
         });
+        $(".eventsChange").hide();
+        $(".eventsDuplicate").hide();
     });
 </script>
-<div class="row">
-    <div class="col-12">
+<div class="container-fluid">
+    <div class="row">
         <form class="form-horizontal " id="eventSearch" action="eventSearch" method="GET">
             <input type="hidden" name="isSearch" value="1">
             <div class="row">
@@ -266,13 +268,11 @@
                         </option>
                         {foreach $objectTypes as $objecttype}
                         {if $eventSearch["object_type"] == 1}
-                        <option value="{$objecttype.sample_type_id}" {if
-                            $objecttype.sample_type_id==$eventSearch.object_type_id}selected{/if}>
+                        <option value="{$objecttype.sample_type_id}" {if $objecttype.sample_type_id==$eventSearch.object_type_id}selected{/if}>
                             {$objecttype.sample_type_name}
                         </option>
                         {else}
-                        <option value="{$objecttype.container_type_id}" {if
-                            $objecttype.container_type_id==$eventSearch.object_type_id}selected{/if}>
+                        <option value="{$objecttype.container_type_id}" {if $objecttype.container_type_id==$eventSearch.object_type_id}selected{/if}>
                             {$objecttype.container_type_name}
                         </option>
                         {/if}
@@ -283,8 +283,7 @@
             <div class="row">
                 <label for="date_from" class="col-2 form-label">{t}Du :{/t}</label>
                 <div class="col-2">
-                    <input class="datepicker form-control" id="date_from" name="date_from"
-                        value="{$eventSearch.date_from}">
+                    <input class="datepicker form-control" id="date_from" name="date_from" value="{$eventSearch.date_from}">
                 </div>
                 <label for="date_to" class="col-2 form-label">{t}au :{/t}</label>
                 <div class="col-2">
@@ -304,8 +303,7 @@
                     <select class="form-select" id="event_type_id" name="event_type_id">
                         <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $eventTypes as $eventType}
-                        <option value="{$eventType.event_type_id}" {if
-                            $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
+                        <option value="{$eventType.event_type_id}" {if $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
                             {$eventType.event_type_name}
                         </option>
                         {/foreach}
@@ -313,12 +311,10 @@
                 </div>
                 <label for="collection_id" class="col-2 form-label">{t}Collection :{/t}</label>
                 <div class="col-2">
-                    <select class="typeEventSearch form-select" id="collection_id" name="collection_id" {if
-                        $eventSearch.object_type==2}disabled{/if}>
+                    <select class="typeEventSearch form-select" id="collection_id" name="collection_id" {if $eventSearch.object_type==2}disabled{/if}>
                         <option value="0" {if $eventSearch.collection_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $collections as $collection}
-                        <option value="{$collection.collection_id}" {if
-                            $collection.collection_id==$eventSearch.collection_id}selected{/if}>
+                        <option value="{$collection.collection_id}" {if $collection.collection_id==$eventSearch.collection_id}selected{/if}>
                             {$collection.collection_name}</option>
                         {/foreach}
                     </select>
@@ -331,8 +327,10 @@
                 </div>
 
             </div>
-            <div class="row">
-                <input type="submit" class="col-2 col-offset-5 btn btn-success" value="{t}Rechercher{/t}">
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">{t}Rechercher{/t}</button>
+                </div>
             </div>
             {$csrf}
         </form>
@@ -341,7 +339,8 @@
 
 {if $isSearch == 1}
 <form action="" method="post">
-    <div class="row">
+
+    <div class="container-fluid">
         <table id="eventList" class="table table-bordered table-hover display" data-order='[[1,"asc"]]'>
             <thead>
                 <tr>
@@ -368,8 +367,7 @@
                         <input type="checkbox" class="events form-check-input" name="events[]" value="{$events[lst].event_id}">
                     </td>
                     <td>
-                        <a
-                            href="{$events[lst].object_type}eventChange?event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+                        <a href="{$events[lst].object_type}eventChange?event_id={$events[lst].event_id}&uid={$events[lst].uid}">
                             {$events[lst].event_id}
                         </a>
                     </td>
@@ -397,8 +395,8 @@
         </table>
     </div>
     {if $rights.import == 1 || $rights.collection == 1}
-    <div class="row">
-        <div class="col-6  form-horizontal">
+    <div class="container">
+        <div class="form-horizontal">
             {t}Pour les éléments cochés :{/t}
             <input type="hidden" name="is_action" value="1">
             <select id="checkedActionEvent" class="form-select">
@@ -408,12 +406,11 @@
                 <option value="eventsDuplicate">{t}Reprogrammer les événements{/t}</option>
             </select>
 
-            <div class="eventsChange" hidden>
+            <div class="eventsChange">
                 <div class="row">
                     <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
                     <div class="col-8">
-                        <input id="event_date" name="event_date" value="{$data.event_date}"
-                            class="form-control datepicker">
+                        <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
                     </div>
                 </div>
 
@@ -426,8 +423,7 @@
                                 {t}Choisissez{/t}
                             </option>
                             {foreach $eventTypes as $eventType}
-                            <option value="{$eventType.event_type_id}" {if
-                                $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
+                            <option value="{$eventType.event_type_id}" {if $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
                                 {$eventType.event_type_name}
                             </option>
                             {/foreach}
@@ -464,7 +460,7 @@
                     {t}Seules les données non vides seront mises à jour dans les événements !{/t}
                 </div>
             </div>
-            <div class="eventsDuplicate" hidden>
+            <div class="eventsDuplicate">
                 <div class="row">
                     <label for="eventDueDelay" class="form-label col-4">
                         {t}Délai en jours pour reprogrammer les événements :{/t}

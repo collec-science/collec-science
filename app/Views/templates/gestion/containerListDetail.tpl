@@ -260,7 +260,6 @@
 								content += '</table>';
 								/* Display */
 								tip.setContent({ '.tooltip-inner': content });
-								tip.show();
 								$(this).attr("title", content);
 								if (document.querySelector('.tooltip.show')) {
 									tip.show();

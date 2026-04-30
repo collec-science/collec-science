@@ -263,7 +263,6 @@
 					value = actions[key];
 					if (value == actionClass) {
 						$("." + value).show();
-						console.log(value);
 					} else {
 						$("." + value).hide();
 					}
@@ -282,7 +281,7 @@
 			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 				tooltipTriggerEl.setAttribute('title', 'content');
 				return new bootstrap.Tooltip(tooltipTriggerEl, {
-                    delay: { show: 1000}
+                    delay: { show: 2000, hide: 500}
                 })
 			})
 		}

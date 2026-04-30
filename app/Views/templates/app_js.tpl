@@ -21,9 +21,9 @@
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                 tooltipTriggerEl.setAttribute('title', 'lexical');
                 return new bootstrap.Tooltip(tooltipTriggerEl, {
-                    delay: { "show": 2000, "hide": 500}
+                    delay: { show: 2000, hide: 500}
                 })
-            });
+            })
         }
         initializeBootstrapTooltip();
         $(".lexical").mouseenter(function () {
@@ -47,7 +47,7 @@
                             const contentdecoded = parser.parseFromString(content, 'text/html');
                             content = contentdecoded.body.textContent;
                             tip.setContent({ '.tooltip-inner': content });
-                            tip.show();
+                            //tip.show();
                             $(this).attr("title", content);
                             if (document.querySelector('.tooltip.show')) {
                                 tip.show();

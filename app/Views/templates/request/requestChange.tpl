@@ -39,14 +39,17 @@
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<a href="requestList">
-			<img src="display/images/list.png" height="25">
-			{t}Retour à la liste{/t}
-		</a>
-		&nbsp;
-		<a href="dbstructureSchema" target="online-help">
-			<img src="display/images/pdf.png" height="25">
-			{t}Structure de la base de données{/t}</a>
+		<div class="col-auto">
+			<a href="requestList">
+				<img src="display/images/list.png" height="25">
+				{t}Retour à la liste{/t}
+			</a>
+		</div>
+		<div class="col-auto">
+			<a href="dbstructureSchema" target="online-help">
+				<img src="display/images/pdf.png" height="25">
+				{t}Structure de la base de données{/t}</a>
+		</div>
 	</div>
 	<div class="row">
 		<form class="form-horizontal " id="requestForm" method="post" action="">
@@ -108,7 +111,7 @@
 				</div>
 				{if $data.request_id > 0 }
 				<div class="col-auto">
-					<button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
+					<button type="submit" class="btn btn-primary button-valid" id="exec">{t}Exécuter{/t}</button>
 				</div>
 				<div class="col-auto"><button type="submit" class="btn btn-primary button-valid" id="saveExec">{t}Enregistrer et exécuter{/t}</button>
 				</div>

@@ -89,7 +89,8 @@ h3 {
 legend {
 	font-size: medium;
 	color: var(--color-pri);
-	text-decoration: underline;
+	font-style: italic;
+	font-weight: bold;
 }
 
 .textareaDisplay {

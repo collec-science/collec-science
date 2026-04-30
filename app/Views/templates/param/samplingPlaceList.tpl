@@ -9,7 +9,11 @@
 		{/if}
 	</div>
 	<div class="row">
-		<div class="col-md-6">
+		{if $rights["param"] == 1}
+		<div class="col-xxl-6">
+		{else}
+		<div class="col-xxl-12">
+		{/if}
 			<table id="samplingPlaceList" class="table table-bordered table-hover datatable-export-paging display">
 				<thead>
 					<tr>
@@ -48,7 +52,7 @@
 
 
 		{if $rights["param"] == 1}
-		<div class="col-md-6">
+		<div class="col-xxl-6">
 			<fieldset>
 				<legend>{t}Importer des emplacements depuis un fichier CSV{/t}</legend>
 				<form class="form-horizontal " id="metadataImport" method="post" action="samplingPlaceImport" enctype="multipart/form-data">

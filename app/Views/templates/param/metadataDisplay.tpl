@@ -42,48 +42,54 @@
 <div class="container-fluid">
     <h2>{t}Détail du modèle de métadonnées{/t} <i>{$data.metadata_name}</i></h2>
     <div class="row">
-        <a href="metadataList">
-            <img src="display/images/list.png" height="25">
-            {t}Retour à la liste{/t}
-        </a>
-        {if $rights.collection == 1}
-        &nbsp;
-        <a href="metadataFieldChange?metadata_id={$data.metadata_id}&name=">
-            <img src="display/images/new.png" height="25">
-            {t}Nouveau champ{/t}
-        </a>
-        {/if}
+        <div class="col-auto">
+            <a href="metadataList">
+                <img src="display/images/list.png" height="25">
+                {t}Retour à la liste{/t}
+            </a>
+        </div>
     </div>
+</div>
+{if $rights.collection == 1}
+<div class="container">
+    <div class="row">
+        <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
+            <input type="hidden" name="moduleBase" value="metadata">
+            <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
+            <div class="row">
+                <label for="metadata_name" class="form-label col-4"><span class="red">*</span>
+                    {t}Nom du modèle :{/t}
+                </label>
+                <div class="col-8">
+                    <input id="metadata_name" class="form-control" name="metadata_name" value="{$data.metadata_name}" required>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                    </div>
+                    {if $data.metadata_id > 0 }
+                    <div class="col-auto">
+                        <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            {$csrf}
+        </form>
+    </div>
+</div>
+{/if}
+<div class="container-fluid">
     {if $rights.collection == 1}
     <div class="row">
-        <div class="col-6">
-            <form id="metadataNameChange" class="form-horizontal" method="post" action="metadataNameWrite">
-                <input type="hidden" name="moduleBase" value="metadata">
-                <input type="hidden" name="metadata_id" value="{$data.metadata_id}">
-                <div class="row">
-                    <label for="metadata_name" class="form-label col-2"><span class="red">*</span>
-                        {t}Nom du modèle :{/t}
-                    </label>
-                    <div class="col-6">
-                        <input id="metadata_name" class="form-control" name="metadata_name" value="{$data.metadata_name}" required>
-                    </div>
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-auto">
-                            <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-                        </div>
-                        {if $data.metadata_id > 0 }
-                        <div class="col-auto">
-                            <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
-                        </div>
-                        {/if}
-                    </div>
-                </div>
-                {$csrf}
-            </form>
+        <div class="col-auto">
+            <a href="metadataFieldChange?metadata_id={$data.metadata_id}&name=">
+                <img src="display/images/new.png" height="25">
+                {t}Nouveau champ{/t}
+            </a>
         </div>
     </div>
     {/if}
-
     {if $data.metadata_id > 0}
     <div class="row">
         <table id="metadataList" class="table table-bordered table-hover display" {if $rights.collection==1}data-order='[[0,"asc"]]' {/if}>
@@ -156,6 +162,5 @@
             {t}Vous pouvez également modifier l'ordre des champs en cliquant-déplaçant avec la souris sur la première colonne{/t}
         </div>
     </div>
-
     {/if}
 </div>

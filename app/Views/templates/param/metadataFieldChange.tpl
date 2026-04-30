@@ -76,14 +76,18 @@
 <div class="container">
     <h2>{t}Modification du modèle de métadonnées{/t} <i>{$data.metadata_name}</i> - {t}champ{/t} <i>{$data.name}</i></h2>
     <div class="row">
-        <a href="metadataList">
-            <img src="display/images/list.png" height="25">
-            {t}Retour à la liste{/t}
-        </a>
-        <a href="metadataDisplay?metadata_id={$data.metadata_id}">
-            <img src="display/images/zoom.png" height="25">
-            {t}Retour au détail des métadonnées{/t}
-        </a>
+        <div class="col-auto">
+            <a href="metadataList">
+                <img src="display/images/list.png" height="25">
+                {t}Retour à la liste{/t}
+            </a>
+        </div>
+        <div class="col-auto">
+            <a href="metadataDisplay?metadata_id={$data.metadata_id}">
+                <img src="display/images/zoom.png" height="25">
+                {t}Retour au détail des métadonnées{/t}
+            </a>
+        </div>
     </div>
     <form class="form-horizontal " id="metadataField" method="post" action="metadataFieldWrite">
         <input type="hidden" name="moduleBase" value="metadataField">

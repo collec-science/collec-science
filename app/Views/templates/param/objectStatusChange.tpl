@@ -32,7 +32,7 @@
         <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
     </div>
     <div class="row">
-        <div class="col-6 bg-info">
+        <div class="bg-info">
             {t}Ne modifiez pas le sens général des libellés, certains statuts sont attribués automatiquement par l'application !{/t}
         </div>
     </div>

@@ -1,10 +1,14 @@
 <div class="container">
     <h2>{t}Création - Modification d'un type d'échantillon{/t}</h2>
     <div class="row">
-        <a href="sampleTypeList">
+        <div class="col-auto">
+            <a href="sampleTypeList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}</a>
-        &nbsp;{$help}
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <div class="row">
         <form class="form-horizontal " id="sampleTypeForm" method="post" action="sampleTypeWrite">

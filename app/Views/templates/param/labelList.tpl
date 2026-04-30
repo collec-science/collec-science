@@ -1,13 +1,18 @@
 <div class="container">
-<h2>{t}Modèles d'étiquette{/t}</h2>
-<div class="row">
-	<div class="col-6">
+	<h2>{t}Modèles d'étiquette{/t}</h2>
+	<div class="row">
 		{if $rights.collection == 1}
-		<a href="labelChange?label_id=0">
-			{t}Nouveau...{/t}
-		</a>
+		<div class="col-auto">
+			<a href="labelChange?label_id=0">
+				<img src="display/images/new.png" height="25">
+				{t}Nouveau...{/t}
+			</a>
+		</div>
 		{/if}
-		{$help}
+		<div class="col-auto">
+			{$help}
+		</div>
+
 		<table id="labelList" class="table table-bordered table-hover datatable display">
 			<thead>
 				<tr>

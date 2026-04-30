@@ -1,16 +1,20 @@
 <div class="container">
     <h2>{t}Création - Modification d'un emprunteur{/t}</h2>
     <div class="row">
-        <a href="borrowerList">
-            <img src="display/images/list.png" height="25">
-            {t}Retour à la liste{/t}
-        </a>
+        <div class="col-auto">
+            <a href="borrowerList">
+                <img src="display/images/list.png" height="25">
+                {t}Retour à la liste{/t}
+            </a>
+        </div>
+
         {if $data.borrower_id > 0}
-        &nbsp;
-        <a href="borrowerDisplay?borrower_id={$data.borrower_id}">
-            <img src="display/images/display.png" height="25">
-            {t}Retour au détail{/t}
-        </a>
+        <div class="col-auto">
+            <a href="borrowerDisplay?borrower_id={$data.borrower_id}">
+                <img src="display/images/display.png" height="25">
+                {t}Retour au détail{/t}
+            </a>
+        </div>
         {/if}
 
         <form class="form-horizontal " id="borrowerForm" method="post" action="borrowerWrite">

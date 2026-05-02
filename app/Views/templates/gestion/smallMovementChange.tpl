@@ -1,64 +1,11 @@
-<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
-<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
-<style>
-	/*@media all and (max-device-width: 768px){ 
-    	. {
-			font-size: 3vw;
-		}
-		*/
-	#video-container {
-		position: relative;
-		/*width: max-content;*/
-		width: 100%;
-		height: max-content;
-		overflow: hidden;
-	}
-
-	#video-container .scan-region-highlight {
-		border-radius: 30px;
-		outline: rgba(0, 0, 0, .25) solid 50vmax;
-	}
-
-	#video-container .scan-region-highlight-svg {
-		display: none;
-	}
-
-	#video-container .code-outline-highlight {
-		stroke: rgba(255, 255, 255, .5) !important;
-		stroke-width: 15 !important;
-		stroke-dasharray: none !important;
-	}
-
-	#flash-toggle {
-		display: none;
-	}
-</style>
 <script>
-	var is_scan = false;
-	function testScan() {
-		if (is_scan) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-
 	$(document).ready(function () {
-		var snd = new Audio("display/images/sound.ogg");
+
+		var mouvements = {};
+		var objets = {};
 		var timer;
 		var timer_duration = 500;
-		var destination = "object";
-		var hasFoundCamera = false;
-
-		const video = document.getElementById('qr-video');
-		const videoContainer = document.getElementById('video-container');
-		const camHasCamera = document.getElementById('cam-has-camera');
-		const camList = document.getElementById('cam-list');
-		const camHasFlash = document.getElementById('cam-has-flash');
-		const flashToggle = document.getElementById('flash-toggle');
-		const flashState = document.getElementById('flash-state');
-		const camQrResult = document.getElementById('cam-qr-result');
+		var db = "{$db}";
 
 		function setResult(label, result) {
 			$("#" + destination).val(result.data);
@@ -66,64 +13,6 @@
 			$("#" + destination).change();
 			scanner.stop();
 		}
-
-		function searchCamera() {
-			if (!hasFoundCamera) {
-				QrScanner.listCameras(true).then(cameras => cameras.forEach(camera => {
-					const option = document.createElement('option');
-					option.value = camera.id;
-					option.text = camera.label;
-					camList.add(option);
-				}));
-				hasFoundCamera = true;
-			}
-		}
-		//$("#video-container").width($(document).width());
-
-		// ####### Web Cam Scanning #######
-		var videosize = Math.min(window.screen.height, window.screen.width);
-		$("#video-container").width(videosize);
-		$("#video-container").height(videosize);
-
-		const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
-			onDecodeError: error => {
-				camQrResult.textContent = error;
-				camQrResult.style.color = 'inherit';
-			},
-			highlightScanRegion: true,
-			highlightCodeOutline: true,
-		});
-
-		const updateFlashAvailability = () => {
-			scanner.hasFlash().then(hasFlash => {
-				camHasFlash.textContent = hasFlash;
-				flashToggle.style.display = hasFlash ? 'inline-block' : 'none';
-			});
-		};
-
-		// for debugging
-		window.scanner = scanner;
-
-		document.getElementById('inversion-mode-select').addEventListener('change', event => {
-			scanner.setInversionMode(event.target.value);
-		});
-
-		camList.addEventListener('change', event => {
-			scanner.setCamera(event.target.value).then(updateFlashAvailability);
-		});
-
-		flashToggle.addEventListener('click', () => {
-			scanner.toggleFlash().then(() => flashState.textContent = scanner.isFlashOn() ? 'on' : 'off');
-		});
-
-
-
-		var is_read = false;
-
-		var mouvements = {};
-		var objets = {};
-
-		var db = "{$db}";
 		/*
 		 * Traitement des recherches
 		 */
@@ -155,7 +44,27 @@
 		$("#object_search,#container_search").blur(function () {
 			is_scan = false;
 		});
+		$('#start').click(function () {
+			$("#video-container").show();
+			destination = "container_search";
+			scanner.start().then(() => {
+				updateFlashAvailability();
+				searchCamera();
+			});
 
+		});
+		$('#start2').click(function () {
+			destination = "object_search";
+			$("#video-container").show();
+			scanner.start().then(() => {
+				updateFlashAvailability();
+				searchCamera();
+			});
+		});
+		$('#stop').click(function () {
+			$("#video-container").hide();
+			scanner.stop();
+		});
 		$("#object_uid").on("change", function () {
 			var uid = $("#object_uid").val();
 			var position = "";
@@ -169,27 +78,7 @@
 				}
 				$("#position_stock").val(position);
 			}
-
 			search("objectGetLastEntry", "container_uid", $("#object_uid").val(), false);
-		});
-		$('#start').click(function () {
-			destination = "container_search";
-			scanner.start().then(() => {
-				updateFlashAvailability();
-				searchCamera();
-			});
-		});
-		$('#start2').click(function () {
-			destination = "object_search";
-			scanner.start().then(() => {
-				updateFlashAvailability();
-				searchCamera();
-			});
-		});
-
-
-		$('#stop').click(function () {
-			scanner.stop();
 		});
 
 
@@ -338,7 +227,7 @@
 
 		function setMessage(isOk, message = "") {
 			var mess = document.getElementById("resultMessage");
-			if (isOk) {		
+			if (isOk) {
 				mess.innerHTML = "{t}Mouvement créé{/t}";
 				mess.classList.add("message");
 				mess.classList.remove("messageError");
@@ -403,168 +292,114 @@
 		});
 	});
 </script>
+
 <div id="resultMessage"></div>
-<div class="row">
-	<div class="col-xs-12 col-6">
-		<form class="form-horizontal" id="smallMovement" method="post" action="smallMovementWrite"
-			onsubmit="return(testScan());">
-			<input type="hidden" name="moduleBase" value="smallMovement">
-			<input type="hidden" name="movement_id" value="0">
-			<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
-			<div class="row">
-				<div class="col-xs-12 col-6">
-					<div class="row">
-						<div class="col-xs-9 col-8">
-							<input id="object_search" type="text" name="object_search"
-								placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value="" class="form-control "
-								autofocus autocomplete="off">
-						</div>
-						<div class="col-xs-3 col-4">
-							<button id="clear_object_search" class="btn btn-block  btn-info "
-								type="button">{t}Effacer{/t}</button>
-						</div>
-						<div class="col-xs-12 col-12">
-							<select id="object_uid" name="object_uid" class="form-select ">
-							</select>
-						</div>
-						<div class="col-xs-3 col-12">
-							<input id="position_stock" class="form-control " disabled value="">
-						</div>
-						<div class="col-xs-12">
-							<select id="movement_reason_id" name="movement_reason_id" class="form-select ">
-								<option value="" {if $movement_reason_id=="" }selected{/if}>
-									{t}Motif du déstockage...{/t}
-								</option>
-								{section name=lst loop=$movementReason}
-								<option value="{$movementReason[lst].movement_reason_id}" {if
-									$movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
-									{$movementReason[lst].movement_reason_name}
-								</option>
-								{/section}
-							</select>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-6">
-					<div class="row">
-						<div class="col-xs-9 col-8">
-							<input id="container_search" type="text" name="container_search"
-								placeholder="{t}Contenant de destination{/t}" value="" class="form-control " autofocus
-								autocomplete="off">
-						</div>
-						<div class="col-xs-3 col-4">
-							<button id="clear_container_search" class="btn btn-block btn-info "
-								type="button">{t}Effacer{/t}</button>
-						</div>
-						<div class="col-xs-12 col-12">
-							<select id="container_uid" name="container_uid" class="form-select ">
-							</select>
-						</div>
-						<div class="col-xs-2 col-2 ">{t}Col:{/t}</div>
-						<div class="col-xs-4 col-4 ">
-							<input id="col" name="column_number" value="1" class="form-control ">
-						</div>
-						<div class="col-xs-2 col-2 ">{t}Ligne:{/t}</div>
-						<div class="col-xs-4 col-4">
-							<input id="line" name="line_number" value="1" class="form-control ">
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-6">
-					<button id="entry" class="btn btn-block btn-info " type="button">
-						<span>
-							{t}Entrer{/t}
-						</span>
-					</button>
-				</div>
-				<div class="col-xs-6">
-					<button id="exit" class="btn btn-block btn-danger " type="button">
-						<span>
-							{t}Sortir{/t}
-						</span>
-					</button>
-				</div>
-			</div>
-			{$csrf}
-		</form>
-	</div>
-	<div class="row">
-	</div>
-</div>
-
-<!-- Rajout pour la lecture optique -->
-<div class="row col-xs-12" id="optical">
-	<fieldset>
-		<legend>{t}Lecture par la caméra de l'ordinateur ou du smartphone{/t}</legend>
-		<div class="col-xs-12 col-10">
-			<div class="form-horizontal ">
-				<div class="row">
-					<div class="col-xs-4">
-						<button id="start2" class="btn btn-success btn-block " type="button">
-							<span>
-								{t}Lecture de l'objet{/t}
-							</span>
-						</button>
-					</div>
-					<div class="col-xs-4">
-						<button id="start" class="btn btn-success btn-block ">
-							<span>
-								{t}Lecture du contenant{/t}
-							</span>
-						</button>
-					</div>
-					<div class="col-xs-4">
-						<button id="stop" class="btn btn-danger btn-block ">
-							<span>
-								{t}Arrêter la lecture{/t}
-							</span>
-						</button>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
+<div class="container">
+	<form class="form-horizontal" id="smallMovement" method="post" action="smallMovementWrite" onsubmit="return(testScan());">
+		<input type="hidden" name="moduleBase" value="smallMovement">
+		<input type="hidden" name="movement_id" value="0">
+		<input type="hidden" id="movement_type_id" name="movement_type_id" value="1">
 		<div class="row">
-			<div class="col-xs-12 center">
-				<div id="video-container">
-					<video id="qr-video"></video>
-				</div>
+			<div class="col-xs-9 col-8">
+				<input id="object_search" type="text" name="object_search" placeholder="{t}Objet à entrer ou déplacer / sortir{/t}" value="" class="form-control " autofocus autocomplete="off">
+			</div>
+			<div class="col-xs-3 col-4">
+				<button id="clear_object_search" class="btn btn-block  btn-info " type="button">{t}Effacer{/t}</button>
+			</div>
+			<div class="col-xs-12 col-12">
+				<select id="object_uid" name="object_uid" class="form-select ">
+				</select>
+			</div>
+			<div class="col-xs-3 col-12">
+				<input id="position_stock" class="form-control " disabled value="">
+			</div>
+			<div class="col-xs-12">
+				<select id="movement_reason_id" name="movement_reason_id" class="form-select ">
+					<option value="" {if $movement_reason_id=="" }selected{/if}>
+						{t}Motif du déstockage...{/t}
+					</option>
+					{section name=lst loop=$movementReason}
+					<option value="{$movementReason[lst].movement_reason_id}" {if $movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
+						{$movementReason[lst].movement_reason_name}
+					</option>
+					{/section}
+				</select>
 			</div>
 		</div>
-		<div class="form-horizontal col-xs-12 col-10">
-			<div class="row">
-				<label class="col-xs-4 form-label ">{t}Caméra :{/t}</label>
-				<div class="col-xs-8">
-					<select id="cam-list" class="form-select ">
-						<option value="environment" selected>{t}Caméra arrière (défaut){/t}</option>
-						<option value="user">{t}Caméra frontale{/t}</option>
-					</select>
-				</div>
+		<div class="row">
+			<div class="col-xs-9 col-8">
+				<input id="container_search" type="text" name="container_search" placeholder="{t}Contenant de destination{/t}" value="" class="form-control " autofocus autocomplete="off">
 			</div>
-			<div class="row">
-				<label class="col-xs-4 form-label ">{t}Mode couleur :{/t}</label>
-				<div class="col-xs-8">
-					<select id="inversion-mode-select" class="form-select ">
-						<option value="original">Scan original (dark QR code on bright background)</option>
-						<option value="invert">Scan with inverted colors (bright QR code on dark background)
-						</option>
-						<option value="both">Scan both</option>
-					</select>
-				</div>
+			<div class="col-xs-3 col-4">
+				<button id="clear_container_search" class="btn btn-block btn-info " type="button">{t}Effacer{/t}</button>
 			</div>
-			<div class="row">
-				<label for="cam-has-flash" class="col-xs-4 form-label ">{t}Flash présent :{/t}</label>
-				<div class="col-xs-8">
-					<span id="cam-has-flash"></span>
-					<button id="flash-toggle">
-						📸 Flash: <span id="flash-state">{t}off{/t}</span>
+			<div class="col-xs-12 col-12">
+				<select id="container_uid" name="container_uid" class="form-select ">
+				</select>
+			</div>
+			<div class="col-2 ">{t}Colonne :{/t}</div>
+			<div class="col-4 ">
+				<input id="col" name="column_number" value="1" class="form-control ">
+			</div>
+			<div class="col-2 ">{t}Ligne:{/t}</div>
+			<div class="col-4">
+				<input id="line" name="line_number" value="1" class="form-control ">
+			</div>
+		</div>
+
+		<div class="row d-flex justify-content-center">
+			<div class="col-auto">
+				<button id="entry" class="btn btn-block btn-info " type="button">
+					<span>
+						{t}Entrer{/t}
+					</span>
+				</button>
+			</div>
+			<div class="col-auto">
+				<button id="exit" class="btn btn-block btn-danger " type="button">
+					<span>
+						{t}Sortir{/t}
+					</span>
+				</button>
+			</div>
+		</div>
+		{$csrf}
+	</form>
+</div>
+<div class="container" id="optical">
+	<fieldset>
+		<legend>{t}Lecture par la caméra{/t}</legend>
+
+		<div class="form-horizontal ">
+			<div class="row d-flex justify-content-center">
+				<div class="col-auto">
+					<button id="start2" class="btn btn-success btn-block " type="button">
+						<span>
+							{t}Lecture de l'objet{/t}
+						</span>
+					</button>
+				</div>
+				<div class="col-auto">
+					<button id="start" class="btn btn-success btn-block ">
+						<span>
+							{t}Lecture du contenant{/t}
+						</span>
+					</button>
+				</div>
+				<div class="col-auto">
+					<button id="stop" class="btn btn-danger btn-block ">
+						<span>
+							{t}Arrêter la lecture{/t}
+						</span>
 					</button>
 				</div>
 			</div>
-			<span id="cam-qr-result" hidden></span>
 		</div>
+
+		{include file="gestion/scanner.tpl"}
 	</fieldset>
 </div>
+<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
+<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
+<link rel="stylesheet" href="display/CSS/qr-scanner.css">
+<script src="display/javascript/qr-scanner.js"></script>

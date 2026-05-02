@@ -276,21 +276,27 @@
 			}
 		});
 		/* Tooltip */
+		const tooltipparams = {
+			delay: { show: 2000, hide: 500 },
+			html: true
+		};
 		function initializeBootstrapTooltip() {
 			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
 			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 				tooltipTriggerEl.setAttribute('title', 'content');
-				return new bootstrap.Tooltip(tooltipTriggerEl, {
-                    delay: { show: 2000, hide: 500}
-                })
+				return new bootstrap.Tooltip(tooltipTriggerEl, tooltipparams)
 			})
 		}
 		initializeBootstrapTooltip();
 		$(".sample").mouseenter(function () {
-			var objet = $(this);
-			const tip = bootstrap.Tooltip.getOrCreateInstance(this);
+			var id = this.getAttribute("id");
+			displayDetail(id);
+		});
+		function displayDetail(currentId) {
+			var objet = document.getElementById(currentId);
+			const tip = bootstrap.Tooltip.getOrCreateInstance(objet);
 			var title = objet.title;
-			var uid = objet.data("uid");
+			var uid = objet.dataset.uid;
 			if (uid > 0) {
 				var url = "sampleDetail";
 				var data = { "uid": uid };
@@ -403,7 +409,7 @@
 						}
 					});
 			}
-		});
+		};
 
 
 		/**
@@ -568,20 +574,22 @@
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
 							var row = "";
+							var localId = parseFloat(9000000) + parseFloat(samples[lst].uid);
 							if (isGestion == 1) {
 								row += '<td class="center"> <input type="checkbox" class="checkSample form-check-input" name="uids[]" value="' + samples[lst].uid + '"></td>';
 							}
 							row += '<td class="text-center">';
-							row += '<a href="sampleDisplay?uid=' + samples[lst].uid + '" title="{t}Consultez le détail{/t}">';
+							row += '<a class="sample " ';
+							row += 'data-bs-toggle="tooltip" data-bs-html="true" data-uid="' + samples[lst].uid + '" ';
+							row += 'id="uid-' + localId + '" href="sampleDisplay?uid=' + samples[lst].uid + '" title="{t}Consultez le détail{/t}">';
 							row += samples[lst].uid;
 							row += '</a>';
-							var localId = parseFloat(9000000) + parseFloat(samples[lst].uid);
 							if (samples[lst].nb_derivated_sample > 0) {
 								row += '<img class="plus hover" id="' + id + '-' + localId.toString() + '"';
 								row += 'data-uid="' + samples[lst].uid + '" src="display/images/plus.png" height="10">';
 							}
 							row += '</td>';
-							row += '<td class="sample nowrap" data-uid="' + samples[lst].uid + '" >';
+							row += '<td class="nowrap" data-uid="' + samples[lst].uid + '" >';
 							row += '<a  class="" href="sampleDisplay?uid=' + samples[lst].uid + '">';
 							row += samples[lst].identifier;
 							row += '</a>';
@@ -678,7 +686,13 @@
 								addChildren($(this));
 
 							})
-							initializeBootstrapTooltip();
+							
+							/*$(document).on("mouseenter", "#uid-" + localId, function () {
+								var elem = document.getElementById("uid-" + localId);
+								new bootstrap.Tooltip(elem, tooltipparams);
+								displayDetail("uid-" + localId)
+							})*/
+
 						}
 						table.order([[maxcol, 'asc']]).draw();
 					}
@@ -732,8 +746,7 @@
 
 			{if $rights["manage"] == 1}
 			<div class="col-auto ">
-				<button id="sampleExport" class="btn btn-primary"
-					title="{t}Export pour import dans une autre base Collec-Science{/t}">
+				<button id="sampleExport" class="btn btn-primary" title="{t}Export pour import dans une autre base Collec-Science{/t}">
 					{t}Export vers autre base{/t}</button>
 			</div>
 
@@ -781,22 +794,19 @@
 					<tr>
 						{if $rights.manage == 1}
 						<td class="center">
-							<input type="checkbox" class="checkSample checkSampleList form-check-input" name="uids[]"
-								value="{$samples[lst].uid}">
+							<input type="checkbox" class="checkSample checkSampleList form-check-input" name="uids[]" value="{$samples[lst].uid}">
 						</td>
 						{/if}
 						<td class="text-center">
-							<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
+							<a class="sample tooltiplink" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
 								{$samples[lst].uid}
 							</a>
 							{if $samples[lst].nb_derivated_sample > -1}
-							<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}"
-								src="display/images/plus.png" height="15">
+							<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 							{/if}
 						</td>
-						<td class="nowrap" >
-							<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="empty"
-								data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
+						<td class="nowrap">
+							<a class="" href="sampleDisplay?uid={$samples[lst].uid}" title="empty" data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
 								{$samples[lst].identifier}
 							</a>
 						</td>
@@ -809,17 +819,13 @@
 						<td class="nowrap" title="{$samples[lst].collection_description}">
 							{$samples[lst].collection_name}</td>
 						<td class="nowrap">{$samples[lst].sample_type_name}</td>
-						<td {if $samples[lst].trashed=='t' }class="trashed"
-							title="{t}Échantillon mis à la corbeille{/t}" {/if}>
+						<td {if $samples[lst].trashed=='t' }class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
 							{$samples[lst].object_status_name}</td>
 						<td>
 							{if strlen($samples[lst].parent_uid) > 0}
 							<span class="nowrap">
-								<a class="sample" data-uid="{$samples[lst].parent_uid}"
-									href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip"
-									data-bs-html="true" title="empty">
-									<span
-										class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
+								<a class="sample" data-uid="{$samples[lst].parent_uid}" href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip" data-bs-html="true" title="empty">
+									<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
 								</a>
 							</span>
 							{/if}
@@ -827,11 +833,7 @@
 							{$samples[lst].sample_parents}
 							{/if}
 						</td>
-						<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins"
-								href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1"
-								title="{t}aperçu de la photo{/t}"> <img
-									src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2"
-									height="30">
+						<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins" href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}"> <img src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2" height="30">
 							</a> {/if}
 						</td>
 						<td class="nowrap">
@@ -991,16 +993,14 @@
 						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>{t}Date
 							d'emprunt :{/t}</label>
 						<div class="col-8">
-							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}"
-								class="form-control datepicker">
+							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker">
 						</div>
 					</div>
 					<div class="row ">
 						<label for="expected_return_date" class="form-label col-4">{t}Date de retour escomptée
 							:{/t}</label>
 						<div class="col-8">
-							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}"
-								class="form-control datepicker">
+							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker">
 						</div>
 					</div>
 				</div>
@@ -1049,8 +1049,7 @@
 						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> {t}UID
 							du contenant :{/t}</label>
 						<div class="col-8">
-							<input id="container_uidChange" name="container_uid" value="" type="number"
-								class="form-control slotFull">
+							<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control slotFull">
 						</div>
 					</div>
 					<div class="row ">
@@ -1077,22 +1076,19 @@
 							{t}Emplacement dans le contenant (format libre) :{/t}
 						</label>
 						<div class="col-8">
-							<input id="storage_location" name="storage_location" value="{$data.storage_location}"
-								type="text" class="form-control">
+							<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 						</div>
 					</div>
 					<div class="row ">
 						<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
 						<div class="col-8">
-							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull"
-								title="{t}N° de la ligne de rangement dans le contenant{/t}">
+							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 						</div>
 					</div>
 					<div class="row ">
 						<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
 						<div class="col-8">
-							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull"
-								title="{t}N° de la colonne de rangement dans le contenant{/t}">
+							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 						</div>
 					</div>
 				</div>
@@ -1305,26 +1301,22 @@
 							{t}Quantité à retirer de chacun des échantillons sélectionnés :{/t}
 						</label>
 						<div class="col-8">
-							<input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}"
-								class="form-control taux">
+							<input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}" class="form-control taux">
 						</div>
 					</div>
 					<div class="row">
 						<label for="identifierComposite" class="form-label col-4">{t}Identifiant ou nom :{/t}</label>
 						<div class="col-8">
-							<input id="identifierComposite" type="text" name="identifierComposite"
-								class="form-control tocreate">
+							<input id="identifierComposite" type="text" name="identifierComposite" class="form-control tocreate">
 						</div>
 					</div>
 					<div class="row">
 						<label for="collection_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Collection :{/t}</label>
 						<div class="col-8">
-							<select id="collection_idComposite" name="collection_idComposite"
-								class="form-select tocreate" autofocus>
+							<select id="collection_idComposite" name="collection_idComposite" class="form-select tocreate" autofocus>
 								{foreach $collections as $collection}
-								<option value="{$collection.collection_id}" {if
-									$sampleSearch.collection_id==$collection.collection_id}selected{/if}>
+								<option value="{$collection.collection_id}" {if $sampleSearch.collection_id==$collection.collection_id}selected{/if}>
 									{$collection.collection_name}
 								</option>
 								{/foreach}
@@ -1336,8 +1328,7 @@
 							{t}Type :{/t}
 						</label>
 						<div class="col-8">
-							<select id="sample_type_idComposite" name="sample_type_idComposite"
-								class="form-select tocreate">
+							<select id="sample_type_idComposite" name="sample_type_idComposite" class="form-select tocreate">
 							</select>
 						</div>
 					</div>
@@ -1345,15 +1336,13 @@
 						<label for="uidsearchComposite" class="col-4 form-label">
 							{t}Échantillon déjà existant - UID :{/t}</label>
 						<div class="col-2">
-							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre"
-								value="{$data.created_uid}">
+							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre" value="{$data.created_uid}">
 						</div>
 						<label for="namesearchComposite" class="col-2 form-label">
 							{t}ou identifiant ou UUID :{/t}
 						</label>
 						<div class="col-3">
-							<input id="namesearchComposite" type="text" class="form-control" name="nameComposite"
-								title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
+							<input id="namesearchComposite" type="text" class="form-control" name="nameComposite" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
 						</div>
 						<div class="col-1">
 							<img src="display/images/zoom.png" height="25">
@@ -1373,8 +1362,7 @@
 							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création
 							uniquement):{/t}</label>
 						<div class="col-8">
-							<input id="multiple_valueComposite" class="form-control taux tocreate"
-								name="multiple_valueComposite">
+							<input id="multiple_valueComposite" class="form-control taux tocreate" name="multiple_valueComposite">
 						</div>
 					</div>
 				</div>

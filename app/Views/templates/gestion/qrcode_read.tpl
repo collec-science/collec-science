@@ -9,14 +9,6 @@
 	$(document).ready(function () {
 		'use strict';
 		var destination = "object";
-		var video = document.querySelector("#reader");
-		var qr = new QCodeDecoder();
-		if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
-			//alert('Your browser doesn\'t match the required specs.');
-			throw new Error('Canvas and getUserMedia are required');
-			$("#optical").hide();
-		}
-
 		var db = "{$db}";
 		function getDetail(uid, champ) {
 			/*
@@ -156,13 +148,6 @@
 			}
 			return value;
 		}
-		function readEnable() {
-			/*
-			 * Fonction declenchant la lecture des qrcodes
-			 */
-			is_read = true;
-			qr.decodeFromCamera(video, resultHandler);
-		}
 		$('#destContainer').click(function () {
 			destination = "container";
 			showArrow("container");
@@ -175,28 +160,6 @@
 			$("#valeur-scan").val("");
 			$("#valeur-scan").focus();
 		});
-
-		$('#start').click(function () {
-			destination = "container";
-			showArrow("container");
-			if (is_read == false) {
-				readEnable();
-			}
-		});
-		$('#start2').click(function () {
-			destination = "object";
-			showArrow("object");
-			if (is_read == false) {
-				readEnable();
-			}
-		});
-
-
-		$('#stop').click(function () {
-			//$('#reader').html5_qrcode_stop();
-			qr.stop();
-			is_read == false;
-		});
 		function showArrow(type) {
 			if (type == "object") {
 				$("#arrow-object").show();
@@ -206,28 +169,9 @@
 				$("#arrow-container").show();
 			}
 		}
-
-
 		showArrow("object");
-
-		function resultHandler(err, result) {
-			$("#valeur-scan").val(result);
-			readChange();
-		}
-
-		/*
-		 * Activation automatique de la lecture optique
-		 */
-		var readOptical = "{$read_optical}";
-		if (readOptical == 1) {
-			readEnable();
-		}
 		/*
 		 * Declenche la recherche du container si l'uid est fourni a l'ouverture de la page
 		 */
-		var cuid = $("#container_uid").val();
-		if (cuid.length > 0) {
-			getDetail(cuid, "container");
-		}
 	});
 </script>

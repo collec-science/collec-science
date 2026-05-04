@@ -1,5 +1,5 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
-{include file="gestion/qrcode_read.tpl"}
+
 <script>
 	$(document).ready(function () {
 		$(".slotFull").change(function () {
@@ -25,9 +25,42 @@
 				);
 			}
 		});
+		$("#arrow-container").hide();
+		$("#arrow-object").hide();
+		$('#start').click(function () {
+			$("#arrow-container").show();
+			$("#arrow-object").hide();
+			$("#video-container").show();
+			destination = "container_search";
+			scanner.start().then(() => {
+				updateFlashAvailability();
+				searchCamera();
+			});
+
+		});
+		$('#start2').click(function () {
+			destination = "object_search";
+			$("#video-container").show();
+			$("#arrow-object").show();
+			$("#arrow-container").hide();
+			scanner.start().then(() => {
+				updateFlashAvailability();
+				searchCamera();
+			});
+		});
+		$('#stop').click(function () {
+			$("#video-container").hide();
+			$("#arrow-container").hide();
+			$("#arrow-object").hide();
+			scanner.stop();
+		});
+		var cuid = $("#container_uid").val();
+		if (cuid.length > 0) {
+			getDetail(cuid, "container");
+		}
 	});
 </script>
-
+{include file="gestion/qrcode_read.tpl"}
 <div class="container">
 	<h2>{t}Entrer ou déplacer dans un contenant{/t}</h2>
 	<div class="row">
@@ -167,5 +200,11 @@
 				</div>
 			</div>
 		</div>
+		{include file="gestion/scanner.tpl"}
 	</fieldset>
 </div>
+
+<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
+<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
+<link rel="stylesheet" href="display/CSS/qr-scanner.css">
+<script src="display/javascript/qr-scanner.js"></script>

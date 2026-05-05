@@ -975,24 +975,28 @@ class Sample extends PpciModel
                     /*
                      * Traitement des metadonnees - ajout de colonnes prefixees avec md_
                      */
-                    $metadata = json_decode($value["metadata"], true);
-                    foreach ($metadata as $kmd => $md) {
-                        if (is_array($md)) {
-                            $val = "";
-                            $comma = "";
-                            foreach ($md as $v) {
-                                if (is_array($v)) {
-                                    // it's a checkbox
-                                    $val .= $comma . $v["value"];
-                                } else {
-                                    $val .= $comma . $v;
+                    if (!empty($value["metadata"]) && $value["metadata"] != "null") {
+                        $metadata = json_decode($value["metadata"], true);
+                        foreach ($metadata as $kmd => $md) {
+                            if (is_array($md)) {
+                                $val = "";
+                                $comma = "";
+                                foreach ($md as $v) {
+                                    if (is_array($v)) {
+                                        // it's a checkbox
+                                        $val .= $comma . $v["value"];
+                                    } else {
+                                        $val .= $comma . $v;
+                                    }
+                                    $comma = ", ";
                                 }
-                                $comma = ", ";
+                            } else {
+                                $val = $md;
                             }
-                        } else {
-                            $val = $md;
+                            $value["md_" . $kmd] = $val;
                         }
-                        $value["md_" . $kmd] = $val;
+                    } else {
+                        $value["metadata"] = "";
                     }
                     /*
                      * Fin de traitement - rajout de la ligne reformatee

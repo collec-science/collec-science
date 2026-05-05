@@ -686,7 +686,7 @@
 								addChildren($(this));
 
 							})
-							
+
 							/*$(document).on("mouseenter", "#uid-" + localId, function () {
 								var elem = document.getElementById("uid-" + localId);
 								new bootstrap.Tooltip(elem, tooltipparams);
@@ -706,8 +706,9 @@
 <form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel" enctype="multipart/form-data">
 	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
+
+	{if $rights.manage == 1 && !empty($samples)}
 	<div class="container-fluid">
-		{if $rights.manage == 1 && !empty($samples)}
 		<div class="row align-items-center">
 			<div class="col-auto ">
 				<label id="lsamplecheck" for="checkSample" class="form-check-label">{t}Tout cocher{/t}</label>
@@ -900,7 +901,7 @@
 			<div id="nbSampleChecked"></div>
 		</div>
 		<div class="row">
-			<div class="col-10 form-horizontal">
+			<div class="form-horizontal">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">

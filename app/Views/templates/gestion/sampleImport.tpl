@@ -21,7 +21,7 @@
 <div class="container">
     <h2>{t}Import d'échantillons provenant d'une base externe à partir d'un fichier CSV{/t}</h2>
 
-    <div class="row col-6">
+    <div class="row ">
         <form class="form-horizontal" id="sampleStage1" method="post" action="sampleImportStage2" enctype="multipart/form-data">
             <div class="row">
                 <label for="upfile" class="form-label col-4"><span class="red">*</span>
@@ -64,7 +64,7 @@
     </div>
 
     {if $stage > 1}
-    <fieldset class="row col-12">
+    <fieldset>
         <legend>{t}Tableau de correspondance entre les libellés fournis et ceux de la base de données locale{/t}</legend>
         <form class="form-horizontal " id="sampleStage2" method="post" action="sampleImportStage3" enctype="multipart/form-data">
             <input type="hidden" name="realfilename" value="{$realfilename}">

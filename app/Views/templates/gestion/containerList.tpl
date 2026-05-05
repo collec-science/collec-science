@@ -1,3 +1,6 @@
+<div class="container-fluid">
+	<h2>{t}Contenants{/t}</h2>
+</div>
 {include file='gestion/containerSearchTab.tpl'}
 
 {if $rights.manage == 1}

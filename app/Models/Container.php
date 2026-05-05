@@ -86,7 +86,7 @@ class Container extends PpciModel
         $this->datetimeFields[] = "change_date";
         $this->dateFields[] = "borrowing_date";
         $this->dateFields[] = "expected_return_date";
-        if ( $uid > 0) {
+        if ($uid > 0) {
             $retour = parent::lireParamAsPrepared($sql, $data);
         } else {
             $retour = parent::getDefaultValues($parentValue);
@@ -644,7 +644,7 @@ class Container extends PpciModel
                 }
             } else {
                 if (!empty($df) && in_array($key, $fields)) {
-                    if (!in_array($df, $names[$key])) {
+                    if (empty($names[$key]) || !in_array($df, $names[$key])) {
                         $names[$key][] = $df;
                     }
                 }

@@ -118,7 +118,7 @@ class PpciLibrary
             }
             $this->message->setSyslog($e->getMessage(),true);
             if ($isPartOfTransaction) {
-                throw new PpciException(sprintf("Suppression impossible de l'enregistrement %s"), $id);
+                throw new PpciException(sprintf(_("Suppression impossible de l'enregistrement %s"), $id));
             }
             return false;
         }

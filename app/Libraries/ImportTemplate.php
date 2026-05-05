@@ -10,6 +10,7 @@ use App\Models\Metadata;
 use App\Models\Referent;
 use App\Models\SampleType;
 use App\Models\SamplingPlace;
+use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Libraries\Views\CsvView;
 
@@ -64,6 +65,9 @@ class ImportTemplate extends PpciLibrary
             $content[] = $container;
         }
         if ($_POST["sampleEnable"] == 1) {
+            if (empty($_POST["sampleTypes"])) {
+                throw new PpciException(_("Au moins un type d'échantillon doit avoir été sélectionné"));
+            }
             /**
              * Import of samples
              */

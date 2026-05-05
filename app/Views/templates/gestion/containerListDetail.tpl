@@ -428,7 +428,7 @@
 </script>
 <div class="container-fluid">
 	{include file="gestion/displayPhotoScript.tpl"}
-	{if $rights.manage == 1}
+	{if $rights.manage == 1 && !empty($containers)}
 	<form method="POST" id="containerFormListPrint" action="containerPrintLabel">
 		<input type="hidden" name="lastModule" value="{$lastModule}">
 		<div class="row d-flex justify-content-center">
@@ -564,7 +564,7 @@
 				{/section}
 			</tbody>
 		</table>
-		{if $rights.collection == 1}
+		{if $rights.collection == 1 && !empty($containers)}
 		<div class="row">
 			<div id="nbContainerChecked"></div>
 		</div>

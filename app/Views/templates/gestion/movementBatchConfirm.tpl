@@ -1,32 +1,30 @@
 {* Mouvements > Entrée/sortie par lots > Valider > *}
 <script>
-	$(document).ready(function() {
-		$("#entree").on("click keypress", function() {
+	$(document).ready(function () {
+		$("#entree").on("click keypress", function () {
 			$(".entree").prop("checked", true);
 		});
-		$("#sortie").on("click keypress", function() {
+		$("#sortie").on("click keypress", function () {
 			$(".sortie").prop("checked", true);
 		});
 	});
 </script>
 
 <div class="container">
-<h2>{t}Entrer ou déplacer dans des contenants ou sortir du stock{/t}</h2>
-<div class="row">
-	<div class="col-12">
-
+	<h2>{t}Entrer ou déplacer dans des contenants ou sortir du stock{/t}</h2>
+	<div class="row">
 		<form id="movementConfirm" class="form-horizontal" method="post" action="movementBatchWrite">
 			<input type="hidden" name="moduleBase" value="movementBatch">
 			<div class="row">
 				<label for="movement_reason_id" class="form-label col-4">{t}Motif du déstockage :{/t}</label>
 				<div class="col-8">
 					<select id="movement_reason_id" name="movement_reason_id" class="form-select">
-					<option value="" {if empty($data.movement_reason_id)}selected{/if}>{t}Choisissez...{/t}</option>
-					{section name=lst loop=$movementReason}
-					<option value="{$movementReason[lst].movement_reason_id}" {if !empty($data.movement_reason_id) && $data.movement_reason_id == $movementReason[lst].movement_reason_id}selected{/if}>
-					{$movementReason[lst].movement_reason_name}
-					</option>	
-					{/section}		
+						<option value="" {if empty($data.movement_reason_id)}selected{/if}>{t}Choisissez...{/t}</option>
+						{section name=lst loop=$movementReason}
+						<option value="{$movementReason[lst].movement_reason_id}" {if !empty($data.movement_reason_id) && $data.movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
+							{$movementReason[lst].movement_reason_name}
+						</option>
+						{/section}
 					</select>
 				</div>
 			</div>
@@ -43,8 +41,7 @@
 				</div>
 			</div>
 			<div class="row col-12">
-			<table id="movementList"
-				class="table table-bordered table-hover datatable-nopaging-nosort display"">
+				<table id="movementList" class="table table-bordered table-hover datatable-nopaging-nosort display"">
 				<thead>
 					<tr>
 						<th>{t}UID{/t}</th>
@@ -63,39 +60,32 @@
 				<tbody>
 					{section name=lst loop=$data}
 					<tr>
-						<td class="center"><input type="hidden" name="uid[]"
-							value="{$data[lst].uid}"> {$data[lst].uid}</td>
-						<td>{$data[lst].identifier}</td>
-						<td>{$data[lst].object_type}</td>
-						<td>{$data[lst].type_name}</td>
-						<td class="center"><input type="checkbox" class="form-check-input"
-							name="container{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
-							{if $data[lst].object_type=="container"}checked{/if}></td>
-						<td class="center">
+						<td class=" center"><input type="hidden" name="uid[]" value="{$data[lst].uid}"> {$data[lst].uid}</td>
+					<td>{$data[lst].identifier}</td>
+					<td>{$data[lst].object_type}</td>
+					<td>{$data[lst].type_name}</td>
+					<td class="center"><input type="checkbox" class="form-check-input" name="container{$smarty.section.lst.index}:{$data[lst].uid}" value="1" {if $data[lst].object_type=="container" }checked{/if}></td>
+					<td class="center">
 						<input class="nombre" name="line{$data[lst].uid}" value="1" title="{t}Valeur obligatoire pour les mouvements d'entrée{/t}" placeholder="{t}obligatoire en entrée !{/t}">
-						</td>
-						<td class="center">
+					</td>
+					<td class="center">
 						<input class="nombre" name="column{$data[lst].uid}" value="1" title="{t}Valeur obligatoire pour les mouvements d'entrée{/t}" placeholder="{t}obligatoire en entrée !{/t}">
-						</td>
-						
-						<td class="center"><input class="entree" type="radio"
-							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="1"
-							{if $data[lst].object_type=="sample"}checked{/if}></td>
-						<td class="center"><input class="sortie" type="radio"
-							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="2"></td>
-						<td class="center"><input class="rien" type="radio"
-							name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="0"
-							{if $data[lst].object_type=="container"}checked{/if}></td>
+					</td>
+
+					<td class="center"><input class="entree" type="radio" name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="1" {if $data[lst].object_type=="sample" }checked{/if}></td>
+					<td class="center"><input class="sortie" type="radio" name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="2"></td>
+					<td class="center"><input class="rien" type="radio" name="mvt{$smarty.section.lst.index}:{$data[lst].uid}" value="0" {if $data[lst].object_type=="container" }checked{/if}></td>
 					</tr>
 					{/section}
-				</tbody>
-			</table>
+					</tbody>
+				</table>
 			</div>
 			<div class="row">
 				<div class="center">
 					<button type="submit" class="btn btn-primary">{t}Valider{/t}</button>
 				</div>
 			</div>
-		{$csrf}</form>
+			{$csrf}
+		</form>
 	</div>
 </div>

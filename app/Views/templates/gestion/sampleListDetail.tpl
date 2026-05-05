@@ -707,7 +707,7 @@
 	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
 	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
 	<div class="container-fluid">
-		{if $rights.manage == 1}
+		{if $rights.manage == 1 && !empty($samples)}
 		<div class="row align-items-center">
 			<div class="col-auto ">
 				<label id="lsamplecheck" for="checkSample" class="form-check-label">{t}Tout cocher{/t}</label>
@@ -894,7 +894,7 @@
 
 
 	<!-- form at the bottom of the list-->
-	{if $rights.collection == 1}
+	{if $rights.collection == 1 && !empty($samples)}
 	<div class="container">
 		<div class="row">
 			<div id="nbSampleChecked"></div>

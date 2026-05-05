@@ -239,7 +239,7 @@ td a {
 }
 
 .itemSelected {
-	background: var(--color-sec);
+	background: var(--color-sec) !important;
 }
 
 meter {

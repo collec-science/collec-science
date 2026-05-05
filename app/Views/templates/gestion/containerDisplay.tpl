@@ -295,6 +295,7 @@
 			$("#search").focus();
 		});
 		$("#scannerDiv").hide();
+		setTimeout(backToTop, 0);
 	});
 </script>
 <div class="container-fluid">

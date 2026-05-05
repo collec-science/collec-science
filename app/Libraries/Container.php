@@ -92,7 +92,10 @@ class Container extends PpciLibrary
          * Display the detail of the record
          */
         if (isset($this->id)) {
-            $data = $this->dataclass->lire($this->id);
+            $data = $this->dataclass->read($this->id);
+            if (empty($data)) {
+                return $this->list();
+            }
             $this->vue->set($data, "data");
             $this->vue->set("containerDisplay", "moduleFrom");
             $this->vue->set($this->id, "containerUid");

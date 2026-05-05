@@ -20,6 +20,7 @@
             var tooltipTriggerList = [].slice.call(document.querySelectorAll('.lexical'));
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
                 tooltipTriggerEl.setAttribute('title', 'lexical');
+                if (!bootstrap.Tooltip.getInstance(tooltipTriggerEl))
                 return new bootstrap.Tooltip(tooltipTriggerEl, {
                     delay: { show: 2000, hide: 500}
                 })
@@ -28,7 +29,7 @@
         initializeBootstrapTooltip();
         $(".lexical").mouseenter(function () {
             var objet = $(this);
-            const tip = bootstrap.Tooltip.getOrCreateInstance(this);
+            const tip = bootstrap.Tooltip.getInstance(this);
             var entry = objet.data("lexical");
             if (entry.length > 0) {
                 var url = "lexicalGet";

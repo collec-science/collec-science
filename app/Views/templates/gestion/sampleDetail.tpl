@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="form-display col-md-6">
+    <div class="form-display {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}col-md-6{/if}">
         {if $rights.manage == 1}
         <form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
             <input type="hidden" id="uid2" name="uids" value="{$data.uid}">
@@ -265,9 +265,9 @@
             {/if}
         </div>
     </div>
+    {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
     <div class="col-md-6">
-        {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
         {include file="gestion/objectMapDisplay.tpl"}
-        {/if}
     </div>
+    {/if}
 </div>

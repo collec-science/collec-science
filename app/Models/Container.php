@@ -44,11 +44,7 @@ class Container extends PpciModel
 
     private $movement, $object;
 
-    /**
-     *
-     * @param PDO   : $bdd
-     * @param array : $param
-     */
+
     function __construct()
     {
         $this->table = "container";

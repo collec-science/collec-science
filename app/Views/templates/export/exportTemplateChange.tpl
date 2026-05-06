@@ -43,17 +43,17 @@
 </script>
 <div class="container">
     <h2>{t}Modification d'un modèle d'export{/t}</h2>
-    <div class="row">
-        <div class="col-12">
+    <div class="row d-flex">
+        <div class="col-auto">
             <a href="exportTemplateList">
                 <img src="display/images/list.png" height="25">
                 {t}Retour à la liste{/t}
             </a>
         </div>
     </div>
-    <form id="exportTemplateForm" method="post" action="index.php">
+    <form id="exportTemplateForm" method="post" action="index.php" class="form-horizontal">
         <div class="row">
-            <div class="col-6 form-horizontal">
+            <div class="col-6 ">
                 <input type="hidden" name="moduleBase" value="exportTemplate">
                 <input type="hidden" name="action" value="Write">
                 <input type="hidden" name="export_template_id" value="{$data.export_template_id}">
@@ -100,7 +100,7 @@
             <div class="col-6">
                 <!-- list of datasets-->
                 <legend>{t}Liste des datasets à générer{/t}</legend>
-                <div class="row  form-horizontal">
+                <div class="row">
                     {foreach from=$datasets item=dataset name=datasets}
                     <div class="col-6">
                         <input class="dataset form-check-input" type="checkbox" id="dataset{$smarty.foreach.datasets.index}" name="dataset[]" value="{$dataset.dataset_template_id}" {if $dataset.export_template_id> 0}checked{/if}>
@@ -113,16 +113,21 @@
                 </fieldset>
             </div>
         </div>
-        <div class="row center">
-            <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+        <div class="row d-flex justify-content-center">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+            </div>
             {if $data.export_template_id > 0 }
-            <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+            <div class="col-auto">
+                <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+            </div>
+
             {/if}
         </div>
         {$csrf}
     </form>
-</div>
-</div>
-<div class="row col-12 d-inline">
-    <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+
+    <div class="row col-12 d-inline">
+        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+    </div>
 </div>

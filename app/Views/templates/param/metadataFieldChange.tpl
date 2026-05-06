@@ -146,7 +146,7 @@
                 <input type="radio" class="multiple" name="multiple" id="multipleYes" {if $data.multiple=='yes' }checked{/if} value="yes">&nbsp;{t}oui{/t}
             </div>
         </div>
-        <div class="row" id="choiceListGroup" hidden>
+        <div class="row" id="choiceListGroup">
             <label for="name" class="form-label col-4">
                 {t}Valeurs{/t}
             </label>

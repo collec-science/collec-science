@@ -1,48 +1,43 @@
 <script>
-    $(document).ready (function () { 
-         /* Management of tabs */
-    var myStorage = window.localStorage;
+    $(document).ready(function () {
+        /* Management of tabs */
+        var myStorage = window.localStorage;
         var activeTab = "";
         try {
             var storageName = "datasetTemplateTab";
-            activeTab = myStorage.getItem( storageName );
-        } catch ( Exception ) {
+            activeTab = myStorage.getItem(storageName);
+        } catch (Exception) {
         }
         try {
-            if ( activeTab.length > 0 ) {
-                $( "#" + activeTab ).tab( 'show' );
+            if (activeTab.length > 0) {
+                $("#" + activeTab).tab('show');
             }
-        } catch ( Exception ) { }
-        $( '.datasetTab' ).on( 'shown.bs.tab', function () {
-            myStorage.setItem( storageName, $( this ).attr( "id" ) );
-        } );
+        } catch (Exception) { }
+        $('.datasetTab').on('shown.bs.tab', function () {
+            myStorage.setItem(storageName, $(this).attr("id"));
+        });
     });
-   
+
 </script>
 
 <div class="container">
-<h2>{t}Affichage du modèle de dataset{/t} <i>{$data.dataset_template_name}</i></h2>
-<div class="row">
-    <div class="col-12">
+    <h2>{t}Affichage du modèle de dataset{/t} <i>{$data.dataset_template_name}</i></h2>
+    <div class="row">
         <a href="datasetTemplateList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
         </a>
     </div>
-</div>
-<!-- Tab box -->
-<div class="row">
-    <div class="col-12">
+    <!-- Tab box -->
+    <div class="row">
         <ul class="nav nav-tabs" id="datasetTab" role="tablist">
-            <li class="nav-item active">
-                <a class="nav-link datasetTab" id="tabgeneral" data-bs-toggle="tab" role="tab" aria-controls="navgeneral"
-                    aria-selected="true" href="#navgeneral">
+            <li class="nav-item">
+                <a class="nav-link datasetTab active" id="tabgeneral" data-bs-toggle="tab" role="tab" aria-controls="navgeneral" aria-selected="true" href="#navgeneral">
                     {t}Informations générales{/t}
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-bs-toggle="tab" role="tab"
-                    aria-controls="navcols" aria-selected="false">
+                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-bs-toggle="tab" role="tab" aria-controls="navcols" aria-selected="false">
                     {t}Liste des informations exportées{/t}
                 </a>
             </li>
@@ -91,8 +86,7 @@
                             <dl class="dl-horizontal">
                                 <dt>{t}Transformation XSL appliquée sur le fichier XML généré :{/t}</dt>
                                 <dd>
-                                    <textarea class="texteareaDisplay col-12" rows="5"
-                                        readonly>{$data.xslcontent}</textarea>
+                                    <textarea class="texteareaDisplay col-12" rows="5" readonly>{$data.xslcontent}</textarea>
                                 </dd>
                             </dl>
                         </fieldset>
@@ -101,15 +95,12 @@
 
             </div>
             <div class="tab-pane fade" id="navcols" role="tabpanel" aria-labelledby="tabcols">
-                <a
-                    href="datasetColumnChange?dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
+                <a href="datasetColumnChange?dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
                     <img src="display/images/new.png" height="25">
                     {t}Nouvelle colonne{/t}
                 </a>
                 <div class="row">
-                    <div class="col-10">
-                        {include file="export/datasetColumnTable.tpl"}
-                    </div>
+                    {include file="export/datasetColumnTable.tpl"}
                 </div>
             </div>
         </div>

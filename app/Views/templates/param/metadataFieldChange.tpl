@@ -231,7 +231,7 @@
                 <input type="radio" name="helperChoice" id="helperChoice1" {if $data.helperChoice=="true" }checked{/if} value="true" class="helperChoice">&nbsp;{t}oui{/t}
             </div>
         </div>
-        <div class="row" id="helperGroup" hidden>
+        <div class="row" id="helperGroup">
             <label for="helper" class="form-label col-4"><span class="red">*</span>
                 {t}Message d'aide - vous pouvez copier ici la description de l'unité de mesure, par exemple{/t}
             </label>

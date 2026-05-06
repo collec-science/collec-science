@@ -116,8 +116,6 @@
                 });
             });
         };
-        $("#rowfields").hide();
-        $("#rowcenterfields").hide();
     });
 </script>
 <fieldset>
@@ -131,11 +129,11 @@
                 <input id="document_description_external" name="document_description" class="form-control">
             </div>
         </div>
-        <div class="row fields" hidden>
+        <div class="row fields">
             <label for="document_creation_date_external" class="form-label col-4">
                 {t}Date de création des documents :{/t} </label>
             <div class="col-8">
-                <input id="document_creation_date_external" name="document_creation_date" class="form-control date">
+                <input id="document_creation_date_external" name="document_creation_date" class="form-control datepicker">
             </div>
         </div>
         <div class="row">

@@ -244,11 +244,11 @@
                     <div class="col-8">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled0" value="f" {if $data.external_storage_enabled!=1}checked{/if}>
+                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled0" value="f" {if $data.external_storage_enabled!='t'}checked{/if}>
                                 {t}non{/t}
                             </label>
                             <label>
-                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled1" value="t" {if $data.external_storage_enabled=="1" }checked{/if}>
+                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled1" value="t" {if $data.external_storage_enabled=='t' }checked{/if}>
                                 {t}oui{/t}
                             </label>
 

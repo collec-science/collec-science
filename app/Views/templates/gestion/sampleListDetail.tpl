@@ -901,7 +901,7 @@
 			<div id="nbSampleChecked"></div>
 		</div>
 		<div class="row">
-			<div class="form-horizontal">
+			<div class="form-horizontal col-10">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">

@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <div class="form-display {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}col-md-6{/if}">
+    <div class="form-display {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}col-lg-6{/if}">
         {if $rights.manage == 1}
         <form method="GET" id="SampleDisplayFormListPrint" action="samplePrintLabel" target="_blank">
             <input type="hidden" id="uid2" name="uids" value="{$data.uid}">
@@ -17,7 +17,7 @@
                     </select>
                 </div>
                 <div class="col-auto">
-                    <button id="samplelabels2" class="btn btn-primary">{t}Étiquettes{/t}</button>
+                    <button id="samplelabels2" class="btn btn-primary">{t}Générer l'étiquette{/t}</button>
                 </div>
                 {if !empty($printers)}
                 <div class="col-auto">
@@ -266,7 +266,7 @@
         </div>
     </div>
     {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}
-    <div class="col-md-6">
+    <div class="col-lg-6">
         {include file="gestion/objectMapDisplay.tpl"}
     </div>
     {/if}

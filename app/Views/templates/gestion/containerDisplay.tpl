@@ -202,6 +202,7 @@
 		});
 		$("#scannerDiv").hide();
 		setTimeout(backToTop, 0);
+		$("#rapidAccessForm").hide();
 	});
 </script>
 <div class="container-fluid">
@@ -280,14 +281,19 @@
 			<h2>{t}Détail du contenant{/t} <i>{$data.uid} {$data.identifier}</i></h2>
 			{/if}
 		</div>
-		<div id="rapidAccessForm" hidden class="col-4 offset-2 col-2">
-			<form id="open" action="containerDisplay" method="GET">
+		<div id="rapidAccessForm" class="col-lg-6 col-md-8 col-xs-12 offset-md-2">
+			<form id="open" action="containerDisplay" method="GET" class="form-horizontal">
 				<input id="moduleBase" type="hidden" name="moduleBase" value="container">
-				<div class="row">
-					<div class="col-6 col-offset-2 offset-0 col-4">
-						<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
+				<div class="row align-items-center justify-content-center">
+					<div class="col-auto">
+						<label class="form-label" for="search">{t}uid ou identifiant :{/t}</label>
 					</div>
-					<input type="submit" id="searchExec" class="btn btn-warning col-6 col-4" value="{t}Ouvrir{/t}">
+					<div class="col-auto">
+						<input id="search" class="form-control" name="uid" required>
+					</div>
+					<div class="col-auto">
+						<button type="submit" id="searchExec" class="btn btn-primary">{t}Ouvrir{/t}</button>
+					</div>
 				</div>
 				{$csrf}
 			</form>
@@ -356,7 +362,7 @@
 		<div class="tab-content" id="nav-tabContent">
 			<div class="tab-pane active in" id="nav-detail" role="tabpanel" aria-labelledby="tab-detail">
 				<div class="row">
-					<div class="form-display col-lg-6">
+					<div class="form-display {if strlen($data.wgs84_x) > 0 && strlen($data.wgs84_y) > 0 && $data.no_localization != 1}col-lg-6{/if}">
 						<dl class="dl-horizontal">
 							<dt>{t}UID et référence :{/t}</dt>
 							<dd>{$data.uid} {$data.identifier}</dd>

@@ -166,7 +166,7 @@
 					});
 			}
 		});
-		$("#rapidAccessForm").submit(function (event) {
+		$("#open").submit(function (event) {
 			/**
 			* Recherche si un sample existe
 			*/
@@ -297,18 +297,23 @@
 		</div>
 	</div>
 	{include file="gestion/scanner.tpl"}
-
-	<form id="rapidAccessForm" action="sampleDisplay" method="GET">
-		<div class="row align-items-center">
-			<div class="col-md-4">
-				<input id="search" class="form-control" placeholder="{t}uid ou identifiant{/t}" name="uid" required>
-			</div>
-			<div class="col-md-4">
-				<button type="submit" id="searchExec" class="btn btn-primary">{t}Ouvrir{/t}</button>
-			</div>
+			<div id="rapidAccessForm" class="col-lg-6 col-md-8 col-xs-12 offset-md-2">
+			<form id="open" action="sampleDisplay" method="GET" class="form-horizontal">
+				<input id="moduleBase" type="hidden" name="moduleBase" value="container">
+				<div class="row align-items-center justify-content-center">
+					<div class="col-auto">
+						<label class="form-label" for="search">{t}uid ou identifiant :{/t}</label>
+					</div>
+					<div class="col-auto">
+						<input id="search" class="form-control" name="uid" required>
+					</div>
+					<div class="col-auto">
+						<button type="submit" id="searchExec" class="btn btn-primary">{t}Ouvrir{/t}</button>
+					</div>
+				</div>
+				{$csrf}
+			</form>
 		</div>
-		{$csrf}
-	</form>
 	{if $data.uid > 0}
 	<h2>
 		{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i>

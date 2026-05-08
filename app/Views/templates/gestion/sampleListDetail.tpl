@@ -300,6 +300,7 @@
 			if (uid > 0) {
 				var url = "sampleDetail";
 				var data = { "uid": uid };
+				console.log(data);
 				$.ajax({ url: url, data: data })
 					.done(function (d) {
 						if (d) {
@@ -799,7 +800,7 @@
 						</td>
 						{/if}
 						<td class="text-center">
-							<a class="sample tooltiplink" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
+							<a class="sample tooltiplink" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="empty">
 								{$samples[lst].uid}
 							</a>
 							{if $samples[lst].nb_derivated_sample > -1}
@@ -825,8 +826,8 @@
 						<td>
 							{if strlen($samples[lst].parent_uid) > 0}
 							<span class="nowrap">
-								<a class="sample" data-uid="{$samples[lst].parent_uid}" href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip" data-bs-html="true" title="empty">
-									<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
+								<a class="sample tooltiplink" data-uid="{$samples[lst].parent_uid}" href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip" data-bs-html="true" title="empty" id="parent{$samples[lst].parent_uid}-{counter}">
+									{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}
 								</a>
 							</span>
 							{/if}

@@ -24,7 +24,9 @@ red: var(--color-red), rgb(213,19,23);
 	/*--color-text-muted: rgba(0,158,224,0.3);*/
 
 }
-
+body {
+	position: relative;
+}
 .form-horizontal {
 	border-style: solid;
 	border-width: 1px;

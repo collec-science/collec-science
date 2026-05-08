@@ -27,8 +27,9 @@
             </div>
 
             <div class="row">
-                <label for="aco" class="form-label col-4"><span class="red">*</span> {t}Nom du droit utilisé dans
-                    l'application :{/t}</label>
+                <label for="aco" class="form-label col-4"><span class="red">*</span> 
+                    {t}Nom du droit utilisé dans l'application :{/t}
+                </label>
                 <div class="col-8"><input type="text" class="form-control" id="aco" name="aco" value="{$data.aco}"
                         autofocus required {if $newRightEnabled==0} readonly{/if}>
                 </div>

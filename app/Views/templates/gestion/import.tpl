@@ -196,8 +196,7 @@
                     <li>{t escape=no}si <i>sample_identifier</i> est renseigné : création de l'échantillon{/t}</li>
                     <li>{t escape=no}si <i>container_identifier</i> est renseigné : création du contenant{/t}</li>
                     <li>{t escape=no}si <i>container_identifier</i> et <i>container_parent_uid</i> sont renseignés : création du mouvement d'entrée du contenant{/t}</li>
-                    <li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le
-                        contenant{/t}</li>
+                    <li>{t}si l'échantillon et le contenant ont été créés, création du mouvement d'entrée de l'échantillon dans le contenant{/t}</li>
                     <li>{t escape=no}si l'échantillon est créé, que <i>container_parent_uid</i> est renseigné, et que <i>container_identifier</i> n'est pas rempli, création du mouvement d'entrée de l'échantillon dans le contenant indiqué{/t}</li>
                 </ol>
             </div>

@@ -1,5 +1,11 @@
 Nouveautés
 ============
+Version v26.2.0a du 8/5/2026
+-----------------------------
+Nouveautés :
+- basculement vers la version 5 de Bootstrap, le moteur d'affichage des pages web
+- mise à niveau de l'ergonomie générale du logiciel pour tenir compte de cette version de Bootstrap
+
 Version v26.1.0 du 1/4/2026
 -----------------------------
 Corrections de bugs :

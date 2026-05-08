@@ -2,6 +2,12 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.2.0a of 8/5/2026
+-----------------------------
+New features:
+- switch to version 5 of Bootstrap, the web page rendering engine
+- upgrade to the software’s overall user interface to accommodate this version of Bootstrap
+
 Version v26.1.0 of 1/4/2026
 -----------------------------
 Bug fixes:

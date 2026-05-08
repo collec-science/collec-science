@@ -914,8 +914,9 @@
 					<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 					<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 					<option value="samplesExit">{t}Sortir les échantillons{/t}</option>
-					<option value="lotCreate" {if !$sampleSearch.collection_id> 0}disabled{/if}>{t}Créer un lot
-						d'export{/t}</option>
+					<option value="lotCreate" {if !$sampleSearch.collection_id> 0}disabled{/if}>
+						{t}Créer un lot d'export{/t}
+					</option>
 					<option value="samplesSetCountry">{t}Affecter un pays de collecte{/t}</option>
 					<option value="samplesSetCampaign">{t}Attacher à une campagne de prélèvement{/t}</option>
 					<option value="samplesSetStatus">{t}Modifier le statut{/t}</option>
@@ -923,12 +924,14 @@
 					<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 					<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
 					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
-					<option value="samplesCreateComposite">{t}Créer un échantillon composé à partir des échantillons
-						sélectionnés{/t}</option>
+					<option value="samplesCreateComposite">
+						{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}
+					</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
-					<option value="samplesDeleteWithChildren">{t}Supprimer les échantillons et tous les échantillons
-						dérivés{/t}</option>
+					<option value="samplesDeleteWithChildren">
+						{t}Supprimer les échantillons et tous les échantillons dérivés{/t}
+					</option>
 					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
 				</select>
 				<div class="referentid">
@@ -956,8 +959,9 @@
 						</div>
 					</div>
 					<div class="row ">
-						<label for="eventsType" class="form-label col-4"><span class="red">*</span> {t}Type
-							d'événement :{/t}</label>
+						<label for="eventsType" class="form-label col-4"><span class="red">*</span> 
+							{t}Type d'événement :{/t}
+						</label>
 						<div class="col-8">
 							<select id="eventsType" name="event_type_id" class="form-control">
 								{section name=lst loop=$eventType}
@@ -992,15 +996,17 @@
 						</div>
 					</div>
 					<div class="row ">
-						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>{t}Date
-							d'emprunt :{/t}</label>
+						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>
+							{t}Date d'emprunt :{/t}
+						</label>
 						<div class="col-8">
 							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker">
 						</div>
 					</div>
 					<div class="row ">
-						<label for="expected_return_date" class="form-label col-4">{t}Date de retour escomptée
-							:{/t}</label>
+						<label for="expected_return_date" class="form-label col-4">
+							{t}Date de retour escomptée :{/t}
+						</label>
 						<div class="col-8">
 							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker">
 						</div>
@@ -1048,8 +1054,9 @@
 				</script>
 				<div class="entry">
 					<div class="row ">
-						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> {t}UID
-							du contenant :{/t}</label>
+						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> 
+							{t}UID du contenant :{/t}
+						</label>
 						<div class="col-8">
 							<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control slotFull">
 						</div>
@@ -1114,8 +1121,9 @@
 				<!-- set collection-->
 				<div class="collection">
 					<div class="row ">
-						<label for="collection_id_change" class="form-label col-4">{t}Nouvelle collection
-							:{/t}</label>
+						<label for="collection_id_change" class="form-label col-4">
+							{t}Nouvelle collection :{/t}
+						</label>
 						<div class="col-8">
 							<select id="collection_id_change" name="collection_id_change" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
@@ -1361,8 +1369,8 @@
 					</div>
 					<div class="row">
 						<label for="multiple_valueComposite" class="form-label col-4">
-							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création
-							uniquement):{/t}</label>
+							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création uniquement):{/t}
+						</label>
 						<div class="col-8">
 							<input id="multiple_valueComposite" class="form-control taux tocreate" name="multiple_valueComposite">
 						</div>

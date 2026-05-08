@@ -35,12 +35,13 @@
 							</a> </li>
 						{if $isLogged}
 						<li class="nav-item"><a class="nav-link" href="totpCreate"
-								title="{t}Activer la double authentification pour votre compte{/t}">{t}Activer la double
-								authentification{/t}</a></li>
+								title="{t}Activer la double authentification pour votre compte{/t}">
+								{t}Activer la double authentification{/t}
+							</a></li>
 						<li class="nav-item"><a class="nav-link" href="totpShowCode"
-								title="{t}Afficher le code TOTP pour configurer un autre appareil{/t}">{t}Afficher le
-								code
-								TOTP{/t}</a></li>
+								title="{t}Afficher le code TOTP pour configurer un autre appareil{/t}">
+								{t}Afficher le code TOTP{/t}
+							</a></li>
 						<li class="nav-item"><a class="nav-link" href='loginChangePassword'
 								title="{t}Modifier le mot de passe{/t}"> <img src='display/images/key.png' width='16'
 									border='0' title="{t}Modifier le mot de passe{/t}">

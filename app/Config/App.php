@@ -185,7 +185,7 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.1.0";
+    public string $version = "v26.2.0a";
     /**
      * Date of version
      *

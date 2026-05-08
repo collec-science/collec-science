@@ -624,8 +624,8 @@
                         <div class="col-3">
                             <select class="form-select" id="metadatafilter" name="metadatafilter">
                                 <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
-                                    {t}Métadonnée
-                                    à afficher :{/t}</option>
+                                    {t}Métadonnée à afficher :{/t}
+                                </option>
                                 {foreach $metadatas as $value}
                                 <option value="{$value.fieldname}" {if
                                     $sampleSearch.metadatafilter==$value.fieldname}selected{/if}>
@@ -644,14 +644,18 @@
                                 <select class="form-select" id="select_date" name="select_date">
                                     <option value="" {if $sampleSearch.select_date=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
-                                    <option value="cd" {if $sampleSearch.select_date=="cd" }selected{/if}>{t}Date de
-                                        création dans la base{/t}</option>
-                                    <option value="sd" {if $sampleSearch.select_date=="sd" }selected{/if}>{t}Date
-                                        d'échantillonnage{/t}</option>
-                                    <option value="ed" {if $sampleSearch.select_date=="ed" }selected{/if}>{t}Date
-                                        d'expiration{/t}</option>
-                                    <option value="ch" {if $sampleSearch.select_date=="ch" }selected{/if}>{t}Date
-                                        technique de dernier changement{/t}</option>
+                                    <option value="cd" {if $sampleSearch.select_date=="cd" }selected{/if}>
+                                        {t}Date de création dans la base{/t}
+                                    </option>
+                                    <option value="sd" {if $sampleSearch.select_date=="sd" }selected{/if}>
+                                        {t}Date d'échantillonnage{/t}
+                                    </option>
+                                    <option value="ed" {if $sampleSearch.select_date=="ed" }selected{/if}>
+                                        {t}Date d'expiration{/t}
+                                    </option>
+                                    <option value="ch" {if $sampleSearch.select_date=="ch" }selected{/if}>
+                                        {t}Date technique de dernier changement{/t}
+                                    </option>
                                 </select>
                             </div>
 
@@ -676,8 +680,9 @@
                                         {t}Choisissez...{/t}</option>
                                     <option value="1" {if $sampleSearch.booking_type==1}selected{/if}>{t}Réservé{/t}
                                     </option>
-                                    <option value="-1" {if $sampleSearch.booking_type==-1}selected{/if}>{t}Non
-                                        réservé{/t}</option>
+                                    <option value="-1" {if $sampleSearch.booking_type==-1}selected{/if}>
+                                        {t}Non réservé{/t}
+                                    </option>
                                 </select>
                             </div>
                             <label for="booking_from" class="col-1 text-end form-label">{t}du :{/t}</label>
@@ -778,8 +783,9 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="subsample_quantity_min" class="col-3 form-label">{t}Quantité minimale
-                                disponible dans l'échantillon :{/t}</label>
+                            <label for="subsample_quantity_min" class="col-3 form-label">
+                                {t}Quantité minimale disponible dans l'échantillon :{/t}
+                            </label>
                             <div class="col-3">
                                 <input class="form-control taux" id="subsample_quantity_min"
                                     name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
@@ -797,8 +803,9 @@
                         <div class="col-5 col-12">
                             <div class="row">
                                 <div class="row">
-                                    <label for="sampling_place_id" class="col-4 text-end form-label">{t}Lieu de prélèvement
-                                        :{/t}</label>
+                                    <label for="sampling_place_id" class="col-4 text-end form-label">
+                                        {t}Lieu de prélèvement :{/t}
+                                    </label>
                                     <div class="col-8">
                                         <select id="sampling_place_id" name="sampling_place_id" class="form-select ">
                                             <option value="0" {if $sampleSearch.sampling_place_id=="0" }selected{/if}>
@@ -857,13 +864,14 @@
                 <div class="tab-pane fade" id="navsearch-record" role="tabpanel" aria-labelledby="tabsearch-record">
                     <div class="row">
                         <div class="row">
-                            <label for="samplesearch_id" class="col-4 text-end form-label">{t}Recherches enregistrées
-                                :{/t}</label>
+                            <label for="samplesearch_id" class="col-4 text-end form-label">
+                                {t}Recherches enregistrées :{/t}
+                            </label>
                             <div class="col-6">
                                 <select id="samplesearch_id" class="form-select" name="samplesearch_id">
-                                    <option value="" {if $samplesearch_id==0}selected{/if}>{t}Sélectionnez une
-                                        recherche
-                                        enregistrée{/t}</option>
+                                    <option value="" {if $samplesearch_id==0}selected{/if}>
+                                        {t}Sélectionnez une recherche enregistrée{/t}
+                                    </option>
                                     {foreach $samplesearches as $samplesearch}
                                     <option value="{$samplesearch.samplesearch_id}" {if
                                         $samplesearch_id==$samplesearch.samplesearch_id}selected{/if}>
@@ -885,15 +893,17 @@
                         <fieldset class="col-12">
                             <legend>{t}Enregistrer la recherche courante{/t}</legend>
                             <div class="row">
-                                <label for="samplesearch_name" class="col-4 text-end form-label"><span class="red">*</span>{t}Nom
-                                    de la recherche :{/t}</label>
+                                <label for="samplesearch_name" class="col-4 text-end form-label"><span class="red">*</span>
+                                    {t}Nom de la recherche :{/t}
+                                </label>
                                 <div class="col-6">
                                     <input id="samplesearch_name" name="samplesearch_name" class="form-control">
                                 </div>
                             </div>
                             <div class="row">
-                                <label for="samplesearch_collection" class="col-4 text-end form-label">{t}Enregistrer pour la
-                                    collection sélectionnée (le cas échéant) ?{/t}</label>
+                                <label for="samplesearch_collection" class="col-4 text-end form-label">
+                                    {t}Enregistrer pour la collection sélectionnée (le cas échéant) ?{/t}
+                                </label>
                                 <div id="samplesearch_collection" class="col-8">
                                     <label class="radio-inline">
                                         <input type="radio" name="samplesearch_collection" value="0" checked>{t}non{/t}
@@ -908,8 +918,9 @@
                 </div>
 
                 <div class="row">
-                    <label for="limit" class="col-3 text-end form-label">{t}Nombre maxi à lire depuis la base de données
-                        (0 pour tous) :{/t}</label>
+                    <label for="limit" class="col-3 text-end form-label">
+                        {t}Nombre maxi à lire depuis la base de données (0 pour tous) :{/t}
+                    </label>
                     <div class="col-1">
                         <input id="limit" name="limit" value="{$sampleSearch.limit}" class="form-control nombre">
                     </div>

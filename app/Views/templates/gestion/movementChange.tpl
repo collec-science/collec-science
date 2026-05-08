@@ -293,8 +293,9 @@
 					</div>
 					{if $data.movement_type_id == 1}
 					<div class="row">
-						<label for="storage_location" class="form-label col-4">{t}Emplacement dans le contenant
-							(format libre) :{/t}</label>
+						<label for="storage_location" class="form-label col-4">
+							{t}Emplacement dans le contenant (format libre) :{/t}
+						</label>
 						<div class="col-8">
 							<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 						</div>

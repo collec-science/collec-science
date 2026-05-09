@@ -619,7 +619,7 @@ class Sample extends PpciLibrary
                 $db = $this->dataclass->db;
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
-                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, null);
+                    $movement->addMovement($uid, null, 2, 0, $_SESSION["login"], null, $_POST["movement_comment"], $_POST["movement_reason_id"]);
                 }
                 $db->transCommit();
             } catch (PpciException $me) {

@@ -1167,11 +1167,11 @@
 				<!-- exit a sample-->
 				<div class="samplesexit">
 					<div class="form-group">
-						<label for="movement_reason_id" class="control-label col-sm-4">
+						<label for="movement_reason_id" class="control-label col-4">
 							{t}Motif du déstockage :{/t}
 						</label>
-						<div class="col-sm-8">
-							<select id="movement_reason_id" name="movement_reason_id" class="form-control">
+						<div class="col-8">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-select">
 								<option value="" selected>
 									{t}Choisissez...{/t}
 								</option>
@@ -1184,8 +1184,8 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="movement_comment" class="control-label col-sm-4">{t}Commentaire :{/t}</label>
-						<div class="col-sm-8">
+						<label for="movement_comment" class="control-label col-4">{t}Commentaire :{/t}</label>
+						<div class="col-8">
 							<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 						</div>
 					</div>

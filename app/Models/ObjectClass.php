@@ -238,7 +238,6 @@ class ObjectClass extends PpciModel
     function getDetail($uid, $is_container = 0, $is_partial = false, $trashed = 0)
     {
         if (!empty($uid)) {
-            printA($uid);
             $operator = '=';
             /*
              * Generation de la chaine pour dbuid_origin

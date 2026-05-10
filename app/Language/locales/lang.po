@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-31 14:55+0200\n"
+"POT-Creation-Date: 2026-05-10 14:49+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -503,7 +503,7 @@ msgstr "List of borrowers of objects"
 
 #. (itstool) path: item/item@label
 #: ../../Config/menu.xml:69
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:708
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:709
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:563
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:434
 msgid "Étiquettes"
@@ -1997,44 +1997,52 @@ msgid "La campagne de prélèvement de l'échantillon n'est pas connue."
 msgstr "The sampling campaign is not known."
 
 #: ../../../app/Models/ImportObject.php:986
-msgid "Le parent de l'échantillon n'existe pas"
-msgstr "The parent of the sample is unknown"
+msgid "Le parent de l'échantillon n'existe pas."
+msgstr "The parent of the sample is unknown."
 
-#: ../../../app/Models/ImportObject.php:1032
+#: ../../../app/Models/ImportObject.php:995
+msgid ""
+"Pour pouvoir créer des échantillons composés, la colonne "
+"composite_multiple_value doit être renseignée."
+msgstr ""
+"To create composite samples, the composite_multiple_value column must be "
+"populated."
+
+#: ../../../app/Models/ImportObject.php:1039
 #, php-format
 msgid "Le format de date de %s n'est pas reconnu."
 msgstr "The date format %s is not recognized."
 
-#: ../../../app/Models/ImportObject.php:1048
+#: ../../../app/Models/ImportObject.php:1055
 msgid "Les métadonnées n'ont pas pu être décodées (champ sample_metadata_json)"
 msgstr "Metadata can't be decoded (sample_metadata_json field)"
 
-#: ../../../app/Models/ImportObject.php:1056
+#: ../../../app/Models/ImportObject.php:1063
 msgid ""
 "Les métadonnées ne sont pas correctement formatées (champ "
 "sample_metadata_json)"
 msgstr "Metadata is not formatted correctly (sample_metadata_json field)"
 
-#: ../../../app/Models/ImportObject.php:1064
+#: ../../../app/Models/ImportObject.php:1071
 #, php-format
 msgid ""
 "Les métadonnées ne correspondent pas au type d'échantillon (%s inconnu). "
 msgstr "The metadata do not match the sample type (%s unknown). "
 
-#: ../../../app/Models/ImportObject.php:1074
+#: ../../../app/Models/ImportObject.php:1081
 #, php-format
 msgid "L'échantillon parent défini n'existe pas (%s)"
 msgstr "The defined parent sample does not exist (%s)"
 
-#: ../../../app/Models/ImportObject.php:1095
+#: ../../../app/Models/ImportObject.php:1102
 msgid "Le type de contenant n'est pas connu."
 msgstr "The container type is unknown"
 
-#: ../../../app/Models/ImportObject.php:1099
+#: ../../../app/Models/ImportObject.php:1106
 msgid "L'identifiant du contenant existe déjà"
 msgstr "The container identifier already exists"
 
-#: ../../../app/Models/ImportObject.php:1111
+#: ../../../app/Models/ImportObject.php:1118
 msgid ""
 "Le numéro de la collection indiqué pour le contenant n'est pas reconnu ou "
 "autorisé."
@@ -2042,26 +2050,26 @@ msgstr ""
 "The number of the specified collection for the container is not recognized "
 "or allowed."
 
-#: ../../../app/Models/ImportObject.php:1127
+#: ../../../app/Models/ImportObject.php:1134
 msgid "Le statut du contenant n'est pas connu."
 msgstr "The container's status is not recognized."
 
-#: ../../../app/Models/ImportObject.php:1138
+#: ../../../app/Models/ImportObject.php:1145
 #, php-format
 msgid "L'UID du contenant parent (%s) n'existe pas. "
 msgstr "The UID of the parent container (%s) does not exist. "
 
-#: ../../../app/Models/ImportObject.php:1149
+#: ../../../app/Models/ImportObject.php:1156
 #, php-format
 msgid "Le champ %s n'est pas numérique."
 msgstr "The %s field is not numeric."
 
-#: ../../../app/Models/ImportObject.php:1177
+#: ../../../app/Models/ImportObject.php:1184
 #, php-format
 msgid "L'emplacement choisi dans le contenant %s est déjà plein."
 msgstr "The location chosen in the %s container is already full."
 
-#: ../../../app/Models/ImportObject.php:1185
+#: ../../../app/Models/ImportObject.php:1192
 msgid ""
 "Aucun échantillon ou contenant n'est décrit (pas d'identifiant pour l'un ou "
 "pour l'autre)."
@@ -2280,23 +2288,23 @@ msgstr "The country code %s is unknown"
 msgid "Aucune campagne ne correspond à l'UUID %s"
 msgstr "No campaign matching to UUID %s"
 
-#: ../../../app/Models/ObjectClass.php:978
+#: ../../../app/Models/ObjectClass.php:980
 msgid "Pas de modèle d'étiquettes disponible"
 msgstr "No label template available"
 
-#: ../../../app/Models/ObjectClass.php:985
+#: ../../../app/Models/ObjectClass.php:987
 msgid "Pas d'étiquettes à imprimer"
 msgstr "No labels to print"
 
-#: ../../../app/Models/ObjectClass.php:1046
+#: ../../../app/Models/ObjectClass.php:1048
 msgid "Le statut n'a pas été fourni"
 msgstr "The status has not been filled in"
 
-#: ../../../app/Models/ObjectClass.php:1050
+#: ../../../app/Models/ObjectClass.php:1052
 msgid "L'identifiant de l'objet n'a pas été fourni"
 msgstr "The object identifier has not been supplied"
 
-#: ../../../app/Models/ObjectClass.php:1102
+#: ../../../app/Models/ObjectClass.php:1104
 msgid "Aucun identifiant n'a été fourni pour rechercher l'objet"
 msgstr "No identifier has been provided to search for the object"
 
@@ -2312,8 +2320,8 @@ msgstr "Data deleted"
 
 #: ../../../app/Models/Samplehisto.php:341
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:41
-#: ../../../app/Views/templates/gestion/objectMovementList.tpl:23
-#: ../../../app/Views/templates/gestion/movementList.tpl:55
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:24
+#: ../../../app/Views/templates/gestion/movementList.tpl:56
 #: ../../../app/Views/templates/gestion/storageList.tpl:25
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:152
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:94
@@ -2424,7 +2432,8 @@ msgstr "Regeneration of sample table indexes completed"
 msgid "L'opération demandée n'est pas disponible"
 msgstr "The requested operation is unavailable"
 
-#: ../../../app/Controllers/Document.php:27
+#: ../../../app/Controllers/Document.php:23
+#: ../../../app/Controllers/Document.php:32
 msgid "Vous ne disposez pas des droits suffisants pour cette opération"
 msgstr "You do not have the necessary rights tfor this operation"
 
@@ -2955,13 +2964,13 @@ msgid "Vous avez été déconnecté"
 msgstr "You have been disconnected"
 
 #: ../../../app/Views/templates/document/documentChange.tpl:9
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1164
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1182
 #: ../../../app/Views/templates/gestion/documentChange.tpl:36
 msgid "Fichier(s) à importer (taille maxi : %1 Mb):"
 msgstr "File(s) to import (max size: %1 Mb):"
 
 #: ../../../app/Views/templates/document/documentChange.tpl:15
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1173
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1190
 #: ../../../app/Views/templates/gestion/documentChange.tpl:45
 #: ../../../app/Views/templates/gestion/documentExternalAdd.tpl:128
 #: ../../../app/Views/templates/param/campaignDisplay.tpl:70
@@ -2992,7 +3001,7 @@ msgid "Copier"
 msgstr "Copy"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:161
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:698
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:699
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:88
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:424
 #: ../../../app/Views/templates/param/metadataList.tpl:5
@@ -3039,7 +3048,7 @@ msgid "DB et UID d'origine :"
 msgstr "DB and UID of origin:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:304
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1284
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1299
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:513
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:578
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:468
@@ -3067,7 +3076,7 @@ msgid "Référent :"
 msgstr "Referent:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:306
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1297
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1312
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:520
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:609
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:160
@@ -3101,7 +3110,7 @@ msgid "Protocole et opération :"
 msgstr "Protocol and operation:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:322
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1112
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1104
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:563
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:494
 #: ../../../app/Views/templates/gestion/containerSearch.tpl:82
@@ -3197,11 +3206,12 @@ msgid "Événements :"
 msgstr "Events:"
 
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:445
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1069
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1085
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1101
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1115
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1131
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1061
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1077
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1093
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1107
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1124
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1149
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:121
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:631
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:647
@@ -3230,7 +3240,7 @@ msgstr "Events:"
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:275
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:692
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:705
-#: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:414
+#: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:413
 #: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:741
 #: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:866
 #: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:884
@@ -3269,58 +3279,58 @@ msgstr "Events:"
 msgid "Choisissez..."
 msgstr "Select ..."
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:577
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:578
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:771
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:354
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:485
 msgid "Consultez le détail"
 msgstr "Consult the detail"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:596
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:597
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:786
 msgid "UID de la base de données d'origine"
 msgstr "Origin database UID"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:603
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:604
 #: ../../../app/Views/templates/gestion/sampleListDetail.tpl:791
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:640
 msgid "Échantillon mis à la corbeille"
 msgstr "Sample trashed"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:618
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:808
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:619
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:805
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:398
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:526
 msgid "aperçu de la photo"
 msgstr "preview of the photo"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:639
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:828
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:640
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:823
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:383
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:517
 msgid "col:"
 msgstr "col:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:639
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:828
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:640
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:823
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:383
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:517
 msgid "ligne:"
 msgstr "row:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:701
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:702
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:555
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:427
 msgid "Étiquette par défaut"
 msgstr "Default label"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:718
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:719
 #: ../../../app/Views/templates/gestion/sampleDisplay.tpl:572
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:444
 msgid "Impression directe"
 msgstr "Direct print"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:720
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:721
 msgid "Fichier CSV pour impression externe"
 msgstr "CSV file for external print"
 
@@ -3451,13 +3461,13 @@ msgstr "Comment"
 msgid "Tri technique"
 msgstr "Technical sort"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:876
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:871
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:545
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:402
 msgid "Pour les éléments cochés :"
 msgstr "For checked items:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:882
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:877
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:550
 #: ../../../app/Views/templates/gestion/metadataForm.tpl:84
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:405
@@ -3467,88 +3477,88 @@ msgstr "For checked items:"
 msgid "Choisissez"
 msgstr "Select"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:883
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:878
 msgid "Assigner un référent aux échantillons"
 msgstr "Assign a referent to the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:884
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:879
 msgid "Créer un événement"
 msgstr "Create an event"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:885
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:880
 msgid "Prêter les échantillons"
 msgstr "Lend the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:886
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:881
 msgid "Sortir les échantillons"
 msgstr "Get out the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:887
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:882
 msgid "Créer un lot d'export"
 msgstr "Create an export lot"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:888
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:883
 msgid "Affecter un pays de collecte"
 msgstr "Assign a sampling country"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:889
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:884
 msgid "Attacher à une campagne de prélèvement"
 msgstr "Attach to a sampling campaign"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:890
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:885
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:553
 msgid "Modifier le statut"
 msgstr "Status change"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:891
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:886
 msgid "Changer le type d'échantillon"
 msgstr "Change the sample type"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:892
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:887
 msgid "Entrer ou déplacer les échantillons au même emplacement"
 msgstr "Store or move the samples into the same container"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:893
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:888
 msgid "Modifier la collection d'affectation"
 msgstr "Modify the assignment collection"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:894
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:889
 msgid "Assigner un parent aux échantillons"
 msgstr "Assign a parent to the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:895
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:890
 msgid "Créer un échantillon composé à partir des échantillons sélectionnés"
 msgstr "Create a composite sample from the selected samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:896
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:891
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:557
 msgid "Mettre ou sortir de la corbeille"
 msgstr "Putting or taking out of the trash"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:897
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:892
 msgid "Supprimer les échantillons"
 msgstr "Delete the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:898
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:893
 msgid "Supprimer les échantillons et tous les échantillons dérivés"
 msgstr "Delete the selected samples with all derivative samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:899
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:894
 msgid "Ajouter les mêmes documents aux échantillons"
 msgstr "Add the same documents to the samples"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:903
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:898
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:592
 msgid "Choisissez le référent..."
 msgstr "Select the referent ..."
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:914
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:909
 #: ../../../app/Views/templates/gestion/eventChange.tpl:73
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:450
 msgid "Date d'échéance :"
 msgstr "Due date:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:920
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:915
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:13
 #: ../../../app/Views/templates/gestion/objectMovementList.tpl:6
 #: ../../../app/Views/templates/gestion/movementList.tpl:39
@@ -3562,14 +3572,15 @@ msgstr "Due date:"
 msgid "Date"
 msgstr "Date"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:926
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:921
 #: ../../../app/Views/templates/gestion/sampleSearchTab.tpl:710
 #: ../../../app/Views/templates/gestion/eventDisplay.tpl:27
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:228
 msgid "Type d'événement :"
 msgstr "Event type:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:938
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:933
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1135
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:765
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:110
 #: ../../../app/Views/templates/gestion/bookingChange.tpl:100
@@ -3589,73 +3600,73 @@ msgstr "Event type:"
 msgid "Commentaire :"
 msgstr "Comment:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:948
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:943
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:564
 #: ../../../app/Views/templates/gestion/borrowingChange.tpl:48
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:168
 msgid "Emprunteur :"
 msgstr "Borrower:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:961
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:956
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:577
 #: ../../../app/Views/templates/gestion/borrowingChange.tpl:61
 msgid "Date d'emprunt :"
 msgstr "Borrowing date:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:967
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:962
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:583
 #: ../../../app/Views/templates/gestion/borrowingChange.tpl:67
 msgid "Date de retour escomptée :"
 msgstr "Expected return date:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:977
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:971
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:602
 msgid "Traitement de la corbeille"
 msgstr "Bin processing"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:980
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:974
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:605
 msgid "Mettre à la corbeille"
 msgstr "Trash"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:981
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:975
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:606
 msgid "Sortir de la corbeille"
 msgstr "Remove from bin"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1004
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:999
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:20
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:629
 #: ../../../app/Views/templates/gestion/movementChange.tpl:206
 msgid "Cet emplacement dans le contenant est plein !"
 msgstr "This slot in the container is full!"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1015
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1010
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:40
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:640
 #: ../../../app/Views/templates/gestion/movementChange.tpl:256
 msgid "UID du contenant :"
 msgstr "UID of the container:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1021
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1016
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:646
 #: ../../../app/Views/templates/gestion/movementChange.tpl:262
 msgid "ou recherchez :"
 msgstr "or search:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1024
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1019
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:649
 msgid "Sélectionnez la famille..."
 msgstr "Select family..."
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1041
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1036
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:77
 #: ../../../app/Views/templates/gestion/containerChange.tpl:289
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:666
 msgid "Emplacement dans le contenant (format libre) :"
 msgstr "Location in the container (free format):"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1049
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1043
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:84
 #: ../../../app/Views/templates/gestion/containerChange.tpl:296
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:673
@@ -3663,14 +3674,14 @@ msgstr "Location in the container (free format):"
 msgid "N° de ligne :"
 msgstr "Line number:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1052
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1045
 #: ../../../app/Views/templates/gestion/containerChange.tpl:299
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:676
 #: ../../../app/Views/templates/gestion/movementChange.tpl:302
 msgid "N° de la ligne de rangement dans le contenant"
 msgstr "# of the storage line in the container"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1056
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1049
 #: ../../../app/Views/templates/gestion/fastInputChange.tpl:91
 #: ../../../app/Views/templates/gestion/containerChange.tpl:303
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:680
@@ -3678,60 +3689,67 @@ msgstr "# of the storage line in the container"
 msgid "N° de colonne :"
 msgstr "Column number:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1059
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1051
 #: ../../../app/Views/templates/gestion/containerChange.tpl:306
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:683
 #: ../../../app/Views/templates/gestion/movementChange.tpl:309
 msgid "N° de la colonne de rangement dans le contenant"
 msgstr "# of the storage column in the container"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1066
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1058
 #: ../../../app/Views/templates/param/referentChange.tpl:94
 #: ../../../app/Views/templates/param/samplingPlaceChange.tpl:65
 msgid "Pays :"
 msgstr "Country:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1082
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1074
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:702
 msgid "Nouvelle collection :"
 msgstr "New collection:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1098
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1090
 msgid "Nouvelle campagne :"
 msgstr "New campaign:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1127
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1119
+#: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:20
+#: ../../../app/Views/templates/gestion/fastOutputChange.tpl:39
+#: ../../../app/Views/templates/gestion/movementChange.tpl:317
+msgid "Motif du déstockage :"
+msgstr "Reason for removing:"
+
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1145
 msgid "Nouveau type d'échantillon :"
 msgstr "New sample type:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1144
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1162
 msgid "Recherchez le parent :"
 msgstr "Search the parent:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1146
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1164
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:494
 #: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:610
 msgid "UID ou identifiant"
 msgstr "UID or identifier"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1149
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1167
 msgid "Chercher"
 msgstr "Search"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1153
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1171
 msgid "Parent à affecter :"
 msgstr "Parent to attribute:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1180
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1197
 #: ../../../app/Views/templates/gestion/documentChange.tpl:52
 msgid "Date de création du document :"
 msgstr "Date of creation of the document:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1269
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1285
 msgid "Quantité à retirer de chacun des échantillons sélectionnés :"
 msgstr "Quantity to be taken from each of the selected samples:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1277
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1292
 #: ../../../app/Views/templates/gestion/sampleChange.tpl:550
 #: ../../../app/Views/templates/gestion/containerChange.tpl:134
 #: ../../../app/Views/templates/gestion/sampleChangeTab.tpl:669
@@ -3739,17 +3757,17 @@ msgstr "Quantity to be taken from each of the selected samples:"
 msgid "Identifiant ou nom :"
 msgstr "Identifier or name:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1306
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1321
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:232
 msgid "Échantillon déjà existant - UID :"
 msgstr "Pre-existing sample - UID :"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1311
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1326
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:237
 msgid "ou identifiant ou UUID :"
 msgstr "or identifier or UUID:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1315
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1329
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:241
 #: ../../../app/Views/templates/gestion/containerSearchTab.tpl:130
 msgid ""
@@ -3759,16 +3777,16 @@ msgstr ""
 "principal identifier, secondary identifiers (eg: cab:15), UUID (eg: e1b1bdd8-"
 "d1e7-4f07-8e96-0d71e7aada2b)"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1323
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1337
 #: ../../../app/Views/templates/gestion/subsampleChange.tpl:249
 msgid "Échantillon composé correspondant :"
 msgstr "Corresponding composite sample:"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1332
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1346
 msgid "Quantité à affecter à l'échantillon (en création uniquement):"
 msgstr "Quantity to be allocated to the sample (for creation only):"
 
-#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1340
+#: ../../../app/Views/templates/gestion/sampleListDetail.tpl:1354
 #: ../../../app/Views/templates/gestion/containerListDetail.tpl:716
 #: ../../../app/Views/templates/gestion/eventSearchList.tpl:481
 #: ../../../app/Views/templates/request/requestChange.tpl:111
@@ -4421,12 +4439,6 @@ msgstr "Value:"
 msgid "Entrer ou déplacer dans des contenants ou sortir du stock"
 msgstr "Store or move into containers or remove from stock"
 
-#: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:20
-#: ../../../app/Views/templates/gestion/fastOutputChange.tpl:39
-#: ../../../app/Views/templates/gestion/movementChange.tpl:317
-msgid "Motif du déstockage :"
-msgstr "Reason for removing:"
-
 #: ../../../app/Views/templates/gestion/movementBatchConfirm.tpl:35
 msgid "Tout entrer ou déplacer..."
 msgstr "Store or move all..."
@@ -4580,8 +4592,8 @@ msgid "Emprunteur"
 msgstr "Borrower"
 
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:20
-#: ../../../app/Views/templates/gestion/objectMovementList.tpl:10
-#: ../../../app/Views/templates/gestion/movementList.tpl:45
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:11
+#: ../../../app/Views/templates/gestion/movementList.tpl:46
 #: ../../../app/Views/templates/gestion/storageList.tpl:12
 #: ../../../app/Views/templates/gestion/borrowingList.tpl:12
 #: ../../../app/Views/templates/gestion/bookingList.tpl:13
@@ -4598,8 +4610,8 @@ msgid "Réalisé par"
 msgstr "Realized by"
 
 #: ../../../app/Views/templates/gestion/subsampleList.tpl:40
-#: ../../../app/Views/templates/gestion/objectMovementList.tpl:22
-#: ../../../app/Views/templates/gestion/movementList.tpl:54
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:23
+#: ../../../app/Views/templates/gestion/movementList.tpl:55
 #: ../../../app/Views/templates/gestion/storageList.tpl:24
 #: ../../../app/Views/templates/param/borrowerDisplay.tpl:92
 msgid "Déplacement"
@@ -5033,7 +5045,12 @@ msgstr "Family:"
 msgid "Contenant"
 msgstr "Container"
 
-#: ../../../app/Views/templates/gestion/objectMovementList.tpl:11
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:10
+#: ../../../app/Views/templates/gestion/movementList.tpl:45
+msgid "Raison"
+msgstr "Reason"
+
+#: ../../../app/Views/templates/gestion/objectMovementList.tpl:12
 #: ../../../app/Views/templates/gestion/storageList.tpl:13
 #: ../../../app/Views/templates/param/printerList.tpl:16
 #: ../../../vendor/equinton/ppci/src/Views/templates/ppci/droits/loginList.tpl:35
@@ -5429,11 +5446,13 @@ msgstr ""
 #: ../../../app/Views/templates/gestion/import.tpl:153
 #: ../../../app/Views/templates/gestion/importTemplate.tpl:387
 msgid ""
-"quantité prélevée dans chaque parent pour créer l'échantillon composé. La "
-"quantité doit être identique pour chaque parent"
+"quantité prélevée dans chaque parent pour créer l'échantillon composé (champ "
+"obligatoire si création d'un échantillon composé). La quantité doit être "
+"identique pour chaque parent"
 msgstr ""
-"Quantity taken from each parent to create the composite sample. The quantity "
-"must be the same for each parent"
+"Quantity taken from each parent to create the composite sample (mandatory "
+"field if composite sample creation). The quantity must be the same for each "
+"parent"
 
 #: ../../../app/Views/templates/gestion/import.tpl:154
 #: ../../../app/Views/templates/gestion/importTemplate.tpl:388
@@ -8900,7 +8919,7 @@ msgstr "Time to event due date, in days:"
 msgid "Les nouveautés..."
 msgstr "List of news"
 
-#: ../../../app/Views/templates/mapDefault.tpl:62
+#: ../../../app/Views/templates/mapDefault.tpl:64
 msgid "Imprimer la carte"
 msgstr "Print the map"
 

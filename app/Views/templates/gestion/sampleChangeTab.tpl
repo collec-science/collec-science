@@ -339,7 +339,6 @@
 		getSamplingPlace();
 		setVisibility();
 		getSampletype();
-		getGenerator(sample_type_init);
 		/**
 		 * Functions
 		 */
@@ -516,6 +515,7 @@
 					};
 					$("#sample_type_id").html(options);
 					getMetadata();
+					getGenerator();
 				});
 		}
 

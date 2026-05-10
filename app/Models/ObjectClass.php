@@ -238,6 +238,7 @@ class ObjectClass extends PpciModel
     function getDetail($uid, $is_container = 0, $is_partial = false, $trashed = 0)
     {
         if (!empty($uid)) {
+            printA($uid);
             $operator = '=';
             /*
              * Generation de la chaine pour dbuid_origin
@@ -577,7 +578,7 @@ class ObjectClass extends PpciModel
             $sql = "SELECT o.uid, identifier as id, 
                             risk_name as clp, '' as pn,
                             '$APPLI_code' as db,
-                            '' as col, '' as prj, 
+                            collection_name as col, '' as prj, 
                             product_name as prod,
                             wgs84_x as x, wgs84_y as y, movement_date as cd,
                             null as sd, null as ed,
@@ -595,6 +596,7 @@ class ObjectClass extends PpciModel
                             left outer join referent using (referent_id)
                             left outer join risk using (risk_id)
                             left outer join product using (product_id)
+                            left outer join collection using (collection_id)
                         where o.uid in ($uids)
                     UNION
                         select o.uid, o.identifier as id, 

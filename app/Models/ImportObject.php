@@ -462,7 +462,7 @@ class ImportObject
                         if (!empty($values["composite_parents_identifier"])) {
                             $parents = explode(",", $values["composite_parents_identifier"]);
                             foreach ($parents as $parent) {
-                                $puid = $this->object->getUidFromIdentifier($parent);
+                                $puid = $this->object->getUidFromIdentifier(trim($parent));
                                 if (!$puid > 0) {
                                     throw new PpciException("Line $num : the identifier $parent (composite parent) is unknown in the database");
                                 }
@@ -475,7 +475,7 @@ class ImportObject
                             /**
                              * search if exists sample composite parent and if its collection is allowed
                              */
-                            $parentData = $this->sample->read($puid, false);
+                            $parentData = $this->sample->read(trim($puid), false);
                             if (empty($parentData)) {
                                 throw new PpciException("Line $num : the composite parent $puid do not exists");
                             }
@@ -983,10 +983,17 @@ class ImportObject
                     && empty($data["parent_sample_id"])
                 ) {
                     $retour["code"] = false;
-                    $retour["message"] .= _("Le parent de l'échantillon n'existe pas");
+                    $retour["message"] .= _("Le parent de l'échantillon n'existe pas.");
                 }
             }
-
+            /**
+             * Vérification du composite
+             */
+            if ((!empty($data["composite_parents_identifier"])||!empty($data["composite_parents_uid"])) && empty($data["composite_multiple_value"]))
+                {
+                    $retour["code"] = false;
+                    $retour["message"] .= _("Pour pouvoir créer des échantillons composés, la colonne composite_multiple_value doit être renseignée.");
+                }
             /**
              * Verification des dates
              */

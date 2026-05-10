@@ -22,7 +22,7 @@
 			/*
 			 * Retourne le detail d'un objet, par interrogation ajax
 			 */
-			if (uid > 0) {
+			if (uid.length > 0) {
 				var url = "objectGetDetail";
 				var chaine;
 				var is_container = 0;
@@ -226,7 +226,7 @@
 		 * Declenche la recherche du container si l'uid est fourni a l'ouverture de la page
 		 */
 		var cuid = $("#container_uid").val();
-		if (cuid.length > 0) {
+		if (cuid) {
 			getDetail(cuid, "container");
 		}
 	});

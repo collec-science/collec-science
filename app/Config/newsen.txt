@@ -2,6 +2,18 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.1.1 of 10/5/2026
+-----------------------------
+Bug fixes:
+- Labels created for containers did not take into account the associated collection
+- When displaying OpenStreetMap maps, some tiles displayed an error message
+- When creating an exit movement, the programme did not search for items using the business ID
+- From the list of samples, when creating global exit movements, it was not possible to specify a reason or a comment
+- When creating a sample, the button to automatically generate a business identifier did not activate if the first sample type suggested included this feature
+- The template for creating an import contained an error: the composite_parents_identifier field was misspelled
+- In bulk imports, a check has been added to ensure that the composite_multiple_value field is populated when creating a composite sample
+- In bulk imports of a composite sample, spaces surrounding the parent sample identifiers are now removed
+
 Version v26.1.0 of 1/4/2026
 -----------------------------
 Bug fixes:

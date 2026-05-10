@@ -37,6 +37,7 @@
                         <th>{t}Identifiant métier{/t}</th>
                         <th>{t}Type{/t}</th>
                         <th>{t}Emplacement{/t}</th>
+                        <th>{t}Raison{/t}</th>
                         <th>{t}Commentaire{/t}</th>
                     </tr>
                 </thead>
@@ -45,7 +46,7 @@
                     <tr>
                         <td>{$row.login}</td>
                         <td>{$row.movement_date}</td>
-                        <td>{*$row.movement_type_name*}{if $row.movement_type_id == 1}
+                        <td>{if $row.movement_type_id == 1}
                             <span class="green">{t}Déplacement{/t}</span>{else}
                             <span class="red">{t}Sortie du stock{/t}</span>
                             {/if}
@@ -68,6 +69,7 @@
                             C{$row.column_number}L{$row.line_number}
                             {/if}
                         </td>
+                        <td>{$row.movement_reason_name}</td>
                         <td>{$row.movement_comment}</td>
                     </tr>
                     {/foreach}

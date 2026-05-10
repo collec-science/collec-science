@@ -245,7 +245,7 @@
 			"samplesTypeChange": "samplestype",
 			"samplesSetParent": "parentid",
 			"samplesDocument": "document",
-			"samplesExit": "samplesExit",
+			"samplesExit": "samplesexit",
 			"lotCreate": "lotCreate",
 			"samplesCreateComposite": "createComposite"
 		};
@@ -1161,6 +1161,32 @@
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
 								{/foreach}
 							</select>
+						</div>
+					</div>
+				</div>
+				<!-- exit a sample-->
+				<div class="samplesexit">
+					<div class="form-group">
+						<label for="movement_reason_id" class="control-label col-sm-4">
+							{t}Motif du déstockage :{/t}
+						</label>
+						<div class="col-sm-8">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-control">
+								<option value="" selected>
+									{t}Choisissez...{/t}
+								</option>
+								{section name=lst loop=$movementReason}
+								<option value="{$movementReason[lst].movement_reason_id}" {if $data.movement_reason_id==$movementReason[lst].movement_reason_id}selected{/if}>
+									{$movementReason[lst].movement_reason_name}
+								</option>
+								{/section}
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="movement_comment" class="control-label col-sm-4">{t}Commentaire :{/t}</label>
+						<div class="col-sm-8">
+							<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 						</div>
 					</div>
 				</div>

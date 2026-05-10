@@ -1,5 +1,17 @@
 Nouveautés
 ============
+Version v26.1.1 du 10/5/2026
+-----------------------------
+Corrections de bugs :
+-les étiquettes réalisées pour les contenants ne prenaient pas en compte la collection de rattachement
+- lors de l'affichage des cartes Openstreetmap, certaines tuiles comportaient un message d'erreur
+- en création d'un mouvement de sortie, le programme ne recherchait pas les objets à partir de l'identifiant métier
+- depuis la liste des échantillons, lors de la création de mouvements globaux de sortie, il n'était pas possible d'indiquer un motif ou un commentaire
+- en création d'un échantillon, le bouton permettant de générer automatiquement un identifiant métier ne s'activait pas si le premier type d'échantillon proposé comportait cette fonctionnalité
+- le modèle de création d'un import comportait une erreur : le champ composite_parents_identifier était mal orthographié
+- en import de masse, un contrôle a été rajouté pour vérifier que le champ composite_multiple_value est renseigné quand on crée un échantillon composé
+- en import de masse d'un échantillon composé, les espaces entourant les identifiants des échantillons parents sont maintenant supprimés 
+
 Version v26.1.0 du 1/4/2026
 -----------------------------
 Corrections de bugs :

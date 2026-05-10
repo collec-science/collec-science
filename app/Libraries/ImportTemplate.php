@@ -97,8 +97,8 @@ class ImportTemplate extends PpciLibrary
                     } elseif ($field == "sample_parent_identifier" && $i > 1) {
                         $sample["sample_parent_identifier"] = $sampleParent;
                     } elseif ($field == "sampleComposite") {
-                        $sample["composite_parents_identifiers"] = "parent1,parent2";
-                        $sample["composite_multiple_value"] = "";
+                        $sample["composite_parents_identifier"] = "parent1,parent2";
+                        $sample["composite_multiple_value"] = "0";
                     } else {
                         $sample[$field] = "";
                     }

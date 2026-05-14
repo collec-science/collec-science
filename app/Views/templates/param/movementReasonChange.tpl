@@ -16,7 +16,9 @@
                     <input id="movementReasonName" type="text" class="form-control" name="movement_reason_name" value="{$data.movement_reason_name}" autofocus required>
                 </div>
             </div>
-
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -30,8 +32,5 @@
 
             {$csrf}
         </form>
-    </div>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
     </div>
 </div>

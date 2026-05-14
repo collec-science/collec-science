@@ -18,6 +18,9 @@
                     <input id="objectStatusName" type="text" class="form-control" name="object_status_name" value="{$data.object_status_name}" autofocus required>
                 </div>
             </div>
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -28,9 +31,6 @@
 
     </div>
 
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-    </div>
     <div class="row">
         <div class="bg-info">
             {t}Ne modifiez pas le sens général des libellés, certains statuts sont attribués automatiquement par l'application !{/t}

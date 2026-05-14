@@ -107,6 +107,9 @@
 				<textarea id="booking_comment" name="booking_comment" class="form-control" rows="3">{$data.booking_comment}</textarea>
 			</div>
 		</div>
+		<div class="row d-inline">
+			<span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+		</div>
 		<div class="row d-flex justify-content-center">
 			<div class="col-auto">
 				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -119,9 +122,4 @@
 		</div>
 		{$csrf}
 	</form>
-
-
-	<div class="row col-12 d-inline">
-		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-	</div>
 </div>

@@ -25,8 +25,7 @@
             <label for="groupe" class="form-label col-4">
                 <span class="red">*</span> {t}Nom du groupe :{/t}
             </label>
-            <div class="col-8"><input type="text" class="form-control" id="groupe" name="groupe" value="{$data.groupe}"
-                    autofocus required>
+            <div class="col-8"><input type="text" class="form-control" id="groupe" name="groupe" value="{$data.groupe}" autofocus required>
             </div>
         </div>
         <div class="row">
@@ -50,8 +49,7 @@
                 <div class="row align-items-center">
                     {section name=lst loop=$logins}
                     <div class="col-md-3 offset-md-1">
-                        <input id="login{$smarty.section.lst.index}" class="form-check-input" type="checkbox"
-                            name="logins[]" value="{$logins[lst].acllogin_id}" {if $logins[lst].checked==1}checked{/if}>
+                        <input id="login{$smarty.section.lst.index}" class="form-check-input" type="checkbox" name="logins[]" value="{$logins[lst].acllogin_id}" {if $logins[lst].checked==1}checked{/if}>
                         <label class="form-check-label" for="login{$smarty.section.lst.index}">
                             {$logins[lst].logindetail}
                         </label>
@@ -60,9 +58,9 @@
                 </div>
             </fieldset>
         </div>
+        <div class="row d-inline">
+            <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+        </div>
         {$csrf}
     </form>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-    </div>
 </div>

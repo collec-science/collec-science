@@ -244,7 +244,7 @@
                     <div class="col-8">
                         <div class="radio">
                             <label>
-                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled0" value="f" {if $data.external_storage_enabled!='t'}checked{/if}>
+                                <input type="radio" name="external_storage_enabled" id="external_storage_enabled0" value="f" {if $data.external_storage_enabled!='t' }checked{/if}>
                                 {t}non{/t}
                             </label>
                             <label>
@@ -367,11 +367,9 @@
                 </div>
             </div>
         </div>
+        <div class="row d-inline">
+            <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+        </div>
         {$csrf}
     </form>
-</div>
-
-<div class="row col-12 d-inline">
-    <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-</div>
 </div>

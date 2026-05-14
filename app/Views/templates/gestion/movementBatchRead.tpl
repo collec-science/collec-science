@@ -31,7 +31,9 @@
 				<textarea id="reads" name="reads" class="form-control" rows="20" required autofocus placeholder="{t}Placer le curseur dans cette zone avant de scanner un QR Code ou de décharger la scannette{/t}"></textarea>
 			</div>
 		</div>
-
+		<div class="row d-inline">
+			<span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+		</div>
 		<div class="row d-flex justify-content-center">
 			<div class="col-auto">
 				<button type="submit" class="btn btn-primary">{t}Suivant{/t}</button>
@@ -40,7 +42,4 @@
 
 		{$csrf}
 	</form>
-	<div class="row col-12 d-inline">
-		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-	</div>
 </div>

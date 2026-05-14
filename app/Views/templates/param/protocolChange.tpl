@@ -93,6 +93,9 @@
                     <input type="checkbox" class="form-check-input" value="1" name="documentDelete">
                 </div>
             </div>
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -105,8 +108,5 @@
             </div>
             {$csrf}
         </form>
-    </div>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
     </div>
 </div>

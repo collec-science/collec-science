@@ -13,16 +13,17 @@
                               {t}Nom de l'application :{/t}
                         </label>
                         <div class="col-8">
-                              <input id="appli" type="text" name="appli" class="form-control" value="{$data.appli}"
-                                    autofocus required>
+                              <input id="appli" type="text" name="appli" class="form-control" value="{$data.appli}" autofocus required>
                         </div>
                   </div>
                   <div class="row">
                         <label for="applidetail" class="form-label col-4">{t}Description :{/t} </label>
                         <div class="col-8">
-                              <input id="applidetail" type="text" class="form-control" name="applidetail"
-                                    value="{$data.applidetail}">
+                              <input id="applidetail" type="text" class="form-control" name="applidetail" value="{$data.applidetail}">
                         </div>
+                  </div>
+                  <div class="row d-inline">
+                        <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
                   </div>
                   <div class="row d-flex justify-content-center">
                         <div class="col-auto">
@@ -36,8 +37,5 @@
                   </div>
                   {$csrf}
             </form>
-      </div>
-      <div class="row col-12 d-inline">
-            <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
       </div>
 </div>

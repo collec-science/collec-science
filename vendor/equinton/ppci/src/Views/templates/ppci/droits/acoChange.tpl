@@ -27,11 +27,10 @@
             </div>
 
             <div class="row">
-                <label for="aco" class="form-label col-4"><span class="red">*</span> 
+                <label for="aco" class="form-label col-4"><span class="red">*</span>
                     {t}Nom du droit utilisé dans l'application :{/t}
                 </label>
-                <div class="col-8"><input type="text" class="form-control" id="aco" name="aco" value="{$data.aco}"
-                        autofocus required {if $newRightEnabled==0} readonly{/if}>
+                <div class="col-8"><input type="text" class="form-control" id="aco" name="aco" value="{$data.aco}" autofocus required {if $newRightEnabled==0} readonly{/if}>
                 </div>
             </div>
             <div class="row">
@@ -40,8 +39,7 @@
                     <div class="row align-items-center">
                         {section name=lst loop=$groupes}
                         <div class="col-3 col-offset-1">
-                            <input id="group{$smarty.section.lst.index}" type="checkbox" class="form-check-input" name="groupes[]"
-                                value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
+                            <input id="group{$smarty.section.lst.index}" type="checkbox" class="form-check-input" name="groupes[]" value="{$groupes[lst].aclgroup_id}" {if $groupes[lst].checked==1}checked{/if}>
                             <label class="form-check-label" for="group{$smarty.section.lst.index}">
                                 {$groupes[lst].groupe}
                             </label>
@@ -50,11 +48,10 @@
                     </div>
                 </fieldset>
             </div>
-
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             {$csrf}
         </form>
-    </div>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
     </div>
 </div>

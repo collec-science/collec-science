@@ -3,8 +3,8 @@
     <div class="row">
         <div class="col-auto">
             <a href="sampleTypeList">
-            <img src="display/images/list.png" height="25">
-            {t}Retour à la liste{/t}</a>
+                <img src="display/images/list.png" height="25">
+                {t}Retour à la liste{/t}</a>
         </div>
         <div class="col-auto">
             {$help}
@@ -181,7 +181,9 @@
                 </div>
 
             </fieldset>
-
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -192,12 +194,8 @@
                 </div>
                 {/if}
             </div>
-
             {$csrf}
         </form>
-    </div>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
     </div>
 
     <div class="row">

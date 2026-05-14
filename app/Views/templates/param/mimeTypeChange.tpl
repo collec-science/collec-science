@@ -22,6 +22,9 @@
                     <input id="contentType" type="text" class="form-control" name="content_type" value="{$data.content_type}" required>
                 </div>
             </div>
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
             <div class="row d-flex justify-content-center">
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -39,7 +42,5 @@
         {t}La liste officielle des types de média utilisables peut être consultée ici : {/t}
         <a href="https://www.iana.org/assignments/media-types/media-types.xhtml" target="_blank">https://www.iana.org/assignments/media-types/media-types.xhtml</a>
     </div>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-    </div>
+
 </div>

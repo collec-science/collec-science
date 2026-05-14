@@ -149,6 +149,9 @@
                 <input id="search_order" type="number" class="form-control number" name="search_order" value="{$data.search_order}">
             </div>
         </div>
+        <div class="row d-inline">
+            <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+        </div>
         <div class="row d-flex justify-content-center">
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
@@ -161,9 +164,7 @@
         </div>
         {$csrf}
     </form>
-    <div class="row col-12 d-inline">
-        <span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-    </div>
+
     <div class="row">
         <div class="col-12">
             {include file="export/datasetColumnTable.tpl"}

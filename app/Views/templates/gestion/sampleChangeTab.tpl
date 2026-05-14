@@ -580,21 +580,21 @@
 					<a class="nav-link active" id="tab-general" data-bs-toggle="tab" role="tab" aria-controls="nav-general" aria-selected="true" href="#nav-general">
 						<img src="display/images/zoom.png" height="25">
 						{t}Données générales{/t}
-						<img src="display/images/cross.png" id="general-error" height="25" >
+						<img src="display/images/cross.png" id="general-error" height="25">
 					</a>
 				</li>
 				<li class="nav-item  ">
 					<a class="nav-link" id="tab-location" href="#nav-location" data-bs-toggle="tab" role="tab" aria-controls="nav-location" aria-selected="false">
 						<img src="display/images/gps.png" height="25">
 						{t}Localisation{/t}
-						<img src="display/images/cross.png" id="location-error" height="25" >
+						<img src="display/images/cross.png" id="location-error" height="25">
 					</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" id="tab-metadata" href="#nav-metadata" data-bs-toggle="tab" role="tab" aria-controls="nav-metadata" aria-selected="false">
 						<img src="display/images/display-red.png" height="25">
 						{t}Métadonnées{/t}
-						<img src="display/images/cross.png" height="25" id="metadata-error" >
+						<img src="display/images/cross.png" height="25" id="metadata-error">
 					</a>
 				</li>
 			</ul>
@@ -944,9 +944,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="row d-inline">
+			<span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+		</div>
 		{$csrf}
 	</form>
-	<div class="row col-12 d-inline">
-		<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
-	</div>
 </div>

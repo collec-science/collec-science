@@ -44,4 +44,11 @@
             </tbody>
         </table>
     </div>
+    <div class="row bg-info">
+        {t}Ce module permet de déclarer des imprimantes qui sont pilotées directement par le serveur, et non connectées au PC de l'utilisateur.{/t}
+        <br>
+        {t}Le nom de la file d'impression est celui qui est déclaré dans le module CUPS du serveur.{/t}
+        <br>
+        {t}Si vous souhaitez utiliser cette fonctionnalité, vous devrez demander à un administrateur système de positionner la variable app.print_direct_enabled à la valeur 1 dans le fichier .env, qui contient les paramètres systèmes de l'application.{/t}
+    </div>
 </div>

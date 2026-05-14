@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Libraries\Label as LibrariesLabel;
 use App\Models\Booking;
 use App\Models\Borrower;
 use App\Models\Borrowing;
@@ -132,20 +133,7 @@ class Sample extends PpciLibrary
          * Ajout des listes deroulantes
          */
         $this->setRelatedTablesToView($this->vue);
-        /**
-         * Ajout de la selection des modeles d'etiquettes
-         */
-        if (isset($_REQUEST["label_id"])) {
-            $this->vue->set($_REQUEST["label_id"], "label_id");
-        }
-        $label = new Label;
-        $this->vue->set($label->getListe(2), "labels");
 
-        $printer = new Printer;
-        $this->vue->set($printer->getListe(2), "printers");
-        if (isset($_REQUEST["printer_id"])) {
-            $this->vue->set($_REQUEST["printer_id"], "printer_id");
-        }
         /**
          * Map default data
          */
@@ -977,8 +965,8 @@ class Sample extends PpciLibrary
         $vue->set($cf->getListe(2), "containerFamily");
         $country = new Country();
         $vue->set($country->getListe(2), "countries");
-        $label = new Label;
-        $vue->set($label->getListe(2), "labels");
+        $label = new LibrariesLabel;
+        $label->setRelatedTablesToView($vue);
     }
     function createComposite()
     {

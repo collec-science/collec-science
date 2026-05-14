@@ -456,7 +456,7 @@
 			</div>
 
 
-			{if count($printers) > 0}
+			{if count($printers) > 0 && $directPrintEnabled == 1}
 			<div class="col-auto">
 				<select id="printers" name="printer_id" class="form-select">
 					{section name=lst loop=$printers}

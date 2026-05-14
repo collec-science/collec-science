@@ -728,7 +728,7 @@
 			<div class="col-auto">
 				<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
 			</div>
-			{if !empty($printers)}
+			{if !empty($printers) && $directPrintEnabled == 1}
 			<div class="col-auto">
 				<select id="printers" name="printer_id" class="form-select">
 					{section name=lst loop=$printers}

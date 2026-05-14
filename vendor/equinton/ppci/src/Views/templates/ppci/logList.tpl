@@ -3,7 +3,7 @@
         <h2>{t}Liste des traces enregistrées dans la base de données (table log){/t}</h2>
     </div>
     <div class="row">
-        <form class="form-horizontal protoform" id="log_search" action="logList" method="POST">
+        <form class="form-horizontal " id="log_search" action="logList" method="POST">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
             <div class="row">
                 <label for="logmodule" class="col-2 form-label">{t}Nom du module :{/t}</label>

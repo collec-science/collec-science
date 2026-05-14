@@ -6,7 +6,7 @@
         </div>
     </div>
     {if empty($issuer)}
-    <form id="otpform" class="form-horizontal protoform" method="post" action="totpShowCode">
+    <form id="otpform" class="form-horizontal " method="post" action="totpShowCode">
         <div class="row">
             <label for="otpcode" class="form-label col-4">
                 {t}Code généré par le logiciel TOTP :{/t}

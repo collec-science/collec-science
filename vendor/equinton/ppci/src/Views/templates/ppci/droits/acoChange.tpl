@@ -10,7 +10,7 @@
         </a>
     </div>
     <div class="row">
-        <form id="acoForm" class="form-horizontal protoform" method="post" action="index.php">
+        <form id="acoForm" class="form-horizontal " method="post" action="index.php">
             <input type="hidden" name="aclaco_id" value="{$data.aclaco_id}">
             <input type="hidden" name="aclappli_id" value="{$data.aclappli_id}">
             <input type="hidden" name="moduleBase" value="aco">

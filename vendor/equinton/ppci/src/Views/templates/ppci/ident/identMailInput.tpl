@@ -1,7 +1,7 @@
 <fieldset class="col-6">
       <legend>{t}Mot de passe oublié ?{/t} {t}lancement de la procédure de récupération{/t}</legend>
 
-      <form class="form-horizontal protoform" id="sendMail" method="post" action="passwordlostSendmail">
+      <form class="form-horizontal " id="sendMail" method="post" action="passwordlostSendmail">
             <div class="row">
                   <label for="mail" class="form-label col-4">
                         <span class="red">*</span> {t}Entrez votre adresse e-mail :{/t}

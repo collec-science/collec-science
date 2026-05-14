@@ -48,7 +48,7 @@
         </div>
     </div>
 
-    <form id="otpform" class="form-horizontal protoform" method="post" action="totpCreateVerify">
+    <form id="otpform" class="form-horizontal " method="post" action="totpCreateVerify">
         <div class="row">
             <label for="otpcode" class="form-label col-4">{t}Code généré par le logiciel TOTP :{/t} </label>
             <div class="col-8">

@@ -47,7 +47,7 @@ $(document).ready(function() {
 			<img src="display/images/pdf.png" height="25">
 			{t}Structure de la base de données{/t}
 		</a>
-		<form class="form-horizontal protoform" id="requestForm" method="post" action="index.php">
+		<form class="form-horizontal " id="requestForm" method="post" action="index.php">
 			<input type="hidden" name="request_id" value="{$data.request_id}">
 			<input type="hidden" name="body" id="bodySent">
 			<div class="row">

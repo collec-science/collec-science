@@ -20,7 +20,7 @@
 		<input type="hidden" name="module" value="loginExec">
 		<input type="hidden" name="moduleCalled" value="{$moduleCalled}">
 		<input type="hidden" name="loginAdmin" value="1">
-		<div class="form-horizontal protoform">
+		<div class="form-horizontal ">
 			<div class="row">
 				<label for="login" class="form-label col-4">
 					{t}Login :{/t}

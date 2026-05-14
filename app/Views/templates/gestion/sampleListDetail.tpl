@@ -277,7 +277,7 @@
 		});
 		/* Tooltip */
 		const tooltipparams = {
-			delay: { show: 2000, hide: 500 },
+			delay: { show: 1000, hide: 500 },
 			html: true
 		};
 		function initializeBootstrapTooltip() {

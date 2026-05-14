@@ -173,7 +173,7 @@
 			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 				//tooltipTriggerEl.setAttribute('title', 'content');
 				return new bootstrap.Tooltip(tooltipTriggerEl, {
-					delay: { show: 2000, hide: 500},
+					delay: { show: 1000, hide: 500},
 					title: "empty",
 					html: true,
 					container: "body",

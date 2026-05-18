@@ -34,7 +34,7 @@ class Sample extends PpciModel
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
 					ct.container_type_name, product_name,risk_name,
-					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
+					s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
@@ -67,7 +67,7 @@ class Sample extends PpciModel
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)
 					left outer join container_type ct using (container_type_id)
-					left outer join operation using (operation_id)
+					left outer join operation op on (s.operation_id = op.operation_id)
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
@@ -158,7 +158,8 @@ class Sample extends PpciModel
             ),
             "campaign_id" => array("type" => 1),
             "country_id" => array("type" => 1),
-            "country_origin_id" => array("type" => 1)
+            "country_origin_id" => array("type" => 1),
+            "operation_id" => ["type" => 1]
         );
         parent::__construct();
     }
@@ -787,6 +788,14 @@ class Sample extends PpciModel
                         $where .= $and . "s.collection_id in " . $collections;
                         $and = " and ";
                     }
+                }
+                /**
+                 * Search by operation
+                 */
+                if ($param["operation_id"] > 0) {
+                    $where .= $and . " s.operation_id = :operation_id:";
+                    $data["operation_id"] = $param["operation_id"];
+                    $and = " and ";
                 }
 
                 /**

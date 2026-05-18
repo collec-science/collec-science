@@ -24,7 +24,6 @@
 				<th>{t}Type de contenant{/t}</th>
 				<th>{t}Produit utilisé{/t}</th>
 				<th>{t}Risque{/t}</th>
-				<th>{t}Protocole / operation{/t}</th>
 				<th>{t}Sous-échantillonnage{/t}</th>
 				<th>{t}Modèle de métadonnées{/t}</th>
 				<th>{t}Description{/t}</th>
@@ -48,10 +47,6 @@
 				<td>{$data[lst].container_type_name}</td>
 				<td>{$data[lst].product_name}</td>
 				<td>{$data[lst].risk_name}</td>
-				<td>
-					{$data[lst].protocol_year} {$data[lst].protocol_name} {$data[lst].protocol_version}
-					{$data[lst].operation_name} {$data[lst].operation_version}
-				</td>
 				<td>
 					{if $data[lst].multiple_type_id > 0}
 					{$data[lst].multiple_type_name} : {$data[lst].multiple_unit}

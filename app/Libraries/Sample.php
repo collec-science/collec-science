@@ -24,6 +24,7 @@ use App\Models\MovementReason;
 use App\Models\ObjectClass;
 use App\Models\ObjectIdentifier;
 use App\Models\ObjectStatus;
+use App\Models\Operation;
 use App\Models\Printer;
 use App\Models\Referent;
 use App\Models\Sample as ModelsSample;
@@ -967,6 +968,8 @@ class Sample extends PpciLibrary
         $vue->set($country->getListe(2), "countries");
         $label = new LibrariesLabel;
         $label->setRelatedTablesToView($vue);
+        $operation = new Operation;
+        $vue->set($operation->getListe(), "operations");
     }
     function createComposite()
     {

@@ -32,17 +32,17 @@
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
-					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 				} else {
-					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 					maxcol = 20;
 				}
 			}
 		} catch {
 			if (isGestion == 1) {
-				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 			} else {
-				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 				maxcol = 20;
 			}
 		}
@@ -58,12 +58,12 @@
 				text: 'csv',
 				filename: 'samples',
 				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 				},
 				customize: function (csv) {
 					var split_csv = csv.split("\n");
 					//set headers
-					split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","storage_condition_name","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
+					split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","storage_condition_name","referent","operation","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
 					csv = split_csv.join("\n");
 					return csv;
 				}
@@ -72,12 +72,12 @@
 				extend: 'copy',
 				text: '{t}Copier{/t}',
 				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 				},
 				customize: function (csv) {
 					var split_csv = csv.split("\n");
 					//set headers
-					split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\tstorage_condition_name\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
+					split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\tstorage_condition_name\treferent\toperation\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
 					split_csv.shift();
 					split_csv.shift();
 					split_csv.shift();
@@ -780,6 +780,7 @@
 						<th>{t}Emplacement{/t}</th>
 						<th>{t}Condition de stockage{/t}</th>
 						<th>{t}Référent{/t}</th>
+						<th>{t}Opération{/t}</th>
 						<th>{t}Campagne{/t}</th>
 						<th>{t}Lieu de prélèvement{/t}</th>
 						<th>{t}Date d'échantillonnage{/t}</th>
@@ -821,7 +822,7 @@
 						<td class="nowrap" title="{$samples[lst].collection_description}">
 							{$samples[lst].collection_name}</td>
 						<td class="nowrap">{$samples[lst].sample_type_name}</td>
-						<td {if $samples[lst].trashed=='t' }class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
+						<td class="nowrap{if $samples[lst].trashed=='t' } trashed" title="{t}Échantillon mis à la corbeille{/t}" {else}" {/if}>
 							{$samples[lst].object_status_name}</td>
 						<td>
 							{if strlen($samples[lst].parent_uid) > 0}
@@ -858,6 +859,11 @@
 						</td>
 						<td>{$samples[lst].storage_condition_name}</td>
 						<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
+						<td class="nowrap">
+							{if $samples[lst].operation_id > 0}
+							{$samples[lst].protocol_name}-{$samples[lst].protocol_version}/{$samples[lst].operation_name}-{$samples[lst].operation_version}
+							{/if}
+						</td>
 						<td class="nowrap" title="{$samples[lst].campaign_description}">
 							{$samples[lst].campaign_name}</td>
 						<td class="nowrap">{$samples[lst].sampling_place_name}</td>

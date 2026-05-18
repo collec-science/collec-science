@@ -46,26 +46,6 @@
                     </select>
                 </div>
             </div>
-
-            <div class="row">
-                <label for="operation_id" class="form-label col-4">
-                    {t}Protocole / opération :{/t}
-                </label>
-                <div class="col-8">
-                    <select id="operation_id" name="operation_id" class="form-select">
-                        <option value="" {if $data.operation_id=="" }selected{/if}>
-                            {t}Choisissez...{/t}
-                        </option>
-                        {section name=lst loop=$operation}
-                        <option value="{$operation[lst].operation_id}" {if $operation[lst].operation_id==$data.operation_id}selected{/if}>
-                            {$operation[lst].protocol_year} {$operation[lst].protocol_name}
-                            {$operation[lst].protocol_version} {$operation[lst].operation_name}
-                            {$operation[lst].operation_version}
-                        </option>
-                        {/section}
-                    </select>
-                </div>
-            </div>
             <div class="row">
                 <label for="sampleTypeDescription" class="form-label col-4">
                     {t}Description :{/t}</label>

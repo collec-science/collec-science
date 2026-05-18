@@ -5,7 +5,6 @@ namespace App\Libraries;
 use App\Models\ContainerType;
 use App\Models\Metadata;
 use App\Models\MultipleType;
-use App\Models\Operation;
 use App\Models\Product;
 use App\Models\Risk;
 use App\Models\SampleType as ModelsSampleType;
@@ -50,8 +49,6 @@ class SampleType extends PpciLibrary
         $this->dataRead($this->id, "param/sampleTypeChange.tpl");
         $containerType = new ContainerType();
         $this->vue->set($containerType->getListe("container_type_name"), "container_type");
-        $operation = new Operation();
-        $this->vue->set($operation->getListe(), "operation");
         $multipleType = new MultipleType();
         $this->vue->set($multipleType->getListe(1), "multiple_type");
         $metadata = new Metadata();

@@ -69,6 +69,7 @@
             if ($("#without_container").is(':checked')) ok = true;
             if ($("#collections").val() > 0) ok = true;
             if ($("#metadatafilter").val().length > 0) ok = true;
+            if ($("#operation_id").val() > 0) ok = true;
             var mf = $("#metadata_field").val();
 
             if (mf != null) {
@@ -282,6 +283,7 @@
             $("#movement_reason_id").prop("selectedIndex", 0).change();
             $("#select_date").prop("selectedIndex", 0).change();
             $("#campaign_id").prop("selectedIndex", 0).change();
+            $("#operation_id").prop("selectedIndex", 0).change();
             $("#uidsearch").val("");
             $("#uid_min").val("0");
             $("#uid_max").val("0");
@@ -718,7 +720,7 @@
                             <label for="without_container" class="col-2 text-end form-check-label">
                                 {t}Échantillons sans contenants :{/t}
                             </label>
-                            <div class="col-1 text-end">
+                            <div class="col-1">
                                 <input type="checkbox" id="without_container" name="without_container"
                                     class="form-check-input" value="1" {if $sampleSearch.without_container==1}checked{/if}>
                             </div>
@@ -726,7 +728,7 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="campaign_id" class="col-3 form-label lexical"
+                            <label for="campaign_id" class="col-3 form-label lexical text-end"
                                 data-lexical="campaign">{t}Campagne de prélèvement :{/t}</label>
                             <div class="col-3">
                                 <select id="campaign_id" name="campaign_id" class="form-select">
@@ -753,11 +755,26 @@
                             <div class="col-3">
                                 <select id="event_type_id" class="form-select" name="event_type_id">
                                     <option value="" {if $sampleSearch.event_type_id=="" }selected{/if}>
-                                        {t}Choisissez...{/t}</option>
+                                        {t}Choisissez...{/t}
+                                    </option>
                                     {foreach $eventType as $et}
                                     <option value="{$et.event_type_id}" {if
                                         $sampleSearch.event_type_id==$et.event_type_id}selected{/if}>
                                         {$et.event_type_name}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <label for="operation_id" class="col-2 text-end form-label">{t}Opération :{/t}</label>
+                            <div class="col-3">
+                                <select id="operation_id" class="form-select" name="operation_id">
+                                    <option value="" {if $sampleSearch.operation_id==""}selected{/if}>
+                                    {t}Choisissez...{/t}
+                                    </option>
+                                    {foreach $operations as $operation}
+                                    <option value="{$operation.operation_id}"
+                                    {if $operation.operation_id == $sampleSearch.operation_id}selected{/if}>
+                                        {$operation.protocol_name}-{$operation.protocol_version}/{$operation.operation_name}-{$operation.operation_version}
+                                    </option>
                                     {/foreach}
                                 </select>
                             </div>
@@ -783,14 +800,14 @@
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="subsample_quantity_min" class="col-3 form-label">
+                            <label for="subsample_quantity_min" class="col-3 form-label text-end">
                                 {t}Quantité minimale disponible dans l'échantillon :{/t}
                             </label>
                             <div class="col-3">
                                 <input class="form-control taux" id="subsample_quantity_min"
                                     name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
                             </div>
-                            <label for="subsample_quantity_max" class="col-2 form-label">{t}maximale :{/t}</label>
+                            <label for="subsample_quantity_max" class="col-2 form-label text-end">{t}maximale :{/t}</label>
                             <div class="col-3">
                                 <input class="form-control taux" id="subsample_quantity_max"
                                     name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">

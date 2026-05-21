@@ -1518,6 +1518,23 @@ class Sample extends PpciModel
         }
     }
     /**
+     * Method setOperation - assign an operation to the list of uid
+     *
+     * @param array $uids 
+     * @param int $operation_id 
+     *
+     * @return void
+     */
+    function setOperation(array $uids, int $operation_id)
+    {
+        $sql = "update sample set operation_id = :operation_id: where uid = :uid:";
+        $data = array("operation_id" => $operation_id);
+        foreach ($uids as $uid) {
+            $data["uid"] = $uid;
+            $this->executeSql($sql, $data, true);
+        }
+    }
+    /**
      * Method setSampleType
      *
      * @param array $uids list of uid to treat

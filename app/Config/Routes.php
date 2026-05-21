@@ -159,6 +159,7 @@ $routes->add('samplesCreateEvent', 'Sample::eventAssignMulti');
 $routes->add('samplesLending', 'Sample::lendingMulti');
 $routes->add('sampleDetail', 'SampleWs::detail');
 $routes->add('samplesSetTrashed', 'ObjectController::setTrashed/sample');
+$routes->add('samplesSetOperation', 'Sample::setOperation');
 $routes->add('samplesExit', 'Sample::exitMulti');
 $routes->add('samplesEntry', 'Sample::entryMulti');
 $routes->add('samplesSetCountry', 'Sample::setCountry');

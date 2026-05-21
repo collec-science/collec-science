@@ -169,6 +169,7 @@ class Rights extends RightsPpci
         "samplesSetCampaign" => ["collection"],
         "samplesSetStatus" => ["collection"],
         "samplesSetParent" => ["collection"],
+        "samplesSetOperation" => ["collection"],
         "sampleGetChildren" => ["consult"],
         "samplesTypeChange" => ["collection"],
         "movementList" => ["collection"],

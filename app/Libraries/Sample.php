@@ -927,6 +927,23 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
+    function setOperation() {
+        try {
+            if (count($_POST["uids"]) == 0) {
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
+            }
+            if (empty($_POST["operation_id"])) {
+                throw new PpciException(_("Pas d'opération sélectionnée"));
+            }
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $this->dataclass->setOperation($uids, $_POST["operation_id"]);
+            $this->message->set(_("Opération effectuée"));
+        } catch (PpciException $oe) {
+            $this->message->setSyslog($oe->getMessage(), true);
+            $this->message->set(_("Une erreur est survenue pendant l'affectation de l'opération"), true);
+            $this->message->set($oe->getMessage());
+        }
+    }
     function getChildren()
     {
         $this->vue = service("AjaxView");

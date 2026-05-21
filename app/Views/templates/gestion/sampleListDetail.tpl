@@ -247,7 +247,8 @@
 			"samplesDocument": "document",
 			"samplesExit": "samplesexit",
 			"lotCreate": "lotCreate",
-			"samplesCreateComposite": "createComposite"
+			"samplesCreateComposite": "createComposite",
+			"samplesSetOperation": "samplesOperation"
 		};
 		for (const actiontitle in actions) {
 			var actionclass = "." + actions[actiontitle];
@@ -933,6 +934,7 @@
 					<option value="samplesCreateComposite">
 						{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}
 					</option>
+					<option value="samplesSetOperation">{t}Affecter une opération{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
 					<option value="samplesDeleteWithChildren">
@@ -965,7 +967,7 @@
 						</div>
 					</div>
 					<div class="row ">
-						<label for="eventsType" class="form-label col-4"><span class="red">*</span> 
+						<label for="eventsType" class="form-label col-4"><span class="red">*</span>
 							{t}Type d'événement :{/t}
 						</label>
 						<div class="col-8">
@@ -1060,7 +1062,7 @@
 				</script>
 				<div class="entry">
 					<div class="row ">
-						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span> 
+						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span>
 							{t}UID du contenant :{/t}
 						</label>
 						<div class="col-8">
@@ -1408,7 +1410,23 @@
 						</div>
 					</div>
 				</div>
-
+				<div class="samplesOperation">
+					<div class="row">
+						<label for="sampleOperationId" class="col-4 form-label">{t}Opération :{/t}</label>
+						<div class="col-8">
+							<select id="sampleOperationId" class="form-select" name="operation_id">
+								<option value="" selected>
+									{t}Choisissez...{/t}
+								</option>
+								{foreach $operations as $operation}
+								<option value="{$operation.operation_id}">
+									{$operation.protocol_name}-{$operation.protocol_version}/{$operation.operation_name}-{$operation.operation_version}
+								</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+				</div>
 				<div class="center">
 					<button id="checkedButtonSample" class="btn btn-danger">{t}Exécuter{/t}</button>
 				</div>

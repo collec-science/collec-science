@@ -51,3 +51,6 @@ REFERENCES col.operation (operation_id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 -- ddl-end --
 
+ALTER TABLE col.operation add column operation_code varchar;
+COMMENT ON COLUMN col.operation.operation_code IS E'Code of operation, for importations';
+ALTER TABLE col.operation add constraint operation_code_unique UNIQUE (operation_code);

@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="81"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-16,1045" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
+	 last-position="-16,952" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -905,7 +905,7 @@ Autre]]>
 	<schema name="col"/>
 </sequence>
 
-<table name="operation" layers="0" collapse-mode="1" max-obj-count="7" z-value="0">
+<table name="operation" layers="0" collapse-mode="1" max-obj-count="8" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of operations attached to a protocol]]> </comment>
 	<tag name="sample"/>
@@ -931,11 +931,18 @@ Autre]]>
 		<type name="timestamp" length="0"/>
 		<comment> <![CDATA[Last edit date of the operation]]> </comment>
 	</column>
+	<column name="operation_code">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Code of operation, for importations]]> </comment>
+	</column>
 	<constraint name="operation_name_version_unique" type="uq-constr" table="col.operation">
 		<columns names="operation_name,operation_version" ref-type="src-columns"/>
 	</constraint>
 	<constraint name="operation_pk" type="pk-constr" table="col.operation">
 		<columns names="operation_id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="operation_code_unique" type="uq-constr" table="col.operation">
+		<columns names="operation_code" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -3886,6 +3893,14 @@ group by ss.createdsample_id]]> </definition>
 	 src-table="col.operation"
 	 dst-table="col.sample"
 	 src-required="false" dst-required="false"/>
+
+<index name="sample_operation_id_idx" table="col.sample"
+	 concurrent="false" unique="false" fast-update="false" buffering="false" nulls-not-distinct="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="false">
+			<column name="operation_id"/>
+		</idxelement>
+</index>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

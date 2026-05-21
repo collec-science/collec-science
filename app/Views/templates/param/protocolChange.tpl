@@ -87,10 +87,10 @@
                 </div>
             </div>
             <div class="row">
-                <label for="documentDelete" class="form-check-label col-4">
+                <label for="documentDelete" class="form-check-label col-4 text-end">
                     {t}Supprimer le document joint :{/t}</label>
                 <div class="col-8">
-                    <input type="checkbox" class="form-check-input" value="1" name="documentDelete">
+                    <input type="checkbox" id="documentDelete" class="form-check-input" value="1" name="documentDelete">
                 </div>
             </div>
             <div class="row d-inline">

@@ -43,6 +43,12 @@
                     <input id="operationOrder" type="number" class="form-control" name="operation_order" value="{$data.operation_order}">
                 </div>
             </div>
+            <div class="row">
+                <label for="operationCode" class="form-label col-4">{t}Code utilisé pour les importations d'échantillons (doit être unique dans la base de données et ne pas comporter d'espace) :{/t}</label>
+                <div class="col-8">
+                    <input id="operationCode" type="text" class="form-control" name="operation_code" pattern="[^\s]*" value="{$data.operation_code}" >
+                </div>
+            </div>
             <div class="row d-inline">
                 <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
             </div>

@@ -34,7 +34,7 @@ class Sample extends PpciModel
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
 					ct.container_type_name, product_name,risk_name,
-					s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
+					s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,operation_code,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,

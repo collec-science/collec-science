@@ -950,10 +950,10 @@
                     </div>
                     <div class="col-4 center">
                         <button type="submit" id="samplesearch_button"
-                            class="btn btn-success">{t}Rechercher{/t}</button>
+                            class="btn btn-primary">{t}Rechercher{/t}</button>
                         <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
                         {if $rights.manage == 1}
-                        <button type="button" id="exportCsv" class="btn btn-primary"
+                        <button type="button" id="exportCsv" class="btn btn-secondary"
                             title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
                             {t}Export CSV direct{/t}
                         </button>

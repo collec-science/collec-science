@@ -340,7 +340,7 @@ meter[value="4"]::-moz-meter-bar {
 }
 
 .trashed {
-	background-color: rgba(213, 19, 23, 0.5);
+	background-color: var(--color-red-5) !important;
 }
 
 .tooltiplink {
@@ -553,6 +553,11 @@ a:hover {
 .btn-info:hover,
 .btn-info:active {
 background-color: var(--color-green-7) !important;
+	color: black;
+}
+
+.btn-success:hover,
+.btn-success:active {
 	color: black;
 }
 

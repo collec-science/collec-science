@@ -150,6 +150,7 @@
                             <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t} <a href="countryList">{t}Liste des pays{/t}</a></li>
                             <li><b>country_origin_name</b>: {t}le nom du pays de provenance, qui doit être strictement identique au libellé affiché dans la table {/t} <a href="countryList">{t}des pays{/t}</a></li>
                             <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
+                            <li><b>operation_code</b> : {t}Code de l'opération à laquelle est rattaché l'échantillon{/t} <a href="operationList">{t}Liste des opérations{/t}</a></li>
                             <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                             <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                             <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>

@@ -279,6 +279,21 @@
                         </div>
                     </div>
                     <div class="row">
+                        <label for="sampleOperationId" class="col-4 form-label">
+                            {t}Opération :{/t}
+                        </label>
+                        <div class="col-8">
+                            <select id="sampleOperationCode" class="samples form-select" name="operation_code">
+                                <option value="" selected></option>
+                                {foreach $operations as $operation}
+                                <option value="{$operation.operation_code}">
+                                    {$operation.operation_code}({$operation.protocol_name}-{$operation.protocol_version}/{$operation.operation_name}-{$operation.operation_version})
+                                </option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
                         <label for="sampleFields" class="col-4 form-label">
                             {t}Colonnes complémentaires à ajouter :{/t}
                         </label>
@@ -377,6 +392,7 @@
                         <li><b>country_origin_code</b>: {t}le code du pays de provenance, sur deux positions{/t} <a href="countryList">{t}Liste des pays{/t}</a></li>
                         <li><b>country_origin_name</b>: {t}le nom du pays de provenance, qui doit être strictement identique au libellé affiché dans la table {/t} <a href="countryList">{t}des pays{/t}</a></li>
                         <li><b>referent_id / referent_name</b> : {t}le numéro informatique du référent ou son nom, sous la forme "nom prénom"{/t}</li>
+                        <li><b>operation_code</b> : {t}Code de l'opération à laquelle est rattaché l'échantillon{/t} <a href="operationList">{t}Liste des opérations{/t}</a></li>
                         <li><b>wgs84_x</b> : {t}la longitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                         <li><b>wgs84_y</b> : {t}la latitude GPS en WGS84 (degrés décimaux, séparateur décimal : point){/t}</li>
                         <li><b>sampling_date</b> : {t}la date de création/échantillonnage de l'échantillon, au format dd/mm/yyyy{/t}</li>

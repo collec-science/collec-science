@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Ppci\Libraries\PpciException;
-use Ppci\Models\PpciModel;
 
 /**
  * Created : 17 août 2016
@@ -25,7 +24,7 @@ class ImportObject
 
     private $utf8_encode = false;
 
-    private $fields = array(
+    private array $fields = array(
         "sample_identifier",
         "collection_id",
         "sample_type_id",
@@ -76,7 +75,8 @@ class ImportObject
         "container_collection_name",
         "composite_parents_identifier",
         "composite_parents_uid",
-        "composite_multiple_value"
+        "composite_multiple_value",
+        "operation_code"
     );
 
     private $colnum = array(
@@ -100,56 +100,44 @@ class ImportObject
 
     public $nbTreated = 0;
 
-    private $collection = array();
+    private array $collection, $sample_type, $container_type, $object_status, $sampling_place, $referents, $operations;
+    private Campaign $campaign;
+    private Country $country;
+    private IdentifierType $identifierType;
+    private SampleType $sampleType;
+    private ObjectIdentifier $objectIdentifier;
 
-    private $sample_type = array();
-
-    private $container_type = array();
-
-    private $object_status = array();
-
-    private $sampling_place = array();
-    private $campaign;
-    private $country;
-
-    private $referents = array();
     /**
      *
      * @var Sample
      */
-    private $sample;
+    private Sample $sample;
 
     /**
      *
      * @var Container
      */
-    private $container;
+    private Container $container;
     /**
      * @var ObjectClass
      */
-    private $object;
+    private ObjectClass $object;
 
     /**
      *
      * @var Movement
      */
-    private $movement;
-
-    private $identifierType;
-
-    private $sampleType;
-
-    private $objectIdentifier;
+    private Movement $movement;
 
     private Subsample $subSample;
 
     private $initIdentifiers = false;
 
-    private $identifiers = array();
+    private array $identifiers = array();
 
-    private $md_columns = array();
+    private array $md_columns = array();
 
-    public $minuid, $maxuid;
+    public int $minuid, $maxuid;
     public $onlyCollectionSearch = 1;
     private const UTF8_BOM = "\xEF\xBB\xBF";
 
@@ -159,8 +147,6 @@ class ImportObject
      * @param string $filename
      * @param string $separator
      * @param string $utf8_encode
-     * @throws HeaderException
-     * @throws FileException
      */
     function initFile($filename, $separator = ",", $utf8_encode = false)
     {
@@ -211,25 +197,6 @@ class ImportObject
             throw new PpciException(sprintf(_("Le fichier %s n'a pas été trouvé ou n'est pas lisible"), $filename));
         }
     }
-
-    /**
-     * Initialise les classes utilisees pour realiser les imports
-     *
-     * @param Sample $sample
-     * @param Container $container
-     * @param Movement $movement
-     */
-    function initClasses(Sample $sample, Container $container, Movement $movement, SamplingPlace $samplingPlace, IdentifierType $identifierType, Sampletype $sampleType, Referent $referent, Campaign $campaign, Country $country)
-    {
-        $this->sample = $sample;
-        $this->container = $container;
-        $this->movement = $movement;
-        $this->identifierType = $identifierType;
-        $this->sampleType = $sampleType;
-        $this->campaign = $campaign;
-        $this->country = $country;
-    }
-
     function initAllClasses()
     {
         /* $classes = array("sample", "container", "movement", "samplingPlace", "identifierType", "sampleType", "referent", "campaign", "country", "objectIdentifier");
@@ -779,12 +746,20 @@ class ImportObject
                 }
             }
         }
-        if (empty($values["sample_status_id"]))  {
+        if (!empty($values["operation_code"])) {
+            $values["operation_id"] = -1;
+            foreach ($this->operations as $value) {
+                if ($values["operation_code"] == $value["operation_code"]) {
+                    $values["operation_id"] = $value["operation_id"];
+                }
+            }
+        }
+        if (empty($values["sample_status_id"])) {
             $values["sample_status_id"] = 1;
         }
-           if (empty($values["container_status_id"]))  {
+        if (empty($values["container_status_id"])) {
             $values["container_status_id"] = 1;
-        } 
+        }
         return $values;
     }
 
@@ -796,7 +771,7 @@ class ImportObject
      * @param array $container_type
      * @param array $container_status
      */
-    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent, $campaign)
+    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent, $campaign, $operation)
     {
         $this->collection = $collection;
         $this->sample_type = $sample_type;
@@ -805,6 +780,7 @@ class ImportObject
         $this->sampling_place = $sampling_place;
         $this->referents = $referent;
         $this->campaign = $campaign;
+        $this->operations = $operation;
     }
 
     /**
@@ -975,6 +951,13 @@ class ImportObject
                 }
             }
             /**
+             * control of operation
+             */
+            if ($data["operation_id"] == -1) {
+                $retour["code"] = false;
+                $retour["message"] .= _("Le code de l'opération n'est pas connu.");
+            }
+            /**
              * Control of parent
              */
             if ($mode == "import") {
@@ -989,11 +972,10 @@ class ImportObject
             /**
              * Control of composite
              */
-            if ((!empty($data["composite_parents_identifier"])||!empty($data["composite_parents_uid"])) && empty($data["composite_multiple_value"]))
-                {
-                    $retour["code"] = false;
-                    $retour["message"] .= _("Pour pouvoir créer des échantillons composés, la colonne composite_multiple_value doit être renseignée.");
-                }
+            if ((!empty($data["composite_parents_identifier"]) || !empty($data["composite_parents_uid"])) && empty($data["composite_multiple_value"])) {
+                $retour["code"] = false;
+                $retour["message"] .= _("Pour pouvoir créer des échantillons composés, la colonne composite_multiple_value doit être renseignée.");
+            }
             /**
              * Verification des dates
              */

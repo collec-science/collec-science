@@ -20,14 +20,20 @@
 </script>
 <div class="container">
     <h2>{t}Campagnes de prélèvement{/t}</h2>
-    <div class="row">
+    <div class="row d-flex">
         {if $rights.param == 1}
-        <a href="campaignChange?campaign_id=0">
+        <div class="col-auto">
+             <a href="campaignChange?campaign_id=0">
             <img src="display/images/new.png" height="25">
             {t}Nouveau...{/t}
         </a>
+        </div>
         {/if}
-        {$help}
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
+    <div class="row">
         <table id="campaignList" class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>

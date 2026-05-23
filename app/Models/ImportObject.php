@@ -100,36 +100,29 @@ class ImportObject
 
     public $nbTreated = 0;
 
-    private array $collection, $sample_type, $container_type, $object_status, $sampling_place, $referents, $operations;
+    private array $collections,
+        $sampleTypes,
+        $containerTypes,
+        $objectStatuss,
+        $samplingPlaces,
+        $referents,
+        $operations,
+        $campaigns;
     private Campaign $campaign;
     private Country $country;
     private IdentifierType $identifierType;
     private SampleType $sampleType;
     private ObjectIdentifier $objectIdentifier;
-
-    /**
-     *
-     * @var Sample
-     */
     private Sample $sample;
-
-    /**
-     *
-     * @var Container
-     */
     private Container $container;
-    /**
-     * @var ObjectClass
-     */
     private ObjectClass $object;
-
-    /**
-     *
-     * @var Movement
-     */
     private Movement $movement;
-
     private Subsample $subSample;
+    private ContainerType $containerType;
+    private ObjectStatus $objectStatus;
+    private SamplingPlace $samplingPlace;
+    private Referent $referent;
+    private Operation $operation;
 
     private $initIdentifiers = false;
 
@@ -139,7 +132,6 @@ class ImportObject
 
     public int $minuid, $maxuid;
     public $onlyCollectionSearch = 1;
-    private const UTF8_BOM = "\xEF\xBB\xBF";
 
     /**
      * Initialise la lecture du fichier, et lit la ligne d'entete
@@ -197,15 +189,8 @@ class ImportObject
             throw new PpciException(sprintf(_("Le fichier %s n'a pas été trouvé ou n'est pas lisible"), $filename));
         }
     }
-    function initAllClasses()
+    function init()
     {
-        /* $classes = array("sample", "container", "movement", "samplingPlace", "identifierType", "sampleType", "referent", "campaign", "country", "objectIdentifier");
-        foreach ($classes as $classe) {
-            if (!isset($this->$classe)) {
-                $className = ucfirst($classe);
-                $this->$classe = new $className;
-            }
-        } */
         $this->sample = new Sample;
         $this->container = new Container;
         $this->movement = new Movement;
@@ -216,9 +201,20 @@ class ImportObject
         $this->objectIdentifier = new ObjectIdentifier;
         $this->subSample = new Subsample;
         $this->object = new ObjectClass;
+        $this->containerType = new ContainerType;
+        $this->objectStatus = new ObjectStatus;
+        $this->samplingPlace = new SamplingPlace;
+        $this->referent = new Referent;
+        $this->operation = new Operation;
+        $this->collections = $_SESSION["collections"];
+        $this->sampleTypes = $this->sampleType->getList();
+        $this->containerTypes = $this->containerType->getList();
+        $this->objectStatuss = $this->objectStatus->getList();
+        $this->samplingPlaces = $this->samplingPlace->getList();
+        $this->referents = $this->referent->getListe();
+        $this->campaigns = $this->campaign->getListe();
+        $this->operations = $this->operation->getList();
     }
-
-
     /**
      * Fonction d'initialisation d'une instance de classe
      * pour utilisation dans les scripts
@@ -266,7 +262,7 @@ class ImportObject
     /**
      * Lance l'import des lignes
      *
-     * @throws ImportObjectException
+     * @throws PpciException
      *
      * @return void
      */
@@ -290,15 +286,11 @@ class ImportObject
             /**
              * Preparation du tableau
              */
+            /**
+             * @var array(string)
+             */
             $values = $this->prepareLine($data);
             $num++;
-            /**
-             * Controle de la ligne
-             */
-            $resControle = $this->controlLine($values, "import");
-            if (!$resControle["code"]) {
-                throw new PpciException("Line $num : " . $resControle["message"]);
-            }
             /**
              * Mise a defaut des champs obligatoires non renseignes
              */
@@ -332,6 +324,9 @@ class ImportObject
                 }
                 if (!empty($values["sample_comment"])) {
                     $dataSample["object_comment"] = $values["sample_comment"];
+                }
+                if (!empty($values["operation_id"])) {
+                    $dataSample["operation_id"] = $values["operation_id"];
                 }
                 /**
                  * Traitement des dates - mise au format de base de donnees avant importation
@@ -627,6 +622,9 @@ class ImportObject
     function prepareLine($data)
     {
         $nb = count($data);
+        /**
+         * @var array(string)
+         */
         $values = array();
         for ($i = 0; $i < $nb; $i++) {
             $values[$this->fileColumn[$i]] = $data[$i];
@@ -652,7 +650,7 @@ class ImportObject
          */
         if (!empty($values["collection_name"])) {
             $values["collection_id"] = -1;
-            foreach ($this->collection as $value) {
+            foreach ($this->collections as $value) {
                 if ($values["collection_name"] == $value["collection_name"]) {
                     $values["collection_id"] = $value["collection_id"];
                     break;
@@ -661,7 +659,7 @@ class ImportObject
         }
         if (!empty($values["container_collection_name"])) {
             $values["container_collection_id"] = -1;
-            foreach ($this->collection as $value) {
+            foreach ($this->collections as $value) {
                 if ($values["container_collection_name"] == $value["collection_name"]) {
                     $values["container_collection_id"] = $value["collection_id"];
                     break;
@@ -685,7 +683,7 @@ class ImportObject
         }
         if (!empty($values["container_type_name"])) {
             $values["container_type_id"] = -1;
-            foreach ($this->container_type as $value) {
+            foreach ($this->containerTypes as $value) {
                 if ($values["container_type_name"] == $value["container_type_name"]) {
                     $values["container_type_id"] = $value["container_type_id"];
                     break;
@@ -694,7 +692,7 @@ class ImportObject
         }
         if (!empty($values["sample_type_code"])) {
             $values["sample_type_id"] = -1;
-            foreach ($this->sample_type as $value) {
+            foreach ($this->sampleTypes as $value) {
                 if ($values["sample_type_code"] == $value["sample_type_code"]) {
                     $values["sample_type_id"] = $value["sample_type_id"];
                     break;
@@ -703,7 +701,7 @@ class ImportObject
         }
         if (!($values["sample_type_id"] > -1) && !empty($values["sample_type_name"])) {
             $values["sample_type_id"] = -1;
-            foreach ($this->sample_type as $value) {
+            foreach ($this->sampleTypes as $value) {
                 if ($values["sample_type_name"] == $value["sample_type_name"]) {
                     $values["sample_type_id"] = $value["sample_type_id"];
                     break;
@@ -712,7 +710,7 @@ class ImportObject
         }
         if (!empty($values["campaign_name"])) {
             $values["campaign_id"] = -1;
-            foreach ($this->campaign as $value) {
+            foreach ($this->campaigns as $value) {
                 if ($values["campaign_name"] == $value["campaign_name"] || $values["campaign_uuid"] == $value["uuid"]) {
                     $values["campaign_id"] = $value["campaign_id"];
                     break;
@@ -730,7 +728,7 @@ class ImportObject
         }
         if (!empty($values["sample_status_name"])) {
             $values["sample_status_id"] = -1;
-            foreach ($this->object_status as $value) {
+            foreach ($this->objectStatuss as $value) {
                 if ($values["sample_status_name"] == $value["object_status_name"]) {
                     $values["sample_status_id"] = $value["object_status_id"];
                     break;
@@ -739,7 +737,7 @@ class ImportObject
         }
         if (!empty($values["container_status_name"])) {
             $values["container_status_id"] = -1;
-            foreach ($this->object_status as $value) {
+            foreach ($this->objectStatuss as $value) {
                 if ($values["container_status_name"] == $value["object_status_name"]) {
                     $values["container_status_id"] = $value["object_status_id"];
                     break;
@@ -763,25 +761,6 @@ class ImportObject
         return $values;
     }
 
-    /**
-     * Initialise les tableaux pour traiter les controles
-     *
-     * @param array $collection
-     * @param array $sample_type
-     * @param array $container_type
-     * @param array $container_status
-     */
-    function initControl($collection, $sample_type, $container_type, $object_status, $sampling_place, $referent, $campaign, $operation)
-    {
-        $this->collection = $collection;
-        $this->sample_type = $sample_type;
-        $this->container_type = $container_type;
-        $this->object_status = $object_status;
-        $this->sampling_place = $sampling_place;
-        $this->referents = $referent;
-        $this->campaign = $campaign;
-        $this->operations = $operation;
-    }
 
     /**
      * Declenche le controle pour toutes les lignes
@@ -834,7 +813,7 @@ class ImportObject
                 $retour["code"] = false;
                 $retour["message"] .= _("Le numéro de la collection n'a pas été correctement renseigné dans la colonne collection_id. ");
             } else {
-                foreach ($this->collection as $value) {
+                foreach ($this->collections as $value) {
                     if ($data["collection_id"] == $value["collection_id"]) {
                         $ok = true;
                         break;
@@ -857,7 +836,7 @@ class ImportObject
              * Verification du type d'echantillon
              */
             $ok = false;
-            foreach ($this->sample_type as $value) {
+            foreach ($this->sampleTypes as $value) {
                 if ($data["sample_type_id"] == $value["sample_type_id"]) {
                     $ok = true;
                     break;
@@ -873,7 +852,7 @@ class ImportObject
              */
             $ok = false;
             if (!empty($data["sample_status_id"])) {
-                foreach ($this->object_status as $value) {
+                foreach ($this->objectStatuss as $value) {
                     if ($data["sample_status_id"] == $value["object_status_id"]) {
                         $ok = true;
                         break;
@@ -889,7 +868,7 @@ class ImportObject
              */
             $ok = false;
             if (!empty($data["sampling_place_id"])) {
-                foreach ($this->sampling_place as $value) {
+                foreach ($this->samplingPlaces as $value) {
                     if ($data["sampling_place_id"] == $value["sampling_place_id"]) {
                         $ok = true;
                         break;
@@ -938,8 +917,9 @@ class ImportObject
             /**
              * Control of the campaign
              */
+            $ok = false;
             if (!empty($data["campaign_id"])) {
-                foreach ($this->campaign as $value) {
+                foreach ($this->campaigns as $value) {
                     if ($data["campaign_id"] == $value["campaign_id"]) {
                         $ok = true;
                         break;
@@ -1073,7 +1053,7 @@ class ImportObject
              * Verification du type de container
              */
             $ok = false;
-            foreach ($this->container_type as $value) {
+            foreach ($this->containerTypes as $value) {
                 if ($data["container_type_id"] == $value["container_type_id"]) {
                     $ok = true;
                     break;
@@ -1089,7 +1069,7 @@ class ImportObject
             }
             if (!empty($data["container_collection_id"])) {
                 $ok = false;
-                foreach ($this->collection as $value) {
+                foreach ($this->collections as $value) {
                     if ($data["container_collection_id"] == $value["collection_id"]) {
                         $ok = true;
                         break;
@@ -1105,7 +1085,7 @@ class ImportObject
              */
             if (!empty($data["container_status_id"])) {
                 $ok = false;
-                foreach ($this->object_status as $value) {
+                foreach ($this->objectStatuss as $value) {
                     if ($data["container_status_id"] == $value["object_status_id"]) {
                         $ok = true;
                         break;

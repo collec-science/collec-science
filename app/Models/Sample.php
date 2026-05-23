@@ -203,8 +203,8 @@ class Sample extends PpciModel
     /**
      * Get the id of the sample from the identifier
      *
-     * @param [type] $identifier
-     * @return void
+     * @param string $identifier
+     * @param int $collection_id
      */
     public function getIdFromIdentifier(string $identifier, int $collection_id = 0)
     {
@@ -1212,8 +1212,8 @@ class Sample extends PpciModel
      * Fonction d'ecriture dans le cadre d'un import externe
      *
      * @param array $data
-     * @throws SampleException
-     * @return number
+     * @throws PpciException
+     * @return int
      */
     public function writeImport($data)
     {

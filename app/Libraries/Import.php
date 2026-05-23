@@ -60,17 +60,7 @@ class Import extends PpciLibrary
         $this->referent = new Referent();
         $this->campaign = new Campaign();
         $this->operation = new Operation;
-        $this->import->initAllClasses();
-        $this->import->initControl(
-            $_SESSION["collections"],
-            $this->sampleType->getList(),
-            $this->containerType->getList(),
-            $this->objectStatus->getList(),
-            $this->samplingPlace->getList(),
-            $this->referent->getListe(),
-            $this->campaign->getListe(),
-            $this->operation->getList()
-        );
+        $this->import->init();
         /*
         * Traitement
         */
@@ -208,6 +198,7 @@ class Import extends PpciLibrary
                 $data = $importFile->getContentAsArray();
             } catch (PpciException $ie) {
                 $this->message->set($ie->getMessage(), true);
+                return false;
             }
 
             /*

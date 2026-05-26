@@ -332,7 +332,7 @@
 								if (d.campaign_id > 0) {
 									content += "<br>{t}Campagne :{/t} " + encodeHtml(d.campaign_name);
 								}
-								if (d.operation_name.length > 0) {
+								if (d.operation_name) {
 									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " " + encodeHtml(d.protocol_name) + " " + encodeHtml(d.operation_name) + " " + encodeHtml(d.operation_version);
 								}
 								content += "<br>{t}Statut :{/t} " + encodeHtml(d.object_status_name);

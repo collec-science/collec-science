@@ -758,7 +758,10 @@ class Sample extends PpciLibrary
                             "uuid",
                             "country_code",
                             "country_origin_code",
-                            "comment"
+                            "comment",
+                            "protocol_name",
+                            "operation_name",
+                            "operation_code"
                         );
                         $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                         $data = $import->getContentAsArray();
@@ -768,6 +771,7 @@ class Sample extends PpciLibrary
                          * Verification si l'import peut etre realise
                          */
                         $line = 1;
+                        $module_coderetour = 0;
                         foreach ($data as $row) {
                             if (count($row) > 0) {
                                 try {

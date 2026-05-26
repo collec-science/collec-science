@@ -947,6 +947,7 @@ class Sample extends PpciModel
             case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
             ,o.uuid
             ,ctry.country_code2 as country_code, ctryo.country_code2 as country_origin_code
+            ,protocol_name, operation_name, operation_code
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -959,6 +960,8 @@ class Sample extends PpciModel
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
             left outer join country ctryo on (sample.country_origin_id = ctryo.country_id)
+            left outer join operation using (operation_id)
+            left outer join protocol using (protocol_id)
             where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->autoFormatDate = false;
@@ -1063,7 +1066,8 @@ class Sample extends PpciModel
             "collection_name",
             "sample_type_name",
             "referent_name",
-            "campaign_name"
+            "campaign_name",
+            "operation_code"
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {

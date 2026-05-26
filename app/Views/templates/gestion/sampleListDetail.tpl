@@ -301,7 +301,6 @@
 			if (uid > 0) {
 				var url = "sampleDetail";
 				var data = { "uid": uid };
-				console.log(data);
 				$.ajax({ url: url, data: data })
 					.done(function (d) {
 						if (d) {
@@ -333,7 +332,7 @@
 								if (d.campaign_id > 0) {
 									content += "<br>{t}Campagne :{/t} " + encodeHtml(d.campaign_name);
 								}
-								if (d.operation_id > 0) {
+								if (d.operation_name.length > 0) {
 									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " " + encodeHtml(d.protocol_name) + " " + encodeHtml(d.operation_name) + " " + encodeHtml(d.operation_version);
 								}
 								content += "<br>{t}Statut :{/t} " + encodeHtml(d.object_status_name);
@@ -1266,23 +1265,25 @@
 
 						function getSampletypeComposite() {
 							var collection_id = $("#collection_idComposite").val();
-							$.ajax({
-								url: "sampleTypeGetListAjax",
-								data: { "collection_id": collection_id }
-							})
-								.done(function (value) {
-									d = JSON.parse(value);
-									var options = '';
-									for (var i = 0; i < d.length; i++) {
-										options += '<option value="' + d[i].sample_type_id + '"';
-										options += '>' + d[i].sample_type_name;
-										if (d[i].multiple_type_id > 0) {
-											options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
-										}
-										options += '</option>';
-									};
-									$("#sample_type_idComposite").html(options);
-								});
+							if (collection_id > 0) {
+								$.ajax({
+									url: "sampleTypeGetListAjax",
+									data: { "collection_id": collection_id }
+								})
+									.done(function (value) {
+										d = JSON.parse(value);
+										var options = '';
+										for (var i = 0; i < d.length; i++) {
+											options += '<option value="' + d[i].sample_type_id + '"';
+											options += '>' + d[i].sample_type_name;
+											if (d[i].multiple_type_id > 0) {
+												options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+											}
+											options += '</option>';
+										};
+										$("#sample_type_idComposite").html(options);
+									});
+							}
 						}
 						function searchSampleComposite() {
 							var uid = $("#uidsearchComposite").val();

@@ -16,6 +16,7 @@ class Samplews
     public Campaign $campaign;
     public Referent $referent;
     public SampleType $sampleType;
+    public Operation $operation;
     public $result;
 
     /**
@@ -37,6 +38,7 @@ class Samplews
         $this->campaign = new Campaign;
         $this->referent = new Referent;
         $this->sampleType = new SampleType;
+        $this->operation = new Operation;
 
         /**
          * set the locale, if not exists
@@ -166,6 +168,18 @@ class Samplews
             }
         }
         /**
+         * Search for operation_id
+         */
+        if (!empty($dataSent["operation_code"])) {
+            unset($dataSent["operation_id"]);
+            $operation_id = $this->operation->getIdFromCode($dataSent["operation_code"]);
+            if ($operation_id > 0) {
+                $dataSent["operation_id"] = $operation_id;
+            } else {
+                throw new PpciException(_("Le code de l'opération est inconnu"), 400);
+            }
+        }
+        /**
          * metadata
          */
         $metadataTemplate = $this->sampleType->getMetadataAsArray($dataSent["sample_type_id"]);
@@ -273,7 +287,8 @@ class Samplews
                 "location_accuracy" => $dataSent["location_accuracy"],
                 "object_comment" => $dataSent["object_comment"],
                 "collection_id" => $collection_id,
-                "dbuid_origin" => $dataSent["dbuid_origin"]
+                "dbuid_origin" => $dataSent["dbuid_origin"],
+                "operation_id" => $dataSent["operation_id"]
             );
             if (empty($data["collection_id"])) {
                 throw new PpciException(_("La collection n'a pas été fournie ou n'est pas autorisée"), 403);

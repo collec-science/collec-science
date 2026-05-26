@@ -106,4 +106,19 @@ class Operation extends PpciModel
         $this->autoFormatDate = false;
         return parent::write($data);
     }
+    
+    /**
+     * Method getIdFromCode
+     * 
+     * get the operationId from operationCode
+     *
+     * @param string $code 
+     *
+     * @return int|null
+     */
+    function getIdFromCode (string $code) {
+        $sql = "SELECT operation_id from operation where operation_code = :code:";
+        $res = $this->readParam($sql, ["code"=>$code]);
+        return $res["operation_id"];
+    }
 }

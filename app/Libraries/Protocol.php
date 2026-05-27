@@ -32,6 +32,7 @@ class Protocol extends PpciLibrary
 
         $this->vue->set($this->dataclass->getListe(), "data");
         $this->vue->set("param/protocolList.tpl", "corps");
+        $this->vue->help(_("parametres/les-protocoles-de-collecte.html"));
         return $this->vue->send();
     }
     function change()

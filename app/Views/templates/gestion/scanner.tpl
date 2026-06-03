@@ -36,6 +36,11 @@
                 </button>
             </div>
         </div>
-        <span id="cam-qr-result" hidden></span>
+        <input type="hidden" id="cam-qr-result">
+        <input type="hidden" id="cam-qr-error">
     </div>
 </div>
+<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
+<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
+<link rel="stylesheet" href="display/CSS/qr-scanner.css">
+<script src="display/javascript/qr-scanner.js"></script>

@@ -1,15 +1,18 @@
 
+    /*
+     * element cam-qr-result contains the qrcode value
+    * It must be triggered on change to extract the value     
+    */
     var snd = new Audio("display/images/sound.ogg");
-    var destination = "object";
     var hasFoundCamera = false;
-
     const video = document.getElementById('qr-video');
-    const videoContainer = document.getElementById('video-container');
+    const videoContainer = document.getElementById('video-container-reader');
     const camHasCamera = document.getElementById('cam-has-camera');
     const camList = document.getElementById('cam-list');
     const camHasFlash = document.getElementById('cam-has-flash');
     const flashToggle = document.getElementById('flash-toggle');
     const flashState = document.getElementById('flash-state');
+    const camQrError = document.getElementById('cam-qr-error');
     const camQrResult = document.getElementById('cam-qr-result');
 
     function searchCamera() {
@@ -23,17 +26,23 @@
             hasFoundCamera = true;
         }
     }
-    //$("#video-container").width($(document).width());
+    function setResult(field, result) {
+        field.value = result.data.trim();
+        scanner.stop();
+        var event = new Event('change');
+        field.dispatchEvent(event);
+    }
 
     // ####### Web Cam Scanning #######
     var videosize = Math.min(window.screen.height, window.screen.width);
-    $("#video-container-reader").width(videosize);
-    $("#video-container-reader").height(videosize);
+    videoContainer.style.width = videosize;
+    videoContainer.style.height = videosize;
+    video.style.width = videosize;
+    video.style.height = videosize;
 
     const scanner = new QrScanner(video, result => setResult(camQrResult, result), {
         onDecodeError: error => {
-            camQrResult.textContent = error;
-            camQrResult.style.color = 'inherit';
+            camQrError.textContent = error;
         },
         highlightScanRegion: true,
         highlightCodeOutline: true,

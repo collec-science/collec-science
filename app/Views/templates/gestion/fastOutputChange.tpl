@@ -1,12 +1,14 @@
 <script>
+	var destination = "object";
+</script>
+{include file="gestion/qrcode_read.tpl"}
+<script>
 	$(document).ready(function () {
-		var destination = "object_search";
-		function setResult(label, result) {
-			$("#" + destination).val(result.data);
-			snd.play();
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
+			$("#" + destination).val(value);
 			$("#" + destination).change();
-			scanner.stop();
-		}
+		});
 		$('#start2').click(function () {
 			$("#video-container").show();
 			scanner.start().then(() => {
@@ -21,7 +23,7 @@
 		});
 	});
 </script>
-{include file="gestion/qrcode_read.tpl"}
+
 <div class="container">
 	<h2>{t}Sortir du stock{/t}</h2>
 
@@ -117,7 +119,3 @@
 		</fieldset>
 	</div>
 </div>
-<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
-<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
-<link rel="stylesheet" href="display/CSS/qr-scanner.css">
-<script src="display/javascript/qr-scanner.js"></script>

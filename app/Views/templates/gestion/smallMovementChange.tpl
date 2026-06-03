@@ -7,12 +7,11 @@
 		var timer_duration = 500;
 		var db = "{$db}";
 
-		function setResult(label, result) {
-			$("#" + destination).val(result.data);
-			snd.play();
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
+			$("#" + destination).val(value);
 			$("#" + destination).change();
-			scanner.stop();
-		}
+		});
 		/*
 		 * Traitement des recherches
 		 */
@@ -339,11 +338,11 @@
 			</div>
 			<div class="col-2 ">{t}Colonne :{/t}</div>
 			<div class="col-4 ">
-				<input id="col" name="column_number" value="1" class="form-control ">
+				<input id="column_number" name="column_number" value="1" class="form-control ">
 			</div>
 			<div class="col-2 ">{t}Ligne:{/t}</div>
 			<div class="col-4">
-				<input id="line" name="line_number" value="1" class="form-control ">
+				<input id="line_number" name="line_number" value="1" class="form-control ">
 			</div>
 		</div>
 
@@ -399,7 +398,3 @@
 		{include file="gestion/scanner.tpl"}
 	</fieldset>
 </div>
-<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
-<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
-<link rel="stylesheet" href="display/CSS/qr-scanner.css">
-<script src="display/javascript/qr-scanner.js"></script>

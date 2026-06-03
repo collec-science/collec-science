@@ -543,7 +543,3 @@
 	</div>
 	{/if}
 </div>
-<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
-<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
-<link rel="stylesheet" href="display/CSS/qr-scanner.css">
-<script src="display/javascript/qr-scanner.js"></script>

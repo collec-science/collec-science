@@ -1,14 +1,5 @@
-<!--
-<script src="display/javascript/adapter.js"></script>
-<script
-	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script src="display/javascript/html5-qrcode.eq.js"></script>
- -->
-<script src="display/javascript/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 	$(document).ready(function () {
-		'use strict';
-		var destination = "object";
 		var db = "{$db}";
 		function getDetail(uid, champ) {
 			/*
@@ -69,10 +60,10 @@
 		$("#object_search").click(function () {
 			getDetail($("#object_uid").val(), "object");
 		});
-		$("#valeur-scan").change(function () {
-			var value = $(this).val()
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
 			if (value.length > 0) {
-				readChange();
+				readChange(value);
 			}
 		});
 		/*
@@ -80,12 +71,12 @@
 		 */
 		var is_read = false;
 		var snd = new Audio("/display/images/sound.ogg");
-		function readChange() {
+		function readChange(rawvalue) {
 			/*
 			 * Lit le contenu de la zone, et declenche la recherche
 			 */
 			snd.play();
-			var valeur = $("#valeur-scan").val().trim();
+			var valeur = rawvalue.trim();
 			if (valeur.substring(0, 3) == "]C1") {
 				valeur = valeur.substring(3);
 			}
@@ -114,7 +105,7 @@
 			/*valeur = valeur.replace("[", String.fromCharCode(123));
 			valeur = valeur.replace ("]", String.fromCharCode(125));*/
 			var data = JSON.parse(valeur);
-			if (data["db"] == db) {
+			if (!data["db"] || data["db"] == db) {
 				return data["uid"];
 			} else {
 				return data["db"] + ":" + data["uid"];
@@ -148,6 +139,12 @@
 			}
 			return value;
 		}
+		$("#valeur-scan").change(function () {
+			var value = $(this).val()
+			if (value.length > 0) {
+				readChange(value);
+			}
+		});
 		$('#destContainer').click(function () {
 			destination = "container";
 			showArrow("container");

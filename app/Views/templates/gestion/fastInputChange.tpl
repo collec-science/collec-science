@@ -1,5 +1,8 @@
 <!-- Ajout rapide d'un échantillon dans un container -->
-
+ <script>
+	var destination = "object";
+ </script>
+{include file="gestion/qrcode_read.tpl"}
 <script>
 	$(document).ready(function () {
 		$(".slotFull").change(function () {
@@ -31,7 +34,7 @@
 			$("#arrow-container").show();
 			$("#arrow-object").hide();
 			$("#video-container").show();
-			destination = "container_search";
+			destination = "container";
 			scanner.start().then(() => {
 				updateFlashAvailability();
 				searchCamera();
@@ -39,7 +42,7 @@
 
 		});
 		$('#start2').click(function () {
-			destination = "object_search";
+			destination = "object";
 			$("#video-container").show();
 			$("#arrow-object").show();
 			$("#arrow-container").hide();
@@ -58,9 +61,55 @@
 		if (cuid.length > 0) {
 			getDetail(cuid, "container");
 		}
+		function getDetail(uid, champ) {
+			/*
+			 * Retourne le detail d'un objet, par interrogation ajax
+			 */
+			if (uid.length > 0) {
+				var url = "objectGetDetail";
+				var chaine;
+				var is_container = 0;
+				if (champ == "container") {
+					is_container = 1;
+				}
+
+				$.ajax({
+					url: url, method: "GET", data: { uid: uid, is_container: is_container }, success: function (djs) {
+						var data = JSON.parse(djs);
+						if (data.length > 0) {
+							if (!isNaN(data[0].uid)) {
+								var id = "", type = "";
+								if (data[0].identifier) {
+									id = data[0].identifier;
+								}
+								if (data[0].type_name) {
+									type = " (" + data[0].type_name + ")";
+								}
+								chaine = id + type;
+								$("#" + champ + "_uid").val(data[0].uid);
+								$("#" + champ + "_detail").val(chaine);
+							} else {
+								$("#" + champ + "_uid").val("");
+								$("#" + champ + "_detail").val("");
+							}
+						} else {
+							/*
+							 * vidage des champs
+							 */
+							$("#" + champ + "_uid").val("");
+							$("#" + champ + "_detail").val("");
+						}
+						/*
+						 * Reinitialisation de la zone de lecture
+						 */
+						$("#valeur-scan").val("");
+					}
+				});
+			}
+		}
 	});
 </script>
-{include file="gestion/qrcode_read.tpl"}
+
 <div class="container">
 	<h2>{t}Entrer ou déplacer dans un contenant{/t}</h2>
 	<div class="row">
@@ -202,8 +251,3 @@
 		{include file="gestion/scanner.tpl"}
 	</fieldset>
 </div>
-
-<script src='display/node_modules/qr-scanner/qr-scanner.umd.min.js'></script>
-<!-- from : https://nimiq.github.io/qr-scanner/demo/ -->
-<link rel="stylesheet" href="display/CSS/qr-scanner.css">
-<script src="display/javascript/qr-scanner.js"></script>

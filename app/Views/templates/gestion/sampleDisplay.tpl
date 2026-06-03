@@ -14,13 +14,12 @@
 				return true;
 			}
 		}
-		function setResult(label, result) {
-			$("#search").val(getVal(result.data));
-			snd.play();
-			scanner.stop();
-			$("#video-container").hide();
-			$("#rapidAccessForm").submit();
-		}
+
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
+			$("#search").val(getVal(value));
+			$("#open").submit();
+		});
 
 		function extractUidValFromJson(valeur) {
 			/*
@@ -68,6 +67,7 @@
 		$("#qrcode").on("click", function () {
 			if (!is_scan) {
 				is_scan = true;
+				$("#rapidAccessForm").show();
 				$("#video-container").show();
 				scanner.start().then(() => {
 					updateFlashAvailability();
@@ -295,10 +295,8 @@
 			{/if}
 		</div>
 	</div>
-	{include file="gestion/scanner.tpl"}
 	<div id="rapidAccessForm" class="col-lg-6 col-md-8 col-xs-12 offset-md-2">
 		<form id="open" action="sampleDisplay" method="GET" class="form-horizontal">
-			<input id="moduleBase" type="hidden" name="moduleBase" value="container">
 			<div class="row align-items-center justify-content-center">
 				<div class="col-auto">
 					<label class="form-label" for="search">{t}uid ou identifiant :{/t}</label>
@@ -316,6 +314,7 @@
 	<script>
 		$("#rapidAccessForm").hide();
 	</script>
+	{include file="gestion/scanner.tpl"}
 	{if $data.uid > 0}
 	<h2>
 		{t}Détail de l'échantillon{/t} <i>{$data.uid} {$data.identifier}</i>

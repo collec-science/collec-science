@@ -16,13 +16,11 @@
 		var timer_duration = 500;
 		var destination = "object";
 
-		function setResult(label, result) {
-			$("#search").val(getVal(result.data));
-			snd.play();
-			scanner.stop();
-			$("#video-container").hide();
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
+			$("#search").val(getVal(value));
 			$("#open").submit();
-		}
+		});
 
 		function extractUidValFromJson(valeur) {
 			/*
@@ -67,6 +65,7 @@
 		$("#qrcode").on("click", function () {
 			if (!is_scan) {
 				is_scan = true;
+				$("#rapidAccessForm").show();
 				$("#video-container").show();
 				scanner.start().then(() => {
 					updateFlashAvailability();
@@ -272,7 +271,7 @@
 			</a>
 		</div>
 	</div>
-	{include file="gestion/scanner.tpl"}
+
 
 	<div class="row">
 
@@ -298,7 +297,7 @@
 				{$csrf}
 			</form>
 		</div>
-
+		{include file="gestion/scanner.tpl"}
 		{if $data.uid > 0}
 		<!-- Boite d'onglets -->
 		<ul class="nav nav-tabs" id="myTab" role="tablist">

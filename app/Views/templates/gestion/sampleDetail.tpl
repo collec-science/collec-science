@@ -164,6 +164,16 @@
                 </dd>
             </dl>
             {/if}
+            {if !empty($histoParents)}
+            <dl class="dl-horizontal">
+                <dt>{t}Parent(s) d'origine (échantillon importé){/t}</dt>
+                <dd>
+                    {foreach $histoParents as $p}
+                    {$p.name} ({$p.comment}) - {t}Origine :{/t} {$p.dborigin}<br>
+                    {/foreach}
+                </dd>
+            </dl>
+            {/if}
             {if $data.no_localization != 't'}
             {if $data.campaign_id > 0}
             <dl class="dl-horizontal">

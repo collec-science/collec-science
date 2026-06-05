@@ -195,7 +195,8 @@ class Import extends PpciLibrary
                     "country_origin_code",
                     "protocol_name",
                     "operation_name",
-                    "operation_code"
+                    "operation_code",
+                    "history"
                 );
                 $importFile = new ModelsImport($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                 $data = $importFile->getContentAsArray();

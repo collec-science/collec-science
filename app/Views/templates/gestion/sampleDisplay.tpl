@@ -394,6 +394,27 @@
 				<fieldset>
 					<legend class="lexical" data-lexical="event_type">{t}Événements{/t}</legend>
 					{include file="gestion/eventList.tpl"}
+					{if !empty($histoEvents)}
+					<h3>{t}Événements survenus avant l'importation dans l'instance courante{/t}</h3>
+					<table class="table table-bordered table-hover datatable display" data-order='[[1,"asc"]]'>
+						<thead>
+							<th>{t}Instance d'origine{/t}</th>
+							<th>{t}Date{/t}</th>
+							<th>{t}Type{/t}</th>
+							<th>{t}Commentaire{/t}</th>
+						</thead>
+						<tbody>
+							{foreach $histoEvents as $e}
+							<tr>
+								<td>{$e.dborigin}</td>
+								<td>{$e.date}</td>
+								<td>{$e.name}</td>
+								<td>{$e.comment}</td>
+							</tr>
+							{/foreach}
+						</tbody>
+					</table>
+					{/if}
 				</fieldset>
 				<fieldset>
 					<legend>{t}Liste des prêts{/t}</legend>

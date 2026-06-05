@@ -21,78 +21,85 @@
 <div class="container">
     <h2>{t}Création - modification d'un événement{/t}</h2>
 
-    <div class="row">
-        <div class="col-6">
-            <a href="{$moduleParent}">
-                <img src="display/images/list.png" height="25">
-                {t}Retour à la liste{/t}
-            </a>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <a href="{$moduleListe}">
+            <img src="display/images/list.png" height="25">
+            {t}Retour à la liste{/t}
+        </a>
+        </div>
+        <div class="col-auto">
             <a href="{$moduleParent}Display?uid={$object.uid}&activeTab={$activeTab}">
-                <img src="display/images/edit.gif" height="25">
-                {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
-            </a>
-            <form class="form-horizontal" id="{$moduleParent}Form" method="post" action="{$moduleParent}eventWrite">
-                <input type="hidden" name="event_id" value="{$data.event_id}">
-                <input type="hidden" name="moduleBase" value="{$moduleParent}event">
-                <input type="hidden" name="uid" value="{$object.uid}">
-                <input type="hidden" name="activeTab" value="{$activeTab}">
-
-                <div class="row">
-                    <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
-                    <div class="col-8">
-                        <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <label for="container_status_id" class="form-label col-4"><span class="red">*</span>
-                        {t}Type d'évenement :{/t}
-                    </label>
-                    <div class="col-8">
-                        <select id="event_type_id" name="event_type_id" class="form-select">
-                            {section name=lst loop=$eventType}
-                            <option value="{$eventType[lst].event_type_id}" {if $eventType[lst].event_type_id==$data.event_type_id}selected{/if}>
-                                {$eventType[lst].event_type_name}
-                            </option>
-                            {/section}
-                        </select>
-                    </div>
-                </div>
-                {if $moduleParent == "sample"}
-                <div class="row">
-                    <label for="still_available" class="form-label col-4">{t}Reste disponible :{/t}</label>
-                    <div class="col-8">
-                        <input id="still_available" type="text" name="still_available" value="{$data.still_available}" class="form-control">
-                    </div>
-                </div>
-                {/if}
-
-                <div class="row">
-                    <label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
-                    <div class="col-8">
-                        <input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
-                    <div class="col-8">
-                        <textarea id="event_comment" name="event_comment" class="form-control" rows="3">{$data.event_comment}</textarea>
-                    </div>
-                </div>
-
-                <div class="row center">
-                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
-                    {if $data.event_id > 0 }
-                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
-                    {/if}
-                </div>
-                {$csrf}
-            </form>
+            <img src="display/images/edit.gif" height="25">
+            {t}Retour au détail{/t} ({$object.uid} {$object.identifier})
+        </a>
         </div>
     </div>
-</div>
-<div class="row d-inline">
-    <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+    <div class="row">
+        <form class="form-horizontal" id="{$moduleParent}Form" method="post" action="{$moduleParent}eventWrite">
+            <input type="hidden" name="event_id" value="{$data.event_id}">
+            <input type="hidden" name="moduleBase" value="{$moduleParent}event">
+            <input type="hidden" name="uid" value="{$object.uid}">
+            <input type="hidden" name="activeTab" value="{$activeTab}">
+
+            <div class="row">
+                <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
+                <div class="col-8">
+                    <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <label for="container_status_id" class="form-label col-4"><span class="red">*</span>
+                    {t}Type d'évenement :{/t}
+                </label>
+                <div class="col-8">
+                    <select id="event_type_id" name="event_type_id" class="form-select">
+                        {section name=lst loop=$eventType}
+                        <option value="{$eventType[lst].event_type_id}" {if $eventType[lst].event_type_id==$data.event_type_id}selected{/if}>
+                            {$eventType[lst].event_type_name}
+                        </option>
+                        {/section}
+                    </select>
+                </div>
+            </div>
+            {if $moduleParent == "sample"}
+            <div class="row">
+                <label for="still_available" class="form-label col-4">{t}Reste disponible :{/t}</label>
+                <div class="col-8">
+                    <input id="still_available" type="text" name="still_available" value="{$data.still_available}" class="form-control">
+                </div>
+            </div>
+            {/if}
+
+            <div class="row">
+                <label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
+                <div class="col-8">
+                    <input id="due_date" name="due_date" value="{$data.due_date}" class="form-control datepicker">
+                </div>
+            </div>
+
+            <div class="row">
+                <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+                <div class="col-8">
+                    <textarea id="event_comment" name="event_comment" class="form-control" rows="3">{$data.event_comment}</textarea>
+                </div>
+            </div>
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                </div>
+                {if $data.event_id > 0 }
+                <div class="col-auto">
+                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                </div>
+                {/if}
+            </div>
+            {$csrf}
+        </form>
+    </div>
 </div>

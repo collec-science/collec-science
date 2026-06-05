@@ -19,7 +19,7 @@ class Sample extends PpciModel
 					s.collection_id, collection_name, collection_description, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
-                    s.parent_sample_id,
+                    s.parent_sample_id, s.history,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,
           case when so.wgs84_x is not null then so.wgs84_x else sp.sampling_place_x end as wgs84_x,
@@ -159,7 +159,8 @@ class Sample extends PpciModel
             "campaign_id" => array("type" => 1),
             "country_id" => array("type" => 1),
             "country_origin_id" => array("type" => 1),
-            "operation_id" => ["type" => 1]
+            "operation_id" => ["type" => 1],
+            "history" => ["type" => 0]
         );
         parent::__construct();
     }
@@ -938,7 +939,7 @@ class Sample extends PpciModel
             throw new PpciException("Pas d'échantillons sélectionnés");
         } else {
             $this->autoFormatDate = false;
-            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
+            $sql = "select sample_id, o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
             , object_comment as comment,
             c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
             multiple_value, sampling_place_name, metadata::varchar,
@@ -948,6 +949,7 @@ class Sample extends PpciModel
             ,o.uuid
             ,ctry.country_code2 as country_code, ctryo.country_code2 as country_origin_code
             ,protocol_name, operation_name, operation_code
+            ,history
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -965,12 +967,16 @@ class Sample extends PpciModel
             where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->autoFormatDate = false;
+            $subsample = new Subsample;
+            $event = new Event;
+            $event->autoFormatDate = false;
             /*
              * genere le dbuid pour import dans base externe
              */
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
+                    $history = json_decode($value["history"], true);
                     if (empty($value["dbuid_origin"])) {
                         $value["dbuid_origin"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $value["uid"];
                     }
@@ -980,10 +986,28 @@ class Sample extends PpciModel
                     if ($value["parent_sample_id"] > 0) {
                         $dparent = $this->readFromId($value["parent_sample_id"]);
                         $value["dbuid_parent"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $dparent["uid"];
+                        /**
+                         * add to history
+                         */
+                        $history[] = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "parent",
+                            "name" => $dparent["identifier"],
+                            "comment" => $dparent["sample_type_name"]
+                        ];
                     }
-                    unset($value["parent_sample_id"]);
-                    unset($value["collection_id"]);
-                    unset($value["uid"]);
+                    /**
+                     * get multiple parents to history
+                     */
+                    $parents = $subsample->getParents($value["sample_id"]);
+                    foreach ($parents as $parent) {
+                        $history[] = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "parent",
+                            "name" => $parent["identifier"],
+                            "comment" => $parent["sample_type_name"]
+                        ];
+                    }
                     /*
                      * Traitement des metadonnees - ajout de colonnes prefixees avec md_
                      */
@@ -1010,9 +1034,35 @@ class Sample extends PpciModel
                     } else {
                         $value["metadata"] = "";
                     }
+                    /**
+                     * Generate history
+                     */
+                    /**
+                     * Add events
+                     */
+                    $events = $event->getEventsAcheviedFromUid($value["uid"]);
+                    foreach ($events as $devent) {
+                        $current = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "event",
+                            "name" => $devent["event_type_name"],
+                            "date" => $devent["event_date"]
+                        ];
+                        if (!empty($devent["event_comment"])) {
+                            $current["comment"] = $devent["event_comment"];
+                        }
+                        $history[] = $current;
+                    }
+                    if (!empty($history)) {
+                        $value["history"] = json_encode($history);
+                    }
                     /*
                      * Fin de traitement - rajout de la ligne reformatee
                      */
+                    unset($value["parent_sample_id"]);
+                    unset($value["collection_id"]);
+                    unset($value["uid"]);
+                    unset($value["sample_id"]);
                     $data[] = $value;
                 }
             }

@@ -1313,7 +1313,21 @@ class ImportObject
             if (count($metadata) > 0) {
                 $dataSample["metadata"] = json_encode($metadata);
             }
-
+            /**
+             * Treatment of history
+             */
+            if (!empty($row["history"])) {
+                $histories = json_decode($row["history"], true) ;
+                $realHisto = [];
+                foreach ($histories as $history) {
+                    if ($history["dborigin"] != $_SESSION["dbparams"]["APPLI_code"]) {
+                        $realHisto[] = $history;
+                    }
+                }
+                if (!empty($realHisto)) {
+                    $dataSample["history"] = json_encode($realHisto);
+                }
+            }
             /**
              * Declenchement de l'ecriture en base
              */

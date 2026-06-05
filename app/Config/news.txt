@@ -1,5 +1,18 @@
 Nouveautés
 ============
+Version v26.2.0b du 
+-----------------------------
+Corrections de bugs :
+- la suppression d'un item dans les modèles de métadonnées fonctionnait mal
+- lecture optique des qrcodes : corrections diverses et harmonisation du fonctionnement
+- dans les formulaires, l'information "donnée obligatoire" a été déplacée pour être plus lisible
+
+Nouveautés :
+- désactivation de l'affichage des imprimantes reliées directement au serveur si aucune n'a été déclarée ou si la fonction est désactivée
+- les opérations sont maintenant rattachées directement aux échantillons, et non aux types d'échantillons
+- lors de l'export vers une autre base, le ou les parents, ainsi que les événements, sont enregistrés dans la colonne history, ce qui permet de conserver l'information dans l'instance de destination
+
+
 Version v26.2.0a du 8/5/2026
 -----------------------------
 Nouveautés :

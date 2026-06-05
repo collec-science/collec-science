@@ -257,6 +257,24 @@ class Sample extends PpciLibrary
             if ($is_modifiable) {
                 $this->vue->set(1, "modifiable");
             }
+            /**
+             * Traitement de l'historique de l'échantillon
+             */
+            if (!empty($data["history"])) {
+                $parents = [];
+                $histoEvents = [];
+                $history = json_decode($data["history"], true);
+                foreach ($history as $h) {
+                    if ($h["type"] == "parent") {
+                        $parents[] = $h;
+                    }elseif ($h["type"] == "event") {
+                        $h["date"] = $this->dataclass->formatDateDBtoLocal($h["date"]);
+                        $histoEvents[] = $h;
+                    }
+                }
+                $this->vue->set($parents, "histoParents");
+                $this->vue->set($histoEvents, "histoEvents");
+            }
             $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
             /**
              *
@@ -761,7 +779,8 @@ class Sample extends PpciLibrary
                             "comment",
                             "protocol_name",
                             "operation_name",
-                            "operation_code"
+                            "operation_code",
+                            "history"
                         );
                         $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                         $data = $import->getContentAsArray();

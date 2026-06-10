@@ -361,6 +361,6 @@ class Rights extends RightsPpci
         "administration" => ["admin"],
         "importTemplateChange" => ["import"],
         "importTemplateGenerate" => ["import"],
-        "collectionsSendMail" => ["admin"]
+        "collectionsSendMail" => ["param"]
     ];
 }

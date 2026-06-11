@@ -731,11 +731,13 @@ class Sample extends PpciLibrary
         $this->vue->set($separator, "separator");
         isset($_REQUEST["utf8_encode"]) ? $encode = $_REQUEST["utf8_encode"] : $encode = 0;
         $this->vue->set($encode, "utf8_encode");
+        $this->vue->help(_("gestion/importer-des-échantillons-externes-ou-modifier-les-échantillons-avec-un-logiciel-tiers.html"));
         return $this->vue->send();
     }
     function importStage2()
     {
         $this->vue = service("Smarty");
+        $this->vue->help(_("gestion/importer-des-échantillons-externes-ou-modifier-les-échantillons-avec-un-logiciel-tiers.html"));
         unset($_SESSION["realfilename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             try {

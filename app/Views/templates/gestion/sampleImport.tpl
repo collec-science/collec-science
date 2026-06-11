@@ -20,6 +20,7 @@
 </script>
 <div class="container">
     <h2>{t}Import d'échantillons provenant d'une base externe à partir d'un fichier CSV{/t}</h2>
+    {$help}
 
     <div class="row ">
         <form class="form-horizontal" id="sampleStage1" method="post" action="sampleImportStage2" enctype="multipart/form-data">
@@ -164,6 +165,7 @@
                     <li><b>dbuid_parent</b> : {t escape=no}dans le cas d'un échantillon dérivé, identifiant du parent sous la forme code_base:identifiant. Cette valeur correspond à la valeur <i>dbuid_origin</i> de l'échantillon parent.{/t}
                         {t}Ce dernier doit avoir été importé préalablement pour que la relation puisse être créée{/t}
                     </li>
+                    <li><b>history</b> : {t escape=no}champ au format json qui contient l'historique de l'échantillon au moment de son importation (parents, événements). Consultez l'aide en ligne pour sa structure !{/t}</li>
                 </ul>
                 {t}Les champs obligatoires sont signalés par une étoile (*).{/t}
             </div>

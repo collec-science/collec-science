@@ -54,3 +54,5 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 ALTER TABLE col.operation add column operation_code varchar;
 COMMENT ON COLUMN col.operation.operation_code IS E'Code of operation, for importations';
 ALTER TABLE col.operation add constraint operation_code_unique UNIQUE (operation_code);
+
+insert into col.dbversion(dbversion_number, dbversion_date) values ('26.2', '2026-06-11');

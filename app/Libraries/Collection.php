@@ -133,7 +133,7 @@ class Collection extends PpciLibrary
      *
      * @return string
      */
-    function generateMails( $force = false)
+    function generateMails($force = false)
     {
         $dbparam = new Dbparam;
         $dbparam->readParams();
@@ -185,16 +185,20 @@ class Collection extends PpciLibrary
 
                     if (!empty($data["samples"]) || !empty($data["events"])) {
                         $data["collection_name"] = $col["collection_name"];
-
-                        $mail->SendMailSmarty(
-                            $col["notification_mails"],
-                            $_SESSION["dbparams"]["APP_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
-                            "param/collectionMail.tpl",
-                            $data,
-                            $_SESSION["locale"]
-                        );
-                        $sampleNumber += count($data["samples"]);
-                        $eventNumber += count($data["events"]);
+                        try {
+                            $mail->SendMailSmarty(
+                                $col["notification_mails"],
+                                $_SESSION["dbparams"]["APP_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
+                                "param/collectionMail.tpl",
+                                $data,
+                                $_SESSION["locale"]
+                            );
+                            $sampleNumber += count($data["samples"]);
+                            $eventNumber += count($data["events"]);
+                        } catch (\Exception $e) {
+                            log_message("error", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Error when send email");
+                            return _("Une erreur s'est produite lors de l'envoi des emails");
+                        }
                     }
                 }
                 /**

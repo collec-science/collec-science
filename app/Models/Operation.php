@@ -13,7 +13,7 @@ use Ppci\Models\PpciModel;
 class Operation extends PpciModel
 {
 
-    private $sql = "select operation_id, operation_name, operation_order,operation_version,last_edit_date,
+    private $sql = "select operation_id, operation_name, operation_order,operation_version,last_edit_date, operation_code,
 					protocol_id, protocol_name, protocol_year, protocol_version
 					from operation
 					join protocol using (protocol_id)";
@@ -53,7 +53,8 @@ class Operation extends PpciModel
             ),
             "last_edit_date" => array(
                 "type" => 3
-            )
+            ),
+            "operation_code" => ["type"=>1]
         );
         parent::__construct();
     }
@@ -77,8 +78,8 @@ class Operation extends PpciModel
     function getNbSample($operation_id)
     {
         if ($operation_id > 0) {
-            $sql = "select count(*) as nb from sample s, sample_type st 
-            where s.sample_type_id = st.sample_type_id and st.operation_id = :operation_id:";
+            $sql = "select count(*) as nb from sample s
+            where s.operation_id = :operation_id:";
             $data = $this->lireParamAsPrepared($sql, array(
                 "operation_id" => $operation_id
             ));
@@ -104,5 +105,20 @@ class Operation extends PpciModel
         $data["last_edit_date"] = date("Y-m-d H:i:s");
         $this->autoFormatDate = false;
         return parent::write($data);
+    }
+    
+    /**
+     * Method getIdFromCode
+     * 
+     * get the operationId from operationCode
+     *
+     * @param string $code 
+     *
+     * @return int|null
+     */
+    function getIdFromCode (string $code) {
+        $sql = "SELECT operation_id from operation where operation_code = :code:";
+        $res = $this->readParam($sql, ["code"=>$code]);
+        return $res["operation_id"];
     }
 }

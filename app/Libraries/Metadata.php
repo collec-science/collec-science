@@ -215,21 +215,14 @@ class Metadata extends PpciLibrary
     {
         $data = $this->dataclass->read($this->id);
         $metadata = json_decode($data["metadata_schema"], true);
-        $i = 0;
-        $isFound = false;
+        $new = [];
         foreach ($metadata as $field) {
-            if ($field["name"] == $_REQUEST["name"]) {
-                $isFound = true;
-                break;
-            } else {
-                $i++;
+            if ($field["name"] != $_REQUEST["name"]) {
+                $new[] = $field;
             }
         }
-        if ($isFound) {
-            unset($metadata[$i]);
-            $data["metadata_schema"] = json_encode($metadata);
-            $this->dataclass->write($data);
-        }
+        $data["metadata_schema"] = json_encode($new);
+        $this->dataclass->write($data);
     }
     function move()
     {
@@ -294,22 +287,23 @@ class Metadata extends PpciLibrary
         }
     }
 
-    function renameField() {
+    function renameField()
+    {
         if (!empty($_POST["oldName"]) && !empty($_POST["newName"])) {
             try {
-            $db = $this->dataclass->db;
-            $db->transBegin();
-            $this->dataclass->renameField($_POST["oldName"], $_POST["newName"]);
-            $sample = new Sample;
-            $sample->renameMetadataFieldGlobal($_POST["oldName"], $_POST["newName"]);
-            $db->transCommit();
-            $this->message->set(sprintf(_("Renommage du champ %1s en %2s terminé"), $_POST["oldName"], $_POST["newName"]));
-             } catch (PpciException $e) {
+                $db = $this->dataclass->db;
+                $db->transBegin();
+                $this->dataclass->renameField($_POST["oldName"], $_POST["newName"]);
+                $sample = new Sample;
+                $sample->renameMetadataFieldGlobal($_POST["oldName"], $_POST["newName"]);
+                $db->transCommit();
+                $this->message->set(sprintf(_("Renommage du champ %1s en %2s terminé"), $_POST["oldName"], $_POST["newName"]));
+            } catch (PpciException $e) {
                 $this->message->set(_("Une erreur est survenue pendant l'opération"), true);
                 $this->message->set($e->getMessage());
                 $this->message->setSyslog($e->getMessage());
                 return false;
-             }
+            }
         } else {
             $this->message->set(_("Le renommage n'est pas possible si un des deux noms n'est pas fourni"), true);
         }

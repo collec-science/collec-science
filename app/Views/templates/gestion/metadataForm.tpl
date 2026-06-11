@@ -11,14 +11,14 @@
              */
             var newDiv = document.createElement("div");
             newDiv.id = "div" + newId;
-            newDiv.classList.add("form-group");
+            newDiv.classList.add("row");
             metadata.appendChild(newDiv);
             /**
              * create label
              */
             var newLabel = document.createElement("label");
             newLabel.htmlFor = newId;
-            newLabel.classList.add("control-label", "col-md-4");
+            newLabel.classList.add("form-label", "col-4");
             var labelContent = field.name;
             if (field.measureUnit) {
                 labelContent += '&nbsp;(' + field.measureUnit + ')';
@@ -36,7 +36,7 @@
              * add secondary div for field
              */
             var divInput = document.createElement("div");
-            divInput.classList.add("col-md-8");
+            divInput.classList.add("col-8");
             newDiv.appendChild(divInput);
 
             /**

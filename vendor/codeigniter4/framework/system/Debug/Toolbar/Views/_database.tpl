@@ -7,7 +7,7 @@
     </thead>
     <tbody>
     {queries}
-        <tr class="{class}" title="{hover}" data-toggle="{qid}-trace">
+        <tr class="{class}" title="{hover}" data-bs-toggle="{qid}-trace">
             <td class="narrow">{duration}</td>
             <td>{! sql !}</td>
             <td class="debug-bar-alignRight"><strong>{trace-file}</strong></td>

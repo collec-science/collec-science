@@ -1,6 +1,9 @@
-<h2>{t}Liste des fichiers d'erreur{/t}</h2>
-<div class="col-md-8">
-    <table class="datatable-nopaging table table-bordered table-hover " data-order='[[0,"desc"]]'>
+<div class="container">
+    <div class="row">
+        <h2>{t}Liste des fichiers d'erreur{/t}</h2>
+    </div>
+    <div class="row">
+        <table class="datatable-nopaging table table-bordered table-hover " data-order='[[0,"desc"]]'>
         <thead>
             <tr>
                 <th>{t}Fichier{/t}</th>
@@ -20,4 +23,5 @@
             {/foreach}
         </tbody>
     </table>
+    </div>
 </div>

@@ -185,7 +185,7 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.1.1";
+    public string $version = "v26.2.0a";
     /**
      * Date of version
      *
@@ -231,7 +231,8 @@ class App extends BaseConfig
             "maskdatelong" => "d/m/Y H:i:s",
             "maskdate" => "d/m/Y",
             "maskdateexport" => 'd-m-Y'
-        ], "en" => [
+        ],
+        "en" => [
             "formatdate" => "DD/MM/YYYY",
             "formatdatetime" => "DD/MM/YYYY HH:mm:ss",
             "formatdatecourt" => "dd/mm/yy",
@@ -332,19 +333,23 @@ class App extends BaseConfig
      */
     public $docroot = "https://collec-science.github.io/userdocs";
     /**
+     * Enable direct print - 1 to enable it
+     */
+    public $sprint_direct_enabled = 0;
+    /**
      * Linux command used to print directly to a printer
      *
      * @var string
      */
     public $print_direct_command = "lpr";
-    
+
     /**
      * Fop program to generate labels
      *
      * @var string
      */
     public $fop = "/usr/bin/fop";
-    
+
     /**
      * Max duration of a session
      *

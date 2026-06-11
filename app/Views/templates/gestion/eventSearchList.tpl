@@ -224,16 +224,18 @@
                 event.preventDefault();
             }
         });
+        $(".eventsChange").hide();
+        $(".eventsDuplicate").hide();
     });
 </script>
-<div class="row">
-    <div class="col-md-12">
+<div class="container-fluid">
+    <div class="row">
         <form class="form-horizontal " id="eventSearch" action="eventSearch" method="GET">
             <input type="hidden" name="isSearch" value="1">
             <div class="row">
-                <label for="search_type" class="col-sm-2 control-label">{t}Recherche par :{/t}</label>
-                <div class="col-sm-2">
-                    <select class='form-control' name="search_type" id="search_type">
+                <label for="search_type" class="col-2 form-label">{t}Recherche par :{/t}</label>
+                <div class="col-2">
+                    <select class='form-select' name="search_type" id="search_type">
                         <option value="due_date" {if $eventSearch["search_type"]=="due_date" }selected{/if}>
                             {t}Date d'échéance{/t}
                         </option>
@@ -245,34 +247,32 @@
                         </option>
                     </select>
                 </div>
-                <label for="is_done" class="col-sm-2 control-label">{t}État de l'événement :{/t}</label>
-                <div class="col-sm-2">
-                    <select id="is_done" name="is_done" class="form-control">
+                <label for="is_done" class="col-2 form-label">{t}État de l'événement :{/t}</label>
+                <div class="col-2">
+                    <select id="is_done" name="is_done" class="form-select">
                         <option value="-1" {if $eventSearch["is_done"]==-1}selected{/if}>{t}non réalisé{/t}</option>
                         <option value="0" {if $eventSearch["is_done"]==0}selected{/if}>{t}indifférent{/t}</option>
                         <option value="1" {if $eventSearch["is_done"]==1}selected{/if}>{t}réalisé{/t}</option>
                     </select>
                 </div>
-                <label id="object_type_id_label" for="object_type_id" class="col-sm-2 control-label">
+                <label id="object_type_id_label" for="object_type_id" class="col-2 form-label">
                     {if $eventSearch.object_type == 1}
                     {t}Type d'échantillon :{/t}
                     {else}
                     {t}Type de contenant :{/t}
                     {/if}
                 </label>
-                <div class="col-sm-2">
-                    <select class="form-control" name="object_type_id" id="object_type_id">
+                <div class="col-2">
+                    <select class="form-select" name="object_type_id" id="object_type_id">
                         <option value="0" {if $eventSearch["object_type_id"]==0}selected{/if}>{t}Indifférent{/t}
                         </option>
                         {foreach $objectTypes as $objecttype}
                         {if $eventSearch["object_type"] == 1}
-                        <option value="{$objecttype.sample_type_id}" {if
-                            $objecttype.sample_type_id==$eventSearch.object_type_id}selected{/if}>
+                        <option value="{$objecttype.sample_type_id}" {if $objecttype.sample_type_id==$eventSearch.object_type_id}selected{/if}>
                             {$objecttype.sample_type_name}
                         </option>
                         {else}
-                        <option value="{$objecttype.container_type_id}" {if
-                            $objecttype.container_type_id==$eventSearch.object_type_id}selected{/if}>
+                        <option value="{$objecttype.container_type_id}" {if $objecttype.container_type_id==$eventSearch.object_type_id}selected{/if}>
                             {$objecttype.container_type_name}
                         </option>
                         {/if}
@@ -281,58 +281,56 @@
                 </div>
             </div>
             <div class="row">
-                <label for="date_from" class="col-sm-2 control-label">{t}Du :{/t}</label>
-                <div class="col-sm-2">
-                    <input class="datepicker form-control" id="date_from" name="date_from"
-                        value="{$eventSearch.date_from}">
+                <label for="date_from" class="col-2 form-label">{t}Du :{/t}</label>
+                <div class="col-2">
+                    <input class="datepicker form-control" id="date_from" name="date_from" value="{$eventSearch.date_from}">
                 </div>
-                <label for="date_to" class="col-sm-2 control-label">{t}au :{/t}</label>
-                <div class="col-sm-2">
+                <label for="date_to" class="col-2 form-label">{t}au :{/t}</label>
+                <div class="col-2">
                     <input class="datepicker form-control" id="date_to" name="date_to" value="{$eventSearch.date_to}">
                 </div>
-                <label for="object_type" class="col-sm-2 control-label">{t}Type d'objet :{/t}</label>
-                <div class="col-sm-2">
-                    <select id="object_type" name="object_type" class="form-control typeEventSearch">
+                <label for="object_type" class="col-2 form-label">{t}Type d'objet :{/t}</label>
+                <div class="col-2">
+                    <select id="object_type" name="object_type" class="form-select typeEventSearch">
                         <option value="1" {if $eventSearch["object_type"]==1}selected{/if}>{t}Échantillon{/t}</option>
                         <option value="2" {if $eventSearch["object_type"]==2}selected{/if}>{t}Contenant{/t}</option>
                     </select>
                 </div>
             </div>
             <div class="row">
-                <label for="event_type_id" class="col-sm-2 control-label">{t}Type d'événement{/t}</label>
-                <div class="col-sm-2">
-                    <select class="form-control" id="event_type_id" name="event_type_id">
+                <label for="event_type_id" class="col-2 form-label">{t}Type d'événement{/t}</label>
+                <div class="col-2">
+                    <select class="form-select" id="event_type_id" name="event_type_id">
                         <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $eventTypes as $eventType}
-                        <option value="{$eventType.event_type_id}" {if
-                            $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
+                        <option value="{$eventType.event_type_id}" {if $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
                             {$eventType.event_type_name}
                         </option>
                         {/foreach}
                     </select>
                 </div>
-                <label for="collection_id" class="col-sm-2 control-label">{t}Collection :{/t}</label>
-                <div class="col-sm-2">
-                    <select class="typeEventSearch form-control" id="collection_id" name="collection_id" {if
-                        $eventSearch.object_type==2}disabled{/if}>
+                <label for="collection_id" class="col-2 form-label">{t}Collection :{/t}</label>
+                <div class="col-2">
+                    <select class="typeEventSearch form-select" id="collection_id" name="collection_id" {if $eventSearch.object_type==2}disabled{/if}>
                         <option value="0" {if $eventSearch.collection_id==0}selected{/if}>{t}indifférent{/t}</option>
                         {foreach $collections as $collection}
-                        <option value="{$collection.collection_id}" {if
-                            $collection.collection_id==$eventSearch.collection_id}selected{/if}>
+                        <option value="{$collection.collection_id}" {if $collection.collection_id==$eventSearch.collection_id}selected{/if}>
                             {$collection.collection_name}</option>
                         {/foreach}
                     </select>
                 </div>
-                <label for="activateSearchByColumn" class="control-label col-sm-2">
+                <label for="activateSearchByColumn" class="form-label col-2">
                     {t}Activer la recherche par colonne :{/t}
                 </label>
-                <div class="col-sm-1">
-                    <input type="checkbox" id="activateSearchByColumn" class="form-control">
+                <div class="col-1">
+                    <input type="checkbox" id="activateSearchByColumn" class="form-check-input">
                 </div>
 
             </div>
-            <div class="row">
-                <input type="submit" class="col-sm-2 col-sm-offset-5 btn btn-success" value="{t}Rechercher{/t}">
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary">{t}Rechercher{/t}</button>
+                </div>
             </div>
             {$csrf}
         </form>
@@ -341,12 +339,13 @@
 
 {if $isSearch == 1}
 <form action="" method="post">
-    <div class="row">
+
+    <div class="container-fluid">
         <table id="eventList" class="table table-bordered table-hover display" data-order='[[1,"asc"]]'>
             <thead>
                 <tr>
                     <th class="center">
-                        <input id="events" type="checkbox" value="{$events[ls].event_id}">
+                        <input id="events" type="checkbox" value="{$events[ls].event_id}" class="form-check-input">
                     </th>
                     <th>Id</th>
                     <th>{t}Date{/t}</th>
@@ -365,11 +364,10 @@
                 {section name=lst loop=$events}
                 <tr>
                     <td class="center">
-                        <input type="checkbox" class="events" name="events[]" value="{$events[lst].event_id}">
+                        <input type="checkbox" class="events form-check-input" name="events[]" value="{$events[lst].event_id}">
                     </td>
                     <td>
-                        <a
-                            href="{$events[lst].object_type}eventChange?event_id={$events[lst].event_id}&uid={$events[lst].uid}">
+                        <a href="{$events[lst].object_type}eventChange?event_id={$events[lst].event_id}&uid={$events[lst].uid}">
                             {$events[lst].event_id}
                         </a>
                     </td>
@@ -397,37 +395,35 @@
         </table>
     </div>
     {if $rights.import == 1 || $rights.collection == 1}
-    <div class="row">
-        <div class="col-md-6  form-horizontal">
+    <div class="container">
+        <div class="form-horizontal">
             {t}Pour les éléments cochés :{/t}
             <input type="hidden" name="is_action" value="1">
-            <select id="checkedActionEvent" class="form-control">
+            <select id="checkedActionEvent" class="form-select">
                 <option value="" selected>{t}Choisissez{/t}</option>
                 <option value="eventsChange">{t}Modifier les événements{/t}</option>
                 <option value="eventsDelete">{t}Supprimer les événements{/t}</option>
                 <option value="eventsDuplicate">{t}Reprogrammer les événements{/t}</option>
             </select>
 
-            <div class="eventsChange" hidden>
-                <div class="form-group">
-                    <label for="event_date" class="control-label col-md-4">{t}Date :{/t}</label>
-                    <div class="col-md-8">
-                        <input id="event_date" name="event_date" value="{$data.event_date}"
-                            class="form-control datepicker">
+            <div class="eventsChange">
+                <div class="row">
+                    <label for="event_date" class="form-label col-4">{t}Date :{/t}</label>
+                    <div class="col-8">
+                        <input id="event_date" name="event_date" value="{$data.event_date}" class="form-control datepicker">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="container_status_id" class="control-label col-md-4">
+                <div class="row">
+                    <label for="container_status_id" class="form-label col-4">
                         {t}Type d'évenement :{/t}</label>
-                    <div class="col-md-8">
-                        <select class="form-control" id="event_type_id" name="event_type_id">
+                    <div class="col-8">
+                        <select class="form-select" id="event_type_id" name="event_type_id">
                             <option value="0" {if $eventSearch.event_type_id==0}selected{/if}>
                                 {t}Choisissez{/t}
                             </option>
                             {foreach $eventTypes as $eventType}
-                            <option value="{$eventType.event_type_id}" {if
-                                $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
+                            <option value="{$eventType.event_type_id}" {if $eventType.event_type_id==$eventSearch.event_type_id}selected{/if}>
                                 {$eventType.event_type_name}
                             </option>
                             {/foreach}
@@ -435,28 +431,28 @@
                     </div>
                 </div>
                 {if $eventSearch.object_type == 1}
-                <div class="form-group">
-                    <label for="still_available" class="control-label col-md-4">
+                <div class="row">
+                    <label for="still_available" class="form-label col-4">
                         {t}Reste disponible :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <input id="still_available" type="text" name="still_available" value="" class="form-control">
                     </div>
                 </div>
                 {/if}
 
-                <div class="form-group">
-                    <label for="due_date" class="control-label col-md-4">
+                <div class="row">
+                    <label for="due_date" class="form-label col-4">
                         {t}Date d'échéance :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <input id="due_date" name="due_date" value="" class="form-control datepicker">
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
-                    <div class="col-md-8">
+                <div class="row">
+                    <label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+                    <div class="col-8">
                         <textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
                     </div>
                 </div>
@@ -464,12 +460,12 @@
                     {t}Seules les données non vides seront mises à jour dans les événements !{/t}
                 </div>
             </div>
-            <div class="eventsDuplicate" hidden>
-                <div class="form-group">
-                    <label for="eventDueDelay" class="control-label col-md-4">
+            <div class="eventsDuplicate">
+                <div class="row">
+                    <label for="eventDueDelay" class="form-label col-4">
                         {t}Délai en jours pour reprogrammer les événements :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <input type="number" id="eventDueDelay" name="eventDueDelay" class="form-control" value="365">
                     </div>
                 </div>

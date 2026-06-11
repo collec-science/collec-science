@@ -38,7 +38,8 @@ class SearchSample extends SearchParam
             "booking_type" => 0,
             "without_container" => 0,
             "collections" => array(),
-            "metadatafilter" => ""
+            "metadatafilter" => "",
+            "operation_id" => 0
         );
         /**
          * Ajout des dates
@@ -68,7 +69,8 @@ class SearchSample extends SearchParam
             "subsample_quantity_max",
             "booking_type" => 0,
             "without_container" => 0,
-            "limit" => 100
+            "limit" => 100,
+            "operation_id"
         );
         $this->paramArray = array("collections");
         $this->paramCheckbox = array(

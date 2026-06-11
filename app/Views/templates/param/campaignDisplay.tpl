@@ -20,151 +20,147 @@
         });
     });
 </script>
-<a href="campaignList"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
-<h2>{t}Campagne{/t} {$data.campaign_name}</h2>
-<!-- Tab box -->
-<ul class="nav nav-tabs" id="tabCampaignDetail" role="tablist">
-    <li class="nav-item active">
-        <a class="nav-link" id="tabCampaignDetail" data-toggle="tab" role="tab" aria-controls="navCampaignDetail"
-            aria-selected="true" href="#navCampaignDetail">
-            {t}Description{/t}
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="tabRules" href="#navRules" data-toggle="tab" role="tab" aria-controls="navRules"
-            aria-selected="false">
-            {t}Réglementations applicables{/t}
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="tabGroups" href="#navGroups" data-toggle="tab" role="tab" aria-controls="navGroups"
-            aria-selected="false">
-            {t}Droits attribués{/t}
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="tabDocs" href="#navDocs" data-toggle="tab" role="tab" aria-controls="navDocs"
-            aria-selected="false">
-            {t}Documents associés{/t}
-        </a>
-    </li>
-</ul>
-<div class="tab-content col-lg-12" id="campaignContent">
-    <div class="tab-pane active in" id="navCampaignDetail" role="tabpanel" aria-labelledby="tabCampaignDetail">
-        {if $rights.param == 1}
-        <div class="row">
-            <a href="campaignChange?campaign_id={$data.campaign_id}">
-                <img src="display/images/edit.gif" height="25">
-                {t}Modifier...{/t}
+
+<div class="container">
+    <a href="campaignList"><img src="display/images/list.png" height="25">{t}Retour à la liste{/t}</a>
+    <h2>{t}Campagne{/t} {$data.campaign_name}</h2>
+    <!-- Tab box -->
+    <ul class="nav nav-tabs" id="tabCampaignDetail" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="tabCampaignDetailLink" data-bs-toggle="tab" role="tab" aria-controls="navCampaignDetail" aria-selected="true" href="#navCampaignDetail">
+                {t}Description{/t}
             </a>
-        </div>
-        {/if}
-        <div class="row">
-            <div class="col-md-8 col-lg-6">
-                <div class="form-display">
-                    <dl class="dl-horizontal">
-                        <dt>{t}Nom de la campagne :{/t}</dt>
-                        <dd>{$data.campaign_name}</dd>
-                    </dl>
-                    <dl class="dl-horizontal">
-                        <dt>{t}Description :{/t}</dt>
-                        <dd class="textareaDisplay">{$data.campaign_description}</dd>
-                    </dl>
-                    <dl class="dl-horizontal">
-                        <dt>{t}Référent ou responsable :{/t}</dt>
-                        <dd>{$data.referent_name}</dd>
-                    </dl>
-                    <dl class="dl-horizontal">
-                        <dt>{t}Date de début :{/t}</dt>
-                        <dd>{$data.campaign_from}</dd>
-                    </dl>
-                    <dl class="dl-horizontal">
-                        <dt>{t}Date de fin :{/t}</dt>
-                        <dd>{$data.campaign_to}</dd>
-                    </dl>
-                    <dl class="dl-horizontal">
-                        <dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
-                        <dd>{$data.uuid}</dd>
-                    </dl>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tabRules" href="#navRules" data-bs-toggle="tab" role="tab" aria-controls="navRules" aria-selected="false">
+                {t}Réglementations applicables{/t}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tabGroups" href="#navGroups" data-bs-toggle="tab" role="tab" aria-controls="navGroups" aria-selected="false">
+                {t}Droits attribués{/t}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="tabDocs" href="#navDocs" data-bs-toggle="tab" role="tab" aria-controls="navDocs" aria-selected="false">
+                {t}Documents associés{/t}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content col-12" id="campaignContent">
+        <div class="tab-pane active in" id="navCampaignDetail" role="tabpanel" aria-labelledby="tabCampaignDetail">
+            {if $rights.param == 1}
+            <div class="row">
+                <a href="campaignChange?campaign_id={$data.campaign_id}">
+                    <img src="display/images/edit.gif" height="25">
+                    {t}Modifier...{/t}
+                </a>
+            </div>
+            {/if}
+            <div class="row">
+                <div class="col-8 col-6">
+                    <div class="form-display">
+                        <dl class="dl-horizontal">
+                            <dt>{t}Nom de la campagne :{/t}</dt>
+                            <dd>{$data.campaign_name}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>{t}Description :{/t}</dt>
+                            <dd class="textareaDisplay">{$data.campaign_description}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>{t}Référent ou responsable :{/t}</dt>
+                            <dd>{$data.referent_name}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>{t}Date de début :{/t}</dt>
+                            <dd>{$data.campaign_from}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>{t}Date de fin :{/t}</dt>
+                            <dd>{$data.campaign_to}</dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt class="lexical" data-lexical="uuid">{t}UUID :{/t}</dt>
+                            <dd>{$data.uuid}</dd>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="tab-pane fade" id="navRules" role="tabpanel" aria-labelledby="tabRules">
-        <div class="row">
-            <a href="campaignRegulationChange?campaign_regulation_id=0&campaign_id={$data.campaign_id}">
-                {t}Nouvelle réglementation{/t}</a>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-lg-6">
-                <table class="table table-bordered table-hover datatable display">
-                    <thead>
-                        <tr>
-                            <th>{t}Nom{/t}</th>
-                            <th class="lexical" data-lexical="authorization">{t}N° d'autorisation{/t}</th>
-                            <th>{t}Date d'autorisation{/t}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foreach $regulations as $regulation}
-                        <tr>
-                            <td>
-                                <a
-                                    href="campaignRegulationChange?campaign_regulation_id={$regulation.campaign_regulation_id}&campaign_id={$regulation.campaign_id}">
-                                    {$regulation.regulation_name}
-                                </a>
-                            </td>
-                            <td class="center">{$regulation.authorization_number}</td>
-                            <td class="center">{$regulation.authorization_date}</td>
-                        </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
+        <div class="tab-pane fade" id="navRules" role="tabpanel" aria-labelledby="tabRules">
+            <div class="row">
+                <a href="campaignRegulationChange?campaign_regulation_id=0&campaign_id={$data.campaign_id}">
+                    <img src="display/images/new.png" height="25">
+                    {t}Nouvelle réglementation{/t}</a>
             </div>
-        </div>
+            <div class="row">
+                <div class="col-8 col-6">
+                    <table class="table table-bordered table-hover datatable display">
+                        <thead>
+                            <tr>
+                                <th>{t}Nom{/t}</th>
+                                <th class="lexical" data-lexical="authorization">{t}N° d'autorisation{/t}</th>
+                                <th>{t}Date d'autorisation{/t}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $regulations as $regulation}
+                            <tr>
+                                <td>
+                                    <a href="campaignRegulationChange?campaign_regulation_id={$regulation.campaign_regulation_id}&campaign_id={$regulation.campaign_id}">
+                                        {$regulation.regulation_name}
+                                    </a>
+                                </td>
+                                <td class="center">{$regulation.authorization_number}</td>
+                                <td class="center">{$regulation.authorization_date}</td>
+                            </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
-    </div>
-    <div class="tab-pane fade" id="navDocs" role="tabpanel" aria-labelledby="tabDocs">
-        <div class="row">
-            <div class="col-lg-6 col-md-8">
+        </div>
+        <div class="tab-pane fade" id="navDocs" role="tabpanel" aria-labelledby="tabDocs">
+            <div class="row">
                 {include file="gestion/documentList.tpl"}
             </div>
         </div>
-    </div>
-    <div class="tab-pane fade" id="navGroups" role="tabpanel" aria-labelledby="tabGroups">
-        <div class="row">
-            <div class="col-lg-6 col-md-8">
-                {if $rights.param == 1}
-                <div class="row">
-                    <a href="campaignChange?campaign_id={$data.campaign_id}">
-                        <img src="display/images/edit.gif" height="25">
-                        {t}Modifier...{/t}
-                    </a>
+        <div class="tab-pane fade" id="navGroups" role="tabpanel" aria-labelledby="tabGroups">
+            <div class="row">
+                <div class="col-6 col-8">
+                    {if $rights.param == 1}
+                    <div class="row">
+                        <a href="campaignChange?campaign_id={$data.campaign_id}">
+                            <img src="display/images/edit.gif" height="25">
+                            {t}Modifier...{/t}
+                        </a>
+                    </div>
+                    {/if}
+                    <table class="table table-bordered table-hover datatable-nopaging-nosearching display">
+                        <thead>
+                            <tr>
+                                <th>
+                                    {t}Groupes disposant du droit de modification des échantillons de la campagne{/t}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {foreach $groupes as $group}
+                            <tr>
+                                <td>{$group.groupe}</td>
+                            </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
                 </div>
-                {/if}
-                <table class="table table-bordered table-hover datatable-nopaging-nosearching display">
-                    <thead>
-                        <tr>
-                            <th>
-                                {t}Groupes disposant du droit de modification des échantillons de la campagne{/t}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foreach $groupes as $group}
-                        <tr>
-                            <td>{$group.groupe}</td>
-                        </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
+            </div>
+
+            <div class="bg-info">
+                {t}Si aucun groupe n'est défini, les échantillons pourront être modifiés par tous les membres des collections rattachées{/t}
             </div>
         </div>
-
-        <div class="bg-info">
-            {t}Si aucun groupe n'est défini, les échantillons pourront être modifiés par tous les membres des collections rattachées{/t}
-        </div>
     </div>
-</div>
 </div>
 </div>

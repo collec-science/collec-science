@@ -31,6 +31,7 @@ class Operation extends PpciLibrary
         $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getListe(), "data");
         $this->vue->set("param/operationList.tpl", "corps");
+        $this->vue->help(_("parametres/les-protocoles-de-collecte.html"));
         return $this->vue->send();
     }
     function change()

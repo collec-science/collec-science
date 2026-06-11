@@ -177,12 +177,13 @@ class Subsample extends PpciModel
             return false;
         }
     }
-    function getParents($sample_id): array
+    function getParents(int $sample_id): array
     {
-        $sql = "select sample_id, uid, identifier
+        $sql = "select sample_id, uid, identifier, sample_type_name
                 from subsample
                 join sample using (sample_id)
                 join object using (uid)
+                join sample_type using (sample_type_id)
                 where createdsample_id = :id:
                 order by identifier";
         return $this->getListParam($sql, ["id" => $sample_id]);

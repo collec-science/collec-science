@@ -57,10 +57,10 @@
 				$(this).tab('show');
 			}
 		});
-		$('a[data-toggle="tab"]').on('shown.bs.tab', function () {
+		$('a[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
 			myStorage.setItem("sampleChangeTab", $(this).attr("id"));
 		});
-		$('a[data-toggle="tab"]').on("click", function () {
+		$('a[data-bs-toggle="tab"]').on("click", function () {
 			tabHover = 0;
 		});
 
@@ -529,446 +529,443 @@
 	});
 </script>
 
-<h2>{t}Création - modification d'un échantillon{/t}</h2>
-<form id="sampleForm" method="post" action="sampleWrite" onsubmit="return(testScan());">
-	<input type="hidden" id="sample_id" name="sample_id" value="{$data.sample_id}">
-	<input type="hidden" name="moduleBase" value="sample">
-	<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
-	<div class="row">
-		<div class="col-md-12">
-			<a href="{$moduleListe}">
-				<img src="display/images/list.png" height="25">
-				{t}Retour à la liste des échantillons{/t}
-			</a>
-			{if $data.uid > 0}
-			<a href="sampleDisplay?uid={$data.uid}">
-				<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
-			</a>
-			{elseif $sample_parent_uid > 0}
-			<a href="sampleDisplay?uid={$sample_parent_uid}">
-				<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
-			</a>
-			{/if}
-			&nbsp;
-			<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+<div class="container">
+	<h2>{t}Création - modification d'un échantillon{/t}</h2>
+	<form id="sampleForm" method="post" action="sampleWrite" onsubmit="return(testScan());">
+		<input type="hidden" id="sample_id" name="sample_id" value="{$data.sample_id}">
+		<input type="hidden" name="moduleBase" value="sample">
+		<input type="hidden" name="metadata" id="metadataField" value="{$data.metadata}">
+		<div class="row d-flex">
+			<div class="col-auto">
+				<a href="{$moduleListe}">
+					<img src="display/images/list.png" height="25">
+					{t}Retour à la liste des échantillons{/t}
+				</a>
+				{if $data.uid > 0}
+				<a href="sampleDisplay?uid={$data.uid}">
+					<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
+				</a>
+				{elseif $sample_parent_uid > 0}
+				<a href="sampleDisplay?uid={$sample_parent_uid}">
+					<img src="display/images/box.png" height="25">{t}Retour au détail{/t}
+				</a>
+				{/if}
+			</div>
+			<div class="col-auto">
+				<button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+			</div>
 			{if $data.sample_id > 0 }
-			&nbsp;
-			<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+			<div class="col-auto">
+				<button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+			</div>
 			{/if}
 			{if $data.sample_id == 0}
-			&nbsp;
-			<button type="button" class="btn btn-warning" id="reinit">{t}Réinitialiser les champs{/t}</button>
+			<div class="col-auto">
+				<button type="button" class="btn btn-warning" id="reinit">{t}Réinitialiser les champs{/t}</button>
+			</div>
 			{/if}
-			&nbsp;
-			<button type="button" class="btn btn-info" id="verifyRequired">
-				<img src="display/images/cross.png" height="15">
-				{t}Vérifier{/t}
-			</button>
+			<div class="col-auto">
+				<button type="button" class="btn btn-info" id="verifyRequired">
+					<img src="display/images/cross.png" height="15">
+					{t}Vérifier{/t}
+				</button>
+			</div>
+
 		</div>
-	</div>
 
-
-
-
-	<!-- boite d'onglets -->
-	<div class="row">
-		<ul class="nav nav-tabs" id="changeTab" role="tablist">
-			<li class="nav-item active">
-				<a class="nav-link" id="tab-general" data-toggle="tab" role="tab" aria-controls="nav-general"
-					aria-selected="true" href="#nav-general">
-					<img src="display/images/zoom.png" height="25">
-					{t}Données générales{/t}
-					<img src="display/images/cross.png" id="general-error" height="25" hidden>
-				</a>
-			</li>
-			<li class="nav-item  ">
-				<a class="nav-link" id="tab-location" href="#nav-location" data-toggle="tab" role="tab"
-					aria-controls="nav-location" aria-selected="false">
-					<img src="display/images/gps.png" height="25">
-					{t}Localisation{/t}
-					<img src="display/images/cross.png" id="location-error" height="25" hidden>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="tab-metadata" href="#nav-metadata" data-toggle="tab" role="tab"
-					aria-controls="nav-metadata" aria-selected="false">
-					<img src="display/images/display-red.png" height="25">
-					{t}Métadonnées{/t}
-					<img src="display/images/cross.png" height="25" id="metadata-error" hidden>
-				</a>
-			</li>
-		</ul>
-		<div class="tab-content" id="nav-tabContent">
-			<div class="tab-pane active in" id="nav-general" role="tabpanel" aria-labelledby="tab-general"
-				data-error="general-error">
-				<div class="col-md-6 form-horizontal">
-					<fieldset>
-						<legend>{t}Échantillon parent{/t}</legend>
-						<div class="form-group">
-							<label for="parent_sample_id" class="control-label col-md-4"> {t}Parent :{/t}</label>
-							<div class="col-md-2">
-								<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
+		<!-- boite d'onglets -->
+		<div class="row">
+			<ul class="nav nav-tabs" id="changeTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link active" id="tab-general" data-bs-toggle="tab" role="tab" aria-controls="nav-general" aria-selected="true" href="#nav-general">
+						<img src="display/images/zoom.png" height="25">
+						{t}Données générales{/t}
+						<img src="display/images/cross.png" id="general-error" height="25">
+					</a>
+				</li>
+				<li class="nav-item  ">
+					<a class="nav-link" id="tab-location" href="#nav-location" data-bs-toggle="tab" role="tab" aria-controls="nav-location" aria-selected="false">
+						<img src="display/images/gps.png" height="25">
+						{t}Localisation{/t}
+						<img src="display/images/cross.png" id="location-error" height="25">
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="tab-metadata" href="#nav-metadata" data-bs-toggle="tab" role="tab" aria-controls="nav-metadata" aria-selected="false">
+						<img src="display/images/display-red.png" height="25">
+						{t}Métadonnées{/t}
+						<img src="display/images/cross.png" height="25" id="metadata-error">
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="nav-tabContent">
+				<div class="tab-pane active in" id="nav-general" role="tabpanel" aria-labelledby="tab-general" data-error="general-error">
+					<div class="form-horizontal">
+						<fieldset>
+							<legend>{t}Échantillon parent{/t}</legend>
+							<div class="row">
+								<label for="parent_sample_id" class="form-label col-4"> {t}Parent :{/t}</label>
+								<div class="col-2">
+									<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
+								</div>
+								<div class="col-4">
+									<select id="parent_sample_id" name="parent_sample_id" class="form-select">
+										{if $data.parent_sample_id > 0}
+										<option value="{$data.parent_sample_id}">
+											{$parent_sample.uid} {$parent_sample.identifier}
+										</option>
+										{/if}
+									</select>
+								</div>
+								<div id="parent_display" class="col-1">
+									<img src="display/images/zoom.png" height="25" title="{t}Afficher le parent{/t}">
+								</div>
+								<div id="parent_erase" class="col-1">
+									<img src="display/images/eraser.png" height="25" title="{t}Supprimer le parent{/t}">
+								</div>
 							</div>
-							<div class="col-md-4">
-								<select id="parent_sample_id" name="parent_sample_id" class="form-control">
-									{if $data.parent_sample_id > 0}
-									<option value="{$data.parent_sample_id}">
-										{$parent_sample.uid} {$parent_sample.identifier}
-									</option>
-									{/if}
-								</select>
+							<div class="row">
+								<label for="parent_collection" class="form-label col-4">
+									{t}Collection :{/t}
+								</label>
+								<div class="col-8">
+									<input id="parent_collection" class="form-control" readonly value="{$parent_sample.collection_name}">
+								</div>
 							</div>
-							<div id="parent_display" class="col-md-1">
-								<img src="display/images/zoom.png" height="25" title="{t}Afficher le parent{/t}">
+							<div class="row">
+								<label for="parent_type" class="form-label col-4">{t}Type :{/t}</label>
+								<div class="col-8">
+									<input id="parent_type" class="form-control" readonly value="{$parent_sample.sample_type_name}">
+								</div>
 							</div>
-							<div id="parent_erase" class="col-md-1">
-								<img src="display/images/eraser.png" height="25" title="{t}Supprimer le parent{/t}">
+						</fieldset>
+						<fieldset>
+							<legend>{t}Données générales{/t}</legend>
+							<div class="row">
+								<label for="scan_label" class="form-label col-4">
+									{t}Scannez l'étiquette existante :{/t}</label>
+								<div class="col-5">
+									<input id="scan_label" class="form-control" placeholder="{t}Placez le curseur dans cette zone et scannez l'étiquette{/t}">
+								</div>
+								<div class="col-3">
+									<button class="btn btn-info" type="button" id="scan_label_action">
+										{t}Mettre à jour les champs{/t}
+									</button>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="parent_collection" class="control-label col-md-4">
-								{t}Collection :{/t}
-							</label>
-							<div class="col-md-8">
-								<input id="parent_collection" class="form-control" readonly
-									value="{$parent_sample.collection_name}">
+							<div class="row">
+								<label for="uid" class="form-label col-4">{t}UID :{/t}</label>
+								<div class="col-8">
+									<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control" title="{t}identifiant unique dans la base de données{/t}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="parent_type" class="control-label col-md-4">{t}Type :{/t}</label>
-							<div class="col-md-8">
-								<input id="parent_type" class="form-control" readonly
-									value="{$parent_sample.sample_type_name}">
+							<div class="row">
+								<label for="identifier" class="form-label col-4"><span class="red">*</span>
+									{t}Identifiant ou nom :{/t}
+								</label>
+								<div class="col-6">
+									<input id="identifier" type="text" name="identifier" class="form-control" value="{$data.identifier}" autofocus required>
+								</div>
+								<div class="col-2">
+									<button class="btn btn-info" type="button" id="identifier_generate" disabled title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Générer{/t}</button>
+								</div>
 							</div>
-						</div>
-					</fieldset>
-					<fieldset>
-						<legend>{t}Données générales{/t}</legend>
-						<div class="form-group">
-							<label for="scan_label" class="control-label col-md-4">
-								{t}Scannez l'étiquette existante :{/t}</label>
-							<div class="col-md-5">
-								<input id="scan_label" class="form-control"
-									placeholder="{t}Placez le curseur dans cette zone et scannez l'étiquette{/t}">
+							<div class="row">
+								<label for="object_status_id" class="form-label col-4"><span class="red">*</span>
+									{t}Statut :{/t}
+								</label>
+								<div class="col-8">
+									<select id="object_status_id" name="object_status_id" class="form-select">
+										{section name=lst loop=$objectStatus}
+										<option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id==$data.object_status_id}selected{/if}>
+											{$objectStatus[lst].object_status_name}
+										</option>
+										{/section}
+									</select>
+								</div>
 							</div>
-							<div class="col-md-3">
-								<button class="btn btn-info" type="button" id="scan_label_action">
-									{t}Mettre à jour les champs{/t}
-								</button>
+							<div class="row">
+								<label for="collection_id" class="form-label col-4"><span class="red">*</span>
+									{t}Collection :{/t}
+								</label>
+								<div class="col-8">
+									<select id="collection_id" name="collection_id" class="form-select" autofocus>
+										{foreach $collections as $collection}
+										<option value="{$collection.collection_id}" {if $data.collection_id==$collection.collection_id}selected{/if}>
+											{$collection.collection_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="uid" class="control-label col-md-4">{t}UID :{/t}</label>
-							<div class="col-md-8">
-								<input id="uid" name="uid" value="{$data.uid}" readonly class="form-control"
-									title="{t}identifiant unique dans la base de données{/t}">
+							<div class="row">
+								<label for="referentId" class="form-label col-4">
+									{t}Référent de l'échantillon :{/t}
+								</label>
+								<div class="col-8">
+									<select id="referentId" name="referent_id" class="form-select">
+										<option value="" {if $data.referent_id=="" }selected{/if}>Choisissez...</option>
+										{foreach $referents as $referent}
+										<option value="{$referent.referent_id}" {if $data.referent_id==$referent.referent_id}selected{/if}>
+											{$referent.referent_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="identifier" class="control-label col-md-4"><span class="red">*</span>
-								{t}Identifiant ou nom :{/t}
-							</label>
-							<div class="col-md-6">
-								<input id="identifier" type="text" name="identifier" class="form-control"
-									value="{$data.identifier}" autofocus required>
+							<div class="row">
+								<label for="sample_type_id" class="form-label col-4"><span class="red">*</span>
+									{t}Type :{/t}
+								</label>
+								<div class="col-8">
+									<select id="sample_type_id" name="sample_type_id" class="form-select">
+									</select>
+								</div>
 							</div>
-							<div class="col-md-2">
-								<button class="btn btn-info" type="button" id="identifier_generate" disabled
-									title="{t}Générez l'identifiant à partir des informations saisies{/t}">{t}Générer{/t}</button>
+							<div class="row">
+								<label for="operation_id" class="form-label col-4">
+									{t}Protocole / opération :{/t}
+								</label>
+								<div class="col-8">
+									<select id="operation_id" name="operation_id" class="form-select">
+										<option value="" {if $data.operation_id=="" }selected{/if}>
+											{t}Choisissez...{/t}
+										</option>
+										{section name=lst loop=$operations}
+										<option value="{$operations[lst].operation_id}" {if $operations[lst].operation_id==$data.operation_id}selected{/if}>
+											{$operations[lst].protocol_year} {$operations[lst].protocol_name}
+											{$operations[lst].protocol_version} {$operations[lst].operation_name}
+											{$operations[lst].operation_version}
+										</option>
+										{/section}
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="object_status_id" class="control-label col-md-4"><span class="red">*</span>
-								{t}Statut :{/t}
-							</label>
-							<div class="col-md-8">
-								<select id="object_status_id" name="object_status_id" class="form-control">
-									{section name=lst loop=$objectStatus}
-									<option value="{$objectStatus[lst].object_status_id}" {if
-										$objectStatus[lst].object_status_id==$data.object_status_id}selected{/if}>
-										{$objectStatus[lst].object_status_name}
-									</option>
-									{/section}
-								</select>
+							<div class="row ">
+								<label for="campaign_id" class="form-label col-4">
+									{t}Campagne de prélèvement :{/t}
+								</label>
+								<div class="col-8">
+									<select id="campaign_id" name="campaign_id" class="form-select">
+										<option value="" {if $data.campaign_id=="" }selected{/if}>{t}Choisissez...{/t}
+										</option>
+										{foreach $campaigns as $campaign}
+										<option value="{$campaign.campaign_id}" {if $data.campaign_id==$campaign.campaign_id}selected{/if}>
+											{$campaign.campaign_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="collection_id" class="control-label col-md-4"><span class="red">*</span>
-								{t}Collection :{/t}
-							</label>
-							<div class="col-md-8">
-								<select id="collection_id" name="collection_id" class="form-control" autofocus>
-									{foreach $collections as $collection}
-									<option value="{$collection.collection_id}" {if
-										$data.collection_id==$collection.collection_id}selected{/if}>
-										{$collection.collection_name}
-									</option>
-									{/foreach}
-								</select>
+							<div class="row">
+								<label for="dbuid_origin" class="form-label col-4">
+									{t}Base de données et UID d'origine :{/t}
+								</label>
+								<div class="col-8">
+									<input id="dbuid_origin" class="form-control" name="dbuid_origin" value="{$data.dbuid_origin}" placeholder="{t}db:uid. Exemple: col:125{/t}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="referentId" class="control-label col-md-4">
-								{t}Référent de l'échantillon :{/t}
-							</label>
-							<div class="col-md-8">
-								<select id="referentId" name="referent_id" class="form-control">
-									<option value="" {if $data.referent_id=="" }selected{/if}>Choisissez...</option>
-									{foreach $referents as $referent}
-									<option value="{$referent.referent_id}" {if
-										$data.referent_id==$referent.referent_id}selected{/if}>
-										{$referent.referent_name}
-									</option>
-									{/foreach}
-								</select>
+							<div class="row">
+								<label for="sampling_date" class="form-label col-4">
+									{t}Date de création/échantillonnage de l'échantillon :{/t}
+								</label>
+								<div class="col-8">
+									<input id="sampling_date" class="form-control datetimepicker" name="sampling_date" value="{$data.sampling_date}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="sample_type_id" class="control-label col-md-4"><span class="red">*</span>
-								{t}Type :{/t}
-							</label>
-							<div class="col-md-8">
-								<select id="sample_type_id" name="sample_type_id" class="form-control">
-								</select>
+							<div class="row">
+								<label for="sample_creation_date" class="form-label col-4">
+									{t}Date d'import dans la base de données :{/t}
+								</label>
+								<div class="col-8">
+									<input id="sample_creation_date" class="form-control" name="sample_creation_date" readonly value="{$data.sample_creation_date}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group ">
-							<label for="campaign_id" class="control-label col-md-4">
-								{t}Campagne de prélèvement :{/t}
-							</label>
-							<div class="col-md-8">
-								<select id="campaign_id" name="campaign_id" class="form-control">
-									<option value="" {if $data.campaign_id=="" }selected{/if}>{t}Choisissez...{/t}
-									</option>
-									{foreach $campaigns as $campaign}
-									<option value="{$campaign.campaign_id}" {if
-										$data.campaign_id==$campaign.campaign_id}selected{/if}>
-										{$campaign.campaign_name}
-									</option>
-									{/foreach}
-								</select>
+							<div class="row">
+								<label for="expiration_date" class="form-label col-4">
+									{t}Date d'expiration de l'échantillon :{/t}
+								</label>
+								<div class="col-8">
+									<input id="expiration_date" class="form-control datepicker" name="expiration_date" value="{$data.expiration_date}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="dbuid_origin" class="control-label col-md-4">
-								{t}Base de données et UID d'origine :{/t}
-							</label>
-							<div class="col-md-8">
-								<input id="dbuid_origin" class="form-control" name="dbuid_origin"
-									value="{$data.dbuid_origin}" placeholder="{t}db:uid. Exemple: col:125{/t}">
+							<div class="row">
+								<label for="object_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+								<div class="col-8">
+									<textarea class="form-control" rows="3" id="object_comment" name="object_comment">{$data.object_comment}</textarea>
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="sampling_date" class="control-label col-md-4">
-								{t}Date de création/échantillonnage de l'échantillon :{/t}
-							</label>
-							<div class="col-md-8">
-								<input id="sampling_date" class="form-control datetimepicker" name="sampling_date"
-									value="{$data.sampling_date}">
+						</fieldset>
+						<fieldset>
+							<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
+							<div class="row">
+								<label for="multiple_value" class="form-label col-4">
+									{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
+								<div class="col-8">
+									<input id="multiple_value" class="form-control taux" name="multiple_value" value="{$data.multiple_value}">
+								</div>
 							</div>
-						</div>
-						<div class="form-group">
-							<label for="sample_creation_date" class="control-label col-md-4">
-								{t}Date d'import dans la base de données :{/t}
-							</label>
-							<div class="col-md-8">
-								<input id="sample_creation_date" class="form-control" name="sample_creation_date"
-									readonly value="{$data.sample_creation_date}">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="expiration_date" class="control-label col-md-4">
-								{t}Date d'expiration de l'échantillon :{/t}
-							</label>
-							<div class="col-md-8">
-								<input id="expiration_date" class="form-control datepicker" name="expiration_date"
-									value="{$data.expiration_date}">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="object_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
-							<div class="col-md-8">
-								<textarea class="form-control" rows="3" id="object_comment"
-									name="object_comment">{$data.object_comment}</textarea>
-							</div>
-						</div>
-					</fieldset>
-					<fieldset>
-						<legend>{t}Sous-échantillonnage (si le type le permet){/t}</legend>
-						<div class="form-group">
-							<label for="multiple_value" class="control-label col-md-4">
-								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité initiale de sous-échantillons (%1:%2) :{/t}</label>
-							<div class="col-md-8">
-								<input id="multiple_value" class="form-control taux" name="multiple_value"
-									value="{$data.multiple_value}">
-							</div>
-						</div>
-						{if $data.parent_sample_id > 0 && $data.sample_id == 0}
-						<script>
-							$(document).ready(function () {
-								$("#multiple_value").change(function () {
-									$("#subsample_quantity").val($("#multiple_value").val());
+							{if $data.parent_sample_id > 0 && $data.sample_id == 0}
+							<script>
+								$(document).ready(function () {
+									$("#multiple_value").change(function () {
+										$("#subsample_quantity").val($("#multiple_value").val());
+									});
 								});
-							});
-						</script>
-						<!-- record quantity extracted from parent-->
-						<div class="form-group">
-							<label for="subsample_quantity" class="control-label col-md-4">
-								{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
-							<div class="col-md-8">
-								<input id="subsample_quantity" class="form-control taux" name="subsample_quantity">
-							</div>
-						</div>
-						{/if}
-					</fieldset>
-					<fieldset>
-						<legend>{t}Informations diverses{/t}</legend>
-						<div class="form-group">
-							<label for="uuid" class="control-label col-md-4">{t}UID universel (UUID) :{/t}</label>
-							<div class="col-md-8">
-								<input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
-							</div>
-						</div>
-						{if $data.sample_id > 0}
-						<div class="form-group">
-							<label for="trashed" class="col-md-4 control-label">
-								{t}Échantillon en attente de suppression (mis à la corbeille) :{/t}
-							</label>
-							<div class="col-md-8" id="trashed">
-								<div class="radio-inline">
-									<label>
-										<input type="radio" name="trashed" id="trashed1" value="1" {if
-											$data.trashed=='t' }checked{/if}>
-										{t}oui{/t}
-									</label>
-								</div>
-								<div class="radio-inline">
-									<label>
-										<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed
-											!='t' }checked{/if}>
-										{t}non{/t}
-									</label>
+							</script>
+							<!-- record quantity extracted from parent-->
+							<div class="row">
+								<label for="subsample_quantity" class="form-label col-4">
+									{t 1=$data.multiple_type_name 2=$data.multiple_unit}Quantité retirée au parent (%1:%2) :{/t}</label>
+								<div class="col-8">
+									<input id="subsample_quantity" class="form-control taux" name="subsample_quantity">
 								</div>
 							</div>
-						</div>
-						{/if}
-					</fieldset>
-				</div>
-			</div>
-			<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
-				<div class="col-md-6 form-horizontal">
-					<div class="form-group ">
-						<label for="country_id" class="control-label col-md-4 lexical" data-lexical="country">
-							{t}Pays de collecte :{/t}
-						</label>
-						<div class="col-md-8">
-							<select id="country_id" name="country_id" class="form-control">
-								<option value="" {if $data.country_id=="" }selected{/if}>{t}Choisissez...{/t}
-								</option>
-								{foreach $countries as $country}
-								<option value="{$country.country_id}" {if
-									$data.country_id==$country.country_id}selected{/if}>
-									{$country.country_name}
-								</option>
-								{/foreach}
-							</select>
-						</div>
-					</div>
-					<div class="form-group ">
-						<label for="country_origin_id" class="control-label col-md-4 lexical"
-							data-lexical="country_origin">
-							{t}Pays de provenance :{/t}
-						</label>
-						<div class="col-md-8">
-							<select id="country_origin_id" name="country_origin_id" class="form-control">
-								<option value="" {if $data.country_origin_id=="" }selected{/if}>{t}Choisissez...{/t}
-								</option>
-								{foreach $countries as $country}
-								<option value="{$country.country_id}" {if
-									$data.country_origin_id==$country.country_id}selected{/if}>
-									{$country.country_name}
-								</option>
-								{/foreach}
-							</select>
-						</div>
-					</div>
-					<div class="form-group ">
-						<label for="sampling_place_id" class="control-label col-md-4">
-							{t}Lieu de prélèvement :{/t}
-						</label>
-						<div class="col-md-8">
-							<select id="sampling_place_id" name="sampling_place_id" class="form-control ">
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="" class="control-label col-sm-4">
-							{t}Mode de calcul des coordonnées GPS :{/t}
-						</label>
-						<div class="col-sm-8">
-							<table>
-								<tr>
-									<td>
-										{t}Données initiales en degrés/minutes décimales{/t}
-									</td>
-									<td>
-										<input name="degreType" type="radio" checked value="1">
-									</td>
-								</tr>
-								<tr>
-									<td>
-										{t}Données initiales en degrés/minutes/secondes{/t}
-									</td>
-									<td>
-										<input name="degreType" type="radio" value="0">
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div class="form-group ">
-						<label for="wy" class="control-label col-md-4">{t}Latitude :{/t}</label>
-						<div class="col-md-8" id="wy">
-							{t}Format sexagesimal (45°01,234N) :{/t}
-							<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
-							{t}Format décimal (45.081667) :{/t}
-							<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off"
-								class="form-control taux position" value="{$data.wgs84_y}">
-						</div>
-					</div>
-					<div class="form-group ">
-						<label for="wx" class="control-label col-md-4">{t}Longitude :{/t}</label>
-						<div class="col-md-8" id="wx">
-							{t}Format sexagesimal (0°01,234W) :{/t}
-							<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
-							{t}Format décimal (-0.081667) :{/t}
-							<input id="wgs84_x" name="wgs84_x" placeholder="-0.081667" autocomplete="off"
-								class="form-control taux position" value="{$data.wgs84_x}">
-						</div>
-					</div>
-					<div class="form-group ">
-						<label for="location_accuracy" class="control-label col-md-4 lexical"
-							data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
-						<div class="col-md-8">
-							<input id="sampling_date" class="form-control taux" name="location_accuracy"
-								value="{$data.location_accuracy}">
-						</div>
+							{/if}
+						</fieldset>
+						<fieldset>
+							<legend>{t}Informations diverses{/t}</legend>
+							<div class="row">
+								<label for="uuid" class="form-label col-4">{t}UID universel (UUID) :{/t}</label>
+								<div class="col-8">
+									<input id="expiration_date" class="form-control uuid" name="uuid" value="{$data.uuid}">
+								</div>
+							</div>
+							{if $data.sample_id > 0}
+							<div class="row">
+								<label for="trashed" class="col-4 form-label">
+									{t}Échantillon en attente de suppression (mis à la corbeille) :{/t}
+								</label>
+								<div class="col-8" id="trashed">
+									<div class="radio-inline">
+										<label>
+											<input type="radio" name="trashed" id="trashed1" value="1" {if $data.trashed=='t' }checked{/if}>
+											{t}oui{/t}
+										</label>
+									</div>
+									<div class="radio-inline">
+										<label>
+											<input type="radio" name="trashed" id="trashed0" value="0" {if $data.trashed !='t' }checked{/if}>
+											{t}non{/t}
+										</label>
+									</div>
+								</div>
+							</div>
+							{/if}
+						</fieldset>
 					</div>
 				</div>
-				<div class="col-md-6 ">
-					{include file="gestion/objectMapDisplay.tpl"}
+				<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
+					<div class="row">
+						<div class="col-md-6 form-horizontal">
+							<div class="row ">
+								<label for="country_id" class="form-label col-4 lexical" data-lexical="country">
+									{t}Pays de collecte :{/t}
+								</label>
+								<div class="col-8">
+									<select id="country_id" name="country_id" class="form-select">
+										<option value="" {if $data.country_id=="" }selected{/if}>{t}Choisissez...{/t}
+										</option>
+										{foreach $countries as $country}
+										<option value="{$country.country_id}" {if $data.country_id==$country.country_id}selected{/if}>
+											{$country.country_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="country_origin_id" class="form-label col-4 lexical" data-lexical="country_origin">
+									{t}Pays de provenance :{/t}
+								</label>
+								<div class="col-8">
+									<select id="country_origin_id" name="country_origin_id" class="form-select">
+										<option value="" {if $data.country_origin_id=="" }selected{/if}>{t}Choisissez...{/t}
+										</option>
+										{foreach $countries as $country}
+										<option value="{$country.country_id}" {if $data.country_origin_id==$country.country_id}selected{/if}>
+											{$country.country_name}
+										</option>
+										{/foreach}
+									</select>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="sampling_place_id" class="form-label col-4">
+									{t}Lieu de prélèvement :{/t}
+								</label>
+								<div class="col-8">
+									<select id="sampling_place_id" name="sampling_place_id" class="form-select ">
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<label for="" class="form-label col-4">
+									{t}Mode de calcul des coordonnées GPS :{/t}
+								</label>
+								<div class="col-8">
+									<table>
+										<tr>
+											<td>
+												{t}Données initiales en degrés/minutes décimales{/t}
+											</td>
+											<td>
+												<input name="degreType" type="radio" checked value="1">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												{t}Données initiales en degrés/minutes/secondes{/t}
+											</td>
+											<td>
+												<input name="degreType" type="radio" value="0">
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="row ">
+								<label for="wy" class="form-label col-4">{t}Latitude :{/t}</label>
+								<div class="col-8" id="wy">
+									{t}Format sexagesimal (45°01,234N) :{/t}
+									<input id="latitude" placeholder="45°01,234N" autocomplete="off" class="form-control">
+									{t}Format décimal (45.081667) :{/t}
+									<input id="wgs84_y" name="wgs84_y" placeholder="45.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_y}">
+								</div>
+							</div>
+							<div class="row ">
+								<label for="wx" class="form-label col-4">{t}Longitude :{/t}</label>
+								<div class="col-8" id="wx">
+									{t}Format sexagesimal (0°01,234W) :{/t}
+									<input id="longitude" placeholder="0°01,234W" autocomplete="off" class="form-control">
+									{t}Format décimal (-0.081667) :{/t}
+									<input id="wgs84_x" name="wgs84_x" placeholder="-0.081667" autocomplete="off" class="form-control taux position" value="{$data.wgs84_x}">
+								</div>
+							</div>
+							<div class="row ">
+								<label for="location_accuracy" class="form-label col-4 lexical" data-lexical="accuracy">{t}Précision de la localisation (en mètres) :{/t}</label>
+								<div class="col-8">
+									<input id="sampling_date" class="form-control taux" name="location_accuracy" value="{$data.location_accuracy}">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 ">
+							{include file="gestion/objectMapDisplay.tpl"}
+						</div>
+					</div>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="nav-metadata" role="tabpanel" aria-labelledby="tab-metadata"
-				data-error="metadata-error">
-				<div class="form-group form-horizontal">
-					<div class="col-md-6 form-horizontal">
-						<div id="metadata"></div>
+				<div class="tab-pane fade" id="nav-metadata" role="tabpanel" aria-labelledby="tab-metadata" data-error="metadata-error">
+					<div class="row form-horizontal">
+						<div class="form-horizontal">
+							<div id="metadata"></div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	{$csrf}
-</form>
-<span class="red">*</span><span class="messagebas">{t}Donnée obligatoire{/t}</span>
+		<div class="row d-inline">
+			<span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
+		</div>
+		{$csrf}
+	</form>
+</div>

@@ -140,6 +140,10 @@ class Sample extends PpciController
         $this->lib->setSampleType();
         return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
+    function setOperation() {
+        $this->lib->setOperation();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
+    }
     function getChildren()
     {
         return $this->lib->getChildren();

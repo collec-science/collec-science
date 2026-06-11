@@ -7,9 +7,11 @@ use App\Models\ContainerFamily;
 use App\Models\Country;
 use App\Models\IdentifierType;
 use App\Models\Metadata;
+use App\Models\Operation;
 use App\Models\Referent;
 use App\Models\SampleType;
 use App\Models\SamplingPlace;
+use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Libraries\Views\CsvView;
 
@@ -32,6 +34,8 @@ class ImportTemplate extends PpciLibrary
         $this->vue->set($identifiers->getList("identifier_type_name"), "identifiers");
         $cf = new ContainerFamily;
         $this->vue->set($cf->getListe(2), "containerFamily");
+        $op = new Operation;
+        $this->vue->set($op->getListe(), "operations");
         $this->vue->help("gestion/générer-le-modèle-pour-les-importations-de-masse.html");
         return $this->vue->send();
     }
@@ -64,12 +68,15 @@ class ImportTemplate extends PpciLibrary
             $content[] = $container;
         }
         if ($_POST["sampleEnable"] == 1) {
+            if (empty($_POST["sampleTypes"])) {
+                throw new PpciException(_("Au moins un type d'échantillon doit avoir été sélectionné"));
+            }
             /**
              * Import of samples
              */
             $sampleType = new SampleType;
             $metadata = new Metadata;
-            $selectFields = ["referent_name", "country_name", "country_origin_name", "campaign_name", "sampling_place_name"];
+            $selectFields = ["referent_name", "country_name", "country_origin_name", "campaign_name", "sampling_place_name", "operation_code"];
             $i = 1;
             $sampleParent = "";
             foreach ($_POST["sampleTypes"] as $sampleTypeId) {
@@ -98,7 +105,7 @@ class ImportTemplate extends PpciLibrary
                         $sample["sample_parent_identifier"] = $sampleParent;
                     } elseif ($field == "sampleComposite") {
                         $sample["composite_parents_identifier"] = "parent1,parent2";
-                        $sample["composite_multiple_value"] = "0";
+                        $sample["composite_multiple_value"] = "1";
                     } else {
                         $sample[$field] = "";
                     }

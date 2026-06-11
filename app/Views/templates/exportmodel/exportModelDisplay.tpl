@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Détail du modèle d'exportation{/t} <i>{$data.export_model_name}</i></h2>
 <div class="row">
     <a href="exportModelList">
@@ -13,7 +14,7 @@
     {/if}
 </div>
 <div class="row">
-    <div class="col-lg-6 col-md-12">
+    <div class="col-6 col-12">
     <table id="patternList" class="table table-bordered table-hover datatable-nosort"  >
         <thead>
             <tr>
@@ -91,14 +92,14 @@
 </div>
 {if $rights.param == 1}
     <div class="row">
-        <fieldset class="col-md-6">
+        <fieldset class="col-6">
             <legend>{t}Exportation de l'ensemble des données concernées par le modèle{/t}</legend>
             <form class="form-horizontal " id="exportModelExec" method="post" action="exportModelExec">
                 <input type="hidden" name="moduleBase" value="exportModel">
                 <input type="hidden" name="export_model_name" value="{$data.export_model_name}">
                 <input type="hidden" name="returnko" value="exportModelDisplay">
                 <div class="row">
-                        <div class="col-md-12 center">
+                        <div class="col-12 center">
                             <button id="exportButton" type="submit" class="btn btn-warning">{t}Exporter toutes les données concernées par le modèle{/t}</button>
                         </div>
                     </div>
@@ -106,24 +107,24 @@
         </fieldset>
     </div>
     <div class="row">
-        <fieldset class="col-md-6">
+        <fieldset class="col-6">
             <legend>{t}Importation de données précédemment exportées{/t}</legend>
-            <form class="form-horizontal  col-md-12" id="importExecForm" method="post" action="exportModelImportExec"
+            <form class="form-horizontal  col-12" id="importExecForm" method="post" action="exportModelImportExec"
         enctype="multipart/form-data">
                 <input type="hidden" name="moduleBase" value="exportModel">
                 <input type="hidden" name="export_model_id" value="{$data.export_model_id}">
                 <input type="hidden" name="export_model_name" value="{$data.export_model_name}">
                 <input type="hidden" name="returnko" value="exportModelDisplay">
                 <input type="hidden" name="returnok" value="exportModelDisplay">
-                <div class="form-group">
-                    <label for="FileName" class="control-label col-md-4">
+                <div class="row">
+                    <label for="FileName" class="form-label col-4">
                         <span class="red">*</span> {t}Fichier à importer (format JSON généré par l'opération d'export ci-dessus) :{/t}
                     </label>
-                    <div class="col-md-8">
+                    <div class="col-8">
                         <input id="FileName" type="file" class="form-control" name="filename" size="40" required>
                     </div>
                 </div>
-                <div class="form-group center">
+                <div class="row center">
                     <button id="importButton" type="submit" class="btn btn-warning">{t}Importer les données{/t}</button>
                 </div>
             {$csrf}</form>

@@ -184,6 +184,14 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 # Root of the storage of external documents for the instance
 # Each collection must be in a specific subfolder ot this path
 # app.external_document_path = /dev/null
+
+#--------------------------------------------------------------------
+# Enable direct printers
+#--------------------------------------------------------------------
+# If you want use a printer directly connected at your server (with cups)
+# you must activate this functionnality with:
+# app.print_direct_enabled = 1
+
 #--------------------------------------------------------------------
 # Ppci OSM cache
 #--------------------------------------------------------------------

@@ -50,7 +50,12 @@ class SampleInitClass
             "classname" => "App\Models\Country",
             "field" => "country_code2",
             "id" => "country_id"
-        )
+        ),
+        "operation_code" => [
+            "classname" => "App\Models\Operation",
+            "field" => "operation_code",
+            "id" => "operation_id"
+        ]
     );
 
     /**

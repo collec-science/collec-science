@@ -27,8 +27,6 @@ ul {
   width: 16px;
   /* hide the inputs but keep them in the layout with events (use opacity) */
   opacity: 0;
-  filter: alpha(opacity=0); /* internet explorer */
-  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=0)"; /*IE8*/
 }
 
 .treeview li > label {
@@ -37,6 +35,7 @@ ul {
   margin-left: -20px;
   /* pad the text to make room for image */
   padding-left: 20px;
+  max-height: 16px;
 }
 
 .treeview .treeview-folder {
@@ -49,7 +48,7 @@ ul {
   background-position: 0 -1px;
 }
 .treeview .custom-unchecked:hover {
-  background-position: 0 -21px;
+  /*background-position: 0 -21px;*/
 }
 
 /* Checked styles */

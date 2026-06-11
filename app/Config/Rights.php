@@ -169,6 +169,7 @@ class Rights extends RightsPpci
         "samplesSetCampaign" => ["collection"],
         "samplesSetStatus" => ["collection"],
         "samplesSetParent" => ["collection"],
+        "samplesSetOperation" => ["collection"],
         "sampleGetChildren" => ["consult"],
         "samplesTypeChange" => ["collection"],
         "movementList" => ["collection"],
@@ -352,7 +353,6 @@ class Rights extends RightsPpci
         //"documentGetSW" => ["consult"],
         "movement" => ["manage"],
         "importExport" => ["import", "collection", "param"],
-        "parametre" => ["consult"],
         "collections" => ["consult"],
         "protocoles" => ["consult"],
         "campaigns" => ["consult"],
@@ -360,6 +360,7 @@ class Rights extends RightsPpci
         "dbstructure" => ["consult"],
         "administration" => ["admin"],
         "importTemplateChange" => ["import"],
-        "importTemplateGenerate" => ["import"]
+        "importTemplateGenerate" => ["import"],
+        "collectionsSendMail" => ["param"]
     ];
 }

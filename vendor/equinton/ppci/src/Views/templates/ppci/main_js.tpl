@@ -1,39 +1,33 @@
 <!-- Jquery -->
 <script src="display/node_modules/jquery/dist/jquery.min.js"></script>
-<!--script src="display/javascript/jquery-3.6.0.min.js"></script-->
 
-<!-- Bootstrap -->
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="display/javascript/bootstrap/css/bootstrap-theme.min.css">
+<!-- bootstrap 5-->
+ <link rel="stylesheet" href="display/node_modules/bootstrap/dist/css/bootstrap.min.css">
 <script src="display/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="display/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!--JqueryUI-->
 <script src="display/node_modules/jquery-ui/dist/jquery-ui.min.js"></script>
-<script src="display/node_modules/jquery-ui/ui/widgets/tooltip.js"></script>
 <link rel="stylesheet" href="display/node_modules/jquery-ui/dist/themes/base/jquery-ui.min.css">
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
 
 <!-- translations date/time -->
 <script type="text/javascript" charset="utf-8"
     src="display/node_modules/jquery-ui/ui/i18n/datepicker-en-GB.js"></script>
 <script type="text/javascript" charset="utf-8" src="display/node_modules/jquery-ui/ui/i18n/datepicker-fr.js"></script>
-<script type="text/javascript" charset="utf-8"
-    src="display/javascript/jquery-timepicker-addon/jquery-ui-timepicker-addon.min.js"></script>
-<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.min.css" />
-<link rel="stylesheet" type="text/css" href="display/node_modules/jquery-ui-dist/jquery-ui.theme.min.css" />
-<link rel="stylesheet" type="text/css" href="display/CSS/bootstrap-prototypephp.css">
-<script type="text/javascript" charset="utf-8" src="display/javascript/jquery-ui-custom/combobox.js"></script>
 
 <!-- extension pour le menu -->
 <script src="display/node_modules/smartmenus/dist/jquery.smartmenus.min.js" type="text/javascript"></script>
 <link type="text/css" href="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.css"
     rel="stylesheet">
-<script src="display/node_modules/smartmenus/dist/addons/bootstrap/jquery.smartmenus.bootstrap.min.js"
+<script src="display/node_modules/smartmenus/dist/addons/bootstrap-4/jquery.smartmenus.bootstrap-4.min.js"
     type="text/javascript"></script>
 
 <!-- Datatables -->
-<script src="display/node_modules/datatables.net/js/dataTables.min.js"></script>
-<script src="display/node_modules/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+ <script src="display/node_modules/datatables.net/js/dataTables.min.js"></script>
+<script src="display/node_modules/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
 <script src="display/javascript/intl.js"></script>
 
 <!-- Buttons to export from Datatables - classe datatable-export -->
@@ -41,10 +35,10 @@
 <script src="display/node_modules/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="display/node_modules/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+<script src="display/node_modules/datatables.net-buttons-bs5/js/buttons.bootstrap5.min.js"></script>
 <script src="display/node_modules/datatables.net-buttons/js/buttons.colVis.min.js"></script>
 <link rel="stylesheet" type="text/css"
-    href="display/node_modules/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" />
+    href="display/node_modules/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" />
 <script src="display/node_modules/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
 
 <!-- Add sort on date/time -->
@@ -68,6 +62,11 @@
 
 <!-- specific code -->
 <script type="text/javascript" src="display/javascript/bootstrap-prototypephp.js"></script>
+
+<!-- icons-->
+<link rel="stylesheet" type="text/css" href="display/node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
+<!-- ppci.css-->
+ <link rel="stylesheet" type="text/css" href="display/CSS/ppci.css">
 
 
 <!--  Automatic implementation of classes -->
@@ -304,10 +303,6 @@
                     e.preventDefault();
                 }
             });
-            /*
-             * Initialze combobox
-             */
-            $(".combobox").combobox();
             /**
              * Get a confirmation
              */

@@ -1,30 +1,30 @@
-<h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
-<div class="row">
-    <div class="bg-info col-md-6">
+<div class="container">
+    <h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
+    <div class="row bg-info">
         {t}Si un contenant a été placé dans un contenant qu'il contient lui-même, au premier niveau ou dans la hiérarchie des contenants, certaines requêtes peuvent tourner indéfiniment.{/t}
         <br>
         {t}En cas de détection d'un problème de ce type, vous devrez créer un mouvement de sortie pour l'un des deux contenants, sans jamais chercher à ouvrir son détail. Passez par le menu : {/t}
         <br>
-        <a href="fastOutputChange">{t}Mouvement>sortir du stock.{/t}</a> 
+        <a href="fastOutputChange">{t}Mouvement>sortir du stock.{/t}</a>
         <br>
         {t}Attention : la recherche peut être longue !{/t}
     </div>
-</div>
-<br>
-<div class="row">
-    <div class="col-md-6">
+    <br>
+    <div class="row">
         <form class="form-horizontal" method="post" action="containerVerifyCyclicExec">
-            <div class="center">
-                <button type="submit" class="button btn-primary">{t}Déclencher la recherche{/t}</button>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary ">
+                        {t}Déclencher la recherche{/t}
+                    </button>
+                </div>				
             </div>
             {$csrf}
         </form>
     </div>
-</div>
 
-{if $exec == 1}
-<div class="row">
-    <div class="col-md-6">
+    {if $exec == 1}
+    <div class="row">
         <table class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>
@@ -42,6 +42,5 @@
             </tbody>
         </table>
     </div>
+    {/if}
 </div>
-
-{/if}

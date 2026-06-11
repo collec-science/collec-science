@@ -1,13 +1,14 @@
 <script>
-    $(document).ready(function(){
-        $("#displayCodeLink").on("click", function() { 
+    $(document).ready(function () {
+        $("#displayCodeLink").on("click", function () {
             $("#displayCode").show();
         });
+        $("#displayCode").hide();
     });
 </script>
-<h2>{t}Activation de la double authentification{/t}</h2>
-<div class="row">
-    <div class="col-lg-6 col-md-8">
+<div class="container">
+    <h2>{t}Activation de la double authentification{/t}</h2>
+    <div class="row">
         <div class="bg-info ">
             {t}La double identification limite les risques d'usurpation de votre compte.{/t}
             <br>
@@ -18,11 +19,7 @@
             {t}Une fois l'application installée, scannez le QRCODE, puis tapez le code généré par l'application pour valider votre double identification.{/t}
         </div>
     </div>
-</div>
-<div class="col-lg-6 col-md-8">
     <div class="row">
-
-
         <div class="center">
             <img src="totpGetQrcode" height="150" style="margin-top:2.5em">
         </div>
@@ -34,8 +31,8 @@
             </a>
         </div>
     </div>
-    <div class="row" id="displayCode" hidden>
-        <div class="form-display col-md-12">
+    <div class="row" id="displayCode">
+        <div class="form-display col-12">
             <dl class="dl-horizontal">
                 <dt>{t}Fournisseur{/t}</dt>
                 <dd>{$issuer}</dd>
@@ -51,17 +48,18 @@
         </div>
     </div>
 
-    <form id="otpform" class="form-horizontal protoform" method="post" action="totpCreateVerify">
-        <div class="form-group">
-            <label for="otpcode" class="control-label col-md-4">{t}Code généré par le logiciel TOTP :{/t} </label>
-            <div class="col-md-8">
+    <form id="otpform" class="form-horizontal " method="post" action="totpCreateVerify">
+        <div class="row">
+            <label for="otpcode" class="form-label col-4">{t}Code généré par le logiciel TOTP :{/t} </label>
+            <div class="col-8">
                 <input id="otpcode" type="number" class="form-control" name="otpcode" class="nombre" required autofocus>
             </div>
         </div>
-        <div class="center">
-            <button type="submit" class="bg-primary btn">{t}Valider{/t}</button>
+        <div class="row d-flex justify-content-center">
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+            </div>
         </div>
         {$csrf}
     </form>
-</div>
 </div>

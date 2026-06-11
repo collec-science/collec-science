@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\ImportTemplate as LibrariesImportTemplate;
+use Ppci\Libraries\PpciException;
 
 class ImportTemplate extends PpciController
 {
@@ -20,6 +21,12 @@ class ImportTemplate extends PpciController
 
     function generate()
     {
-        return $this->lib->generate();
+        try {
+            return $this->lib->generate();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            return $this->change();
+        }
+        
     }
 }

@@ -1,0 +1,26 @@
+#video-container {
+    position: relative;
+    /*width: max-content;*/
+    width: 100%;
+    height: max-content;
+    overflow: hidden;
+}
+
+#video-container .scan-region-highlight {
+    border-radius: 30px;
+    outline: rgba(0, 0, 0, .25) solid 50vmax;
+}
+
+#video-container .scan-region-highlight-svg {
+    display: none;
+}
+
+#video-container .code-outline-highlight {
+    stroke: rgba(255, 255, 255, .5) !important;
+    stroke-width: 15 !important;
+    stroke-dasharray: none !important;
+}
+
+#flash-toggle {
+    display: none;
+}

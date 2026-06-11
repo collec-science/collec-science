@@ -26,6 +26,9 @@ class Collection extends PpciLibrary
     function __construct()
     {
         parent::__construct();
+        /**
+         * @var ModelsCollection
+         */
         $this->dataclass = new ModelsCollection();
         $this->keyName = "collection_id";
         if (isset($_REQUEST[$this->keyName])) {
@@ -128,16 +131,19 @@ class Collection extends PpciLibrary
      * Function used to generate emails for collections
      * This function must be executed as client (CLI)
      *
-     * @return void
+     * @return string
      */
-    function generateMails()
+    function generateMails($force = false)
     {
+        $dbparam = new Dbparam;
+        $dbparam->readParams();
+        if ($force) {
+            $_SESSION["dbparams"]["notificationLastDate"] = "";
+        }
         /**
          * Search if it's necessary to generate notifications
          */
         if ($this->appConfig->MAIL_enabled) {
-            $dbparam = new Dbparam;
-            $dbparam->readParams();
             $notification = false;
             $currentDate = date_create();
             if ($_SESSION["dbparams"]["notificationDelay"] > 0) {
@@ -156,6 +162,8 @@ class Collection extends PpciLibrary
                 $event = new Event();
                 $mail = new Mail();
                 $collections = $this->dataclass->getNotificationDetails();
+                $sampleNumber = 0;
+                $eventNumber = 0;
                 foreach ($collections as $col) {
                     $data = array();
                     /**
@@ -177,21 +185,35 @@ class Collection extends PpciLibrary
 
                     if (!empty($data["samples"]) || !empty($data["events"])) {
                         $data["collection_name"] = $col["collection_name"];
-
-                        $mail->SendMailSmarty(
-                            $col["notification_mails"],
-                            $_SESSION["dbparams"]["APP_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
-                            "param/collectionMail.tpl",
-                            $data,
-                            $_SESSION["locale"]
-                        );
+                        try {
+                            $mail->SendMailSmarty(
+                                $col["notification_mails"],
+                                $_SESSION["dbparams"]["APP_title"] . " - " . _(sprintf("Notifications concernant la collection %s", $col["collection_name"])),
+                                "param/collectionMail.tpl",
+                                $data,
+                                $_SESSION["locale"]
+                            );
+                            $sampleNumber += count($data["samples"]);
+                            $eventNumber += count($data["events"]);
+                        } catch (\Exception $e) {
+                            log_message("error", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Error when send email");
+                            return _("Une erreur s'est produite lors de l'envoi des emails");
+                        }
                     }
                 }
                 /**
                  * Update the date of the last mail send
                  */
                 $dbparam->setParameter("notificationLastDate", date('Y-m-d'));
+                log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Notification for $sampleNumber samples and $eventNumber events");
+                return sprintf(_("Traitement de %1s échantillons et %2s événements"), $sampleNumber, $eventNumber);
+            } else {
+                log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "No notification today");
+                return (_("Pas de notification prévue ce jour"));
             }
+        } else {
+            log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Emails not enabled in .env file");
+            return _("Emails non activés");
         }
     }
     function verifyRights(int $collection_id)

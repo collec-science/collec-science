@@ -12,4 +12,10 @@ class CollectionsGenerateMail extends Controller
         $lib = new Collection;
         return $lib->generateMails();
     }
+    public function manual() {
+        $lib = new Collection;
+        $message = service("MessagePpci");
+        $message->set($lib->generateMails(true));
+        return defaultPage();
+    }
 }

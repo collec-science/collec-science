@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-12">
         <div class="bg-info">
             {t}Les valeurs dans le tableau sont celles qui existaient auparavant et qui ont été modifiées à la date indiquée, et non les valeurs saisies ce jour-là.{/t}
             {t}Les métadonnées sont en fin de tableau, après la colonne trashed.{/t}

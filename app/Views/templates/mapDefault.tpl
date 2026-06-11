@@ -62,7 +62,7 @@
         lmap.addLayer(osm);
         L.easyPrint({
             title: '{t}Imprimer la carte{/t}',
-            sizeModes: ['A4Landscape'],
+            sizeModes: [ 'A4Landscape'],
             exportOnly: true
         }).addTo(lmap);
     }

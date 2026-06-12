@@ -674,8 +674,8 @@ class Sample extends PpciModel
                             break;
                     }
                     $where .= $and . " $tablefield.$field::date between :date_from: and :date_to:";
-                    $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-                    $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                    $data["date_from"] = $this->formatDateLocaleToDB($param["date_from"]);
+                    $data["date_to"] = $this->formatDateLocaleToDB($param["date_to"]);
                     $and = " and ";
                 }
                 /**
@@ -755,9 +755,9 @@ class Sample extends PpciModel
                  * Search on booking
                  */
                 if ($param["booking_type"] != 0) {
-                    $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
-                    $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
-                    $where .= $and . " (select count(*) from booking b where ((:booking_from: ::timestamp, :booking_to: ::timestamp) overlaps (date_from: ::timestamp, date_to: ::timestamp)) = true
+                    $data["booking_from"] = $this->formatDateLocaleToDB($param["booking_from"]) . " 00:00:00";
+                    $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"]) . " 23:59:59";
+                    $where .= $and . " (select count(*) from booking b where ((:booking_from: ::timestamp, :booking_to: ::timestamp) overlaps (:date_from: ::timestamp, :date_to: ::timestamp)) = true
         and b.uid = so.uid)  ";
                     $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
                     $and = " and ";

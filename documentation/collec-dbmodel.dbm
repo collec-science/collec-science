@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="81"
+<dbmodel pgmodeler-ver="2.0.0-beta" use-changelog="false" author="Éric Quinton" max-obj-count="81"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-16,952" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
+	 last-position="1092,112" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -2593,12 +2593,18 @@ Structure:
 	</constraint>
 
 	<customidxs object-type="column">
+		<object name="dataset_type_id" index="9"/>
 		<object name="export_format_id" index="2"/>
 	</customidxs>
 	<customidxs object-type="constraint">
 		<object name="dataset_type_fk" index="2"/>
 		<object name="export_format_fk" index="1"/>
-	</customidxs></table>
+	</customidxs>	<initial-data>
+<![CDATA["dataset_template_name";"export_format_id";"separator";"filename";"dataset_type_id"
+"elabftw";"1";",";"export_to_elabftw.csv";"5"
+]]>
+	</initial-data>
+</table>
 
 <table name="export_format" layers="0" collapse-mode="1" max-obj-count="2" z-value="0">
 	<schema name="col"/>
@@ -2763,7 +2769,7 @@ Structure:
 
 <table name="dataset_type" layers="0" collapse-mode="1" max-obj-count="3" z-value="0">
 	<schema name="col"/>
-	<comment> <![CDATA[Origine of the dataset: sample, collection, document]]> </comment>
+	<comment> <![CDATA[Origine of the dataset: sample, collection, document, elabftw]]> </comment>
 	<tag name="export"/>
 	<position x="3260" y="240"/>
 	<column name="dataset_type_id" not-null="true">
@@ -2785,6 +2791,7 @@ Structure:
 "2";"collection";"[""collection_name"",""collection_displayname"",""collection_keywords"",""referent_name"",""referent_firstname"",""academical_directory"",""academical_link"",""referent_email"",""address_name"",""address_line2"",""address_line3"",""address_city"",""address_country"",""referent_phone"",""fixed_value""]"
 "3";"document";"[""document_name"",""document_uuid"",""uid"",""sample_uuid"",""identifier"",""content_type"",""extension"",""size"",""document_creation_date"",""fixed_value"", ""web_address""]"
 "4";"arbitrary content";"[""content""]"
+"5";"elabftw";""
 ]]>
 	</initial-data>
 </table>

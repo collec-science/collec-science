@@ -36,11 +36,13 @@
                     {t}Informations générales{/t}
                 </a>
             </li>
+            {if $data.dataset_type_id != 5}
             <li class="nav-item">
-                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-bs-toggle="tab" role="tab" aria-controls="navcols" aria-selected="false">
+                <a class="nav-link datasetTab" id="tabcols" href="#navcols" data-bs-toggle="tab" role="tab" aria-controls="navcols" aria-selected="false" >
                     {t}Liste des informations exportées{/t}
                 </a>
             </li>
+            {/if}
         </ul>
         <!-- description of tabs-->
         <div class="tab-content" id="tabContent">
@@ -94,6 +96,7 @@
                 </div>
 
             </div>
+            {if $data.dataset_type_id != 5}
             <div class="tab-pane fade" id="navcols" role="tabpanel" aria-labelledby="tabcols">
                 <a href="datasetColumnChange?dataset_column_id=0&dataset_template_id={$data.dataset_template_id}">
                     <img src="display/images/new.png" height="25">
@@ -103,6 +106,7 @@
                     {include file="export/datasetColumnTable.tpl"}
                 </div>
             </div>
+            {/if}
         </div>
     </div>
 </div>

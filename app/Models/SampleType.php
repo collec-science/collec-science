@@ -129,9 +129,9 @@ class SampleType extends PpciModel
     /**
      * Retourne le schéma des métadonnées de l'opération
      *
-     * @param int $operation_id
+     * @param int $sample_type_id
      */
-    function getMetadataForm($sample_type_id)
+    function getMetadataForm(int $sample_type_id)
     {
         if ($sample_type_id > 0) {
             $sql = "select metadata_schema
@@ -144,7 +144,7 @@ class SampleType extends PpciModel
             return $data["metadata_schema"];
         }
     }
-    function getMetadataSearchable($sample_type_id)
+    function getMetadataSearchable(int $sample_type_id)
     {
         $data = json_decode($this->getMetadataForm($sample_type_id), true);
         $val = array();

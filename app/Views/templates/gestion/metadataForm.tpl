@@ -1,6 +1,9 @@
 <script>
     var listArrays = new Object();
     function generateMetadataForm(schema, data) {
+        if (!data) {
+            data = [];
+        }
         var metadata = document.getElementById('metadata');
         metadata.innerHTML = "";
         var inputs = new Array("string", "url", "date", "number");

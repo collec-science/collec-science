@@ -77,7 +77,6 @@ class Export extends PpciLibrary
          * Get the record of the lot
          */
         $lot = new Lot();
-        $llot = new LibrariesLot;
         $dlot = $lot->lire($_REQUEST["lot_id"]);
         if ($dlot["collection_id"] > 0) {
             if (collectionVerify($dlot["collection_id"])) {

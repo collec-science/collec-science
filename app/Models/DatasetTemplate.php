@@ -112,6 +112,7 @@ class DatasetTemplate extends PpciModel
         $dbdata = array(); // Data extracted from database before transformation
         switch ($ddataset["dataset_type_id"]) {
             case 1:
+            case 5:
                 /**
                  * Samples
                  */
@@ -148,7 +149,11 @@ class DatasetTemplate extends PpciModel
                 }
                 break;
         }
-        return $this->formatData($dbdata);
+        if ($ddataset["dataset_type_id"] == 5) {
+            return $this->formatElabFtw($dbdata);
+        } else {
+            return $this->formatData($dbdata);
+        }
     }
 
     function formatData(array $dbdata): array
@@ -432,5 +437,58 @@ class DatasetTemplate extends PpciModel
         $sql = "select * from dataset_template
             where dataset_template_name = :name:";
         return $this->lireParamAsPrepared($sql, array("name" => $name));
+    }
+
+    function formatElabFtw(array $dbdata)
+    {
+        $sampleType = new SampleType;
+        $data = [];
+        foreach ($dbdata as $d) {
+            $row = [
+                "title" => $d["identifier"],
+                "date" => $d["sampling_date"],
+                "category_title" => $d["sample_type_name"]
+            ];
+            /**
+             * Preparation of metadata field
+             */
+            $metadata = [];
+            $metadata["collection"] = [
+                "type" => "text",
+                "value" => $d["collection_name"]
+            ];
+            if (!empty($d["multiple_value"])) {
+                $metadata[_("quantité")] = [
+                    "type" => "number",
+                    "unit" => $d["multiple_unit"],
+                    "value" => $d["multiple_value"]
+                ];
+            }
+            $md = json_decode($d["metadata"], true);
+            if (!empty($md)) {
+                $mdTemplate = $sampleType->getMetadataAsArray($d["sample_type_id"]);
+                foreach ($md as $k => $m) {
+                    $key = "md_$k";
+                    $metadata[$key] = [
+                        "value" => $m,
+                        "description" => $mdTemplate[$k]["description"]
+                    ];
+                    if (is_numeric($m)) {
+                        $metadata[$key]["type"] = "number";
+                    } elseif ($mdTemplate[$k]["type"] == "date") {
+                        $metadata[$key]["type"] = "date";
+                    } else {
+                        $metadata[$key]["type"] = "text";
+                    }
+                    if (!empty($mdTemplate[$k]["measureUnit"])) {
+                        $metadata[$key]["unit"] = $mdTemplate[$k]["measureUnit"];
+                    }
+                }
+            }
+
+            $row["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
+            $data[] = $row;
+        }
+        return $data;
     }
 }

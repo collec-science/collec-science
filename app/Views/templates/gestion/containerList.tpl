@@ -2,7 +2,11 @@
 	<h2>{t}Contenants{/t}</h2>
 </div>
 {include file='gestion/containerSearchTab.tpl'}
-
+{if $totalNumber > $containerSearch["limit"] && $containerSearch["limit"] > 0}
+<div class="col-auto">
+	<span class="red">{t 1=$totalNumber 2=$containerSearch["limit"] 3=$containerSearch["page"]}Attention : seuls les %2 contenants les plus récents à partir de la page %3 sont affichés sur un total de %1{/t}</span>
+</div>
+{/if}
 {if $rights.manage == 1}
 <div class="container-fluid">
 	<div class="row">
@@ -14,6 +18,4 @@
 	</div>
 </div>
 {/if}
-{if $isSearch > 0}
 {include file='gestion/containerListDetail.tpl'}
-{/if}

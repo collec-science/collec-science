@@ -25,36 +25,35 @@
 		/*
 		* Verification que des criteres de selection soient saisis
 		*/
-		$("#container_search").submit(function (event) {
-			var ok = false;
-			if ($("#name").val().length > 0) {
-				ok = true;
-				try {
-					obj = JSON.parse($("#name").val());
-					if (obj.db.length > 0) {
-						if (obj.db == appli_code) {
-							$("#uidsearch").val(obj.uid);
-							$("#name").val("");
-						} else {
-							$("#name").val(obj.db + ":" + obj.uid);
-						}
+		/*		$("#container_search").submit(function (event) {
+					var ok = false;
+					if ($("#name").val().length > 0) {
+						ok = true;
+						try {
+							obj = JSON.parse($("#name").val());
+							if (obj.db.length > 0) {
+								if (obj.db == appli_code) {
+									$("#uidsearch").val(obj.uid);
+									$("#name").val("");
+								} else {
+									$("#name").val(obj.db + ":" + obj.uid);
+								}
+							}
+						} catch (error) { }
 					}
-				} catch (error) { }
-			}
-			if ($("#container_family_id").val() > 0) ok = true;
-			if ($("#uidsearch").val() > 0) ok = true;
-			if ($("#uid_min").val() > 0) ok = true;
-			if ($("#uid_max").val() > 0) ok = true;
-			if ($("#container_type_id").val() > 0) ok = true;
-			if ($("#object_status_id").val() > 1) ok = true;
-			if ($("#event_type_id").val() > 1) ok = true;
-			if ($("#trashed").val() == 1) ok = true;
-			if ($("#referent_id").val() > 0) ok = true;
-			if ($("#movement_reason_id").val() > 0) ok = true;
-			if ($("#collection_id").val() > 0) ok = true;
-			if (ok == false) event.preventDefault();
-		});
-
+					if ($("#container_family_id").val() > 0) ok = true;
+					if ($("#uidsearch").val() > 0) ok = true;
+					if ($("#uid_min").val() > 0) ok = true;
+					if ($("#uid_max").val() > 0) ok = true;
+					if ($("#container_type_id").val() > 0) ok = true;
+					if ($("#object_status_id").val() > 1) ok = true;
+					if ($("#event_type_id").val() > 1) ok = true;
+					if ($("#trashed").val() == 1) ok = true;
+					if ($("#referent_id").val() > 0) ok = true;
+					if ($("#movement_reason_id").val() > 0) ok = true;
+					if ($("#collection_id").val() > 0) ok = true;
+					if (ok == false) event.preventDefault();
+				});*/
 		searchType();
 		$("#razid").on("click keyup", function () {
 			$("#object_status_id").prop("selectedIndex", 1).change();
@@ -82,6 +81,22 @@
 			activeTab = myStorage.getItem("containerSearchTab");
 		} catch (Exception) {
 		}
+		/**
+ * Get the limit from the storage
+ */
+		var limit = "{$containerSearch.limit}";
+		$("#limit").change(function () {
+			myStorage.setItem("containerSearchLimit", $("#limit").val());
+		});
+		if (!limit) {
+			try {
+				var localLimit = myStorage.getItem("containerSearchLimit");
+				$("#limit").val(localLimit);
+			} catch (Exception) {
+				$("#limit").val(100);
+			}
+		}
+
 		try {
 			if (activeTab.length > 0) {
 				$("#" + activeTab).tab('show');
@@ -275,11 +290,21 @@
 					</div>
 				</div>
 			</div>
-			<div class="row -d-flex justify-content-center">
-				<div class="col-auto">
-					<button type="submit" class="btn btn-success" >{t}Rechercher{/t}</button>
+			<div class="row">
+				<label for="limit" class="col-3 text-end form-label">
+					{t}Nombre maxi à lire depuis la base de données (0 pour tous) :{/t}
+				</label>
+				<div class="col-1">
+					<input id="limit" name="limit" value="{$containerSearch.limit}" class="form-control nombre">
 				</div>
-				<div class="col-auto">
+				<label for="page" class="col-1 text-end form-label">
+					{t}À partir de la page{/t}
+				</label>
+				<div class="col-1">
+					<input id="page" name="page" value="{$containerSearch.page}" class="form-control nombre" type="number">
+				</div>
+				<div class="col-4">
+					<button type="submit" class="btn btn-success">{t}Rechercher{/t}</button>
 					<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
 				</div>
 

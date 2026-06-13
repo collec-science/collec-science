@@ -63,11 +63,13 @@ class Container extends PpciLibrary
             $_SESSION["searchContainer"]->setParam($_REQUEST);
         }
         $dataSearch = $_SESSION["searchContainer"]->getParam();
-        if ($_SESSION["searchContainer"]->isSearch() == 1) {
+        //if ($_SESSION["searchContainer"]->isSearch() == 1) {
+        $this->dataclass->resetParam();
             $data = $this->dataclass->containerSearch($dataSearch);
+            $this->vue->set($this->dataclass->getNbContainers($dataSearch), "totalNumber");
             $this->vue->set($data, "containers");
             $this->vue->set(1, "isSearch");
-        }
+        //}
         $this->vue->set($dataSearch, "containerSearch");
         $this->vue->set("gestion/containerList.tpl", "corps");
         $borrower = new Borrower();

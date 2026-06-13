@@ -832,21 +832,21 @@ class Sample extends PpciModel
      */
     function sampleSearch(array $param): array
     {
+        
         $this->_generateSearch($param);
-        if (!empty($this->where)) {
-
-            if ($param["limit"] > 0) {
-                $limit = " order by s.uid desc limit " . $param["limit"];
-                if ($param["page"] > 0 && is_numeric($param["page"])) {
-                    $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
-                }
-            } else {
-                $limit = "";
-            }
-            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
-        } else {
-            return array();
+        if (empty($this->where) && empty($param["limit"])) {
+            $param["limit"] = 50;
+            $_SESSION["searchSample"]->setParam(["limit"=> 50]);
         }
+        if ($param["limit"] > 0) {
+            $limit = " order by s.uid desc limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
+            }
+        } else {
+            $limit = "";
+        }
+        return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
     }
 
     private function _executeSearch(string $sql, array $data, $metadatafilter = ""): array
@@ -861,7 +861,6 @@ class Sample extends PpciModel
         /**
          * Execute the request
          */
-
         $list = $this->getListParam($sql, $data);
         /**
          * Purge metadata if necessary
@@ -902,11 +901,11 @@ class Sample extends PpciModel
     {
         $this->_generateSearch($param);
         $number = 0;
-        if (!empty($this->where)) {
-            $sql = "select count(s.sample_id) as samplenumber";
-            $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
-            $number = $data["samplenumber"];
-        }
+        //if (!empty($this->where)) {
+        $sql = "select count(s.sample_id) as samplenumber";
+        $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
+        $number = $data["samplenumber"];
+        //}
         return $number;
     }
 

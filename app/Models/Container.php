@@ -21,7 +21,8 @@ class Container extends PpciModel
           borrowing_date, expected_return_date, borrower_id, borrower_name,
           nb_slots_used
           ,collection_id, collection_name, collection_description
-					from container c
+            ";
+    private $from = " from container c
 					join object o using (uid)
 					join container_type using (container_type_id)
 					join container_family using (container_family_id)
@@ -38,10 +39,11 @@ class Container extends PpciModel
           left outer join slots_used su on (c.container_id = su.container_id)
           left outer join collection using (collection_id)
           left outer join risk using (risk_id)
-          left outer join product using (product_id)
-            ";
+          left outer join product using (product_id)";
     private $uidMin = 999999999, $uidMax = 0, $numberUid = 0;
-
+    private $where = "";
+    private $paramSearch = array();
+    private $data = array();
     private $movement, $object;
 
 
@@ -81,7 +83,7 @@ class Container extends PpciModel
      */
     function read($uid, $getDefault = false, $parentValue = ""): array
     {
-        $sql = $this->sql . " where o.uid = :uid:";
+        $sql = $this->sql . $this->from . " where o.uid = :uid:";
         $data["uid"] = $uid;
         $this->datetimeFields[] = "change_date";
         $this->dateFields[] = "borrowing_date";
@@ -330,135 +332,147 @@ class Container extends PpciModel
      */
     function containerSearch($param)
     {
-        /**
-         * Verification de la presence des parametres
-         */
-        $searchOk = false;
-        $paramName = array(
-            "uidsearch",
-            "name",
-            "container_family_id",
-            "container_type_id",
-            "select_date",
-            "referent_id",
-            "collection_id"
-        );
-        if ($param["object_status_id"] > 1 || $param["trashed"] == 1 || $param["uid_min"] > 0 || $param["uid_max"] > 0 || $param["event_type_id"] > 0 || $param["movement_reason_id"] > 0) {
-            $searchOk = true;
-        } else {
-            foreach ($paramName as $name) {
-                if (!empty($param[$name])) {
-                    $searchOk = true;
-                    break;
-                }
-            }
+        $this->_generateSearch($param);
+        if (empty($this->where) && empty($param["limit"])) {
+            $param["limit"] = 50;
+            $_SESSION["searchContainer"]->setParam(["limit" => 50]);
         }
-        if ($searchOk) {
-            $data = array();
-            $where = "where";
-            $and = "";
-            if ($param["container_type_id"] > 0) {
-                $where .= " container_type_id = :container_type_id:";
-                $data["container_type_id"] = $param["container_type_id"];
-                $and = " and ";
-            } elseif ($param["container_family_id"] > 0) {
-                $where .= " container_family_id = :container_family_id:";
-                $data["container_family_id"] = $param["container_family_id"];
-                $and = " and ";
+        if ($param["limit"] > 0) {
+            $limit = " order by c.uid desc limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
             }
-            if ($param["uidsearch"] > 0) {
-                $where .= $and . " o.uid = :uid:";
-                $data["uid"] = $param["uidsearch"];
-                $and = " and ";
+        } else {
+            $limit = "";
+        }
+        return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data);
+    }
+
+    private function _executeSearch(string $sql, array $data): array
+    {
+        return $this->getListeParamAsPrepared($sql, $data);
+    }
+    private function _generateSearch(array $param)
+    {
+        $data = array();
+        $where = "where";
+        $and = "";
+        if ($param["container_type_id"] > 0) {
+            $where .= " container_type_id = :container_type_id:";
+            $data["container_type_id"] = $param["container_type_id"];
+            $and = " and ";
+        } elseif ($param["container_family_id"] > 0) {
+            $where .= " container_family_id = :container_family_id:";
+            $data["container_family_id"] = $param["container_family_id"];
+            $and = " and ";
+        }
+        if ($param["uidsearch"] > 0) {
+            $where .= $and . " o.uid = :uid:";
+            $data["uid"] = $param["uidsearch"];
+            $and = " and ";
+        }
+        if (!empty($param["name"])) {
+            $where .= $and . "( ";
+            $or = "";
+            if (strlen($param["name"]) == 36) {
+                $where .= "o.uuid = :uuid:";
+                $data["uuid"] = $param["name"];
+                $or = " or ";
             }
-            if (!empty($param["name"])) {
-                $where .= $and . "( ";
-                $or = "";
-                if (strlen($param["name"]) == 36) {
-                    $where .= "o.uuid = :uuid:";
-                    $data["uuid"] = $param["name"];
-                    $or = " or ";
-                }
-                $identifier = "%" . strtoupper($param["name"]) . "%";
-                $where .= "$or upper(o.identifier) like :identifier: ";
-                $and = " and ";
-                $data["identifier"] = $identifier;
-                /*
+            $identifier = "%" . strtoupper($param["name"]) . "%";
+            $where .= "$or upper(o.identifier) like :identifier: ";
+            $and = " and ";
+            $data["identifier"] = $identifier;
+            /*
                  * Recherche sur les identifiants externes
                  * possibilite de recherche sur cab:valeur, p. e.
                  */
-                $where .= " or upper(identifiers) like :identifier: ";
-                $where .= ")";
-            }
-            if ($param["object_status_id"] > 0) {
-                $where .= $and . " os.object_status_id = :object_status_id:";
-                $and = " and ";
-                $data["object_status_id"] = $param["object_status_id"];
-            }
-            if (strlen($param["trashed"]) > 0) {
-                $param["trashed"] == 1 ? $trashed = true : $trashed = false;
-                $where .= $and . " o.trashed = :trashed:";
-                $and = " and ";
-                $data["trashed"] = $trashed;
-            }
-            if ($param["referent_id"] > 0) {
-                $where .= $and . "o.referent_id = :referent_id:";
-                $and = " and ";
-                $data["referent_id"] = $param["referent_id"];
-            }
-            if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
-                $where .= $and . " o.uid between :uid_min: and :uid_max:";
-                $and = " and ";
-                $data["uid_min"] = $param["uid_min"];
-                $data["uid_max"] = $param["uid_max"];
-            }
-            if (!empty($param["select_date"])) {
-                $tablefield = "c";
-                switch ($param["select_date"]) {
-                    case "ch":
-                        $field = "change_date";
-                        $tablefield = "o";
-                        break;
-                }
-                $where .= $and . " $tablefield.$field::date between :date_from: and :date_to:";
-                $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-                $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
-                $and = " and ";
-            }
-            /**
-             * Recherche sur le motif de destockage
-             */
-            if ($param["movement_reason_id"] > 0) {
-                $where .= $and . " movement_reason_id = :movement_reason_id:";
-                $data["movement_reason_id"] = $param["movement_reason_id"];
-                $and = " and ";
-            }
-            /**
-             * Search on event type
-             */
-            if ($param["event_type_id"] > 0) {
-                $this->sql .= " left outer join event oe on (o.uid = oe.uid) ";
-                $where .= $and . " event_type_id = :event_type_id:";
-                $data["event_type_id"] = $param["event_type_id"];
-                $and = " and ";
-            }
-            /**
-             * Search on collection
-             */
-            if ($param["collection_id"] > 0) {
-                $where .= $and . "collection_id = :collection_id:";
-                $data["collection_id"] = $param["collection_id"];
-                $and = " and ";
-            }
-            if ($and == "") {
-                $where = "";
-            }
-            $this->datetimeFields[] = "movement_date";
-            $this->datetimeFields[] = "change_date";
-            return $this->getListeParamAsPrepared($this->sql . $where /*. $order*/, $data);
-        } else {
-            return array();
+            $where .= " or upper(identifiers) like :identifier: ";
+            $where .= ")";
         }
+        if ($param["object_status_id"] > 0) {
+            $where .= $and . " os.object_status_id = :object_status_id:";
+            $and = " and ";
+            $data["object_status_id"] = $param["object_status_id"];
+        }
+        if (strlen($param["trashed"]) > 0) {
+            $param["trashed"] == 1 ? $trashed = true : $trashed = false;
+            $where .= $and . " o.trashed = :trashed:";
+            $and = " and ";
+            $data["trashed"] = $trashed;
+        }
+        if ($param["referent_id"] > 0) {
+            $where .= $and . "o.referent_id = :referent_id:";
+            $and = " and ";
+            $data["referent_id"] = $param["referent_id"];
+        }
+        if ($param["uid_max"] > 0 && $param["uid_max"] >= $param["uid_min"]) {
+            $where .= $and . " o.uid between :uid_min: and :uid_max:";
+            $and = " and ";
+            $data["uid_min"] = $param["uid_min"];
+            $data["uid_max"] = $param["uid_max"];
+        }
+        if (!empty($param["select_date"])) {
+            $tablefield = "c";
+            switch ($param["select_date"]) {
+                case "ch":
+                    $field = "change_date";
+                    $tablefield = "o";
+                    break;
+            }
+            $where .= $and . " $tablefield.$field::date between :date_from: and :date_to:";
+            $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
+            $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+            $and = " and ";
+        }
+        /**
+         * Recherche sur le motif de destockage
+         */
+        if ($param["movement_reason_id"] > 0) {
+            $where .= $and . " movement_reason_id = :movement_reason_id:";
+            $data["movement_reason_id"] = $param["movement_reason_id"];
+            $and = " and ";
+        }
+        /**
+         * Search on event type
+         */
+        if ($param["event_type_id"] > 0) {
+            $this->from .= " left outer join event oe on (o.uid = oe.uid) ";
+            $where .= $and . " event_type_id = :event_type_id:";
+            $data["event_type_id"] = $param["event_type_id"];
+            $and = " and ";
+        }
+        /**
+         * Search on collection
+         */
+        if ($param["collection_id"] > 0) {
+            $where .= $and . "collection_id = :collection_id:";
+            $data["collection_id"] = $param["collection_id"];
+            $and = " and ";
+        }
+        if ($and == "") {
+            $where = "";
+            if (empty($param["limit"])) {
+                $param["limit"] = 50;
+                $_SESSION["searchContainer"]->setParam(["limit" => 50]);
+            }
+        }
+        $this->where = $where;
+        $this->paramSearch = $param;
+        $this->data = $data;
+        $this->datetimeFields[] = "movement_date";
+        $this->datetimeFields[] = "change_date";
+        if ($param["limit"] > 0) {
+            $limit = " order by uid desc limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
+            }
+        } else {
+            $limit = "";
+        }
+        /*} else {
+            return array();
+        }*/
     }
 
     /**
@@ -473,7 +487,7 @@ class Container extends PpciModel
             $where = " where container_type_id = :container_type_id: and o.trashed = :trashed:";
             $order = " order by o.identifier,o.uid";
             $trashed == 0 ? $trash = "false" : $trash = "true";
-            return $this->getListeParamAsPrepared($this->sql . $where . $order, array("container_type_id" => $container_type_id, "trashed" => $trash));
+            return $this->getListeParamAsPrepared($this->sql . $this->from . $where . $order, array("container_type_id" => $container_type_id, "trashed" => $trash));
         }
     }
 
@@ -1003,7 +1017,7 @@ class Container extends PpciModel
     function getChildrenContainer(int $uid): array
     {
         $where = " where lm.movement_type_id = 1 and lm.container_uid = :uid:";
-        return $this->getListeParamAsPrepared($this->sql . $where, array("uid" => $uid));
+        return $this->getListeParamAsPrepared($this->sql . $this->from . $where, array("uid" => $uid));
     }
 
     public function verifyCollection($data)
@@ -1083,5 +1097,27 @@ class Container extends PpciModel
             }
         }
         return $retour;
+    }
+    function getNbContainers(array $param): ?int
+    {
+        $this->_generateSearch($param);
+        $number = 0;
+        //if (!empty($this->where)) {
+        $sql = "select count(c.container_id) as containernumber";
+        $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
+        $number = $data["containernumber"];
+        //}
+        return $number;
+    }
+      /**
+     * Reset the cache of variables used for the research
+     *
+     * @return void
+     */
+    function resetParam()
+    {
+        $this->where = "";
+        $this->paramSearch = array();
+        $this->data = array();
     }
 }

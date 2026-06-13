@@ -31,7 +31,7 @@
 			<a href="sampleChangeTab?uid=0"><img src="display/images/new.png" height="25">{t}Nouvel échantillon{/t}</a>
 		</div>
 		{/if}
-		{if $isSearch > 0}
+
 		{if $totalNumber > $sampleSearch["limit"] && $sampleSearch["limit"] > 0}
 		<div class="col-auto">
 			<span class="red">{t 1=$totalNumber 2=$sampleSearch["limit"] 3=$sampleSearch["page"]}Attention : seuls les %2 échantillons les plus récents à partir de la page %3 sont affichés sur un total de %1{/t}</span>
@@ -60,5 +60,4 @@
 			{include file="gestion/sampleListMap.tpl"}
 		</div>
 	</div>
-	{/if}
 </div>

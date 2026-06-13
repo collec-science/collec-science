@@ -2,14 +2,21 @@
 <script>
 	$(document).ready(function () {
 		var gestion = "{$rights.manage}";
-		var dataOrder = [0, 'asc'];
-		if (gestion == 1) {
-			dataOrder = [1, 'asc'];
+		var limit = Number("{$containerSearch['limit']}");
+		var totalNumber = Number("{$totalNumber}");
+		var asc = "asc";
+		if(limit && limit < totalNumber) {
+			asc = "desc";
 		}
+		var dataOrder = [0, asc];
+		if (gestion == 1) {
+			dataOrder = [1, asc];
+		}
+		
 		var myStorageContainer = window.localStorage;
 		var maxcol = 15;
 		try {
-			var hb = JSON.parse(myStorageContainer.getItem("sampleSearchColumns"));
+			var hb = JSON.parse(myStorageContainer.getItem("containerSearchColumns"));
 			if (hb.length == 0) {
 				if (gestion == 1) {
 					hb = [16];

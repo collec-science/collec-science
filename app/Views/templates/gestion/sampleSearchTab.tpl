@@ -28,7 +28,7 @@
         /*
          * Verification que des criteres de selection soient saisis
          */
-        $("#sample_search").submit(function (event) {
+        /*$("#sample_search").submit(function (event) {
             var ok = false;
             if ($("#name").val().length > 0) {
                 ok = true;
@@ -101,7 +101,7 @@
             if (!ok) {
                 event.preventDefault();
             }
-        });
+        });*/
         var lastSampletypeId = "{$sampleSearch.sample_type_id}";
         var datamd1 = "{$sampleSearch.metadata_value.1}";
         var datamd2 = "{$sampleSearch.metadata_value.2}";
@@ -336,11 +336,13 @@
         $("#limit").change(function () {
             myStorage.setItem("sampleSearchLimit", $("#limit").val());
         });
-        try {
-            var localLimit = myStorage.getItem("sampleSearchLimit");
-            $("#limit").val(localLimit);
-        } catch (Exception) {
-            $("#limit").val(100);
+        if (empty(limit)) {
+            try {
+                var localLimit = myStorage.getItem("sampleSearchLimit");
+                $("#limit").val(localLimit);
+            } catch (Exception) {
+                $("#limit").val(100);
+            }
         }
 
         /*$('.nav-tabs > li > a').hover(function() {
@@ -395,11 +397,8 @@
 </script>
 <div class="container-fluid">
     <div class="row">
-        <form class="" id="sample_search"
-            action="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}{if strlen($action)>0}{$action}{else}List{/if}"
-            method="GET">
-            <input id="moduleBase" type="hidden" name="moduleBase"
-                value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
+        <form class="" id="sample_search" action="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}{if strlen($action)>0}{$action}{else}List{/if}" method="GET">
+            <input id="moduleBase" type="hidden" name="moduleBase" value="{if strlen($moduleBase)>0}{$moduleBase}{else}sample{/if}">
             <input id="isSearch" type="hidden" name="isSearch" value="1">
             <input type="hidden" id="SouthWestlon" name="SouthWestlon" value="{$sampleSearch.SouthWestlon}">
             <input type="hidden" id="SouthWestlat" name="SouthWestlat" value="{$sampleSearch.SouthWestlat}">
@@ -409,38 +408,32 @@
             <!-- boite d'onglets -->
             <ul class="nav nav-tabs" id="searchTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link searchTab active" id="tabsearch-uid" data-bs-toggle="tab" role="tab"
-                        aria-controls="navsearch-uid" aria-selected="true" href="#navsearch-uid">
+                    <a class="nav-link searchTab active" id="tabsearch-uid" data-bs-toggle="tab" role="tab" aria-controls="navsearch-uid" aria-selected="true" href="#navsearch-uid">
                         {t}UID/identifiant{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-type" href="#navsearch-type" data-bs-toggle="tab"
-                        role="tab" aria-controls="navsearch-type" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-type" href="#navsearch-type" data-bs-toggle="tab" role="tab" aria-controls="navsearch-type" aria-selected="false">
                         {t}Type et métadonnées{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-date" href="#navsearch-date" data-bs-toggle="tab"
-                        role="tab" aria-controls="navsearch-date" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-date" href="#navsearch-date" data-bs-toggle="tab" role="tab" aria-controls="navsearch-date" aria-selected="false">
                         {t}Dates{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-divers" href="#navsearch-divers" data-bs-toggle="tab"
-                        role="tab" aria-controls="navsearch-divers" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-divers" href="#navsearch-divers" data-bs-toggle="tab" role="tab" aria-controls="navsearch-divers" aria-selected="false">
                         {t}Divers{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-loc" href="#navsearch-loc" data-bs-toggle="tab"
-                        role="tab" aria-controls="navsearch-loc" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-loc" href="#navsearch-loc" data-bs-toggle="tab" role="tab" aria-controls="navsearch-loc" aria-selected="false">
                         {t}Localisation{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link searchTab" id="tabsearch-record" href="#navsearch-record" data-bs-toggle="tab"
-                        role="tab" aria-controls="navsearch-record" aria-selected="false">
+                    <a class="nav-link searchTab" id="tabsearch-record" href="#navsearch-record" data-bs-toggle="tab" role="tab" aria-controls="navsearch-record" aria-selected="false">
                         {t}Recherches enregistrées{/t}
                     </a>
                 </li>
@@ -450,27 +443,23 @@
                     <div class="row">
                         <label for="uidsearch" class="col-2 text-end form-label">{t}UID :{/t}</label>
                         <div class="col-1">
-                            <input id="uidsearch" name="uidsearch" class="form-control nombre"
-                                value="{$sampleSearch.uidsearch}" autofocus>
+                            <input id="uidsearch" name="uidsearch" class="form-control nombre" value="{$sampleSearch.uidsearch}" autofocus>
                         </div>
                         <label for="name" class="col-3 text-end offset-md-2 text-end form-label">
                             {t}Identifiant(s) ou UUID :{/t}
                             <img src="display/images/qrcode.png" height="25">
                         </label>
                         <div class="col-4">
-                            <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}"
-                                title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
+                            <input id="name" type="text" class="form-control" name="name" value="{$sampleSearch.name}" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b), ou liste d'identifiants principaux séparés par une virgule (p. e. : af74,af76){/t}">
                         </div>
                     </div>
                     <div class="row">
                         <label for="uid_min" class="col-2 text-end form-label">{t}UID entre :{/t}</label>
                         <div class="col-2">
-                            <input id="uid_min" name="uid_min" class="nombre form-control"
-                                value="{$sampleSearch.uid_min}">
+                            <input id="uid_min" name="uid_min" class="nombre form-control" value="{$sampleSearch.uid_min}">
                         </div>
                         <div class="col-2">
-                            <input id="uid_max" name="uid_max" class="nombre form-control"
-                                value="{$sampleSearch.uid_max}">
+                            <input id="uid_max" name="uid_max" class="nombre form-control" value="{$sampleSearch.uid_max}">
                         </div>
                     </div>
                     <div class="row">
@@ -480,8 +469,7 @@
                                 <option value="" {if $sampleSearch.collection_id=="" }selected{/if}>{t}Choisissez...{/t}
                                 </option>
                                 {foreach $collectionsSearch as $collection}
-                                <option value="{$collection.collection_id}" {if
-                                    $collection.collection_id==$sampleSearch.collection_id}selected{/if}>
+                                <option value="{$collection.collection_id}" {if $collection.collection_id==$sampleSearch.collection_id}selected{/if}>
                                     {$collection.collection_name}
                                 </option>
                                 {/foreach}
@@ -493,8 +481,7 @@
                                 <option value="" {if count($sampleSearch.collections)==0}selected{/if}>
                                     {t}Choisissez...{/t}</option>
                                 {foreach $collectionsSearch as $collection}
-                                <option value="{$collection.collection_id}" {if
-                                    in_array($collection.collection_id,$sampleSearch.collections)}selected{/if}>
+                                <option value="{$collection.collection_id}" {if in_array($collection.collection_id,$sampleSearch.collections)}selected{/if}>
                                     {$collection.collection_name}
                                 </option>
                                 {/foreach}
@@ -509,15 +496,13 @@
                                 <option value="" {if $sampleSearch.object_status_id=="" }selected{/if}>
                                     {t}Choisissez...{/t}</option>
                                 {section name=lst loop=$objectStatus}
-                                <option value="{$objectStatus[lst].object_status_id}" {if
-                                    $objectStatus[lst].object_status_id==$sampleSearch.object_status_id}selected{/if}>
+                                <option value="{$objectStatus[lst].object_status_id}" {if $objectStatus[lst].object_status_id==$sampleSearch.object_status_id}selected{/if}>
                                     {$objectStatus[lst].object_status_name}
                                 </option>
                                 {/section}
                             </select>
                         </div>
-                        <label for="trashed" class="col-2 offset-md-2 text-end form-label lexical" data-lexical="trashed"
-                            title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
+                        <label for="trashed" class="col-2 offset-md-2 text-end form-label lexical" data-lexical="trashed" title="{t}Échantillons mis à la corbeille{/t}">{t}En attente de suppression :{/t}</label>
                         <div class="col-2">
                             <select id="trashed" name="trashed" class="form-select">
                                 <option value="" {if $sampleSearch.trashed=="" }selected{/if}>{t}Tous{/t}</option>
@@ -535,9 +520,7 @@
                                 <option value="0" {if $sampleSearch.sample_type_id=="0" }selected{/if}>
                                     {t}Choisissez...{/t}</option>
                                 {section name=lst loop=$sample_type}
-                                <option value="{$sample_type[lst].sample_type_id}" {if
-                                    $sample_type[lst].sample_type_id==$sampleSearch.sample_type_id}selected{/if}
-                                    title="{$sample_type[lst].sample_type_description}">
+                                <option value="{$sample_type[lst].sample_type_id}" {if $sample_type[lst].sample_type_id==$sampleSearch.sample_type_id}selected{/if} title="{$sample_type[lst].sample_type_description}">
                                     {$sample_type[lst].sample_type_name}
                                 </option>
                                 {/section}
@@ -554,8 +537,7 @@
                                     {t}Métadonnée :{/t}</option>
                                 {if $rights.manage == 1 || consultSeesAll == 1}
                                 {foreach $metadatas as $value}
-                                <option value="{$value.fieldname}" {if
-                                    $sampleSearch.metadata_field.0==$value.fieldname}selected{/if}>
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.0==$value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                 </option>
                                 {/foreach}
@@ -563,9 +545,7 @@
                             </select>
                         </div>
                         <div class="col-3">
-                            <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]"
-                                value="{$sampleSearch.metadata_value.0}"
-                                title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                            <input class="form-control metadatavalue" id="metadata_value" name="metadata_value[]" value="{$sampleSearch.metadata_value.0}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
                         </div>
                         <div class="col-1">
                             <img src="display/images/plus.png" height="25" id="showmetadata1">
@@ -573,51 +553,45 @@
                     </div>
                     <div class="row" id="metadatarow1">
                         <!--  metadonnees supplementaires -->
-                            <label for="metadata_field1" class="col-3 text-end form-label">{t}et{/t}</label>
-                            <div class="col-3">
-                                <select class="form-select" id="metadata_field1" name="metadata_field[]">
-                                    <option value="" {if $sampleSearch.metadata_field.1=="" }selected{/if}>
-                                        {t}Métadonnée :{/t}</option>
-                                    {if $rights.manage == 1 || consultSeesAll == 1}
-                                    {foreach $metadatas as $value}
-                                    <option value="{$value.fieldname}" {if
-                                        $sampleSearch.metadata_field.1==$value.fieldname}selected{/if}>
-                                        {$value.fieldname}
-                                    </option>
-                                    {/foreach}
-                                    {/if}
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]"
-                                    value="{$sampleSearch.metadata_value.1}"
-                                    title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
-                            </div>
-                            <div class="col-1">
-                                <img src="display/images/plus.png" height="25" id="showmetadata2">
-                            </div>
+                        <label for="metadata_field1" class="col-3 text-end form-label">{t}et{/t}</label>
+                        <div class="col-3">
+                            <select class="form-select" id="metadata_field1" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.1=="" }selected{/if}>
+                                    {t}Métadonnée :{/t}</option>
+                                {if $rights.manage == 1 || consultSeesAll == 1}
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.1==$value.fieldname}selected{/if}>
+                                    {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control metadatavalue" id="metadata_value_1" name="metadata_value[]" value="{$sampleSearch.metadata_value.1}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                        </div>
+                        <div class="col-1">
+                            <img src="display/images/plus.png" height="25" id="showmetadata2">
+                        </div>
                     </div>
                     <div class="row" id="metadatarow2">
-                            <label for="metadata_field2" class="col-3 text-end form-label">{t}et{/t}</label>
-                            <div class="col-3">
-                                <select class="form-select" id="metadata_field2" name="metadata_field[]">
-                                    <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
-                                        {t}Métadonnée :{/t}</option>
-                                    {if $rights.manage == 1 || consultSeesAll == 1}
-                                    {foreach $metadatas as $value}
-                                    <option value="{$value.fieldname}" {if
-                                        $sampleSearch.metadata_field.2==$value.fieldname}selected{/if}>
-                                        {$value.fieldname}
-                                    </option>
-                                    {/foreach}
-                                    {/if}
-                                </select>
-                            </div>
-                            <div class="col-3">
-                                <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]"
-                                    value="{$sampleSearch.metadata_value.2}"
-                                    title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
-                            </div>
+                        <label for="metadata_field2" class="col-3 text-end form-label">{t}et{/t}</label>
+                        <div class="col-3">
+                            <select class="form-select" id="metadata_field2" name="metadata_field[]">
+                                <option value="" {if $sampleSearch.metadata_field.2=="" }selected{/if}>
+                                    {t}Métadonnée :{/t}</option>
+                                {if $rights.manage == 1 || consultSeesAll == 1}
+                                {foreach $metadatas as $value}
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadata_field.2==$value.fieldname}selected{/if}>
+                                    {$value.fieldname}
+                                </option>
+                                {/foreach}
+                                {/if}
+                            </select>
+                        </div>
+                        <div class="col-3">
+                            <input class="form-control metadatavalue" id="metadata_value_2" name="metadata_value[]" value="{$sampleSearch.metadata_value.2}" title="{t}Libellé à rechercher dans le champ de métadonnées sélectionné. Si plusieurs valeurs à rechercher, séparez-les par une virgule (sans espace){/t}">
+                        </div>
                     </div>
                     <div class="row">
                         <label for="metadatafilter" class="col-3 text-end form-label">
@@ -629,8 +603,7 @@
                                     {t}Métadonnée à afficher :{/t}
                                 </option>
                                 {foreach $metadatas as $value}
-                                <option value="{$value.fieldname}" {if
-                                    $sampleSearch.metadatafilter==$value.fieldname}selected{/if}>
+                                <option value="{$value.fieldname}" {if $sampleSearch.metadatafilter==$value.fieldname}selected{/if}>
                                     {$value.fieldname}
                                 </option>
                                 {/foreach}
@@ -663,13 +636,11 @@
 
                             <label for="date_from" class="col-1 text-end form-label">{t}du :{/t}</label>
                             <div class="col-2">
-                                <input class="datepicker form-control" id="date_from" name="date_from"
-                                    value="{$sampleSearch.date_from}">
+                                <input class="datepicker form-control" id="date_from" name="date_from" value="{$sampleSearch.date_from}">
                             </div>
                             <label for="date_to" class="col-1 text-end form-label">{t}au :{/t}</label>
                             <div class="col-2">
-                                <input class="datepicker form-control" id="date_to" name="date_to"
-                                    value="{$sampleSearch.date_to}">
+                                <input class="datepicker form-control" id="date_to" name="date_to" value="{$sampleSearch.date_to}">
                             </div>
                         </div>
                     </div>
@@ -689,13 +660,11 @@
                             </div>
                             <label for="booking_from" class="col-1 text-end form-label">{t}du :{/t}</label>
                             <div class="col-2">
-                                <input class="datepicker form-control" id="booking_from" name="booking_from"
-                                    value="{$sampleSearch.booking_from}">
+                                <input class="datepicker form-control" id="booking_from" name="booking_from" value="{$sampleSearch.booking_from}">
                             </div>
                             <label for="booking_to" class="col-1 text-end form-label">{t}au :{/t}</label>
                             <div class="col-2">
-                                <input class="datepicker form-control" id="booking_to" name="booking_to"
-                                    value="{$sampleSearch.booking_to}">
+                                <input class="datepicker form-control" id="booking_to" name="booking_to" value="{$sampleSearch.booking_to}">
                             </div>
                         </div>
                     </div>
@@ -703,15 +672,13 @@
                 <div class="tab-pane fade" id="navsearch-divers" role="tabpanel" aria-labelledby="tabsearch-divers">
                     <div class="row">
                         <div class="row">
-                            <label for="referent_id" class="col-3 text-end form-label lexical"
-                                data-lexical="referent">{t}Référent :{/t}</label>
+                            <label for="referent_id" class="col-3 text-end form-label lexical" data-lexical="referent">{t}Référent :{/t}</label>
                             <div class="col-3">
                                 <select id="referent_id" name="referent_id" class="form-select">
                                     <option value="" {if $sampleSearch.referent_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
                                     {foreach $referents as $referent}
-                                    <option value="{$referent.referent_id}" {if
-                                        $sampleSearch.referent_id==$referent.referent_id}selected{/if}>
+                                    <option value="{$referent.referent_id}" {if $sampleSearch.referent_id==$referent.referent_id}selected{/if}>
                                         {$referent.referent_firstname} {$referent.referent_name}
                                     </option>
                                     {/foreach}
@@ -721,31 +688,26 @@
                                 {t}Échantillons sans contenants :{/t}
                             </label>
                             <div class="col-1">
-                                <input type="checkbox" id="without_container" name="without_container"
-                                    class="form-check-input" value="1" {if $sampleSearch.without_container==1}checked{/if}>
+                                <input type="checkbox" id="without_container" name="without_container" class="form-check-input" value="1" {if $sampleSearch.without_container==1}checked{/if}>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="row">
-                            <label for="campaign_id" class="col-3 form-label lexical text-end"
-                                data-lexical="campaign">{t}Campagne de prélèvement :{/t}</label>
+                            <label for="campaign_id" class="col-3 form-label lexical text-end" data-lexical="campaign">{t}Campagne de prélèvement :{/t}</label>
                             <div class="col-3">
                                 <select id="campaign_id" name="campaign_id" class="form-select">
                                     <option value="" {if $sampleSearch.campaign_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
                                     {foreach $campaigns as $campaign}
-                                    <option value="{$campaign.campaign_id}" {if
-                                        $campaign.campaign_id==$sampleSearch.campaign_id}selected{/if}>
+                                    <option value="{$campaign.campaign_id}" {if $campaign.campaign_id==$sampleSearch.campaign_id}selected{/if}>
                                         {$campaign.campaign_name}</option>
                                     {/foreach}
                                 </select>
                             </div>
-                            <label for="authorization_number" class="col-2 text-end form-label lexical"
-                                data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
+                            <label for="authorization_number" class="col-2 text-end form-label lexical" data-lexical="authorization">{t}N° d'autorisation :{/t}</label>
                             <div class="col-3">
-                                <input id="authorization_number" name="authorization_number" class="form-control"
-                                    value="{$sampleSearch.authorization_number}">
+                                <input id="authorization_number" name="authorization_number" class="form-control" value="{$sampleSearch.authorization_number}">
                             </div>
                         </div>
                     </div>
@@ -758,8 +720,7 @@
                                         {t}Choisissez...{/t}
                                     </option>
                                     {foreach $eventType as $et}
-                                    <option value="{$et.event_type_id}" {if
-                                        $sampleSearch.event_type_id==$et.event_type_id}selected{/if}>
+                                    <option value="{$et.event_type_id}" {if $sampleSearch.event_type_id==$et.event_type_id}selected{/if}>
                                         {$et.event_type_name}</option>
                                     {/foreach}
                                 </select>
@@ -767,12 +728,11 @@
                             <label for="operation_id" class="col-2 text-end form-label">{t}Opération :{/t}</label>
                             <div class="col-3">
                                 <select id="operation_id" class="form-select" name="operation_id">
-                                    <option value="" {if $sampleSearch.operation_id==""}selected{/if}>
-                                    {t}Choisissez...{/t}
+                                    <option value="" {if $sampleSearch.operation_id=="" }selected{/if}>
+                                        {t}Choisissez...{/t}
                                     </option>
                                     {foreach $operations as $operation}
-                                    <option value="{$operation.operation_id}"
-                                    {if $operation.operation_id == $sampleSearch.operation_id}selected{/if}>
+                                    <option value="{$operation.operation_id}" {if $operation.operation_id==$sampleSearch.operation_id}selected{/if}>
                                         {$operation.protocol_name}-{$operation.protocol_version}/{$operation.operation_name}-{$operation.operation_version}
                                     </option>
                                     {/foreach}
@@ -789,8 +749,7 @@
                                     <option value="" {if $sampleSearch.movement_reason_id=="" }selected{/if}>
                                         {t}Choisissez...{/t}</option>
                                     {section name=lst loop=$movementReason}
-                                    <option value="{$movementReason[lst].movement_reason_id}" {if
-                                        $movementReason[lst].movement_reason_id==$sampleSearch.movement_reason_id}selected{/if}>
+                                    <option value="{$movementReason[lst].movement_reason_id}" {if $movementReason[lst].movement_reason_id==$sampleSearch.movement_reason_id}selected{/if}>
                                         {$movementReason[lst].movement_reason_name}
                                     </option>
                                     {/section}
@@ -804,13 +763,11 @@
                                 {t}Quantité minimale disponible dans l'échantillon :{/t}
                             </label>
                             <div class="col-3">
-                                <input class="form-control taux" id="subsample_quantity_min"
-                                    name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
+                                <input class="form-control taux" id="subsample_quantity_min" name="subsample_quantity_min" value="{$sampleSearch.subsample_quantity_min}">
                             </div>
                             <label for="subsample_quantity_max" class="col-2 form-label text-end">{t}maximale :{/t}</label>
                             <div class="col-3">
-                                <input class="form-control taux" id="subsample_quantity_max"
-                                    name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
+                                <input class="form-control taux" id="subsample_quantity_max" name="subsample_quantity_max" value="{$sampleSearch.subsample_quantity_max}">
                             </div>
                         </div>
                     </div>
@@ -828,8 +785,7 @@
                                             <option value="0" {if $sampleSearch.sampling_place_id=="0" }selected{/if}>
                                             </option>
                                             {section name=lst loop=$samplingPlace}
-                                            <option value="{$samplingPlace[lst].sampling_place_id}" {if
-                                                $samplingPlace[lst].sampling_place_id==$sampleSearch.sampling_place_id}selected{/if}>
+                                            <option value="{$samplingPlace[lst].sampling_place_id}" {if $samplingPlace[lst].sampling_place_id==$sampleSearch.sampling_place_id}selected{/if}>
                                                 {if strlen({$samplingPlace[lst].sampling_place_code}) > 0}
                                                 {$samplingPlace[lst].sampling_place_code} -&nbsp;
                                                 {/if}
@@ -846,8 +802,7 @@
                                         <select id="country_id_search" name="country_id" class="form-select ">
                                             <option value="0" {if $country.country_id=="0" }selected{/if}></option>
                                             {section name=lst loop=$countries}
-                                            <option value="{$countries[lst].country_id}" {if
-                                                $countries[lst].country_id==$sampleSearch.country_id}selected{/if}>
+                                            <option value="{$countries[lst].country_id}" {if $countries[lst].country_id==$sampleSearch.country_id}selected{/if}>
                                                 {$countries[lst].country_name}
                                             </option>
                                             {/section}
@@ -859,12 +814,10 @@
                                         {t}Pays de provenance :{/t}
                                     </label>
                                     <div class="col-8">
-                                        <select id="country_origin_id_search" name="country_origin_id"
-                                            class="form-select ">
+                                        <select id="country_origin_id_search" name="country_origin_id" class="form-select ">
                                             <option value="0" {if $country.country_id=="0" }selected{/if}></option>
                                             {section name=lst loop=$countries}
-                                            <option value="{$countries[lst].country_id}" {if
-                                                $countries[lst].country_id==$sampleSearch.country_origin_id}selected{/if}>
+                                            <option value="{$countries[lst].country_id}" {if $countries[lst].country_id==$sampleSearch.country_origin_id}selected{/if}>
                                                 {$countries[lst].country_name}
                                             </option>
                                             {/section}
@@ -890,8 +843,7 @@
                                         {t}Sélectionnez une recherche enregistrée{/t}
                                     </option>
                                     {foreach $samplesearches as $samplesearch}
-                                    <option value="{$samplesearch.samplesearch_id}" {if
-                                        $samplesearch_id==$samplesearch.samplesearch_id}selected{/if}>
+                                    <option value="{$samplesearch.samplesearch_id}" {if $samplesearch_id==$samplesearch.samplesearch_id}selected{/if}>
                                         {$samplesearch.samplesearch_name}
                                         {if ! empty ($samplesearch.collection_name)}
                                         ({$samplesearch.collection_name})
@@ -901,8 +853,7 @@
                                 </select>
                             </div>
                             <div class="col-2">
-                                <button type="button" id="samplesearchDeleteButton"
-                                    class="btn btn-danger">{t}Supprimer{/t}</button>
+                                <button type="button" id="samplesearchDeleteButton" class="btn btn-danger">{t}Supprimer{/t}</button>
                             </div>
                         </div>
                     </div>
@@ -945,16 +896,13 @@
                         {t}À partir de la page{/t}
                     </label>
                     <div class="col-1">
-                        <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre"
-                            type="number">
+                        <input id="page" name="page" value="{$sampleSearch.page}" class="form-control nombre" type="number">
                     </div>
                     <div class="col-4 center">
-                        <button type="submit" id="samplesearch_button"
-                            class="btn btn-primary">{t}Rechercher{/t}</button>
+                        <button type="submit" id="samplesearch_button" class="btn btn-primary">{t}Rechercher{/t}</button>
                         <button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
                         {if $rights.manage == 1}
-                        <button type="button" id="exportCsv" class="btn btn-secondary"
-                            title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
+                        <button type="button" id="exportCsv" class="btn btn-secondary" title="{t}Export sans tenir compte de la pagination et sans affichage de la liste - format : export vers une autre base{/t}">
                             {t}Export CSV direct{/t}
                         </button>
                         {/if}

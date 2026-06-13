@@ -11,7 +11,7 @@ class SearchSample extends SearchParam
             "name" => "",
             "sample_type_id" => "",
             "collection_id" => "",
-            "limit" => 100,
+            "limit" => "",
             "page" => 1,
             "object_status_id" => 1,
             "uidsearch" => "",

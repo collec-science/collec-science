@@ -115,7 +115,7 @@ class Sample extends PpciLibrary
         /**
          * Search samples
          */
-        if ($_SESSION["searchSample"]->isSearch() == 1) {
+        //if ($_SESSION["searchSample"]->isSearch() == 1) {
             try {
                 $this->dataclass->resetParam();
                 $data = $this->dataclass->sampleSearch($dataSearch);
@@ -126,7 +126,7 @@ class Sample extends PpciLibrary
                 $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
                 $this->message->setSyslog($e->getMessage(), true);
             }
-        }
+        //}
         $this->vue->set($dataSearch, "sampleSearch");
         $this->vue->set("gestion/sampleList.tpl", "corps");
         $this->vue->set($_SESSION["dbparams"]["consultSeesAll"], "consultSeesAll");

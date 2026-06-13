@@ -42,6 +42,7 @@ class Campaign extends PpciController
     }
     function import()
     {
-        return $this->lib->import();
+        $this->lib->import();
+        return $this->lib->list();
     }
 }

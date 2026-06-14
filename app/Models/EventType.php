@@ -78,4 +78,9 @@ class EventType extends PpciModel
 						order by event_type_name";
 		return $this->getListeParam($sql);
 	}
+	function getIdFromName(string $name) {
+		$sql = "SELECT event_type_id from event_type where event_type_name = :name:";
+		$data = $this->readParam($sql, ["name"=>$name]);
+		return $data["event_type_id"];
+	}
 }

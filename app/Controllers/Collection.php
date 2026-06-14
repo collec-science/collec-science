@@ -44,4 +44,8 @@ class Collection extends PpciController
     {
         return $this->lib->getAjax();
     }
+    function import() {
+        $this->lib->import();
+        return $this->list();
+    }
 }

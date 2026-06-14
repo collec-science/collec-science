@@ -333,7 +333,7 @@ class Container extends PpciModel
     function containerSearch($param)
     {
         $this->_generateSearch($param);
-        if (empty($this->where) && empty($param["limit"])) {
+        if (empty($this->where) && (empty($param["limit"]) || !is_numeric($param["limit"]))) {
             $param["limit"] = 50;
             $_SESSION["searchContainer"]->setParam(["limit" => 50]);
         }
@@ -1109,7 +1109,7 @@ class Container extends PpciModel
         //}
         return $number;
     }
-      /**
+    /**
      * Reset the cache of variables used for the research
      *
      * @return void

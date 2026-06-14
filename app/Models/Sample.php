@@ -834,7 +834,7 @@ class Sample extends PpciModel
     {
         
         $this->_generateSearch($param);
-        if (empty($this->where) && empty($param["limit"])) {
+        if (empty($this->where) && (empty($param["limit"]) || !is_numeric($param["limit"]))) {
             $param["limit"] = 50;
             $_SESSION["searchSample"]->setParam(["limit"=> 50]);
         }

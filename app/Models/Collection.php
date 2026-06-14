@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Override;
 use Ppci\Libraries\PpciException;
 use Ppci\Models\Aclgroup;
 use Ppci\Models\PpciModel;
@@ -15,12 +16,11 @@ use Ppci\Models\PpciModel;
 
 class Collection extends PpciModel
 {
+    public Referent $referent;
+    public Aclgroup $aclgroup;
+    public EventType $eventType;
+    public SampleType $sampleType;
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
     function __construct()
     {
         $this->table = "collection";
@@ -100,7 +100,8 @@ class Collection extends PpciModel
         return $this->getListeParam($sql);
     }
 
-    function getDetail(int $collection_id):array {
+    function getDetail(int $collection_id): array
+    {
         $sql = "select collection_id, collection_name, referent_name,
                 allowed_import_flow, allowed_export_flow, public_collection
                 ,collection_keywords,collection_displayname
@@ -113,8 +114,8 @@ class Collection extends PpciModel
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
                 where collection_id = :id:";
-                return $this->readParam($sql, ["id"=>$collection_id]);
-    } 
+        return $this->readParam($sql, ["id" => $collection_id]);
+    }
 
     /**
      * Retourne la liste des collections autorises pour un login
@@ -208,11 +209,21 @@ class Collection extends PpciModel
              * Recherche si aucun echantillon n'est reference
              */
             $sample = new Sample();
-            if ($sample->getNbFromCollection($id) == 0) {
+            $lot = new Lot;
+
+            if ($sample->getNbFromCollection($id) == 0 && $lot->getNbFromCollection($id)== 0) {
                 $sql = "delete from collection_group where collection_id = :collection_id:";
                 $data["collection_id"] = $id;
                 $this->executeQuery($sql, $data, true);
+                $sql = "DELETE from collection_sampletype where collection_id = :collection_id:";
+                $this->executeQuery($sql, $data, true);
+                $sql = "DELETE from collection_eventtype where collection_id = :collection_id:";
+                $this->executeQuery($sql, $data, true);
+                $sql = "DELETE from document where collection_id = :collection_id:";
+                $this->executeQuery($sql, $data, true);
                 return parent::supprimer($id);
+            } else {
+                throw new PpciException(_("La suppression est impossible : des échantillons ou des lots d'export sont rattachés à la collection"));
             }
         }
     }
@@ -416,7 +427,7 @@ class Collection extends PpciModel
     function deleteGroup(int $group_id)
     {
         $sql = "delete from collection_group where aclgroup_id = :group_id:";
-        $this->executeSql($sql, array("group_id" => $group_id),true);
+        $this->executeSql($sql, array("group_id" => $group_id), true);
     }
     /**
      * Get all collections, the attributed first
@@ -458,5 +469,97 @@ class Collection extends PpciModel
                 from collection
                 where notification_enabled = true";
         return $this->getListeParam($sql);
+    }
+    function getIdFromName(string $name)
+    {
+        $sql = "SELECT collection_id from collection where collection_name = :name:";
+        $data = $this->readParam($sql, ["name" => $name]);
+        return $data["collection_id"];
+    }
+    function import(array $data)
+    {
+        if (empty($data["collection_name"])) {
+            throw new PpciException(_("Le nom de la collection n'est pas indiqué"));
+        }
+        $id = $this->getIdFromName($data["collection_name"]);
+        if ($id > 0) {
+            throw new PpciException(sprintf(_("La collection %s existe déjà dans la base de données"), $data["collection_name"]));
+        }
+        if (!empty($data["referent_name"])) {
+            if (!isset($this->referent)) {
+                $this->referent = new Referent;
+            }
+            $referents = $this->referent->getFromName($data["referent_name"], $data["referent_firstname"]);
+            if (empty($referents)) {
+                $referent_id = $this->referent->ecrire(
+                    array(
+                        "referent_id" => 0,
+                        "referent_name" => $data["referent_name"],
+                        "referent_firstname" => $data["referent_firstname"]
+                    )
+                );
+            } else {
+                $referent_id = $referents["referent_id"];
+            }
+            $data["referent_id"] = $referent_id;
+        }
+        /**
+         * Treatment of groupes
+         */
+        if (!empty($data["groupes"])) {
+            if (!isset($this->aclgroup)) {
+                $this->aclgroup = new Aclgroup;
+            }
+            $groupes = explode(",", $data["groupes"]);
+            $groupeIdList = [];
+            foreach ($groupes as $groupe) {
+                $dgroupes = $this->aclgroup->getGroupFromName(trim($groupe));
+                if (empty($dgroupes)) {
+                    throw new PpciException(sprintf(_("Le groupe %s n'existe pas"), $groupe));
+                }
+                foreach ($dgroupes as $dgroupe) {
+                    $groupeIdList[] = $dgroupe["aclgroup_id"];
+                }
+            }
+            $data["groupes"] = $groupeIdList;
+        }
+        /**
+         * Treatment of sample_types
+         */
+        if (!empty($data["sample_types"])) {
+            if (!isset($this->sampleType)) {
+                $this->sampleType = new SampleType;
+            }
+            $samples = explode(",", $data["sample_types"]);
+            $sampleIdList = [];
+            foreach ($samples as $sample) {
+                $idsample = $this->sampleType->getIdFromName(trim($sample));
+                if (!$idsample) {
+                    throw new PpciException(sprintf(_("Le type d'échantillons %s n'existe pas"), $sample));
+                }
+                $sampleIdList[] = $idsample;
+            }
+           $data["sampletypes"] = $sampleIdList;
+        }
+        /**
+         * Treatment of event_types
+         */
+        if (!empty($data["event_types"])) {
+            if (!isset($this->eventType)) {
+                $this->eventType = new EventType;
+            }
+            $events = explode(",", $data["event_types"]);
+            $eventIdList = [];
+            foreach ($events as $event) {
+                $idevent = $this->eventType->getIdFromName(trim($event));
+                if (!$idevent) {
+                    throw new PpciException(sprintf(_("Le type d'échantillons %s n'existe pas"), $event));
+                }
+                $eventIdList[] = $idevent;
+            }
+            $data["eventtypes"] = $eventIdList;
+        }
+                $data["collection_id"] = 0;
+        $id = $this->ecrire($data);
     }
 }

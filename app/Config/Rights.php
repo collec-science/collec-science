@@ -122,6 +122,7 @@ class Rights extends RightsPpci
         "collectionWrite" => ["param"],
         "collectionDelete" => ["param"],
         "collectionGet" => ["consult"],
+        "collectionImport" => ["param"],
         "regulationList" => ["consult"],
         "regulationChange" => ["param"],
         "regulationWrite" => ["param"],

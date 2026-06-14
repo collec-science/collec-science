@@ -5,6 +5,7 @@ namespace App\Libraries;
 use App\Models\Collection as ModelsCollection;
 use App\Models\Document;
 use App\Models\Event;
+use App\Models\Import;
 use App\Models\License;
 use App\Models\Referent;
 use App\Models\Sample;
@@ -224,6 +225,66 @@ class Collection extends PpciLibrary
             return true;
         } else {
             return false;
+        }
+    }
+    function import() {
+        if (file_exists($_FILES['upfile']['tmp_name'])) {
+            $db = $this->dataclass->db;
+            try {
+                /**
+                 * Verify the encoding
+                 */
+                $encodings = array("UTF-8", "iso-8859-1", "iso-8859-15");
+                $currentEncoding = mb_detect_encoding(file_get_contents($_FILES['upfile']['tmp_name']), $encodings, true);
+                if ($currentEncoding != "UTF-8" && $_REQUEST["utf8_encode"] == 0 || $currentEncoding == "UTF-8" && $_REQUEST["utf8_encode"] == 1) {
+                    throw new PpciException(_("L'encodage du fichier ne correspond pas à celui que vous avez indiqué"));
+                }
+                $import = new Import(
+                    $_FILES['upfile']['tmp_name'],
+                    $_REQUEST["separator"],
+                    $_REQUEST["utf8_encode"],
+                    array(
+                        "collection_name",
+                        "referent_name",
+                        "referent_firstname",
+                        "collection_description",
+                        "collection_keywords",
+                        "collection_displayname",
+                        "sample_name_unique",
+                        "no_localization",
+                        "notification_enabled",
+                        "notification_mails",
+                        "expiration_delay",
+                        "event_due_delay",
+                        "allowed_import_flow",
+                        "allowed_export_flow",
+                        "public_collection",
+                        "sample_types",
+                        "groupes",
+                        "event_types"
+                    )
+                );
+                $rows = $import->getContentAsArray();
+                $nb = 0;
+                $db->transBegin();
+                foreach ($rows as $row) {
+                    if (!empty($row)) {
+                        $this->dataclass->import($row);
+                        $nb++;
+                    }
+                }
+                $db->transCommit();
+                $this->message->set(sprintf(_("%s collections importées"), $nb));
+            } catch (PpciException $e) {
+                $this->message->set(_("Impossible d'importer les collections"), true);
+                $this->message->set($e->getMessage());
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            }
+        } else {
+            $this->message->set(_("Impossible de charger le fichier à importer"));
+            return true;
         }
     }
 }

@@ -36,6 +36,7 @@ class Samplehisto extends PpciModel
         "location_accuracy",
         "uuid",
         "trashed",
+        "operation_id"
     ];
     public $header = [
         "date",
@@ -54,6 +55,7 @@ class Samplehisto extends PpciModel
         "parent_uid",
         "dbuid_origin",
         "object_comment",
+        "operation_name",
         "campaign_name",
         "sampling_place_name",
         "country_name",
@@ -90,7 +92,8 @@ class Samplehisto extends PpciModel
                     case when trashed = 't' then '1' else '0' end as trashed, 
                     location_accuracy, object_comment,
                     collection_id, sample_type_id, sample_creation_date, sampling_date,parent_sample_id, multiple_value,
-                    sampling_place_id, dbuid_origin, metadata, expiration_date::date, campaign_id, country_id, country_origin_id
+                    sampling_place_id, dbuid_origin, metadata, expiration_date::date, campaign_id, country_id, country_origin_id,
+                    operation_id
                     FROM object
                     JOIN sample using (uid)
                     where uid = :uid:";
@@ -215,7 +218,8 @@ class Samplehisto extends PpciModel
             "sampling_place_id" => "sampling_place_name",
             "campaign_id" => "campaign_name",
             "country_id" => "country_name",
-            "country_origin_id" => "country_origin_name"
+            "country_origin_id" => "country_origin_name",
+            "operation_id" => "operation_name"
         ];
         $objectStatus = new ObjectStatus;
         $sampleType = new SampleType;
@@ -224,6 +228,7 @@ class Samplehisto extends PpciModel
         $country = new Country;
         $referent = new Referent;
         $collection = new Collection;
+        $operation = new Operation;
         $row = [
             "date" => date($_SESSION["date"]["maskdatelong"]),
             "movements" => $currentData["container_identifier"]
@@ -296,6 +301,9 @@ class Samplehisto extends PpciModel
                             $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
                         } elseif ($k == "country_id" || $k == "country_origin_id") {
                             $tbcontent = $country->read($v);
+                            $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
+                        } elseif ($k == "operation_id") {
+                            $tbcontent = $operation->read($v);
                             $row[$colsRef[$k]] = $tbcontent[$colsRef[$k]];
                         } elseif ($k == "parent_sample_id") {
                             if (!isset($this->sample)) {

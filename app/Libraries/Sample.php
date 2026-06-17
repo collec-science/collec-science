@@ -116,16 +116,16 @@ class Sample extends PpciLibrary
          * Search samples
          */
         //if ($_SESSION["searchSample"]->isSearch() == 1) {
-            try {
-                $this->dataclass->resetParam();
-                $data = $this->dataclass->sampleSearch($dataSearch);
-                $this->vue->set($this->dataclass->getNbSamples($dataSearch), "totalNumber");
-                $this->vue->set($data, "samples");
-                $this->vue->set(1, "isSearch");
-            } catch (PpciException $e) {
-                $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
-                $this->message->setSyslog($e->getMessage(), true);
-            }
+        try {
+            $this->dataclass->resetParam();
+            $data = $this->dataclass->sampleSearch($dataSearch);
+            $this->vue->set($this->dataclass->getNbSamples($dataSearch), "totalNumber");
+            $this->vue->set($data, "samples");
+            $this->vue->set(1, "isSearch");
+        } catch (PpciException $e) {
+            $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
+            $this->message->setSyslog($e->getMessage(), true);
+        }
         //}
         $this->vue->set($dataSearch, "sampleSearch");
         $this->vue->set("gestion/sampleList.tpl", "corps");
@@ -267,7 +267,7 @@ class Sample extends PpciLibrary
                 foreach ($history as $h) {
                     if ($h["type"] == "parent") {
                         $parents[] = $h;
-                    }elseif ($h["type"] == "event") {
+                    } elseif ($h["type"] == "event") {
                         $h["date"] = $this->dataclass->formatDateDBtoLocal($h["date"]);
                         $histoEvents[] = $h;
                     }
@@ -940,11 +940,15 @@ class Sample extends PpciLibrary
             if (count($_POST["uids"]) == 0) {
                 throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
-            if (empty($_POST["parent_sample_id"])) {
-                throw new PpciException(_("Pas de parent sélectionné"));
-            }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
+            if (empty($_POST["parent_sample_id"]) && $_POST["delete-parent"] == 1) {
+                $this->dataclass->deleteParent($uids);
+            } else {
+                if (empty($_POST["parent_sample_id"])) {
+                    throw new PpciException(_("Pas de parent sélectionné"));
+                }
+                $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
+            }
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage(), true);
@@ -952,7 +956,8 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
-    function setOperation() {
+    function setOperation()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
                 throw new PpciException(_("Pas d'échantillons sélectionnés"));

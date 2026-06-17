@@ -1233,6 +1233,12 @@
 							</select>
 						</div>
 					</div>
+					<div class="row">
+						<label for="delete-parent" class="form-label col-4">{t}ou supprimer les parents rattachés :{/t}</label>
+						<div class="col-8">
+							<input class="form-check-input" type="checkbox" id="delete-parent" name="delete-parent" value="1">
+						</div>
+					</div>
 				</div>
 				<div class="document">
 					<input type="hidden" name="parentKeyName" value="uid">

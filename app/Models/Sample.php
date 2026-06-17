@@ -832,11 +832,11 @@ class Sample extends PpciModel
      */
     function sampleSearch(array $param): array
     {
-        
+
         $this->_generateSearch($param);
         if (empty($this->where) && (empty($param["limit"]) || !is_numeric($param["limit"]))) {
             $param["limit"] = 50;
-            $_SESSION["searchSample"]->setParam(["limit"=> 50]);
+            $_SESSION["searchSample"]->setParam(["limit" => 50]);
         }
         if ($param["limit"] > 0) {
             $limit = " order by s.uid desc limit " . $param["limit"];
@@ -1531,11 +1531,16 @@ class Sample extends PpciModel
      */
     function setCountry(array $uids, int $country_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set country_id = :country_id: where uid = :uid:";
         $data = array("country_id" => $country_id);
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["country_id" => $country_id]);
         }
     }
     /**
@@ -1547,11 +1552,16 @@ class Sample extends PpciModel
      */
     function setCollection(array $uids, int $collection_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set collection_id = :collection_id: where uid = :uid:";
         $data = array("collection_id" => $collection_id);
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSQL($sql, $data, true);
+            $this->samplehisto->generateHisto(["collection_id" => $collection_id]);
         }
     }
     /**
@@ -1563,11 +1573,16 @@ class Sample extends PpciModel
      */
     function setcampaign(array $uids, int $campaign_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set campaign_id = :campaign_id: where uid = :uid:";
         $data = array("campaign_id" => $campaign_id);
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["campaign_id" => $campaign_id]);
         }
     }
     /**
@@ -1599,16 +1614,20 @@ class Sample extends PpciModel
     {
         $sql = "update sample set sample_type_id = :sample_type_id: where uid = :uid:";
         $data = array("sample_type_id" => $sample_type_id);
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["sample_type_id" => $sample_type_id]);
         }
     }
     /**
      * Change parent for all furnished uid
      * @param array $uids
      * @param int $parent_id
-     * @throws SampleException
      * @return void
      */
     function setParent(array $uids, int $parent_id)
@@ -1617,12 +1636,35 @@ class Sample extends PpciModel
         if (empty($parent["sample_id"])) {
             throw new PpciException(_("Le parent n'existe pas"));
         }
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid: and sample_id <> :parent_id:";
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $this->executeSql($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
+            $this->samplehisto->generateHisto(["parent_sample_id" => $parent_id]);
         }
     }
-
+    /**
+     * Delete parent for all uids. Only for direct link (not for multiple parents)
+     *
+     * @param array $uids 
+     *
+     * @return void
+     */
+    function deleteParent(array $uids)
+    {
+        $sql = "update sample set parent_sample_id = null where uid = :uid:";
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
+        foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
+            $this->executeSql($sql, array("uid" => $uid), true);
+            $this->samplehisto->generateHisto(["parent_sample_id" => ""]);
+        }
+    }
     /**
      * Get a sample from an identifier (uid, uuid, etc.)
      *

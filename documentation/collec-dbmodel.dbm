@@ -2539,6 +2539,11 @@ Structure:
 	<constraint name="export_model1_pk" type="pk-constr" table="col.export_template">
 		<columns names="export_template_id" ref-type="src-columns"/>
 	</constraint>
+	<initial-data>
+<![CDATA["export_template_name";"export_template_description";"filename"
+"elabftw";"Export to ElabFTW";"export_to_elabftw.csv"
+]]>
+	</initial-data>
 </table>
 
 <relationship name="export_template_has_many_export" type="rel1n" layers="0"
@@ -2644,6 +2649,20 @@ Structure:
 	<comment> <![CDATA[List of datasets embedded into the template of export]]> </comment>
 	<tag name="export"/>
 	<position x="2920" y="240"/>
+
+	<customidxs object-type="column">
+		<object name="dataset_template_id" index="1"/>
+		<object name="export_template_id" index="0"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="dataset_template_fk" index="2"/>
+		<object name="export_dataset_pk" index="0"/>
+		<object name="export_template_fk" index="1"/>
+	</customidxs>	<initial-data>
+<![CDATA["export_template_id";"dataset_template_id"
+"1";"1"
+]]>
+	</initial-data>
 </table>
 
 <relationship name="export_template_has_many_export_dataset" type="rel1n" layers="0"

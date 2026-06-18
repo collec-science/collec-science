@@ -336,7 +336,7 @@
         $("#limit").change(function () {
             myStorage.setItem("sampleSearchLimit", $("#limit").val());
         });
-        if (empty(limit)) {
+        if (limit.length == 0) {
             try {
                 var localLimit = myStorage.getItem("sampleSearchLimit");
                 $("#limit").val(localLimit);

@@ -27,7 +27,7 @@
 			 * Extrait le contenu de la chaine json
 			 */
 			var data = JSON.parse(valeur);
-			if (data["db"] == appli_code) {
+			if (typeof(data["db"]) == "undefined" || data["db"] == appli_code) {
 				return data["uid"];
 			} else {
 				return data["db"] + ":" + data["uid"];

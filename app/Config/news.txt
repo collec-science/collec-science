@@ -1,5 +1,16 @@
 Nouveautés
 ============
+Version v26.2.0c du 18/6/2026
+-----------------------------
+Corrections de bugs :
+- l'importation des campagnes ne fonctionnait pas correctement
+
+Nouveautés :
+- ajout d'une fonction permettant de générer un fichier d'échantillons pour ElabFTW (accessible à partir de la création d''un lot)
+- lorsque l'utilisateur arrive pour la première fois sur la fenêtre de recherche des échantillons ou des contenants, une liste des objets les plus récents est maintenant affichée
+- il est maintenant possible d'importer les collections à partir d'un fichier CSV
+- il est maintenant possible de supprimer la référence au parent pour une liste d'échantillons, en cas d'erreur d'affectation
+
 Version v26.2.0b du 11/6/2026
 ------------------------------
 Corrections de bugs :

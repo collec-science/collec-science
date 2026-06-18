@@ -280,7 +280,7 @@ class PpciModel extends Model
         }
         foreach ($data as $value) {
             if (!is_numeric($value)) {
-                throw new \Ppci\Libraries\PpciException(sprintf(_("Une valeur fournie n'est pas numérique (%1s : %s)"), $secondKey, $value));
+                throw new \Ppci\Libraries\PpciException(sprintf(_("Une valeur fournie n'est pas numérique (%1s : %2s)"), $secondKey, $value));
             }
         }
         $tablename = $this->qi . $tablename . $this->qi;

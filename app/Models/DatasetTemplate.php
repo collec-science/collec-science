@@ -260,13 +260,13 @@ class DatasetTemplate extends PpciModel
                             $value .= "&template_name=$template_name";
                         }
                     }
-                    if ($col["mandatory"] == 1 && empty($value)) {
+                    if ($col["mandatory"] == 't' && empty($value)) {
                         if ($col["column_name"] == "metadata" || $col["column_name"] == "metadata_unit") {
                             $subfield = $col["subfield_name"];
                         } else {
                             $subfield = "";
                         }
-                        throw new PpciException(sprintf(_("Le champ %1\$s %3\$s est obligatoire, mais est vide pour l'échantillon %2\$s"), $col["column_name"], $dbrow["uid"], $subfield));
+                        throw new PpciException(sprintf(_("Le champ %1s %3s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"], $subfield));
                     }
                     $row[$col["export_name"]] = $value;
                 }
@@ -466,24 +466,25 @@ class DatasetTemplate extends PpciModel
             }
             $md = json_decode($d["metadata"], true);
             if (!empty($md)) {
+                $sampleMetadata = [];
                 $mdTemplate = $sampleType->getMetadataAsArray($d["sample_type_id"]);
                 foreach ($md as $k => $m) {
-                    $key = "md_$k";
-                    $metadata[$key] = [
+                    $sampleMetadata[$k] = [
                         "value" => $m,
                         "description" => $mdTemplate[$k]["description"]
                     ];
                     if (is_numeric($m)) {
-                        $metadata[$key]["type"] = "number";
+                        $sampleMetadata[$k]["type"] = "number";
                     } elseif ($mdTemplate[$k]["type"] == "date") {
-                        $metadata[$key]["type"] = "date";
+                        $sampleMetadata[$k]["type"] = "date";
                     } else {
-                        $metadata[$key]["type"] = "text";
+                        $sampleMetadata[$k]["type"] = "text";
                     }
                     if (!empty($mdTemplate[$k]["measureUnit"])) {
-                        $metadata[$key]["unit"] = $mdTemplate[$k]["measureUnit"];
+                        $sampleMetadata[$k]["unit"] = $mdTemplate[$k]["measureUnit"];
                     }
                 }
+                $metadata["metadata"] = $sampleMetadata;
             }
 
             $row["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);

@@ -70,7 +70,7 @@ class Lot extends PpciLibrary
                     $db->transCommit();
                     $this->message->set(_("Lot créé"));
                     $_GET["collection_id"] = $_POST["collection_id"];
-                    return $this->list();
+                    return $this->display();
                 } catch (PpciException $e) {
                     $this->message->set(_("Une erreur est survenue pendant la création du lot"), true);
                     $this->message->setSyslog($e->getMessage(), true);

@@ -17,7 +17,7 @@ class DatasetColumn extends PpciLibrary
     protected PpciModel $dataclass;
 
     
-    private $parentId;
+    private int $parentId;
 
     function __construct()
     {
@@ -33,11 +33,8 @@ class DatasetColumn extends PpciLibrary
     function change()
     {
         $this->vue = service('Smarty');
-        /*
-		 * open the form to modify the record
-		 * If is a new record, generate a new record with default value :
-		 * $_REQUEST["idParent"] contains the identifiant of the parent record
-		 */
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Décrire_les_colonnes_dans_le_modèle_de_jeu_de_données_0");
+
         $this->dataRead($this->id, "export/datasetColumnChange.tpl", $this->parentId);
         /**
          * Get the list of all columns

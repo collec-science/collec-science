@@ -40,6 +40,9 @@
                 {t}Retour à la liste{/t}
             </a>
         </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <div class="row">
         <form id="translatorId" class="form-horizontal" action="translatorWrite" method="POST">
@@ -66,7 +69,7 @@
                 <tbody>
                     {$numligne = 0}
                     {foreach $items as $item}
-                    <tr id="tr{$numligne}"  data-ligne="{$numligne}">
+                    <tr id="tr{$numligne}" data-ligne="{$numligne}">
                         <td>
                             <input class="name form-control" id="name{$numligne}" name="name[]" value="{$item.name}" data-ligne="{$nameid}">
                         </td>
@@ -76,7 +79,7 @@
                     </tr>
                     {$numligne = $numligne + 1}
                     {/foreach}
-                    <tr id="tr5000"  data-ligne="5000">
+                    <tr id="tr5000" data-ligne="5000">
                         <td>
                             <input class="name form-control" id="name5000" name="name[]" data-ligne="5000" value="">
                         </td>

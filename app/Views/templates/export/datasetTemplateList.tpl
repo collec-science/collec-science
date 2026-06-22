@@ -1,10 +1,15 @@
 <div class="container">
     <h2>{t}Modèles de datasets{/t}</h2>
-    <div class="row">
-        <a href="datasetTemplateChange?dataset_template_id=0">
-            <img src="display/images/new.png" height="25">
-            {t}Nouveau...{/t}
-        </a>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <a href="datasetTemplateChange?dataset_template_id=0">
+                <img src="display/images/new.png" height="25">
+                {t}Nouveau...{/t}
+            </a>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <table id="datasetTemplateList" class="table table-bordered table-hover datatable display">
         <thead>

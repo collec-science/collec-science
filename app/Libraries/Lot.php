@@ -46,6 +46,7 @@ class Lot extends PpciLibrary
         }
         $this->vue->set($_SESSION["collections"], "collections");
         $this->vue->set("export/lotList.tpl", "corps");
+        $this->vue->help("gestion/exporter-les-échantillons-dans-un-format-particulier.html");
         return $this->vue->send();
     }
     function create()
@@ -91,11 +92,7 @@ class Lot extends PpciLibrary
     function display()
     {
         $this->vue = service('Smarty');
-        /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record
-         */
+        $this->vue->help("gestion/exporter-les-échantillons-dans-un-format-particulier.html");
         $this->vue->set("export/lotDisplay.tpl", "corps");
         $this->vue->set($this->dataclass->getDetail($this->id), "data");
         /**

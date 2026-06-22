@@ -22,11 +22,16 @@
 
 <div class="container">
     <h2>{t}Affichage du modèle de dataset{/t} <i>{$data.dataset_template_name}</i></h2>
-    <div class="row">
-        <a href="datasetTemplateList">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <a href="datasetTemplateList">
             <img src="display/images/list.png" height="25">
             {t}Retour à la liste{/t}
         </a>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <!-- Tab box -->
     <div class="row">

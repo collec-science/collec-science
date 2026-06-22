@@ -50,6 +50,9 @@
                 {t}Retour à la liste{/t}
             </a>
         </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <form id="exportTemplateForm" method="post" action="index.php" class="form-horizontal">
         <div class="row">

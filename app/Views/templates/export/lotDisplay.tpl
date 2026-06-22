@@ -32,10 +32,15 @@
 
 <div class="container">
     <h2>Affichage d'un lot d'export</h2>
-    <div class="row">
-        <a href="lotList"><img src="display/images/list.png" height="25">
+    <div class="row align-items-center">
+        <div class="col-auto">
+           <a href="lotList"><img src="display/images/list.png" height="25">
             {t}Retour à la liste des lots d'export{/t}
-        </a>
+        </a> 
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <!-- Tab box -->
     <div class="row">

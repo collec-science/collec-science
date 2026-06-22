@@ -37,6 +37,7 @@ class DatasetTemplate extends PpciLibrary
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("export/datasetTemplateList.tpl", "corps");
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_un_modèle_de_jeu_de_données_0");
         return $this->vue->send();
     }
     function display()
@@ -49,6 +50,7 @@ class DatasetTemplate extends PpciLibrary
         $this->vue->set("export/datasetTemplateDisplay.tpl", "corps");
         $dc = new DatasetColumn();
         $this->vue->set($dc->getListFromParent($this->id), "columns");
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_un_modèle_de_jeu_de_données_0");
         return $this->vue->send();
     }
     function change()

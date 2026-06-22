@@ -14,7 +14,7 @@ class Translator extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -34,6 +34,7 @@ class Translator extends PpciLibrary
 		 */
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("export/translatorList.tpl", "corps");
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_les_traducteurs_0");
         return $this->vue->send();
     }
     function display()
@@ -50,6 +51,7 @@ class Translator extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $data = $this->dataRead($this->id, "export/translatorChange.tpl");
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_les_traducteurs_0");
         /**
          * Generate an array from translator_data
          */

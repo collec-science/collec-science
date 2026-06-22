@@ -5,12 +5,18 @@
             {t}Les tables de correspondance permettent de remplacer un libellé présent dans la base de données par un libellé attendu dans le système d'informations destinataire de l'export{/t}
         </div>
     </div>
-    <div class="row">
 
-        <a href="translatorChange?translator_id=0">
-            <img src="display/images/new.png" height="25">
-            {t}Nouveau...{/t}
-        </a>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <a href="translatorChange?translator_id=0">
+                <img src="display/images/new.png" height="25">
+                {t}Nouveau...{/t}
+            </a>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+
     </div>
     <table id="translatorList" class="table table-bordered table-hover datatable display">
         <thead>

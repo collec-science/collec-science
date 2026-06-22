@@ -1,12 +1,17 @@
 <div class="container">
     <h2>{t}Modèles d'exports{/t}</h2>
-    <div class="row d-flex">
+    <div class="row align-items-center">
         <div class="col-auto">
             <a href="exportTemplateChange?export_template_id=0">
                 <img src="display/images/new.png" height="25">
                 {t}Nouveau...{/t}
             </a>
         </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
+    <div class="row">
         <table id="exportTemplateList" class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>

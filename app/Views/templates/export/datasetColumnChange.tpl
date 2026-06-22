@@ -58,6 +58,9 @@
                 {t}Nouvelle colonne{/t}
             </a>
         </div>
+        <div class="col-auto">
+            {$help}
+        </div>
     </div>
     <form class="form-horizontal " id="datasetColumnForm" method="post" action="datasetColumnWrite">
         <input type="hidden" name="moduleBase" value="datasetColumn">

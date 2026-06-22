@@ -20,6 +20,11 @@
 </script>
 <div class="container">
     <h2>Liste des lots d'export</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="row">
         <div class="form-horizontal">
             <form id="lotSearch" action="lotList" method="GET">

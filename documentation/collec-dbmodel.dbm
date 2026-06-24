@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="2.0.0-beta" use-changelog="false" author="Éric Quinton" max-obj-count="81"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1092,112" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
+	 last-position="1092,952" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -24,7 +24,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true" sql-disabled="true">
 	<tablespace name="pg_default"/>
-	<comment> <![CDATA[Version v26.1]]> </comment>
+	<comment> <![CDATA[Version v26.2]]> </comment>
 </database>
 
 <schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
@@ -389,7 +389,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"26.1";"2026-04-01"
+"26.2";"2026-06-18"
 ]]>
 	</initial-data>
 </table>

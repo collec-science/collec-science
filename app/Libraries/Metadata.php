@@ -273,7 +273,8 @@ class Metadata extends PpciLibrary
             $metadatas = $this->dataclass->getList();
             foreach ($metadatas as $metadata) {
                 $id = $metadata["metadata_id"];
-                $metadata["metadata_schema"] = json_encode($this->normalize(json_decode($metadata["metadata_schema"], true)));
+                $schema = empty($metadata["metadata_schema"]) ? $schema = "{}" : $schema = $metadata["metadata_schema"];
+                $metadata["metadata_schema"] = json_encode($this->normalize(json_decode($schema, true)));
                 $this->dataclass->write($metadata);
             }
             $db->transCommit();

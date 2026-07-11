@@ -221,6 +221,7 @@ $routes->add('samplingPlaceImport', 'SamplingPlace::import');
 $routes->add('samplingPlaceGetFromCollection', 'SamplingPlace::getFromCollection');
 $routes->add('samplingPlaceGetCoordinate', 'SamplingPlace::getCoordinate');
 $routes->add('countryList', 'Country::list');
+$routes->post('countryImport', 'Country::import');
 $routes->add('subsampleChange', 'Subsample::change');
 $routes->post('subsampleWrite', 'Subsample::write');
 $routes->post('subsampleDelete', 'Subsample::delete');

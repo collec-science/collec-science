@@ -222,6 +222,7 @@ class Rights extends RightsPpci
         "samplingPlaceGetFromCollection" => ["manage"],
         "samplingPlaceGetCoordinate" => ["manage"],
         "countryList" => ["consult"],
+        "countryImport" => ["param"],
         "subsampleChange" => ["manage"],
         "subsampleWrite" => ["manage"],
         "subsampleDelete" => ["manage"],

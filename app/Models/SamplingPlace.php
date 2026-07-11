@@ -18,11 +18,7 @@ class SamplingPlace extends PpciModel
                     from sampling_place
                     left outer join collection using (collection_id)
                     left outer join country using (country_id)";
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "sampling_place";

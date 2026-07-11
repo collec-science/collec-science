@@ -46,11 +46,7 @@ class ObjectClass extends PpciModel
                   left outer join sample s using (uid)
                   left outer join container c using (uid)";
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "object";

@@ -15,11 +15,7 @@ class Event extends PpciModel
 {
     private $sql = "select * from event
             join event_type using (event_type_id)";
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "event";

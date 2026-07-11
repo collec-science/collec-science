@@ -14,11 +14,7 @@ class Borrowing extends PpciModel
                 join object using (uid)
                 join borrower using (borrower_id)
                 left outer join object_status using (object_status_id)";
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "borrowing";

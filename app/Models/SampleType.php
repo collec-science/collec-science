@@ -13,11 +13,7 @@ use Ppci\Models\PpciModel;
 class SampleType extends PpciModel
 {
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     private $sql = "select sample_type_id, sample_type_name,
 					container_type_name, sample_type_description, sample_type_code,
 					multiple_type_id, multiple_unit, multiple_type_name,

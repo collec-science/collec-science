@@ -14,11 +14,7 @@ use Ppci\Models\PpciModel;
 class Metadata extends PpciModel
 {
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "metadata";

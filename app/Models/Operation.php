@@ -21,11 +21,7 @@ class Operation extends PpciModel
     private $order = " order by protocol_year desc, protocol_name, protocol_version,
 					operation_order, operation_name";
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "operation";

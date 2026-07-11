@@ -13,30 +13,35 @@
     });
 </script>
 <div class="container">
-    <h2>{t}Liste des pays{/t}</h2>
     <div class="row">
-        <div class="col-8">
-            <table id="countryList" class="table table-bordered table-hover datatable-searching display" data-order='[[1,"asc"]]'>
-                <thead>
-                    <tr>
-                        <th>{t}Code numérique{/t}</th>
-                        <th>{t}Nom du pays{/t}</th>
-                        <th>{t}Code (2 positions){/t}</th>
-                        <th>{t}Code (3 positions){/t}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {foreach $countries as $country}
-                    <tr>
-                        <td>{$country.country_id}</td>
-                        <td>{$country.country_name}</td>
-                        <td>{$country.country_code2}</td>
-                        <td>{$country.country_code3}</td>
-                    </tr>
-                    {/foreach}
-                </tbody>
-            </table>
+        <div class="col-auto">
+            <h2>{t}Liste des pays{/t}</h2>
         </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
+    <div class="row">
+        <table id="countryList" class="table table-bordered table-hover datatable-searching display" data-order='[[1,"asc"]]'>
+            <thead>
+                <tr>
+                    <th>{t}Code numérique{/t}</th>
+                    <th>{t}Nom du pays{/t}</th>
+                    <th>{t}Code (2 positions){/t}</th>
+                    <th>{t}Code (3 positions){/t}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $countries as $country}
+                <tr>
+                    <td>{$country.country_id}</td>
+                    <td>{$country.country_name}</td>
+                    <td>{$country.country_code2}</td>
+                    <td>{$country.country_code3}</td>
+                </tr>
+                {/foreach}
+            </tbody>
+        </table>
     </div>
     <div class="row bg-info">
 

@@ -34,6 +34,7 @@ class Country extends PpciLibrary
          */
         $this->vue->set($this->dataclass->getListe(2), "countries");
         $this->vue->set("param/countryList.tpl", "corps");
+        $this->vue->help(_("parametres/les-pays.html"));
         return $this->vue->send();
     }
     function import()

@@ -8,7 +8,7 @@
             <div class="row">
                 <label for="logmodule" class="col-2 form-label">{t}Nom du module :{/t}</label>
                 <div class="col-10">
-                    <select id="logmodule" name="logmodule" class="form-control">
+                    <select id="logmodule" name="logmodule" class="form-select">
                         <option value="" {if $logmodule=="" }selected{/if}></option>
                         {foreach $modules as $module}
                         <option value="{$module.val}" {if $module.val==$logmodule}selected{/if}>{$module.val}</option>
@@ -27,7 +27,7 @@
                     </select>
                 </div>
                 <div class="col-2 offset-1">
-                    <input type="submit" class="btn btn-success" value="{t}Rechercher{/t}">
+                    <button type="submit" class="btn btn-primary">{t}Rechercher{/t}</button>
                 </div>
             </div>
             <div class="row">

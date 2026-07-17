@@ -1,5 +1,12 @@
 <div class="container">
-    <h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
+    <div class="row">
+        <div class="col-auto">
+            <h2>{t}Vérification de l'emplacement des contenants pour repérer les situations incohérentes{/t}</h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="row bg-info">
         {t}Si un contenant a été placé dans un contenant qu'il contient lui-même, au premier niveau ou dans la hiérarchie des contenants, certaines requêtes peuvent tourner indéfiniment.{/t}
         <br>
@@ -17,7 +24,7 @@
                     <button type="submit" class="btn btn-primary ">
                         {t}Déclencher la recherche{/t}
                     </button>
-                </div>				
+                </div>
             </div>
             {$csrf}
         </form>

@@ -40,6 +40,7 @@ class Metadata extends PpciLibrary
             $this->message->set($e->getMessage());
         }
         $this->vue->help(_("objets/les-métadonnées.html"));
+        $this->vue->help(_("maintain/régénérer-les-modèles-de-métadonnées-ou-renommer-un-champ.html"),"helpRegenerate");
         return $this->vue->send();
     }
     function display()
@@ -267,8 +268,8 @@ class Metadata extends PpciLibrary
     function regenerate()
     {
         $id = 0;
+        $db = $this->dataclass->db;
         try {
-            $db = $this->dataclass->db;
             $db->transBegin();
             $metadatas = $this->dataclass->getList();
             foreach ($metadatas as $metadata) {

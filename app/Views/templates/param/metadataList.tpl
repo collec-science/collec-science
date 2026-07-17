@@ -115,7 +115,7 @@
 		</fieldset>
 	</div>
 	<div class="row">
-		<fieldset>
+		{$helpRegenerate}<fieldset>
 			<legend>{t}Régénérer les modèles{/t}</legend>
 			<form class="form-horizontal" id="metadataRegenerate" method="post" action="metadataRegenerate">
 				<div class="bg-info">

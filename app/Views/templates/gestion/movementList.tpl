@@ -1,5 +1,12 @@
 <div class="container">
-    <h2>{t}Liste des mouvements{/t}</h2>
+    <div class="row">
+        <div class="col-auto">
+            <h2>{t}Liste des mouvements{/t}</h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <form class="form-horizontal " id="movement_search" action="movementList" method="GET">
         <input id="moduleBase" type="hidden" name="moduleBase" value="movement">
         <input id="isSearch" type="hidden" name="isSearch" value="1">

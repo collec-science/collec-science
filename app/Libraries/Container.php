@@ -558,6 +558,7 @@ class Container extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $this->vue->set("gestion/containerVerifyCyclic.tpl", "corps");
+        $this->vue->help(_("maintain/rechercher-des-mouvements-cycliques.html"));
         return $this->vue->send();
     }
     function verifyCyclicExec()

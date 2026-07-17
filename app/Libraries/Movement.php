@@ -219,6 +219,7 @@ class Movement extends PpciLibrary
         }
         $this->vue->set($dataSearch, "movementSearch");
         $this->vue->set("gestion/movementList.tpl", "corps");
+        $this->vue->help(_("maintain/visualiser-les-mouvements.html"));
         return $this->vue->send();
     }
 

@@ -1042,13 +1042,29 @@ class ObjectClass extends PpciModel
         if (empty($status_id)) {
             throw new PpciException(_("Le statut n'a pas été fourni"));
         }
+        $borrowing = new Borrowing;
+        $currentDate = date($_SESSION["date"]["maskdate"]);
         foreach ($uids as $uid) {
             if (empty($uid)) {
                 throw new PpciException(_("L'identifiant de l'objet n'a pas été fourni"));
             }
+            $oldStatus = $this->getLastStatus($uid);
+            if ($status_id == 1 && $oldStatus == 6) {
+                /**
+                 * update borrowing
+                 */
+                $borrowing->setReturn($uid, $currentDate);
+            }
             $data = array("uid" => $uid, "object_status_id" => $status_id);
             $this->write($data);
         }
+    }
+
+    function getLastStatus(int $uid)
+    {
+        $sql = "SELECT object_status_id from object where uid = :uid:";
+        $data = $this->readParam($sql, ["uid" => $uid]);
+        return $data["object_status_id"];
     }
     /**
      * get the content of an object with its type (type_name)
@@ -1140,7 +1156,7 @@ class ObjectClass extends PpciModel
         }
         return $retour;
     }
-    
+
     /**
      * Method getUidFromIdentifier
      *
@@ -1148,9 +1164,10 @@ class ObjectClass extends PpciModel
      *
      * @return int : uid of the object
      */
-    function getUidFromIdentifier(string $id):?int {
+    function getUidFromIdentifier(string $id): ?int
+    {
         $sql = "SELECT uid from object where identifier = :id:";
-        $res = $this->readParam($sql, ["id"=>$id]);
+        $res = $this->readParam($sql, ["id" => $id]);
         if (!empty($res)) {
             return $res["uid"];
         } else {

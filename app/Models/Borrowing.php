@@ -167,7 +167,7 @@ class Borrowing extends PpciModel
      * @param Container $container
      * @return void
      */
-    function setReturn($uid, $return_date, ObjectClass $object = null, Container $container = null)
+    function setReturn($uid, $return_date)
     {
         if ($uid > 0 && !empty($return_date)) {
             if (str_contains($return_date, '-')) {

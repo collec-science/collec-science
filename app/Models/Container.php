@@ -668,7 +668,7 @@ class Container extends PpciModel
                 if ($key == "identifiers") {
                     foreach ($df as $ident) {
                         $idvalue = explode(":", $ident);
-                        if (!in_array($idvalue[0], $names["identifier_type_code"])) {
+                        if (!empty($idvalue) && !empty($names["identifier_type_code"]) && !in_array($idvalue[0], $names["identifier_type_code"])) {
                             $names["identifier_type_code"][] = $idvalue[0];
                         }
                     }

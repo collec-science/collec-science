@@ -54,7 +54,8 @@ class Rights extends RightsPpci
         "getLogFiles" => ["admin"],
         "getLogContent" => ["admin"],
         "dbstructureAdmin" => ["admin"],
-        "dbstructureSchemaAdmin" => ["admin"]
+        "dbstructureSchemaAdmin" => ["admin"],
+        "oidc" => ["consult"]
     ];
 
 }

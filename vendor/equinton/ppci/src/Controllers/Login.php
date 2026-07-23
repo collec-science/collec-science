@@ -19,8 +19,8 @@ class Login extends PpciController
              */
             if (!$_SESSION["isLogged"] && $idConfig->identificationMode == "HEADER") {
                 $retour = $login->getLogin();
-                if (empty($retour) && !$_SESSION["isLogged"]) {                  
-                        $_SESSION["filterMessages"][] = _("Identification refusée");
+                if (empty($retour) && !$_SESSION["isLogged"]) {
+                    $_SESSION["filterMessages"][] = _("Identification refusée");
                 }
                 return $this->defaultReturn($retour);
             } else {
@@ -71,6 +71,10 @@ class Login extends PpciController
         } else {
             return $this->defaultReturn();
         }
+    }
+    public function oidc()
+    {
+        return $this->defaultReturn();
     }
     public function getLogo()
     {

@@ -74,7 +74,7 @@ class Login extends PpciController
     }
     public function oidc()
     {
-        return $this->defaultReturn();
+        return $this->oidcExec();
     }
     public function getLogo()
     {

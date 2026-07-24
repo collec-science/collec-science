@@ -6,6 +6,7 @@ use Config\App;
 use CodeIgniter\Cookie\Cookie;
 use Ppci\Libraries\PpciException;
 use Jumbojett\OpenIDConnectClient;
+use Jumbojett\OpenIDConnectClientException;
 
 class Login
 {
@@ -79,7 +80,7 @@ class Login
                     $_SESSION["filterMessages"][] = $e->getMessage();
                 }
                 //$this->message->set(_("L'identification par jeton n'a pas abouti"), true);
-                $this->message->setSyslog($e->getMessage(),true);
+                $this->message->setSyslog($e->getMessage(), true);
                 /**
                  * Destroy the token
                  */
@@ -485,13 +486,17 @@ class Login
             }
             \phpCAS::logout(array("url" => "https://" . $_SERVER["HTTP_HOST"]));
         } else if ($identificationMode == "oidc") {
-            $oidc = new OpenIDConnectClient(
-                $this->identificationConfig->OIDC["provider"],
-                $this->identificationConfig->OIDC["clientId"],
-                $this->identificationConfig->OIDC["clientSecret"]
-            );
-            $redirect = $this->paramApp->baseURL;
-            $oidc->signOut($oidcIdtoken, $redirect);
+            try {
+                $oidc = new OpenIDConnectClient(
+                    $this->identificationConfig->OIDC["provider"],
+                    $this->identificationConfig->OIDC["clientId"],
+                    $this->identificationConfig->OIDC["clientSecret"]
+                );
+                $redirect = $this->paramApp->baseURL;
+                $oidc->signOut($oidcIdtoken, $redirect);
+            } catch (OpenIDConnectClientException $e) {
+                $this->message->set(_("Pour finaliser la déconnexion, vous devez fermer votre navigateur"), true);
+            }
         }
     }
     /**
@@ -506,12 +511,13 @@ class Login
             $this->identificationConfig->OIDC["clientId"],
             $this->identificationConfig->OIDC["clientSecret"]
         );
-
+        $oidc->setRedirectURL($_SERVER["app.baseURL"] . "/oidc");
         //$oidc->addScope($attributes);
         $oidc->addScope(["profile", "email"]);
         if (!empty($this->identificationConfig->OIDC["scopeGroup"])) {
             $oidc->addScope([$this->identificationConfig->OIDC["scopeGroup"]]);
         }
+        $oidc->setRedirectURL($this->paramApp->baseURL.'/oidc');
         $oidc->authenticate();
         /**
          * login

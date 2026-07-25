@@ -125,6 +125,50 @@ class Login extends PpciLibrary
         $vue->set("", "moduleCalled");
         return $vue->send();
     }
+    function displayMixed()
+    {
+        $this->vue = service('Smarty');
+        /**
+         * search from provider servers
+         */
+        $providers = [];
+        /**
+         * @var Cas
+         */
+        $cas = service("Cas");
+        if (!empty($cas->servers)) {
+            $cass = explode(",", $cas->servers);
+            foreach ($cass as $server) {
+                $providers[] = [
+                    "name" => $cas->$server["name"],
+                    "logo" => $cas->$server["logo"]
+                ];
+            }
+        }
+        /**
+         * search from OIDC servers
+         */
+        $oidc = service("Oidc");
+        if (!empty($oidc->servers)) {
+            $oidcs = explode(",", $oidc->servers);
+            foreach ($oidcs as $server) {
+                $providers[] = [
+                    "name" => $oidc->$server["name"],
+                    "logo" => $oidc->$server["logo"]
+                ];
+            }
+        }
+        $this->vue->set($providers, "providers");
+        /**
+         * Search if local identification is required
+         */
+        $this->vue->set($this->identificationConfig->mixedLocalIdentification, "localIdentification");
+        $this->vue->set("ppci/ident/loginMixed.tpl", "corps");
+        $this->vue->set($this->identificationConfig->tokenIdentityValidity, "tokenIdentityValidity");
+        $this->vue->set($this->identificationConfig->APPLI_lostPassword, "lostPassword");
+        return $this->vue->send();
+    }
+
     function postLogin($ident_type)
     {
         /**

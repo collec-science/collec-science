@@ -80,6 +80,14 @@ class Services extends BaseService
     {
         return ($getShared === true ? static::getSharedInstance("IdentificationConfig") : new IdentificationConfig());
     }
+    public static function Cas($getShared = true)
+    {
+        return ($getShared === true ? static::getSharedInstance("Cas") : new Cas());
+    }
+    public static function Oidc($getShared = true)
+    {
+        return ($getShared === true ? static::getSharedInstance("Oidc") : new Oidc());
+    }
 
     /**
      * Views

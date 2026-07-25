@@ -11,7 +11,9 @@ class Login extends PpciController
         if (isset($_COOKIE["tokenIdentity"])) {
             return $this->defaultReturn($login->getLogin());
         }
-        if (in_array($idConfig->identificationMode, ["BDD", "LDAP", "LDAP-BDD", "CAS-BDD", "OIDC-BDD"])) {
+        if ($idConfig->identificationMode == "MIXED") {
+            return $login->displayMixed();
+        } else if (in_array($idConfig->identificationMode, ["BDD", "LDAP", "LDAP-BDD", "CAS-BDD", "OIDC-BDD"])) {
             return ($login->display());
         } else {
             /**

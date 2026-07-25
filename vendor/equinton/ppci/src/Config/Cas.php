@@ -12,7 +12,7 @@ class Cas extends BaseConfig
      */
     public string $servers = "";
 
-    public array $default = array(
+    public array $default = [
         "address" => "localhost",
         "uri" => "/cas",
         "port" => 443,
@@ -24,5 +24,6 @@ class Cas extends BaseConfig
         "firstname" => "givenName",
         "lastname" => "sn",
         "name" => "cn",
-    );
+        "logo" => "public/favicon.png"
+    ];
 }

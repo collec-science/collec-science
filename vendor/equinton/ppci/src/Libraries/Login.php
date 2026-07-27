@@ -25,7 +25,7 @@ class Login extends PpciLibrary
      *
      * @return ?string
      */
-    function getLogin()
+    function getLogin($type = "DB")
     {
         try {
             if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
@@ -36,9 +36,18 @@ class Login extends PpciLibrary
                 }
                 return;
             } else {
-                $ident_type = $this->identificationConfig->identificationMode;
+                if ($type == "DB") {
+                    $ident_type = $this->identificationConfig->identificationMode;
+                } else {
+                    if ($type =="CAS" || $type == "OIDC") {
+                        $ident_type = $type;
+                    } else {
+                        $ident_type = $this->identificationConfig->mixedLocalIdentification;
+                    }
+                }
             }
-            if (in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"]) && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])) {
+            if (in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"]) 
+                && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])) {
                 $ident_type = $_REQUEST["identificationType"];
             }
             if (
@@ -48,6 +57,8 @@ class Login extends PpciLibrary
                 && empty($_COOKIE["tokenIdentity"])
                 && empty($_REQUEST["cas_required"])
                 && empty($_GET["ticket"])
+                && empty($_SESSION["CasParams"])
+                && empty($_SESSION["OidcParams"])
                 && !isset($_SESSION["phpCAS"])
                 && !isset($_SESSION["openid_connect_nonce"])
             ) {
@@ -57,7 +68,6 @@ class Login extends PpciLibrary
                  * Verify the login
                  */
                 if (empty($_SESSION["login"])) {
-
                     $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
                 }
             }
@@ -141,7 +151,8 @@ class Login extends PpciLibrary
             foreach ($cass as $server) {
                 $providers[] = [
                     "name" => $cas->$server["name"],
-                    "logo" => $cas->$server["logo"]
+                    "logo" => $cas->$server["logo"],
+                    "server" => $server
                 ];
             }
         }
@@ -154,7 +165,8 @@ class Login extends PpciLibrary
             foreach ($oidcs as $server) {
                 $providers[] = [
                     "name" => $oidc->$server["name"],
-                    "logo" => $oidc->$server["logo"]
+                    "logo" => $oidc->$server["logo"],
+                    "server" => $server
                 ];
             }
         }
@@ -205,5 +217,8 @@ class Login extends PpciLibrary
          * call to postLogin App
          */
         PostLogin::index();
+    }
+    function Disconnect() {
+        return $this->datalogin->Disconnect();
     }
 }

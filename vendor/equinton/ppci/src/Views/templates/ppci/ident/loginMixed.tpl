@@ -35,7 +35,7 @@
     <div class="row">
         <div class="form-horizontal">
             <form id="loginForm" method="POST" action="loginMixedExec">
-                <input type="hidden" name="identificationType" value="BDD">
+                <input type="hidden" name="identificationType" value="{$localIdentification}">
                 <div class="row">
                     <label for="login" class="form-label col-4">
                         {t}Login :{/t}
@@ -90,8 +90,8 @@
             <form id="loginExternal" method="POST" action="loginExternalExec">
                 {foreach $providers as $provider}
                 <div class="form-check">
-                    <input type="radio" id="{$provider.name}" class="form-check-input provider" name="provider" value="{$provider.name}">
-                    <label class="form-check-label" for="{$provider.name}">
+                    <input type="radio" id="{$provider.server}" class="form-check-input provider" name="provider" value="{$provider.server}">
+                    <label class="form-check-label" for="{$provider.server}">
                         <img src="{$provider.logo}" height="25">
                         {$provider.name}
                     </label>
@@ -104,6 +104,7 @@
                         </div>
                     </div>
                 </div>
+                {$csrf}
             </form>
         </fieldset>
     </div>

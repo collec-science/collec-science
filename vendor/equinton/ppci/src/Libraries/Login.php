@@ -58,7 +58,7 @@ class Login extends PpciLibrary
                 && empty($_REQUEST["cas_required"])
                 && empty($_GET["ticket"])
                 && empty($_SESSION["CasParams"])
-                && empty($_SESSION["OidcParams"])
+                && empty($_SESSION["OidcParam"])
                 && !isset($_SESSION["phpCAS"])
                 && !isset($_SESSION["openid_connect_nonce"])
             ) {

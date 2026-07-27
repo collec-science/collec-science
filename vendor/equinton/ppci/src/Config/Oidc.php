@@ -12,7 +12,7 @@ class Oidc extends BaseConfig
      */
     public string $servers = "";
 
-     public array $default = [
+    public array $default = [
         "name" => "display name",
         "provider" => 'https://id.provider.com',
         "clientId" => 'ClientIDHere',
@@ -25,7 +25,8 @@ class Oidc extends BaseConfig
         "scopeGroup" => "affectation",
         "getGroups" => 1,
         "logo" => "public/favicon.png",
-        "isPublic" => 0
+        "isPublic" => 0,
+        "scopes" => "profile,email"
     ];
 
     public array $orcid = [
@@ -35,12 +36,12 @@ class Oidc extends BaseConfig
         "clientSecret" => 'ClientSecretHere',
         "name" => "name",
         "email" => "email",
-        "groups" => "supannEntiteAffectationPrincipale",
         "firstname" => "given_name",
         "lastname" => "family_name",
-        "scopeGroup" => "affectation",
+        "scopeGroup" => "",
         "getGroups" => 0,
-        "logo" => "public/display/images/orcid.png",
-        "isPublic" => 1
+        "logo" => "display/images/orcid.png",
+        "isPublic" => 1,
+        "scopes" => ""
     ];
 }

@@ -66,7 +66,7 @@ class Login extends PpciController
          * Search if it's cas or oidc
          */
         unset($_SESSION["CasParams"]);
-        unset($_SESSION["OidcParams"]);
+        unset($_SESSION["OidcParam"]);
         $cas = service("Cas");
         $found = false;
         $type = "MIXED";
@@ -114,7 +114,7 @@ class Login extends PpciController
         if ($ident_type == "OIDC-BDD" && $_REQUEST["identificationType"] != "BDD") {
             $ident_type = "OIDC";
         }
-        if ($ident_type == "OIDC" || !empty($_SESSION["OidcParams"])) { 
+        if ($ident_type == "OIDC" || !empty($_SESSION["OidcParam"])) { 
             return $this->defaultReturn($this->lib->getLogin("OIDC"));
         } else {
             return $this->defaultReturn();

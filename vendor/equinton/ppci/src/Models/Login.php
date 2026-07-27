@@ -467,10 +467,10 @@ class Login
             \phpCAS::logout(array("url" => $this->paramApp->baseURL));
         } else if ($identificationMode == "oidc") {
             try {
-                if (empty($_SESSION["OidcParams"])) {
+                if (empty($_SESSION["OidcParam"])) {
                     $params = $this->identificationConfig->OIDC;
                 } else {
-                    $params = $_SESSION["OidcParams"];
+                    $params = $_SESSION["OidcParam"];
                 }
                 $oidc = new OpenIDConnectClient(
                     $params["provider"],
@@ -491,23 +491,22 @@ class Login
      */
     function getOidc(): string
     {
-        if (empty($_SESSION["OidcParams"])) {
+        if (empty($_SESSION["OidcParam"])) {
             $params = $this->identificationConfig->OIDC;
         } else {
-            $params = $_SESSION["OidcParams"];
+            $params = $_SESSION["OidcParam"];
         }
-
         $oidc = new OpenIDConnectClient(
             $params["provider"],
             $params["clientId"],
             $params["clientSecret"]
         );
         $oidc->setRedirectURL($_SERVER["app.baseURL"] . "/oidc");
-        //$oidc->addScope($attributes);
-        $oidc->addScope(["profile", "email"]);
-        if (!empty($params["scopeGroup"])) {
-            $oidc->addScope([$params["scopeGroup"]]);
-        }
+        /**
+         * Add scopes
+         */
+        $scopes = explode (",",$params["scopes"]);
+            $oidc->addScope($scopes);
         $oidc->setRedirectURL($this->paramApp->baseURL . '/oidc');
         $oidc->authenticate();
         /**
@@ -542,7 +541,7 @@ class Login
         /**
          * Upgrade or create acllogin
          */
-        ($_SESSION["OidcParam"]["isPublic"] == 1) ? $create = true : $create = false;
+        ($params["isPublic"] == 1) ? $create = true : $create = false;
         $this->updateLoginFromIdentification($login, $oidcAttrs, $create, $create);
         if ($create) {
             /**
@@ -560,6 +559,8 @@ class Login
              * private oidc server
              * no record in logingestion
              */
+            $this->createAclLogin($login, $oidcAttrs);
+            $verify = true;
         }
         if ($verify) {
             $_SESSION["userAttributes"] = $oidcAttrs;

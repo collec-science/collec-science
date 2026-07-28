@@ -66,6 +66,7 @@ app.pubKey = ${BASE_DIR}/id_collec.pub
 # Ppci identification
 #--------------------------------------------------------------------
 # Identification mode
+# MIXED : new mode. Others modes, except HEADER, are legacy
 # BDD : logins in database
 # LDAP : login in LDAP xxx
 # CAS : use a CAS server
@@ -75,8 +76,54 @@ app.pubKey = ${BASE_DIR}/id_collec.pub
 # OIDC : OIDC identification
 # OIDC-BDD : a button to use OIDC identification
 
-Ppci\Config\IdentificationConfig.identificationMode = BDD
+Ppci\Config\IdentificationConfig.identificationMode = MIXED
 # APP_passwordMinLength = 12
+
+#--------------------------------------------------------------------
+# Mixed identification
+#--------------------------------------------------------------------
+# mixedLocalIdentification : use BDD, LDAP, LDAP-BDD or empty
+Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
+
+# List of CAS servers
+# each server in servers variable must be separated by a comma, without space
+# example: one server, named default
+# Ppci\Config\Cas.servers = "default"
+# for each server, here named default
+# Ppci\Config\Cas.default.name = "displayed name"
+# Ppci\Config\Cas.default.address = "mycasserver.com"
+# Ppci\Config\Cas.default.uri = "/cas"
+# Ppci\Config\Cas.default.port = 443
+# Ppci\Config\Cas.default.debug = false
+# Ppci\Config\Cas.default.logo = "favicon.png"
+# Ppci\Config\Cas.default.Capath = ""
+# Ppci\Config\Cas.default.getGroups = 1
+# Ppci\Config\Cas.default.groups = "supAnnEntiteAffectation"
+# Ppci\Config\Cas.default.firstname = "givenName"
+# Ppci\Config\Cas.default.lastname = "sn"
+# Ppci\Config\Cas.default.email = "mail"
+
+# List of OIDC servers
+# each server in servers variable must be separated by a comma, without space
+# Ppci\Config\Oidc.servers = "default"
+# for each server, here named default
+# Ppci\Config\Oidc.default.name = "default"
+# Ppci\Config\Oidc.default.provider = "https://provider.org"
+# Ppci\Config\Oidc.default.clientId = "client-id"
+# Ppci\Config\Oidc.default.clientSecret = "client-secret"
+# Ppci\Config\Oidc.default.name = "name"
+# Ppci\Config\Oidc.default.email = "email"
+# Ppci\Config\Oidc.default.logo = "display/images/default.png"
+# Ppci\Config\Oidc.default.getGroups = 0
+# Ppci\Config\Oidc.default.isPublic = 1
+# Ppci\Config\Oidc.default.groups = "supannEntiteAffectationPrincipale"
+# Ppci\Config\Oidc.default.firstname = "given_name"
+# Ppci\Config\Oidc.default.astname = "family_name"
+# Ppci\Config\Oidc.default.scopeGroup = "affectation"
+
+#---------------------------------------------------------------------
+# Legacy identification
+#---------------------------------------------------------------------
 
 # List of parameters to use SAML identification with apache2-mellon
 #

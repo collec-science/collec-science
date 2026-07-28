@@ -16,11 +16,22 @@ class IdentificationConfig extends BaseConfig
      * CAS-BDD : a button to use CAS identification
      * OIDC : use an OIDC server
      * OIDC-BDD : add choice to use OIDC identification in addition to BDD
+     * MIXED : you can specify multiple servers
      *
      * @var string
      */
     public $identificationMode = "BDD";
     public $disableTotpToAdmin = 0;
+
+    /**
+     * In mode Mixed, activate local identification modes
+     * empty if not used
+     * BDD : database only
+     * LDAP : ldap only
+     * LDAP-BDD : test first LDAP, then BDD
+     */
+    public $mixedLocalIdentification = "";
+
     /**
      * List of parameters to use SAML identification with apache2-mellon
      *

@@ -5,6 +5,7 @@ namespace Ppci\Libraries;
 use App\Libraries\PostLogin;
 use Ppci\Models\Gacltotp;
 use CodeIgniter\Cookie\Cookie;
+use Ppci\Config\Oidc;
 
 class Login extends PpciLibrary
 {
@@ -39,15 +40,17 @@ class Login extends PpciLibrary
                 if ($type == "DB") {
                     $ident_type = $this->identificationConfig->identificationMode;
                 } else {
-                    if ($type =="CAS" || $type == "OIDC") {
+                    if ($type == "CAS" || $type == "OIDC") {
                         $ident_type = $type;
                     } else {
                         $ident_type = $this->identificationConfig->mixedLocalIdentification;
                     }
                 }
             }
-            if (in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"]) 
-                && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])) {
+            if (
+                in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"])
+                && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])
+            ) {
                 $ident_type = $_REQUEST["identificationType"];
             }
             if (
@@ -149,9 +152,10 @@ class Login extends PpciLibrary
         if (!empty($cas->servers)) {
             $cass = explode(",", $cas->servers);
             foreach ($cass as $server) {
+                $root = "Ppci\Config\Cas." . $server . ".";
                 $providers[] = [
-                    "name" => $cas->$server["name"],
-                    "logo" => $cas->$server["logo"],
+                    "name" => $_SERVER[$root . "name"],
+                    "logo" => $_SERVER[$root . "logo"],
                     "server" => $server
                 ];
             }
@@ -163,9 +167,10 @@ class Login extends PpciLibrary
         if (!empty($oidc->servers)) {
             $oidcs = explode(",", $oidc->servers);
             foreach ($oidcs as $server) {
+                $root = "Ppci\Config\Oidc." . $server . ".";
                 $providers[] = [
-                    "name" => $oidc->$server["name"],
-                    "logo" => $oidc->$server["logo"],
+                    "name" => $_SERVER[$root . "name"],
+                    "logo" => $_SERVER[$root . "logo"],
                     "server" => $server
                 ];
             }
@@ -218,7 +223,8 @@ class Login extends PpciLibrary
          */
         PostLogin::index();
     }
-    function Disconnect() {
+    function Disconnect()
+    {
         return $this->datalogin->Disconnect();
     }
 }

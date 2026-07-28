@@ -74,7 +74,7 @@ class Login extends PpciController
             $cass = explode(",", $cas->servers);
             if (in_array($_POST["provider"], $cass)) {
                 $provider = $_POST["provider"];
-                $_SESSION["CasParam"] = $cas->$provider;
+                $_SESSION["CasParam"] = $this->getProviderParam($provider,"Cas");
                 $type = "CAS";
                 $found = true;
             }
@@ -84,7 +84,7 @@ class Login extends PpciController
             $oidcs = explode(",", $oidc->servers);
             if (in_array($_POST["provider"], $oidcs)) {
                 $provider = $_POST["provider"];
-                $_SESSION["OidcParam"] = $oidc->$provider;
+                $_SESSION["OidcParam"] = $this->getProviderParam($provider,"Oidc");
                 $type = "OIDC";
                 $found = true;
             }
@@ -94,6 +94,17 @@ class Login extends PpciController
         }
         return defaultPage();
     }
+    public function getProviderParam(string $provider, string $type)
+    {
+        $param = [];
+        $oidc = service("Oidc");
+        $root = "Ppci\Config\\$type." . $provider . ".";
+        foreach ($oidc->default as $k => $v) {
+            $param[$k] = $_SERVER[$root . $k];
+        }
+        return $param;
+    }
+
     public function loginCasExec()
     {
         $config = service("IdentificationConfig");
@@ -108,13 +119,13 @@ class Login extends PpciController
         }
     }
     public function oidcExec()
-        {
+    {
         $config = service("IdentificationConfig");
         $ident_type = $config->identificationMode;
         if ($ident_type == "OIDC-BDD" && $_REQUEST["identificationType"] != "BDD") {
             $ident_type = "OIDC";
         }
-        if ($ident_type == "OIDC" || !empty($_SESSION["OidcParam"])) { 
+        if ($ident_type == "OIDC" || !empty($_SESSION["OidcParam"])) {
             return $this->defaultReturn($this->lib->getLogin("OIDC"));
         } else {
             return $this->defaultReturn();
@@ -124,7 +135,8 @@ class Login extends PpciController
     {
         return $this->defaultReturn($this->lib->getLogin("OIDC"));
     }
-    public function cas() {
+    public function cas()
+    {
         return $this->defaultReturn($this->lib->getLogin("CAS"));
     }
     public function getLogo()

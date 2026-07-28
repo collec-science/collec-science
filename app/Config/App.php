@@ -392,4 +392,5 @@ class App extends BaseConfig
         "description" => "description",
     ];
     */
+    public string $permittedURIChars = 'a-z 0-9~%.:_\-';
 }

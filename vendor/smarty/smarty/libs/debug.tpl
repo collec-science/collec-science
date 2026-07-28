@@ -112,8 +112,7 @@
         -  {if isset($template_name)}{$template_name|debug_print_var nofilter} {/if}{if !empty($template_data)}Total Time {$execution_time|string_format:"%.5f"}{/if}</h1>
 
     {if !empty($template_data)}
-        <div class="container">
-<h2>included templates &amp; config files (load time in seconds)</h2>
+        <h2>included templates &amp; config files (load time in seconds)</h2>
         <div>
             {foreach $template_data as $template}
                 <span style="color: brown;">{$template.name}</span>
@@ -125,8 +124,7 @@
         </div>
     {/if}
 
-    <div class="container">
-<h2>assigned template variables</h2>
+    <h2>assigned template variables</h2>
 
     <table id="table_assigned_vars">
         {foreach $assigned_vars as $vars}
@@ -150,8 +148,7 @@
          {/foreach}
     </table>
 
-    <div class="container">
-<h2>assigned config file variables</h2>
+    <h2>assigned config file variables</h2>
 
     <table id="table_config_vars">
         {foreach $config_vars as $vars}

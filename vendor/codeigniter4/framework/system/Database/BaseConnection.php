@@ -781,7 +781,7 @@ abstract class BaseConnection implements ConnectionInterface
      * Should automatically handle different connections for read/write
      * queries if needed.
      *
-     * @param array|string|null $binds
+     * @param array<int|string, mixed>|string|null $binds
      *
      * @return BaseResult<TConnection, TResult>|bool|Query
      *
@@ -795,9 +795,7 @@ abstract class BaseConnection implements ConnectionInterface
             $this->initialize();
         }
 
-        /**
-         * @var Query $query
-         */
+        /** @var Query $query */
         $query = new $queryClass($this);
 
         $query->setQuery($sql, $binds, $setEscapeFlags);
@@ -1535,7 +1533,7 @@ abstract class BaseConnection implements ConnectionInterface
      * Escapes data based on type.
      * Sets boolean and null types
      *
-     * @param array|bool|float|int|object|string|null $str
+     * @param mixed $str
      *
      * @return ($str is array ? array : float|int|string)
      */
@@ -1686,9 +1684,11 @@ abstract class BaseConnection implements ConnectionInterface
     public function listTables(bool $constrainByPrefix = false)
     {
         if (isset($this->dataCache['table_names']) && $this->dataCache['table_names']) {
-            return $constrainByPrefix
+            $tables = $constrainByPrefix
                 ? preg_grep("/^{$this->DBPrefix}/", $this->dataCache['table_names'])
                 : $this->dataCache['table_names'];
+
+            return array_values($tables);
         }
 
         $sql = $this->_listTables($constrainByPrefix);
@@ -2059,7 +2059,7 @@ abstract class BaseConnection implements ConnectionInterface
     /**
      * Accessor for properties if they exist.
      *
-     * @return array|bool|float|int|object|resource|string|null
+     * @return mixed
      */
     public function __get(string $key)
     {

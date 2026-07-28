@@ -29,7 +29,10 @@ class Oidc extends BaseConfig
         "scopes" => "profile,email"
     ];
 
-    public array $orcid = [
+    /**
+     * example : ORCID
+     */
+    /*public array $orcid = [
         "name" => "ORCID",
         "provider" => 'https://sandbox.orcid.org',
         "clientId" => 'ClientIDHere',
@@ -43,5 +46,5 @@ class Oidc extends BaseConfig
         "logo" => "display/images/orcid.png",
         "isPublic" => 1,
         "scopes" => ""
-    ];
+    ];*/
 }

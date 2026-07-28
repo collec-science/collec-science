@@ -66,29 +66,28 @@ app.pubKey = ${BASE_DIR}/id_collec.pub
 # Ppci identification
 #--------------------------------------------------------------------
 # Identification mode
-# MIXED : new mode. Others modes, except HEADER, are legacy
-# BDD : logins in database
-# LDAP : login in LDAP xxx
-# CAS : use a CAS server
+# MIXED : authorize multiple connections types: local, LDAP server, OIDC servers, CAS servers
+# CAS : use only a CAS server
+# OIDC : use only an OIDC server
 # HEADER : use the login transmitted by the web server (identification SAML with Mellon)
-# LDAP-BDD : test first LDAP, then BDD
-# CAS-BDD : a button to use CAS identification
-# OIDC : OIDC identification
-# OIDC-BDD : a button to use OIDC identification
-
 Ppci\Config\IdentificationConfig.identificationMode = MIXED
-# APP_passwordMinLength = 12
 
 #--------------------------------------------------------------------
 # Mixed identification
 #--------------------------------------------------------------------
-# mixedLocalIdentification : use BDD, LDAP, LDAP-BDD or empty
+# mixedLocalIdentification: Users can enter their username and password directly within the app
+# BDD: account managed by the app
+# LDAP: account managed by a LDAP server
+# LDAP-BDD: try connection on LDAP server. If fail, try on the local connection
+# use BDD, LDAP, LDAP-BDD or empty
 Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 
 # List of CAS servers
 # each server in servers variable must be separated by a comma, without space
 # example: one server, named default
+# empty if no CAS server
 # Ppci\Config\Cas.servers = "default"
+
 # for each server, here named default
 # Ppci\Config\Cas.default.name = "displayed name"
 # Ppci\Config\Cas.default.address = "mycasserver.com"
@@ -105,7 +104,9 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 
 # List of OIDC servers
 # each server in servers variable must be separated by a comma, without space
+# empty if no OIDC server
 # Ppci\Config\Oidc.servers = "default"
+
 # for each server, here named default
 # Ppci\Config\Oidc.default.name = "default"
 # Ppci\Config\Oidc.default.provider = "https://provider.org"
@@ -119,29 +120,15 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\Oidc.default.groups = "supannEntiteAffectationPrincipale"
 # Ppci\Config\Oidc.default.firstname = "given_name"
 # Ppci\Config\Oidc.default.astname = "family_name"
+# verify the allowed scopes at this address : provider/.well-known/openid-configuration
+# Ppci\Config\Oidc.default.scopes = ""
 # Ppci\Config\Oidc.default.scopeGroup = "affectation"
 
-#---------------------------------------------------------------------
-# Legacy identification
-#---------------------------------------------------------------------
-
-# List of parameters to use SAML identification with apache2-mellon
-#
-# Ppci\Config\IdentificationConfig.HEADER.login = 'MELLON_MAIL'
-# Ppci\Config\IdentificationConfig.HEADER.email = 'MELLON_MAIL'
-# Ppci\Config\IdentificationConfig.HEADER.name = 'MELLON_CN'
-# Ppci\Config\IdentificationConfig.HEADER.firstname = 'MELLON_GIVENNAME'
-# Ppci\Config\IdentificationConfig.HEADER.lastname = 'MELLON_SN'
-# Ppci\Config\IdentificationConfig.HEADER.organization = 'MELLON_SHACHOMEORGANIZATION'
-
-
-# Organizations granted for Header connection
-# each organization must be separated by a comma
-# Ppci\Config\IdentificationConfig.organizationGranted = 
-
-# Groups that users are automatically activated
-# each group must be separated by a comma
-# Ppci\Config\IdentificationConfig\groupsGranted = 
+#-----------------------------------------------------------------
+# MIXED identification:  Database (BDD) parameters
+#-----------------------------------------------------------------
+# Minimal length of password
+# APP_passwordMinLength = 12
 
 # Try number to connect
 # Ppci\Config\IdentificationConfig.CONNECTION_max_attempts = 5
@@ -161,7 +148,9 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # If set to 1, authorises recovery of a new password in the event of loss
 # Ppci\Config\IdentificationConfig.APPLI_lostPassword = 1
 
-# CAS parameters
+#-----------------------------------------------------------------
+# CAS identification
+#-----------------------------------------------------------------
 # Ppci\Config\IdentificationConfig.CAS.address = "address.without.https"
 # Ppci\Config\IdentificationConfig.CAS.uri = "/cas"
 # Ppci\Config\IdentificationConfig.CAS.Port = 443
@@ -173,8 +162,10 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\IdentificationConfig.CAS.firstname = 'givenName'
 # Ppci\Config\IdentificationConfig.CAS.lastname = 'sn'
 
-# OIDC parameters
-# Ppci\Config\IdentificationConfig.OIDC.name = INRAE
+#-----------------------------------------------------------------
+# OIDC identification
+#-----------------------------------------------------------------
+# Ppci\Config\IdentificationConfig.OIDC.name = "displayed name"
 # Ppci\Config\IdentificationConfig.OIDC.provider =
 # Ppci\Config\IdentificationConfig.OIDC.clientId =
 # Ppci\Config\IdentificationConfig.OIDC.clientSecret =
@@ -183,11 +174,12 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\IdentificationConfig.OIDC.firstname = 'given_name'
 # Ppci\Config\IdentificationConfig.OIDC.lastname = 'family_name'
 # Ppci\Config\IdentificationConfig.OIDC.groups = "supannEntiteAffectationPrincipale"
+# verify the allowed scopes at this address : provider/.well-known/openid-configuration
+# Ppci\Config\IdentificationConfig.OIDC.scopes = "profile,email"
 
-# Logo displayed on the button for CAS-BDD or OIDC-BDD
-Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
-
-# LDAP parameters
+#----------------------------------------------------------------
+# MIXED identification: LDAP parameters
+#----------------------------------------------------------------
 # Ppci\Config\IdentificationConfig.LDAP.address = 
 # Ppci\Config\IdentificationConfig.LDAP.port = 389
 # Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
@@ -208,6 +200,27 @@ Ppci\Config\IdentificationConfig.identificationLogo = "${FRONT_DIR}/favicon.png"
 # Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
 # Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
 
+#---------------------------------------------------------------------
+# HEADER identification
+#---------------------------------------------------------------------
+
+# List of parameters to use SAML identification with apache2-mellon
+#
+# Ppci\Config\IdentificationConfig.HEADER.login = 'MELLON_MAIL'
+# Ppci\Config\IdentificationConfig.HEADER.email = 'MELLON_MAIL'
+# Ppci\Config\IdentificationConfig.HEADER.name = 'MELLON_CN'
+# Ppci\Config\IdentificationConfig.HEADER.firstname = 'MELLON_GIVENNAME'
+# Ppci\Config\IdentificationConfig.HEADER.lastname = 'MELLON_SN'
+# Ppci\Config\IdentificationConfig.HEADER.organization = 'MELLON_SHACHOMEORGANIZATION'
+
+
+# Organizations granted for Header connection
+# each organization must be separated by a comma
+# Ppci\Config\IdentificationConfig.organizationGranted = 
+
+# Groups that users are automatically activated
+# each group must be separated by a comma
+# Ppci\Config\IdentificationConfig\groupsGranted = 
 
 
 #--------------------------------------------------------------------

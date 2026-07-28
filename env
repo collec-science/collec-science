@@ -61,7 +61,6 @@ database.default.charset = utf8
 #--------------------------------------------------------------------
 app.privateKey = ${BASE_DIR}/id_collec
 app.pubKey = ${BASE_DIR}/id_collec.pub
-
 #--------------------------------------------------------------------
 # Ppci identification
 #--------------------------------------------------------------------
@@ -148,6 +147,29 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # If set to 1, authorises recovery of a new password in the event of loss
 # Ppci\Config\IdentificationConfig.APPLI_lostPassword = 1
 
+#----------------------------------------------------------------
+# MIXED identification: LDAP parameters
+#----------------------------------------------------------------
+# Ppci\Config\IdentificationConfig.LDAP.address = 
+# Ppci\Config\IdentificationConfig.LDAP.port = 389
+# Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
+# Ppci\Config\IdentificationConfig.LDAP.basedn = "ou=people,ou=example,o=societe,c=fr"
+# Ppci\Config\IdentificationConfig.LDAP.user_attrib = "uid"
+# Ppci\Config\IdentificationConfig.LDAP.v3 = true
+# Ppci\Config\IdentificationConfig.LDAP.tls = false
+# Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
+# Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
+# Ppci\Config\IdentificationConfig.LDAP.groupAttrib = "supannentiteaffectation"
+# Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
+# Ppci\Config\IdentificationConfig.LDAP.mailAttrib = "mail"
+# Ppci\Config\IdentificationConfig.LDAP.attributgroupname = "cn"
+# Ppci\Config\IdentificationConfig.LDAP.attributloginname = "memberuid"
+# Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
+# Ppci\Config\IdentificationConfig.LDAP.timeout = 2
+# Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
+# Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
+# Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
+
 #-----------------------------------------------------------------
 # CAS identification
 #-----------------------------------------------------------------
@@ -177,29 +199,6 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # verify the allowed scopes at this address : provider/.well-known/openid-configuration
 # Ppci\Config\IdentificationConfig.OIDC.scopes = "profile,email"
 
-#----------------------------------------------------------------
-# MIXED identification: LDAP parameters
-#----------------------------------------------------------------
-# Ppci\Config\IdentificationConfig.LDAP.address = 
-# Ppci\Config\IdentificationConfig.LDAP.port = 389
-# Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
-# Ppci\Config\IdentificationConfig.LDAP.basedn = "ou=people,ou=example,o=societe,c=fr"
-# Ppci\Config\IdentificationConfig.LDAP.user_attrib = "uid"
-# Ppci\Config\IdentificationConfig.LDAP.v3 = true
-# Ppci\Config\IdentificationConfig.LDAP.tls = false
-# Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
-# Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
-# Ppci\Config\IdentificationConfig.LDAP.groupAttrib = "supannentiteaffectation"
-# Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
-# Ppci\Config\IdentificationConfig.LDAP.mailAttrib = "mail"
-# Ppci\Config\IdentificationConfig.LDAP.attributgroupname = "cn"
-# Ppci\Config\IdentificationConfig.LDAP.attributloginname = "memberuid"
-# Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
-# Ppci\Config\IdentificationConfig.LDAP.timeout = 2
-# Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
-# Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
-# Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
-
 #---------------------------------------------------------------------
 # HEADER identification
 #---------------------------------------------------------------------
@@ -221,6 +220,7 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Groups that users are automatically activated
 # each group must be separated by a comma
 # Ppci\Config\IdentificationConfig\groupsGranted = 
+
 
 
 #--------------------------------------------------------------------

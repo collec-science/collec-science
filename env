@@ -112,13 +112,13 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\Oidc.default.clientId = "client-id"
 # Ppci\Config\Oidc.default.clientSecret = "client-secret"
 # Ppci\Config\Oidc.default.name = "name"
+# Ppci\Config\Oidc.default.firstname = "given_name"
+# Ppci\Config\Oidc.default.lastname = "family_name"
 # Ppci\Config\Oidc.default.email = "email"
 # Ppci\Config\Oidc.default.logo = "display/images/default.png"
 # Ppci\Config\Oidc.default.getGroups = 0
 # Ppci\Config\Oidc.default.isPublic = 1
 # Ppci\Config\Oidc.default.groups = "supannEntiteAffectationPrincipale"
-# Ppci\Config\Oidc.default.firstname = "given_name"
-# Ppci\Config\Oidc.default.astname = "family_name"
 # verify the allowed scopes at this address : provider/.well-known/openid-configuration
 # Ppci\Config\Oidc.default.scopes = ""
 # Ppci\Config\Oidc.default.scopeGroup = "affectation"

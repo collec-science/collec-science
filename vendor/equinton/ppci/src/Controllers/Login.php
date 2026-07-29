@@ -100,7 +100,7 @@ class Login extends PpciController
         $oidc = service("Oidc");
         $root = "Ppci\Config\\$type." . $provider . ".";
         foreach ($oidc->default as $k => $v) {
-            $param[$k] = $_SERVER[$root . $k];
+            $param[$k] = env($root . $k);
         }
         return $param;
     }

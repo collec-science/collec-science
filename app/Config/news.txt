@@ -1,34 +1,31 @@
 Nouveautés
 ============
-Version v26.2.0c du 18/6/2026
+Version v26.2.0 du 21/8/2026
 -----------------------------
 Corrections de bugs :
 - l'importation des campagnes ne fonctionnait pas correctement
+- la suppression d'un item dans les modèles de métadonnées fonctionnait mal
+- lecture optique des qrcodes : corrections diverses et harmonisation du fonctionnement
+- dans les formulaires, l'information "donnée obligatoire" a été déplacée pour être plus lisible
+- quand des opérations étaient réalisées sur plusieurs contenants en même temps, la liste des contenants était affichée systématiquement, sans tenir compte de l'endroit de déclenchement de l'opération
 
 Nouveautés :
+- basculement vers la version 5 de Bootstrap, le moteur d'affichage des pages web
+- mise à niveau de l'ergonomie générale du logiciel pour tenir compte de cette version de Bootstrap
 - ajout d'une fonction permettant de générer un fichier d'échantillons pour ElabFTW (accessible à partir de la création d''un lot)
 - lorsque l'utilisateur arrive pour la première fois sur la fenêtre de recherche des échantillons ou des contenants, une liste des objets les plus récents est maintenant affichée
 - il est maintenant possible d'importer les collections à partir d'un fichier CSV
 - il est maintenant possible de supprimer la référence au parent pour une liste d'échantillons, en cas d'erreur d'affectation
-
-Version v26.2.0b du 11/6/2026
-------------------------------
-Corrections de bugs :
-- la suppression d'un item dans les modèles de métadonnées fonctionnait mal
-- lecture optique des qrcodes : corrections diverses et harmonisation du fonctionnement
-- dans les formulaires, l'information "donnée obligatoire" a été déplacée pour être plus lisible
-
-Nouveautés :
 - l'affichage des imprimantes reliées directement au serveur est désactivé si aucune n'a été déclarée ou si la fonction est désactivée
 - les opérations sont maintenant rattachées directement aux échantillons, et non aux types d'échantillons
 - lors de l'export vers une autre base, le ou les parents, ainsi que les événements, sont enregistrés dans la colonne history, ce qui permet de conserver l'information dans l'instance de destination
 - il est maintenant possible de déclencher l'envoi des mails manuellement (événements ou échantillons à échéance). Les logs d'envoi sont maintenant enregistrées
+- il est maintenant possible de créer des événements identiques pour une liste de contenants
+- dans la base de données, la liste des pays peut maintenant être remplacée par la version en anglais
+- un contrôle a été rajouté pour éviter qu'un échantillon puisse être le parent de son parent
+- un contrôle a été rajouté pour éviter qu'un contenant soit contenu par un contenant qu'il contient
+- lors de la création d'un nouveau contenant, un message d'alerte est affiché si le nom du contenant existe déjà dans la base de données
 
-Version v26.2.0a du 8/5/2026
------------------------------
-Nouveautés :
-- basculement vers la version 5 de Bootstrap, le moteur d'affichage des pages web
-- mise à niveau de l'ergonomie générale du logiciel pour tenir compte de cette version de Bootstrap
 
 Version v26.1.0 du 1/4/2026
 -----------------------------

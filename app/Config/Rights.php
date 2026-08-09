@@ -95,6 +95,7 @@ class Rights extends RightsPpci
         "containereventDelete" => ["manage"],
         "containereventDuplicate" => ["manage"],
         'containerVerifyIdentifier' => ["manage"],
+        'containersAddEvent' => ["manage"],
         "sampleeventChange" => ["manage"],
         "sampleeventDisplay" => ["manage"],
         "sampleeventWrite" => ["manage"],

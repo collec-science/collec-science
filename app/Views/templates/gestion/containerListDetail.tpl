@@ -152,7 +152,8 @@
 			"containersSetReferent": "referent",
 			"containersSetCollection": "collection",
 			"containersExit": "containersExit",
-			"containersDelete": "containersDelete"
+			"containersDelete": "containersDelete",
+			"containersAddEvent": "event"
 		};
 		$("#checkedActionContainer").change(function () {
 			var action = $(this).val();
@@ -431,6 +432,7 @@
 		$(".borrowing").hide();
 		$(".referent").hide();
 		$(".trashedgroup").hide();
+		$(".event").hide();
 	});
 </script>
 <div class="container-fluid">
@@ -589,6 +591,7 @@
 					<option value="containersSetCollection">{t}Assigner une collection aux contenants{/t}</option>
 					<option value="containersExit">{t}Sortir les contenants{/t}</option>
 					<option value="containersEntry">{t}Entrer ou déplacer les contenants au même emplacement{/t}</option>
+					<option value="containersAddEvent">{t}Créer un événement pour chaque contenant{/t}</option>
 					<option value="containersSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="containersDelete">{t}Supprimer les contenants{/t}</option>
 				</select>
@@ -743,6 +746,41 @@
 								</option>
 								{/foreach}
 							</select>
+						</div>
+					</div>
+				</div>
+				<!-- Ajout d'un nouvel evenement-->
+				<div class="event">
+					<div class="row">
+						<label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
+						<div class="col-8">
+							<input id="due_date" name="due_date" value="" class="form-control datepicker">
+						</div>
+					</div>
+					<div class="row ">
+						<label for="event_date" class="form-label col-4">{t}Date{/t} :</label>
+						<div class="col-8">
+							<input id="event_date" name="event_date" value="" class="form-control datepicker">
+						</div>
+					</div>
+					<div class="row ">
+						<label for="eventsType" class="form-label col-4"><span class="red">*</span>
+							{t}Type d'événement :{/t}
+						</label>
+						<div class="col-8">
+							<select id="eventsType" name="event_type_id" class="form-control">
+								{section name=lst loop=$eventType}
+								<option value="{$eventType[lst].event_type_id}">
+									{$eventType[lst].event_type_name}
+								</option>
+								{/section}
+							</select>
+						</div>
+					</div>
+					<div class="row ">
+						<label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+						<div class="col-8">
+							<textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
 						</div>
 					</div>
 				</div>

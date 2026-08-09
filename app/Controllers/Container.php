@@ -127,4 +127,8 @@ class Container extends PpciController
     function verifyIdentifier() {
         return $this->lib->verifyIdentifier() ;
     }
+    function addMultiEvent() {
+        $this->lib->eventMulti() ;
+        return $this->lib->list();
+    }
 }

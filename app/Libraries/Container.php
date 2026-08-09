@@ -694,4 +694,45 @@ class Container extends PpciLibrary
         }
         return $this->vue->send();
     }
+
+    function eventMulti() {
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $event = new Event;
+            $de = $event->getDefaultValues();
+            $de["event_date"] = $_POST["event_date"];
+            $de["due_date"] = $_POST["due_date"];
+            $de["event_type_id"] = $_POST["event_type_id"];
+            $de["event_comment"] = $_POST["event_comment"];
+            $db = $this->dataclass->db;
+            $db->transBegin();
+            try {
+                foreach ($uids as $uid) {
+                    $de["uid"] = $uid;
+                    $event->ecrire($de);
+                }
+                $db->transCommit();
+                $this->message->set(_("Création des événements effectuée"));
+                /**
+                 * Forçage du retour
+                 */
+                $t_module["retourok"] = $_POST["lastModule"];
+            } catch (PpciException $oe) {
+                $this->message->set(_("Erreur d'écriture dans la base de données"), true);
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            } catch (\Exception $e) {
+                $this->message->set(
+                    _("La création des événements a échoué"),
+                    true
+                );
+                $this->message->set($e->getMessage());
+                $t_module["retourko"] = $_REQUEST["lastModule"];
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            }
+        }
+    }
 }

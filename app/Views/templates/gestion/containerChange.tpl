@@ -100,6 +100,16 @@
 				setPosition(lat, lon);
 			}
 		}
+		$("#identifier").change( function() {
+			var lib = $("#identifier").val();
+			var url = "containerVerifyIdentifier";
+			var currentUid = $("#uid").val();
+			$.getJSON(url, { "identifier": lib, "uid":currentUid }, function (data) {
+				if (data[0].nb > 0) {
+					alert("{t}Cet identifiant est déjà utilisé pour un autre contenant{/t}");
+				}
+			});
+		});
 	});
 
 </script>

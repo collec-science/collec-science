@@ -86,6 +86,7 @@ $routes->add('containersSetReferent', 'Container::referentMulti');
 $routes->add('containersSetCollection', 'Container::setCollection');
 $routes->add('containerVerifyCyclic', 'Container::verifyCyclic');
 $routes->add('containerVerifyCyclicExec', 'Container::verifyCyclicExec');
+$routes->add('containerVerifyIdentifier', 'Container::verifyIdentifier');
 $routes->add('containereventChange', 'Event::change');
 $routes->add('containereventDisplay', 'Event::display');
 $routes->post('containereventWrite', 'Event::write/container');

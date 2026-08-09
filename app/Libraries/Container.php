@@ -65,10 +65,10 @@ class Container extends PpciLibrary
         $dataSearch = $_SESSION["searchContainer"]->getParam();
         //if ($_SESSION["searchContainer"]->isSearch() == 1) {
         $this->dataclass->resetParam();
-            $data = $this->dataclass->containerSearch($dataSearch);
-            $this->vue->set($this->dataclass->getNbContainers($dataSearch), "totalNumber");
-            $this->vue->set($data, "containers");
-            $this->vue->set(1, "isSearch");
+        $data = $this->dataclass->containerSearch($dataSearch);
+        $this->vue->set($this->dataclass->getNbContainers($dataSearch), "totalNumber");
+        $this->vue->set($data, "containers");
+        $this->vue->set(1, "isSearch");
         //}
         $this->vue->set($dataSearch, "containerSearch");
         $this->vue->set("gestion/containerList.tpl", "corps");
@@ -85,6 +85,10 @@ class Container extends PpciLibrary
          */
         $label = new Label;
         $label->setRelatedTablesToView($this->vue);
+        /**
+         * online help
+         */
+        $this->vue->help(_("gestion/chercher-des-contenants.html"));
         return $this->vue->send();
     }
     function display()
@@ -674,6 +678,19 @@ class Container extends PpciLibrary
             $this->vue->set(["isFull" => $this->dataclass->isSlotFull($_REQUEST["uid"], $_REQUEST["line"], $_REQUEST["column"])]);
         } else {
             $this->vue->set(["isFull" => 0]);
+        }
+        return $this->vue->send();
+    }
+    function verifyIdentifier()
+    {
+        /**
+         * @var AjaxView
+         */
+        $this->vue = service("AjaxView");
+        if (is_numeric($_REQUEST["uid"]) && !empty($_REQUEST["identifier"])) {
+            $this->vue->set([$this->dataclass->getNbFromIdentifier($_REQUEST["uid"], $_REQUEST["identifier"])]);
+        } else {
+            $this->vue->set([["nb" => 0]]);
         }
         return $this->vue->send();
     }

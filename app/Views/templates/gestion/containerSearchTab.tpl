@@ -306,6 +306,7 @@
 				<div class="col-4">
 					<button type="submit" class="btn btn-success">{t}Rechercher{/t}</button>
 					<button type="button" id="razid" class="btn btn-warning">{t}RAZ{/t}</button>
+					{$help}
 				</div>
 
 			</div>

@@ -124,4 +124,7 @@ class Container extends PpciController
     {
         return $this->lib->isSlotFull();
     }
+    function verifyIdentifier() {
+        return $this->lib->verifyIdentifier() ;
+    }
 }

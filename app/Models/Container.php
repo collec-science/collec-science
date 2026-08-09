@@ -1120,4 +1120,14 @@ class Container extends PpciModel
         $this->paramSearch = array();
         $this->data = array();
     }
+    function getNbFromIdentifier(int $uid, string $identifier)
+    {
+        $sql = "SELECT count(*) as nb 
+        from container
+        JOIN object using (uid)
+        where identifier = :identifier:
+        and uid <> :uid:
+        ";
+        return $this->readParam($sql, ["uid" => $uid, "identifier" => $identifier]);
+    }
 }

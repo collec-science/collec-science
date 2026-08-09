@@ -440,6 +440,8 @@
 	{if $rights.manage == 1 && !empty($containers)}
 	<form method="POST" id="containerFormListPrint" action="containerPrintLabel">
 		<input type="hidden" name="lastModule" value="{$lastModule}">
+		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
+
 		<div class="row d-flex justify-content-center">
 			<div class="col-auto">
 				<label id="lcheckContainer" for="checkContainer1" class="form-check-label">

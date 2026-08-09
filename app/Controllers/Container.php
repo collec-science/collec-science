@@ -76,37 +76,37 @@ class Container extends PpciController
     function lendingMulti()
     {
         $this->lib->lendingMulti();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function exitMulti()
     {
         $this->lib->exitMulti();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function deleteMulti()
     {
         $this->lib->deleteMulti();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setStatus()
     {
         $this->lib->setStatus();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function entryMulti()
     {
         $this->lib->entryMulti();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function referentMulti()
     {
         $this->lib->referentMulti();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function setCollection()
     {
         $this->lib->setCollection();
-        return $this->lib->list();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
     }
     function verifyCyclic()
     {
@@ -124,11 +124,41 @@ class Container extends PpciController
     {
         return $this->lib->isSlotFull();
     }
-    function verifyIdentifier() {
-        return $this->lib->verifyIdentifier() ;
+    function verifyIdentifier()
+    {
+        return $this->lib->verifyIdentifier();
     }
-    function addMultiEvent() {
-        $this->lib->eventMulti() ;
-        return $this->lib->list();
+    function addMultiEvent()
+    {
+        $this->lib->eventMulti();
+        return $this->returnToOrigin($_SESSION["moduleParent"]);
+    }
+
+    function returnToOrigin(string $origin)
+    {
+        $action = "list";
+        if (!empty($_REQUEST["moduleFrom"])) {
+            if ($_REQUEST["moduleFrom"] == "containerDisplay") {
+                $lib = $this;
+                $action = "display";
+            } else if ($_REQUEST["moduleFrom"] == "containerList") {
+                $lib = $this;
+            } else if ($_REQUEST["moduleFrom"] == "sampleDisplay") {
+                $lib = new Sample;
+                $action = "display";
+            } else if ($_REQUEST["moduleFrom"] == "sampleList") {
+                $lib = new Sample;
+                $action = "list";
+            } else {
+                $lib = $this;
+            }
+        } else {
+            if ($origin == "sample") {
+                $lib = new Sample;
+            } else {
+                $lib = $this;
+            }
+        }
+        return $lib->$action();
     }
 }

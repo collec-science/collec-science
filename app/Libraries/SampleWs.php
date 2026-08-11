@@ -271,7 +271,7 @@ class SampleWs extends PpciLibrary
             $withTemplate = false;
             if (isset($_REQUEST["template_name"])) {
                 $datasetTemplate = new DatasetTemplate();
-                $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
                 $withTemplate = true;
             }
             $data = $this->samplews->sample->getRawDetail($id, $withContainer, $withEvent);
@@ -368,6 +368,7 @@ class SampleWs extends PpciLibrary
     }
     function getList()
     {
+        $data = [];
         try {
             if (empty($_REQUEST["collection_id"])) {
                 throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
@@ -413,9 +414,11 @@ class SampleWs extends PpciLibrary
     }
     function delete()
     {
+        $db = $this->samplews->sample->db;
+        $retour = [];
         try {
             $uid = $_POST["uid"];
-            $db = $this->samplews->sample->db;
+
             $db->transBegin();
             if (!empty($uid)) {
                 $data = $this->samplews->sample->lire($uid);

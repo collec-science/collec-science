@@ -188,7 +188,7 @@ class Renderer {
 
 			let opacity = isNumber(inline.opacity) ? inline.opacity : 1;
 			this.pdfDocument.opacity(opacity);
-			this.pdfDocument.fill(inline.color || 'black');
+			this.pdfDocument.fill(this.pdfDocument.resolveColor(inline.color, 'black'));
 
 			this.pdfDocument._font = inline.font;
 			this.pdfDocument.fontSize(inline.fontSize);
@@ -287,14 +287,14 @@ class Renderer {
 		let strokeOpacity = isNumber(vector.strokeOpacity) ? vector.strokeOpacity : 1;
 
 		if (vector.color && vector.lineColor) {
-			this.pdfDocument.fillColor(vector.color, fillOpacity);
-			this.pdfDocument.strokeColor(vector.lineColor, strokeOpacity);
+			this.pdfDocument.fillColor(this.pdfDocument.resolveColor(vector.color, 'black'), fillOpacity);
+			this.pdfDocument.strokeColor(this.pdfDocument.resolveColor(vector.lineColor, 'black'), strokeOpacity);
 			this.pdfDocument.fillAndStroke();
 		} else if (vector.color) {
-			this.pdfDocument.fillColor(vector.color, fillOpacity);
+			this.pdfDocument.fillColor(this.pdfDocument.resolveColor(vector.color, 'black'), fillOpacity);
 			this.pdfDocument.fill();
 		} else {
-			this.pdfDocument.strokeColor(vector.lineColor || 'black', strokeOpacity);
+			this.pdfDocument.strokeColor(this.pdfDocument.resolveColor(vector.lineColor, 'black'), strokeOpacity);
 			this.pdfDocument.stroke();
 		}
 	}
@@ -436,7 +436,7 @@ class Renderer {
 	renderWatermark(page) {
 		let watermark = page.watermark;
 
-		this.pdfDocument.fill(watermark.color);
+		this.pdfDocument.fill(this.pdfDocument.resolveColor(watermark.color, 'black'));
 		this.pdfDocument.opacity(watermark.opacity);
 
 		this.pdfDocument.save();

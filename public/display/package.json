@@ -45,5 +45,8 @@
     "smartmenus": "^1.1.1",
     "wordwrap": "^1.0.0",
     "zxcvbn": "^4.4.2"
+  },
+  "allowScripts": {
+    "leveldown@5.6.0": true
   }
 }

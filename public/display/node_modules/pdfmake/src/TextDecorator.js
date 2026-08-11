@@ -1,6 +1,6 @@
 import { isNumber } from './helpers/variableType';
 
-const groupDecorations = line => {
+const groupDecorations = (line, pdfDocument) => {
 	let groups = [];
 	let currentGroup = null;
 	for (let i = 0, l = line.inlines.length; i < l; i++) {
@@ -13,7 +13,7 @@ const groupDecorations = line => {
 		if (!Array.isArray(decoration)) {
 			decoration = [decoration];
 		}
-		let color = inline.decorationColor || inline.color || 'black';
+		let color = pdfDocument.resolveColor(pdfDocument.resolveColor(inline.decorationColor, inline.color), 'black');
 		let style = inline.decorationStyle || 'solid';
 		let thickness = isNumber(inline.decorationThickness) ? inline.decorationThickness : null;
 		for (let ii = 0, ll = decoration.length; ii < ll; ii++) {
@@ -49,11 +49,12 @@ class TextDecorator {
 		let height = line.getHeight();
 		for (let i = 0, l = line.inlines.length; i < l; i++) {
 			let inline = line.inlines[i];
-			if (!inline.background) {
+
+			let color = this.pdfDocument.resolveColor(inline.background, undefined);
+			if (!color) {
 				continue;
 			}
 
-			let color = inline.background;
 			let patternColor = this.pdfDocument.providePattern(inline.background);
 			if (patternColor !== null) {
 				color = patternColor;
@@ -67,7 +68,7 @@ class TextDecorator {
 	}
 
 	drawDecorations(line, x, y) {
-		let groups = groupDecorations(line);
+		let groups = groupDecorations(line, this.pdfDocument);
 		for (let i = 0, l = groups.length; i < l; i++) {
 			this._drawDecoration(groups[i], x, y);
 		}

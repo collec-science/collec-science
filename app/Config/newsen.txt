@@ -2,35 +2,41 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.2.0c of 18/6/2026
+Version v26.2.0 of 21/08/2026
 -----------------------------
 Bug fixes:
 - campaign import was not working correctly
-
-New features:
-- added a function to generate a sample file for ElabFTW (accessible when creating a batch)
-- When the user first opens the search window for samples or containers, a list of the most recent items is now displayed
-- It is now possible to import collections from a CSV file
-- It is now possible to remove the parent reference for a list of samples in the event of an assignment error
-
-Version v26.2.0b of 11/6/2026
-------------------------------
-Bug fixes:
-- Deleting an item in metadata templates was not working correctly
+- deleting an item from metadata templates was not working properly
 - QR code scanning: various fixes and standardisation of functionality
-- In forms, the ‘mandatory field’ label has been repositioned for better readability
+- when operations were carried out on multiple containers at the same time, the list of containers was displayed automatically, regardless of where the operation was initiated
 
 New features:
-- The display of printers connected directly to the server is disabled if none have been registered or if the feature is disabled
+Usability:
+- Switch to version 5 of Bootstrap, the web page rendering engine
+- Upgrade to the software’s overall usability to accommodate this version of Bootstrap
+- The “Mandatory field” message has been repositioned for better readability
+- The display of printers connected directly to the server is disabled if none have been configured or if the feature is disabled
+- When the user first accesses the search window for samples or containers, a list of the most recent items is now displayed
+
+Sample and container management:
+- It is now possible to remove the parent reference for a list of samples in the event of an assignment error
 - Operations are now linked directly to samples, rather than to sample types
-- When exporting to another database, the parent(s) and events are recorded in the ‘history’ column, allowing the information to be retained in the destination instance
-- It is now possible to trigger the sending of emails manually (for events or samples due). Send logs are now recorded
+- It is now possible to create identical events for a list of containers
+- A check has been added to prevent a sample from being the parent of its own parent
+- A check has been added to prevent a container from being contained within a container that it itself contains
+- When creating a new container, a warning message is displayed if the container name already exists in the database
 
-Version v26.2.0a of 8/5/2026
------------------------------
-New features:
-- switch to version 5 of Bootstrap, the web page rendering engine
-- upgrade to the software’s overall user interface to accommodate this version of Bootstrap
+Import and export functions:
+- A function has been added to generate a sample file for ElabFTW (accessible when creating a batch)
+- It is now possible to import collections from a CSV file
+- When exporting to another database, the parent(s) and events are recorded in the ‘history’ column, which allows the information to be retained in the destination instance
+
+Administration:
+- A new user authentication mode has been added: the MIXED mode. This allows multiple authentication servers (CAS or OIDC) to be configured, and replaces the BDD and LDAP-BDD modes
+- The authentication module for OIDC servers has been revised: it is now possible to configure multiple servers, including some public ones. New accounts on public servers are locked pending action by the administrator
+- User authentication via ORCID (OIDC server) has been tested, allowing users from outside the organisation to log in
+- It is now possible to trigger the sending of emails manually (for events or samples due). Sending logs are now recorded
+- in the database, the list of countries can now be replaced with the English version
 
 Version v26.1.0 of 1/4/2026
 -----------------------------

@@ -61,7 +61,6 @@ database.default.charset = utf8
 #--------------------------------------------------------------------
 app.privateKey = ${BASE_DIR}/id_collec
 app.pubKey = ${BASE_DIR}/id_collec.pub
-
 #--------------------------------------------------------------------
 # Ppci identification
 #--------------------------------------------------------------------
@@ -113,13 +112,13 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\Oidc.default.clientId = "client-id"
 # Ppci\Config\Oidc.default.clientSecret = "client-secret"
 # Ppci\Config\Oidc.default.name = "name"
+# Ppci\Config\Oidc.default.firstname = "given_name"
+# Ppci\Config\Oidc.default.lastname = "family_name"
 # Ppci\Config\Oidc.default.email = "email"
 # Ppci\Config\Oidc.default.logo = "display/images/default.png"
 # Ppci\Config\Oidc.default.getGroups = 0
 # Ppci\Config\Oidc.default.isPublic = 1
 # Ppci\Config\Oidc.default.groups = "supannEntiteAffectationPrincipale"
-# Ppci\Config\Oidc.default.firstname = "given_name"
-# Ppci\Config\Oidc.default.astname = "family_name"
 # verify the allowed scopes at this address : provider/.well-known/openid-configuration
 # Ppci\Config\Oidc.default.scopes = ""
 # Ppci\Config\Oidc.default.scopeGroup = "affectation"
@@ -147,6 +146,29 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 
 # If set to 1, authorises recovery of a new password in the event of loss
 # Ppci\Config\IdentificationConfig.APPLI_lostPassword = 1
+
+#----------------------------------------------------------------
+# MIXED identification: LDAP parameters
+#----------------------------------------------------------------
+# Ppci\Config\IdentificationConfig.LDAP.address = 
+# Ppci\Config\IdentificationConfig.LDAP.port = 389
+# Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
+# Ppci\Config\IdentificationConfig.LDAP.basedn = "ou=people,ou=example,o=societe,c=fr"
+# Ppci\Config\IdentificationConfig.LDAP.user_attrib = "uid"
+# Ppci\Config\IdentificationConfig.LDAP.v3 = true
+# Ppci\Config\IdentificationConfig.LDAP.tls = false
+# Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
+# Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
+# Ppci\Config\IdentificationConfig.LDAP.groupAttrib = "supannentiteaffectation"
+# Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
+# Ppci\Config\IdentificationConfig.LDAP.mailAttrib = "mail"
+# Ppci\Config\IdentificationConfig.LDAP.attributgroupname = "cn"
+# Ppci\Config\IdentificationConfig.LDAP.attributloginname = "memberuid"
+# Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
+# Ppci\Config\IdentificationConfig.LDAP.timeout = 2
+# Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
+# Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
+# Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
 
 #-----------------------------------------------------------------
 # CAS identification
@@ -177,29 +199,6 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # verify the allowed scopes at this address : provider/.well-known/openid-configuration
 # Ppci\Config\IdentificationConfig.OIDC.scopes = "profile,email"
 
-#----------------------------------------------------------------
-# MIXED identification: LDAP parameters
-#----------------------------------------------------------------
-# Ppci\Config\IdentificationConfig.LDAP.address = 
-# Ppci\Config\IdentificationConfig.LDAP.port = 389
-# Ppci\Config\IdentificationConfig.LDAP.rdn = "cn=manager,dc=example,dc=com"
-# Ppci\Config\IdentificationConfig.LDAP.basedn = "ou=people,ou=example,o=societe,c=fr"
-# Ppci\Config\IdentificationConfig.LDAP.user_attrib = "uid"
-# Ppci\Config\IdentificationConfig.LDAP.v3 = true
-# Ppci\Config\IdentificationConfig.LDAP.tls = false
-# Ppci\Config\IdentificationConfig.LDAP.upn_suffix = 
-# Ppci\Config\IdentificationConfig.LDAP.groupSupport = false
-# Ppci\Config\IdentificationConfig.LDAP.groupAttrib = "supannentiteaffectation"
-# Ppci\Config\IdentificationConfig.LDAP.commonNameAttribute = "displayname"
-# Ppci\Config\IdentificationConfig.LDAP.mailAttrib = "mail"
-# Ppci\Config\IdentificationConfig.LDAP.attributgroupname = "cn"
-# Ppci\Config\IdentificationConfig.LDAP.attributloginname = "memberuid"
-# Ppci\Config\IdentificationConfig.LDAP.basedngroup = 'ou=example,o=societe,c=fr'
-# Ppci\Config\IdentificationConfig.LDAP.timeout = 2
-# Ppci\Config\IdentificationConfig.LDAP.ldapnoanonymous = false
-# Ppci\Config\IdentificationConfig.LDAP.ldaplogin = 
-# Ppci\Config\IdentificationConfig.LDAP.ldappassword = 
-
 #---------------------------------------------------------------------
 # HEADER identification
 #---------------------------------------------------------------------
@@ -223,34 +222,20 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # Ppci\Config\IdentificationConfig\groupsGranted = 
 
 
+
 #--------------------------------------------------------------------
-# Collec-Science specific parameters
+# specific parameters
 #--------------------------------------------------------------------
 
 #--------------------------------------------------------------------
 # Ppci Rights
 #--------------------------------------------------------------------
 # Name of the application in the right module
-# app.GACL_aco = col
+# app.GACL_aco = app
 
 # Set 1 to disable the creation of new rights in table aclaco
 #
 # Ppci\Config\Rights.GACL_disable_new_right = 1
-
-#--------------------------------------------------------------------
-# Documents - storage external
-#--------------------------------------------------------------------
-#
-# Root of the storage of external documents for the instance
-# Each collection must be in a specific subfolder ot this path
-# app.external_document_path = /dev/null
-
-#--------------------------------------------------------------------
-# Enable direct printers
-#--------------------------------------------------------------------
-# If you want use a printer directly connected at your server (with cups)
-# you must activate this functionnality with:
-# app.print_direct_enabled = 1
 
 #--------------------------------------------------------------------
 # Ppci OSM cache
@@ -286,12 +271,6 @@ Ppci\Config\IdentificationConfig.mixedLocalIdentification = BDD
 # app.APP_mailToAdminPeriod = 7200
 
 #----------------------------------------------------------------
-# Linux command used to print directly to a printer
-#----------------------------------------------------------------
-
-# app.print_direct_command = "lpr"
-
-#----------------------------------------------------------------
 # Check new release - 0 to disable
 #----------------------------------------------------------------
-#app.checkRelease = 1
+#app.checkRelease = 0

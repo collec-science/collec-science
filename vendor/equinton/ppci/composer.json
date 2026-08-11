@@ -1,7 +1,7 @@
 {
     "name": "equinton/ppci",
     "description": "PrototypePHP to CodeIgniter",
-    "version":"v2.0.2",
+    "version":"v2.0.3",
     "type": "library",
     "license": "BSD-3-Clause",
     "autoload": {

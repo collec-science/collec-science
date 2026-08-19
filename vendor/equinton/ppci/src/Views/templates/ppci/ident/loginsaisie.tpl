@@ -24,12 +24,8 @@
 			}
 			if (error) {
 				alert(message);
-			}
-			/*
-			   * Blocage de l'envoi du formulaire
-			 */
-			if (error)
 				event.preventDefault();
+			}				
 		});
 
 		$("#generate").click(function () {

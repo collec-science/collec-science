@@ -185,13 +185,13 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.2.0c";
+    public string $version = "v26.2.0";
     /**
      * Date of version
      *
      * @var string
      */
-    public string $versionDate = "18/06/2026";
+    public string $versionDate = "21/08/2026";
     /**
      * Number of the database version
      *
@@ -216,8 +216,9 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $privateKey = ROOTPATH . "id_collec";
-    public $pubKey = ROOTPATH . "id_collec.pub";
+    public string $privateKey = ROOTPATH . "id_collec";
+
+    public string $pubKey = ROOTPATH . "id_collec.pub";
     /**
      * List of locales date formats
      *
@@ -303,19 +304,15 @@ class App extends BaseConfig
     /**
      * Folder to store temporary files
      *
-     * @var [type]
+     * @var string
      */
     public $APP_temp = WRITEPATH . "temp";
 
     /**
-     * Ini file to add new parameters
-     */
-    public $APP_menufile = APPPATH . "Config/menu.xml";
-    /**
-     * Address to give help or to declare bug
-     *
+     * Menu file
      * @var string
      */
+    public $APP_menufile = APPPATH . "Config/menu.xml";
     /**
      * URL of assistance
      *

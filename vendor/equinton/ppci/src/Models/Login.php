@@ -6,6 +6,7 @@ use Config\App;
 use CodeIgniter\Cookie\Cookie;
 use Ppci\Libraries\PpciException;
 use Jumbojett\OpenIDConnectClient;
+use Jumbojett\OpenIDConnectClientException;
 
 class Login
 {
@@ -18,6 +19,8 @@ class Login
     public string $identificationMode;
     public App $paramApp;
     public $identificationConfig;
+    private bool $create = false;
+    private string $loginRequired;
 
     function __construct()
     {
@@ -79,7 +82,7 @@ class Login
                     $_SESSION["filterMessages"][] = $e->getMessage();
                 }
                 //$this->message->set(_("L'identification par jeton n'a pas abouti"), true);
-                $this->message->setSyslog($e->getMessage(),true);
+                $this->message->setSyslog($e->getMessage(), true);
                 /**
                  * Destroy the token
                  */
@@ -119,10 +122,17 @@ class Login
             $_SESSION["realIdentificationMode"] = $tauth;
             $this->log->setlog($login, "connection-" . $tauth, "ok");
         } else {
-            isset($_POST["login"]) ? $loginRequired = $_POST["login"] : $loginRequired = "unknown";
-            $this->log->setlog($loginRequired, "connection-" . $tauth, "ko");
-            $this->message->set(_("L'identification n'a pas abouti. Vérifiez votre login et votre mot de passe"), true);
-        }
+            if (isset($_POST["login"])) {
+                $this->loginRequired = $_POST["login"];
+            }
+            if (empty($this->loginRequired)) {
+                $this->loginRequired = "unknown";
+            }
+            $this->log->setlog($this->loginRequired, "connection-" . $tauth, "ko");
+            if (!$this->create) {
+                
+            }
+                    }
         return $login;
     }
 
@@ -196,21 +206,7 @@ class Login
                         if ($login_id > 0) {
                             $this->updateLoginFromIdentification($login, $userparams);
                             if (!$verify) {
-                                /**
-                                 * Send mail to administrators
-                                 */
-                                $APPLI_address = base_url();
-                                $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Nouvel utilisateur");
-                                $template = "ppci/mail/newUser.tpl";
-                                $data = array(
-                                    "login" => $login,
-                                    "name" => $this->dacllogin["logindetail"],
-                                    "appName" => $_SESSION["dbparams"]["APPLI_title"],
-                                    "organization" => $userparams["organization"],
-                                    "link" => $APPLI_address
-                                );
-                                $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateByHeader", $login);
-                                $_SESSION["filterMessage"][] = _("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation");
+                                $this->sendMailAccountCreated($login, $this->dacllogin["logindetail"], $userparams["organization"], "HEADER");
                             }
                         } else {
                             $verify = false;
@@ -247,7 +243,7 @@ class Login
      * @param array $params
      * @return void
      */
-    function updateLoginFromIdentification(string $login, array $params)
+    function updateLoginFromIdentification(string $login, array $params, $create = false, $blocked = false)
     {
         if (!empty($params["email"])) {
             $params["mail"] = $params["email"];
@@ -256,7 +252,16 @@ class Login
          * Update logingestion
          */
         $dlogin = $this->loginGestion->getFromLogin($login);
-        if ($dlogin["id"] > 0) {
+        if (empty($dlogin) && $create) {
+            $dlogin = [
+                "id" => 0,
+                "login" => $login
+            ];
+            if ($blocked) {
+                $dlogin["actif"] = 0;
+            }
+        }
+        if ($dlogin["id"] > 0 || $create) {
             if (!empty($params["lastname"])) {
                 $dlogin["nom"] = ucwords(strtolower($params["lastname"]));
                 $dlogin["prenom"] = ucwords(strtolower($params["firstname"]));
@@ -271,40 +276,7 @@ class Login
         /**
          * Update or create acllogin
          */
-        $dacllogin = $this->acllogin->getFromLogin($login);
-        if (empty($dacllogin["acllogin_id"])) {
-            $dacllogin["acllogin_id"] = 0;
-            $dacllogin["login"] = $login;
-            $id = 0;
-        } else {
-            $id = $dacllogin["acllogin_id"];
-        }
-        if (!empty($params["lastname"]) && !empty($params["firstname"])) {
-            $dacllogin["logindetail"] = ucwords(strtolower($params["lastname"] . " " . $params["firstname"]));
-        } else if (!empty($params["name"])) {
-            $dacllogin["logindetail"] = ucwords(strtolower($params["name"]));
-        } else if (empty($dacllogin["logindetail"])) {
-            $dacllogin["logindetail"] = $login;
-        }
-        if (!empty(trim($params["mail"]))) {
-            $dacllogin["email"] = trim($params["mail"]);
-        }
-        $id = $this->acllogin->ecrire($dacllogin);
-        $this->dacllogin = $dacllogin;
-        /**
-         * Add acllogin to the main group, if exists
-         */
-        if (!empty($params["groupeAttribute"])) {
-            if (!is_array($params["groupeAttribute"])) {
-                $params["groupeAttribute"] = array($params["groupeAttribute"]);
-            }
-            foreach ($params["groupeAttribute"] as $group) {
-                $dgroups = $this->aclgroup->getGroupFromName($group);
-                foreach ($dgroups as $dgroup) {
-                    $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);
-                }
-            }
-        }
+        $this->createAclLogin($login, $params);
     }
 
     /**
@@ -314,7 +286,11 @@ class Login
      */
     public function getLoginCas()
     {
-        $CAS = $this->identificationConfig->CAS;
+        if (empty($_SESSION["CasParams"])) {
+            $CAS = $this->identificationConfig->CAS;
+        } else {
+            $CAS = $_SESSION["CasParams"];
+        }
         if ($CAS["debug"]) {
             \phpCAS::setDebug(WRITEPATH . "logs/cas.log");
             \phpCAS::setVerbose(true);
@@ -327,6 +303,7 @@ class Login
             "https://" . $_SERVER["HTTP_HOST"],
             false
         );
+        \phpCAS::setFixedCallbackURL($_SERVER["app.baseURL"] . "/cas");
         if (!empty($CAS["CApath"])) {
             \phpCAS::setCasServerCACert($CAS["CApath"]);
         } else {
@@ -470,7 +447,11 @@ class Login
         //session_unset();
         session_regenerate_id();
         if ($identificationMode == "cas") {
-            $CAS = $this->identificationConfig->CAS;
+            if (empty($_SESSION["CasParams"])) {
+                $CAS = $this->identificationConfig->CAS;
+            } else {
+                $CAS = $_SESSION["CasParams"];
+            }
             \phpCAS::client(
                 CAS_VERSION_2_0,
                 $CAS["CAS_address"],
@@ -483,15 +464,24 @@ class Login
             } else {
                 \phpCAS::setNoCasServerValidation();
             }
-            \phpCAS::logout(array("url" => "https://" . $_SERVER["HTTP_HOST"]));
+            \phpCAS::logout(array("url" => $this->paramApp->baseURL));
         } else if ($identificationMode == "oidc") {
-            $oidc = new OpenIDConnectClient(
-                $this->identificationConfig->OIDC["provider"],
-                $this->identificationConfig->OIDC["clientId"],
-                $this->identificationConfig->OIDC["clientSecret"]
-            );
-            $redirect = $this->paramApp->baseURL;
-            $oidc->signOut($oidcIdtoken, $redirect);
+            try {
+                if (empty($_SESSION["OidcParam"])) {
+                    $params = $this->identificationConfig->OIDC;
+                } else {
+                    $params = $_SESSION["OidcParam"];
+                }
+                $oidc = new OpenIDConnectClient(
+                    $params["provider"],
+                    $params["clientId"],
+                    $params["clientSecret"]
+                );
+                $redirect = $this->paramApp->baseURL;
+                $oidc->signOut($oidcIdtoken, $redirect);
+            } catch (OpenIDConnectClientException $e) {
+                $this->message->set(_("Pour finaliser la déconnexion, vous devez fermer votre navigateur"), true);
+            }
         }
     }
     /**
@@ -501,22 +491,29 @@ class Login
      */
     function getOidc(): string
     {
-        $oidc = new OpenIDConnectClient(
-            $this->identificationConfig->OIDC["provider"],
-            $this->identificationConfig->OIDC["clientId"],
-            $this->identificationConfig->OIDC["clientSecret"]
-        );
-
-        //$oidc->addScope($attributes);
-        $oidc->addScope(["profile", "email"]);
-        if (!empty($this->identificationConfig->OIDC["scopeGroup"])) {
-            $oidc->addScope([$this->identificationConfig->OIDC["scopeGroup"]]);
+        if (empty($_SESSION["OidcParam"])) {
+            $params = $this->identificationConfig->OIDC;
+        } else {
+            $params = $_SESSION["OidcParam"];
         }
+        $oidc = new OpenIDConnectClient(
+            $params["provider"],
+            $params["clientId"],
+            $params["clientSecret"]
+        );
+        $oidc->setRedirectURL($_SERVER["app.baseURL"] . "/oidc");
+        /**
+         * Add scopes
+         */
+        $scopes = explode (",",$params["scopes"]);
+            $oidc->addScope($scopes);
+        $oidc->setRedirectURL($this->paramApp->baseURL . '/oidc');
         $oidc->authenticate();
         /**
          * login
          */
         $login = $oidc->getVerifiedClaims('sub');
+        $this->loginRequired = $login;
         /**
          * Get attributes
          */
@@ -524,18 +521,114 @@ class Login
         $keys = ["name", "email", "firstname", "lastname", "group"];
         $oidcAttrs = [];
         foreach ($keys as $k) {
-            $attr = $this->identificationConfig->OIDC[$k];
+            $attr = $params[$k];
             $oidcAttrs[$k] = $userInfo->$attr;
         }
-        $_SESSION["userAttributes"] = $oidcAttrs;
+        $verify = false;
+        $new = false;
         /**
          * Used for disconnect
          */
         $_SESSION["oidcIdToken"] = $oidc->getIdToken();
+        $dlogin = $this->loginGestion->getFromLogin($login);
+        if ($dlogin["id"] > 0) {
+            if ($dlogin["actif"] == 1) {
+                $verify = true;
+            }
+        } else {
+            $new = true;
+        }
         /**
          * Upgrade or create acllogin
          */
-        $this->updateLoginFromIdentification($login, $oidcAttrs);
-        return $login;
+        ($params["isPublic"] == 1) ? $create = true : $create = false;
+        $this->updateLoginFromIdentification($login, $oidcAttrs, $create, $create);
+        if ($create) {
+            /**
+             * Verify if the account is not blocked
+             */
+            $dlogin = $this->loginGestion->getFromLogin($login);
+            if ($dlogin["actif"] != 1 && $new) {
+                /**
+                 * send mail to admins
+                 */
+                $this->sendMailAccountCreated($login, $this->dacllogin["logindetail"], $_SESSION["userattributes"]["group"], "OIDC");
+            }
+        } else {
+            /**
+             * private oidc server
+             * no record in logingestion
+             */
+            $this->createAclLogin($login, $oidcAttrs);
+            $verify = true;
+        }
+        if ($verify) {
+            $_SESSION["userAttributes"] = $oidcAttrs;
+            return $login;
+        } else {
+            return "";
+        }
+    }
+
+    function sendMailAccountCreated($login, $name, $organization, $origin)
+    {
+        /**
+         * Send mail to administrators
+         */
+        $APPLI_address = base_url();
+        $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Nouvel utilisateur");
+        $template = "ppci/mail/newUser.tpl";
+        $data = array(
+            "login" => $login,
+            "name" => $name,
+            "appName" => $_SESSION["dbparams"]["APPLI_title"],
+            "organization" => $organization,
+            "link" => $APPLI_address
+        );
+        $this->log->sendMailToAdmin($subject, $template, $data, "loginCreateBy$origin", $login);
+        if ($origin == "HEADER") {
+            $_SESSION["filterMessage"][] = _("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation");
+        } else {
+            $this->message->set(_("Votre compte a été créé, mais est inactif. Un mail a été adressé aux administrateurs pour son activation"), true);
+        }
+        $this->create = true;
+    }
+
+    function createAclLogin($login, $params)
+    {
+        $dacllogin = $this->acllogin->getFromLogin($login);
+        if (empty($dacllogin["acllogin_id"])) {
+            $dacllogin["acllogin_id"] = 0;
+            $dacllogin["login"] = $login;
+            $id = 0;
+        } else {
+            $id = $dacllogin["acllogin_id"];
+        }
+        if (!empty($params["lastname"]) && !empty($params["firstname"])) {
+            $dacllogin["logindetail"] = ucwords(strtolower($params["lastname"] . " " . $params["firstname"]));
+        } else if (!empty($params["name"])) {
+            $dacllogin["logindetail"] = ucwords(strtolower($params["name"]));
+        } else if (empty($dacllogin["logindetail"])) {
+            $dacllogin["logindetail"] = $login;
+        }
+        if (!empty(trim($params["mail"]))) {
+            $dacllogin["email"] = trim($params["mail"]);
+        }
+        $id = $this->acllogin->ecrire($dacllogin);
+        $this->dacllogin = $dacllogin;
+        /**
+         * Add acllogin to the main group, if exists
+         */
+        if (!empty($params["groupeAttribute"])) {
+            if (!is_array($params["groupeAttribute"])) {
+                $params["groupeAttribute"] = array($params["groupeAttribute"]);
+            }
+            foreach ($params["groupeAttribute"] as $group) {
+                $dgroups = $this->aclgroup->getGroupFromName($group);
+                foreach ($dgroups as $dgroup) {
+                    $this->aclgroup->addLoginToGroup($dgroup["aclgroup_id"], $id);
+                }
+            }
+        }
     }
 }

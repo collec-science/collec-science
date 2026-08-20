@@ -15,11 +15,12 @@
     });
 </script>
 
+<div class="container">
 <h2>{t}Liste des modèles d'exportation des données{/t}</h2>
 
 <form id="exportForm" method="post" action="exportModelExec">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-6">
             {if $rights.param == 1}
             <a href="exportModelChange?export_model_id=0">
                 <img src="display/images/new.png" height="25">
@@ -39,7 +40,7 @@
                         <th>{t}Modifier{/t}</th>
                         <th>{t}Dupliquer{/t}</th>
                         <th class="center">
-                            <input type="checkbox" id="export" class="checkSelect" checked>
+                            <input type="checkbox" id="export" class="form-check-input" checked>
                         </th>
                         {/if}
                     </tr>
@@ -68,7 +69,7 @@
                             </a </td>
                         <td class="center">
                             <input type="checkbox" id="export{$row.export_model_id}" name="keys[]"
-                                value={$row.export_model_id} class="check" checked>
+                                value={$row.export_model_id} class="form-check-input" checked>
                         </td>
                         {/if}
                     </tr>
@@ -78,7 +79,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6 center">
+        <div class="col-6 center">
             <button id="exportButton" type="submit" class="btn btn-info">
                 {t}Exporter les modèles sélectionnés{/t}</button>
         </div>
@@ -87,20 +88,20 @@
 </form>
 
 <div class="row">
-    <fieldset class="col-md-6">
+    <fieldset class="col-6">
         <legend>{t}Importer des modèles depuis un fichier JSON{/t}</legend>
         <form id="importForm" class="form-horizontal " method="post" action="exportModelImportExec"
             enctype="multipart/form-data">
             <input type="hidden" name="export_model_name" value="export_model">
-            <div class="form-group">
-                <label for="filename" class="control-label col-md-4">
+            <div class="row">
+                <label for="filename" class="form-label col-4">
                     {t}Fichier JSON à importer :{/t}
                 </label>
-                <div class="col-md-8">
+                <div class="col-8">
                     <input id="filename" type="file" class="form-control" name="filename" required>
                 </div>
             </div>
-            <div class="form-group center">
+            <div class="row center">
                 <button type="submit" class="btn btn-danger">{t}Importer le fichier{/t}</button>
                 <img id="documentSpinner" src="display/images/spinner.gif" height="25">
             </div>

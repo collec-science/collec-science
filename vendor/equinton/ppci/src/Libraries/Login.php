@@ -5,6 +5,7 @@ namespace Ppci\Libraries;
 use App\Libraries\PostLogin;
 use Ppci\Models\Gacltotp;
 use CodeIgniter\Cookie\Cookie;
+use Ppci\Config\Oidc;
 
 class Login extends PpciLibrary
 {
@@ -25,7 +26,7 @@ class Login extends PpciLibrary
      *
      * @return ?string
      */
-    function getLogin()
+    function getLogin($type = "DB")
     {
         try {
             if (!empty($_REQUEST["token"]) && !empty($_REQUEST["login"])) {
@@ -36,9 +37,20 @@ class Login extends PpciLibrary
                 }
                 return;
             } else {
-                $ident_type = $this->identificationConfig->identificationMode;
+                if ($type == "DB") {
+                    $ident_type = $this->identificationConfig->identificationMode;
+                } else {
+                    if ($type == "CAS" || $type == "OIDC") {
+                        $ident_type = $type;
+                    } else {
+                        $ident_type = $this->identificationConfig->mixedLocalIdentification;
+                    }
+                }
             }
-            if (in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"]) && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])) {
+            if (
+                in_array($ident_type, ["BDD", "CAS", "CAS-BDD", "OIDC", "OIDC-BDD"])
+                && in_array($_REQUEST["identificationType"], ["CAS", "BDD", "OIDC"])
+            ) {
                 $ident_type = $_REQUEST["identificationType"];
             }
             if (
@@ -48,6 +60,8 @@ class Login extends PpciLibrary
                 && empty($_COOKIE["tokenIdentity"])
                 && empty($_REQUEST["cas_required"])
                 && empty($_GET["ticket"])
+                && empty($_SESSION["CasParams"])
+                && empty($_SESSION["OidcParam"])
                 && !isset($_SESSION["phpCAS"])
                 && !isset($_SESSION["openid_connect_nonce"])
             ) {
@@ -57,7 +71,6 @@ class Login extends PpciLibrary
                  * Verify the login
                  */
                 if (empty($_SESSION["login"])) {
-
                     $_SESSION["login"] = strtolower($this->datalogin->getLogin($ident_type));
                 }
             }
@@ -125,6 +138,54 @@ class Login extends PpciLibrary
         $vue->set("", "moduleCalled");
         return $vue->send();
     }
+    function displayMixed()
+    {
+        $this->vue = service('Smarty');
+        /**
+         * search from provider servers
+         */
+        $providers = [];
+        /**
+         * @var Cas
+         */
+        $cas = service("Cas");
+        if (!empty($cas->servers)) {
+            $cass = explode(",", $cas->servers);
+            foreach ($cass as $server) {
+                $root = "Ppci\Config\Cas." . $server . ".";
+                $providers[] = [
+                    "name" => $_SERVER[$root . "name"],
+                    "logo" => $_SERVER[$root . "logo"],
+                    "server" => $server
+                ];
+            }
+        }
+        /**
+         * search from OIDC servers
+         */
+        $oidc = service("Oidc");
+        if (!empty($oidc->servers)) {
+            $oidcs = explode(",", $oidc->servers);
+            foreach ($oidcs as $server) {
+                $root = "Ppci\Config\Oidc." . $server . ".";
+                $providers[] = [
+                    "name" => $_SERVER[$root . "name"],
+                    "logo" => $_SERVER[$root . "logo"],
+                    "server" => $server
+                ];
+            }
+        }
+        $this->vue->set($providers, "providers");
+        /**
+         * Search if local identification is required
+         */
+        $this->vue->set($this->identificationConfig->mixedLocalIdentification, "localIdentification");
+        $this->vue->set("ppci/ident/loginMixed.tpl", "corps");
+        $this->vue->set($this->identificationConfig->tokenIdentityValidity, "tokenIdentityValidity");
+        $this->vue->set($this->identificationConfig->APPLI_lostPassword, "lostPassword");
+        return $this->vue->send();
+    }
+
     function postLogin($ident_type)
     {
         /**
@@ -161,5 +222,9 @@ class Login extends PpciLibrary
          * call to postLogin App
          */
         PostLogin::index();
+    }
+    function Disconnect()
+    {
+        return $this->datalogin->Disconnect();
     }
 }

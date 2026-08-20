@@ -112,6 +112,7 @@ class DatasetTemplate extends PpciModel
         $dbdata = array(); // Data extracted from database before transformation
         switch ($ddataset["dataset_type_id"]) {
             case 1:
+            case 5:
                 /**
                  * Samples
                  */
@@ -148,7 +149,11 @@ class DatasetTemplate extends PpciModel
                 }
                 break;
         }
-        return $this->formatData($dbdata);
+        if ($ddataset["dataset_type_id"] == 5) {
+            return $this->formatElabFtw($dbdata);
+        } else {
+            return $this->formatData($dbdata);
+        }
     }
 
     function formatData(array $dbdata): array
@@ -255,13 +260,13 @@ class DatasetTemplate extends PpciModel
                             $value .= "&template_name=$template_name";
                         }
                     }
-                    if ($col["mandatory"] == 1 && empty($value)) {
+                    if ($col["mandatory"] == 't' && empty($value)) {
                         if ($col["column_name"] == "metadata" || $col["column_name"] == "metadata_unit") {
                             $subfield = $col["subfield_name"];
                         } else {
                             $subfield = "";
                         }
-                        throw new PpciException(sprintf(_("Le champ %1\$s %3\$s est obligatoire, mais est vide pour l'échantillon %2\$s"), $col["column_name"], $dbrow["uid"], $subfield));
+                        throw new PpciException(sprintf(_("Le champ %1s %3s est obligatoire, mais est vide pour l'échantillon %2s"), $col["column_name"], $dbrow["uid"], $subfield));
                     }
                     $row[$col["export_name"]] = $value;
                 }
@@ -432,5 +437,59 @@ class DatasetTemplate extends PpciModel
         $sql = "select * from dataset_template
             where dataset_template_name = :name:";
         return $this->lireParamAsPrepared($sql, array("name" => $name));
+    }
+
+    function formatElabFtw(array $dbdata)
+    {
+        $sampleType = new SampleType;
+        $data = [];
+        foreach ($dbdata as $d) {
+            $row = [
+                "title" => $d["identifier"],
+                "date" => $d["sampling_date"],
+                "category_title" => $d["sample_type_name"]
+            ];
+            /**
+             * Preparation of metadata field
+             */
+            $metadata = [];
+            $metadata["collection"] = [
+                "type" => "text",
+                "value" => $d["collection_name"]
+            ];
+            if (!empty($d["multiple_value"])) {
+                $metadata[_("quantité")] = [
+                    "type" => "number",
+                    "unit" => $d["multiple_unit"],
+                    "value" => $d["multiple_value"]
+                ];
+            }
+            $md = json_decode($d["metadata"], true);
+            if (!empty($md)) {
+                $sampleMetadata = [];
+                $mdTemplate = $sampleType->getMetadataAsArray($d["sample_type_id"]);
+                foreach ($md as $k => $m) {
+                    $sampleMetadata[$k] = [
+                        "value" => $m,
+                        "description" => $mdTemplate[$k]["description"]
+                    ];
+                    if (is_numeric($m)) {
+                        $sampleMetadata[$k]["type"] = "number";
+                    } elseif ($mdTemplate[$k]["type"] == "date") {
+                        $sampleMetadata[$k]["type"] = "date";
+                    } else {
+                        $sampleMetadata[$k]["type"] = "text";
+                    }
+                    if (!empty($mdTemplate[$k]["measureUnit"])) {
+                        $sampleMetadata[$k]["unit"] = $mdTemplate[$k]["measureUnit"];
+                    }
+                }
+                $metadata["metadata"] = $sampleMetadata;
+            }
+
+            $row["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
+            $data[] = $row;
+        }
+        return $data;
     }
 }

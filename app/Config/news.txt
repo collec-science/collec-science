@@ -1,16 +1,40 @@
 Nouveautés
 ============
-Version v26.1.1 du 10/5/2026
+Version v26.2.0 du 21/8/2026
 -----------------------------
 Corrections de bugs :
--les étiquettes réalisées pour les contenants ne prenaient pas en compte la collection de rattachement
-- lors de l'affichage des cartes Openstreetmap, certaines tuiles comportaient un message d'erreur
-- en création d'un mouvement de sortie, le programme ne recherchait pas les objets à partir de l'identifiant métier
-- depuis la liste des échantillons, lors de la création de mouvements globaux de sortie, il n'était pas possible d'indiquer un motif ou un commentaire
-- en création d'un échantillon, le bouton permettant de générer automatiquement un identifiant métier ne s'activait pas si le premier type d'échantillon proposé comportait cette fonctionnalité
-- le modèle de création d'un import comportait une erreur : le champ composite_parents_identifier était mal orthographié
-- en import de masse, un contrôle a été rajouté pour vérifier que le champ composite_multiple_value est renseigné quand on crée un échantillon composé
-- en import de masse d'un échantillon composé, les espaces entourant les identifiants des échantillons parents sont maintenant supprimés 
+- l'importation des campagnes ne fonctionnait pas correctement
+- la suppression d'un item dans les modèles de métadonnées fonctionnait mal
+- lecture optique des qrcodes : corrections diverses et harmonisation du fonctionnement
+- quand des opérations étaient réalisées sur plusieurs contenants en même temps, la liste des contenants était affichée systématiquement, sans tenir compte de l'endroit de déclenchement de l'opération
+
+Nouveautés :
+Ergonomie :
+- basculement vers la version 5 de Bootstrap, le moteur d'affichage des pages web
+- mise à niveau de l'ergonomie générale du logiciel pour tenir compte de cette version de Bootstrap
+- le message "Donnée obligatoire" a été déplacé pour une meilleure lisibilité
+- l'affichage des imprimantes reliées directement au serveur est désactivé si aucune n'a été déclarée ou si la fonction est désactivée
+- lorsque l'utilisateur arrive pour la première fois sur la fenêtre de recherche des échantillons ou des contenants, une liste des objets les plus récents est maintenant affichée
+
+Gestion des échantillons et des contenants :
+- il est maintenant possible de supprimer la référence au parent pour une liste d'échantillons, en cas d'erreur d'affectation
+- les opérations sont maintenant rattachées directement aux échantillons, et non aux types d'échantillons
+- il est maintenant possible de créer des événements identiques pour une liste de contenants
+- un contrôle a été rajouté pour éviter qu'un échantillon puisse être le parent de son parent
+- un contrôle a été rajouté pour éviter qu'un contenant soit contenu par un contenant qu'il contient
+- lors de la création d'un nouveau contenant, un message d'alerte est affiché si le nom du contenant existe déjà dans la base de données
+
+Fonctions d'importation et d'exportation :
+- ajout d'une fonction permettant de générer un fichier d'échantillons pour ElabFTW (accessible à partir de la création d''un lot)
+- il est maintenant possible d'importer les collections à partir d'un fichier CSV
+- lors de l'export vers une autre base, le ou les parents, ainsi que les événements, sont enregistrés dans la colonne history, ce qui permet de conserver l'information dans l'instance de destination
+
+Administration :
+- un nouveau mode d'identification des utilisateurs a été rajouté : le mode MIXTE. Il permet de déclarer plusieurs serveurs d'identification (CAS ou OIDC), et remplace les modes BDD et LDAP-BDD
+- le module d'identification auprès des serveurs OIDC a été retravaillé : il est maintenant possible de déclarer plusieurs serveurs, dont certains publics. Les nouveaux comptes des serveurs publics sont verrouillés en attendant une intervention de l'administrateur
+- l'identification des utilisateurs auprès d'ORCID (serveur OIDC) a été testé, ce qui permet d'autoriser des utilisateurs hors organisme à se connecter
+- il est maintenant possible de déclencher l'envoi des mails manuellement (événements ou échantillons à échéance). Les logs d'envoi sont maintenant enregistrées
+- dans la base de données, la liste des pays peut maintenant être remplacée par la version en anglais
 
 Version v26.1.0 du 1/4/2026
 -----------------------------

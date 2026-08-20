@@ -57,6 +57,7 @@ class Menu
         $texte = "";
         $attributes = $valeur["@attributes"];
         $ok = true;
+        $currentLevel = $level;
         /*
          * Recherche des droits
          */
@@ -89,15 +90,12 @@ class Menu
         }
         if ($ok) {
             if (isset($attributes["divider"])) {
-                $texte = '<li class="divider"></li>';
+                $texte = '<li><hr class="dropdown-divider"></li>';
             } else {
                 /*
                  * Traitement de l'item
                  */
                 $label = gettext($attributes["label"]);
-                if (isset($valeur["item"]) && $level > 0) {
-                    $label .= " >";
-                }
                 if ($level == 0) {
                     $level = 1;
                 }
@@ -110,14 +108,24 @@ class Menu
                     $url = $this->app->docroot . "/";
                     $target = "_blank";
                 }
-                $texte = '<li>
-                <a href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
-                    . $label .
-                    '</a>';
-                if (isset($valeur["item"])) {
+
+                if (!isset($valeur["item"])) {
+                    $texte = '<li class="nav-item">
+                <a class="nav-link" href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
+                        . $label .
+                        '</a>';
+                } else {
                     /*
                      * Il s'agit d'un tableau imbrique
                      */
+                    if ($currentLevel > 0) {
+                        $label .= " >";
+                    }
+                    $texte = '<li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" role="button" href="' . $url . $attributes["module"] . '" title="' . gettext($attributes["tooltip"]) . '" target="' . $target . '">'
+                        . $label .
+                        '</a>';
+
                     $texte .= '<ul class="dropdown-menu">';
                     if (count($valeur["item"]) == 1) {
                         $texte .= $this->lireItem($valeur["item"], $level);
@@ -157,7 +165,7 @@ class Menu
                         //printA($entry["@attributes"]["module"]);
                         $isfound = true;
                         $submenu = "<h2>" .
-                            '<a href="index.php?module=' . $entry["@attributes"]["module"] .
+                            '<a href="' . $entry["@attributes"]["module"] .
                             '" title="' . $entry["@attributes"]["tooltip"] . '">' .
                             $entry["@attributes"]["label"] . "</a> > " .
                             '<span title="' . $value["@attributes"]["tooltip"] . '">' . $value["@attributes"]["label"] .

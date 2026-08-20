@@ -1,22 +1,5 @@
-<!--
-<script src="display/javascript/adapter.js"></script>
-<script
-	src="display/javascript/dwa012-html5-qrcode/lib/jsqrcode-combined.min.js"></script>
-<script src="display/javascript/html5-qrcode.eq.js"></script>
- -->
-<script src="display/javascript/qcode-decoder/build/qcode-decoder.min.js"></script>
 <script>
 	$(document).ready(function () {
-		'use strict';
-		var destination = "object";
-		var video = document.querySelector("#reader");
-		var qr = new QCodeDecoder();
-		if (!(qr.isCanvasSupported() && qr.hasGetUserMedia())) {
-			//alert('Your browser doesn\'t match the required specs.');
-			throw new Error('Canvas and getUserMedia are required');
-			$("#optical").hide();
-		}
-
 		var db = "{$db}";
 		function getDetail(uid, champ) {
 			/*
@@ -77,10 +60,10 @@
 		$("#object_search").click(function () {
 			getDetail($("#object_uid").val(), "object");
 		});
-		$("#valeur-scan").change(function () {
-			var value = $(this).val()
+		$("#cam-qr-result").change(function () {
+			var value = $(this).val();
 			if (value.length > 0) {
-				readChange();
+				readChange(value);
 			}
 		});
 		/*
@@ -88,12 +71,12 @@
 		 */
 		var is_read = false;
 		var snd = new Audio("/display/images/sound.ogg");
-		function readChange() {
+		function readChange(rawvalue) {
 			/*
 			 * Lit le contenu de la zone, et declenche la recherche
 			 */
 			snd.play();
-			var valeur = $("#valeur-scan").val().trim();
+			var valeur = rawvalue.trim();
 			if (valeur.substring(0, 3) == "]C1") {
 				valeur = valeur.substring(3);
 			}
@@ -122,7 +105,7 @@
 			/*valeur = valeur.replace("[", String.fromCharCode(123));
 			valeur = valeur.replace ("]", String.fromCharCode(125));*/
 			var data = JSON.parse(valeur);
-			if (data["db"] == db) {
+			if (!data["db"] || data["db"] == db) {
 				return data["uid"];
 			} else {
 				return data["db"] + ":" + data["uid"];
@@ -156,13 +139,12 @@
 			}
 			return value;
 		}
-		function readEnable() {
-			/*
-			 * Fonction declenchant la lecture des qrcodes
-			 */
-			is_read = true;
-			qr.decodeFromCamera(video, resultHandler);
-		}
+		$("#valeur-scan").change(function () {
+			var value = $(this).val()
+			if (value.length > 0) {
+				readChange(value);
+			}
+		});
 		$('#destContainer').click(function () {
 			destination = "container";
 			showArrow("container");
@@ -175,28 +157,6 @@
 			$("#valeur-scan").val("");
 			$("#valeur-scan").focus();
 		});
-
-		$('#start').click(function () {
-			destination = "container";
-			showArrow("container");
-			if (is_read == false) {
-				readEnable();
-			}
-		});
-		$('#start2').click(function () {
-			destination = "object";
-			showArrow("object");
-			if (is_read == false) {
-				readEnable();
-			}
-		});
-
-
-		$('#stop').click(function () {
-			//$('#reader').html5_qrcode_stop();
-			qr.stop();
-			is_read == false;
-		});
 		function showArrow(type) {
 			if (type == "object") {
 				$("#arrow-object").show();
@@ -206,28 +166,9 @@
 				$("#arrow-container").show();
 			}
 		}
-
-
 		showArrow("object");
-
-		function resultHandler(err, result) {
-			$("#valeur-scan").val(result);
-			readChange();
-		}
-
-		/*
-		 * Activation automatique de la lecture optique
-		 */
-		var readOptical = "{$read_optical}";
-		if (readOptical == 1) {
-			readEnable();
-		}
 		/*
 		 * Declenche la recherche du container si l'uid est fourni a l'ouverture de la page
 		 */
-		var cuid = $("#container_uid").val();
-		if (cuid) {
-			getDetail(cuid, "container");
-		}
 	});
 </script>

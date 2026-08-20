@@ -18,60 +18,60 @@
         });
     });
 </script>
-<h2>Liste des lots d'export</h2>
-<div class="row">
-    <div class="col-md-6 form-horizontal">
-        <form id="lotSearch" action="lotList" method="GET">
-            <input type="hidden" name="moduleBase" value="lot">
-            <div class="row">
-                <div class="form-group">
-                    <label for="collection_id" class="col-sm-3 control-label">{t}Collection :{/t}</label>
-                    <div class="col-sm-3">
-                        <select id="collection_id" class="form-control">
+<div class="container">
+    <h2>Liste des lots d'export</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-horizontal">
+            <form id="lotSearch" action="lotList" method="GET">
+                <input type="hidden" name="moduleBase" value="lot">
+                <div class="row">
+                    <label for="collection_id" class="col-auto form-label">{t}Collection :{/t}</label>
+                    <div class="col-auto">
+                        <select id="collection_id" class="form-select">
                             {foreach $collections as $collection}
                             <option value="{$collection.collection_id}">{$collection.collection_name}</option>
                             {/foreach}
                         </select>
                     </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-success">{t}Rechercher{/t}</button>
+                    </div>
                 </div>
-            </div>
-            <div class="row center">
-                <button type="submit" class="btn btn-success">{t}Rechercher{/t}</button>
-            </div>
-            {$csrf}
-        </form>
+                {$csrf}
+            </form>
+        </div>
     </div>
-</div>
-<div class="row ">
-    <div class="col-md-6 bg-info">
-        {t}Les lots doivent être créés depuis le module de recherche des échantillons.{/t}
+    <div class="row bg-info">{t}Les lots doivent être créés depuis le module de recherche des échantillons.{/t}</div>
+    {if !empty($lots) }
+    <div class="row">
+            <table class="table table-bordered table-hover datatable display" data-order='[[1, "desc"]]'>
+                <thead>
+                    <tr>
+                        <th class="center"><img src="display/images/display.png" height="25"></th>
+                        <th>{t}Date de création{/t}</th>
+                        <th>{t}Nombre d'échantillons{/t}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {foreach $lots as $lot}
+                    <tr>
+                        <td class="center">
+                            <a href="lotDisplay?lot_id={$lot.lot_id}">
+                                <img src="display/images/display.png" height="25">
+                            </a>
+                        </td>
+                        <td class="text-center">{$lot.lot_date}</td>
+                        <td class="text-center">{$lot.sample_number}</td>
+                    </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
     </div>
+    {/if}
 </div>
-{if !empty($lots) }
-<div class="row">
-    <div class="col-md-6">
-        <table class="table table-bordered table-hover datatable display" data-order='[[1, "desc"]]'>
-            <thead>
-                <tr>
-                    <th class="center"><img src="display/images/display.png" height="25"></th>
-                    <th>{t}Date de création{/t}</th>
-                    <th>{t}Nombre d'échantillons{/t}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {foreach $lots as $lot}
-                <tr>
-                    <td class="center">
-                        <a href="lotDisplay?lot_id={$lot.lot_id}">
-                            <img src="display/images/display.png" height="25">
-                        </a>
-                    </td>
-                    <td>{$lot.lot_date}</td>
-                    <td>{$lot.sample_number}</td>
-                </tr>
-                {/foreach}
-            </tbody>
-        </table>
-    </div>
-</div>
-{/if}

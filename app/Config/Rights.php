@@ -94,6 +94,8 @@ class Rights extends RightsPpci
         "containereventWrite" => ["manage"],
         "containereventDelete" => ["manage"],
         "containereventDuplicate" => ["manage"],
+        'containerVerifyIdentifier' => ["manage"],
+        'containersAddEvent' => ["manage"],
         "sampleeventChange" => ["manage"],
         "sampleeventDisplay" => ["manage"],
         "sampleeventWrite" => ["manage"],
@@ -122,6 +124,7 @@ class Rights extends RightsPpci
         "collectionWrite" => ["param"],
         "collectionDelete" => ["param"],
         "collectionGet" => ["consult"],
+        "collectionImport" => ["param"],
         "regulationList" => ["consult"],
         "regulationChange" => ["param"],
         "regulationWrite" => ["param"],
@@ -169,6 +172,7 @@ class Rights extends RightsPpci
         "samplesSetCampaign" => ["collection"],
         "samplesSetStatus" => ["collection"],
         "samplesSetParent" => ["collection"],
+        "samplesSetOperation" => ["collection"],
         "sampleGetChildren" => ["consult"],
         "samplesTypeChange" => ["collection"],
         "movementList" => ["collection"],
@@ -220,6 +224,7 @@ class Rights extends RightsPpci
         "samplingPlaceGetFromCollection" => ["manage"],
         "samplingPlaceGetCoordinate" => ["manage"],
         "countryList" => ["consult"],
+        "countryImport" => ["param"],
         "subsampleChange" => ["manage"],
         "subsampleWrite" => ["manage"],
         "subsampleDelete" => ["manage"],
@@ -352,7 +357,6 @@ class Rights extends RightsPpci
         //"documentGetSW" => ["consult"],
         "movement" => ["manage"],
         "importExport" => ["import", "collection", "param"],
-        "parametre" => ["consult"],
         "collections" => ["consult"],
         "protocoles" => ["consult"],
         "campaigns" => ["consult"],
@@ -360,6 +364,7 @@ class Rights extends RightsPpci
         "dbstructure" => ["consult"],
         "administration" => ["admin"],
         "importTemplateChange" => ["import"],
-        "importTemplateGenerate" => ["import"]
+        "importTemplateGenerate" => ["import"],
+        "collectionsSendMail" => ["param"]
     ];
 }

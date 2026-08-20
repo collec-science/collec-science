@@ -1,0 +1,597 @@
+/*
+Couleurs IRSTEA :
+marine : 	var(--color-pri); rgb(0,58,128)
+ocean:		var(--color-sec); rgb(0,158,224)
+prairie :	var(--color-green); rgb(164,196,0)
+red: var(--color-red), rgb(213,19,23);
+*/
+:root {
+	--color-pri: rgba(0,58,128);
+	--color-sec: rgba(0,158,224);
+	--color-green: rgba(164,196,0);
+	--color-red: rgba(213,19,23);
+	--color-pri-7:rgba(0,58,128,0.7);
+	--color-sec-1: rgba(0,158,224,0.1);
+	--color-sec-3: rgba(0, 158, 224, 0.3);
+	--color-sec-5: rgba(0, 158, 224, 0.5);
+	--color-sec-7: rgba(0, 158, 224, 0.7);
+	--color-green-3: rgba(164,196,0,0.3);
+	--color-green-7: rgba(164,196,0,0.7);
+	--color-red-5: rgba(213, 19, 23, 0.5);
+	--color-red-7:rgba(213, 19, 23, 0.7);
+	--color-grey: #000000c8;
+	/*--color-text-muted: #bec8c8;*/
+	/*--color-text-muted: rgba(0,158,224,0.3);*/
+
+}
+body {
+	position: relative;
+}
+.form-horizontal {
+	border-style: solid;
+	border-width: 1px;
+	background-color: var(--color-sec-1);
+}
+
+.ppci-bg-form {
+	background-color: var(--color-sec-1) !important ;
+}
+
+.center {
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+}
+
+.red {
+	color: var(--color-red);
+}
+
+.blue {
+	color: var(--color-pri);
+}
+
+.green {
+	color: var(--color-green);
+}
+
+.message {
+	font-style: italic;
+	color: var(--color-pri);
+}
+
+.messageError {
+	color: var(--color-red);
+}
+
+/* italique gris petit*/
+.messagebas {
+	color: var(--color-pri);
+	font-size: small;
+	font-style: italic;
+}
+
+h1 {
+	font-size: x-large;
+	color:var(--color-pri);
+}
+
+h2 {
+	font-size: large;
+	color:var(--color-sec);
+}
+
+h3 {
+	font-size: medium;
+	color:var(--color-sec);
+}
+
+legend {
+	font-size: medium;
+	color: var(--color-pri);
+	font-style: italic;
+	font-weight: bold;
+}
+
+.textareaDisplay {
+	white-space: break-spaces;
+	display: normal;
+}
+
+.tableTextarea {
+	white-space: pre-wrap;
+}
+
+/*
+ * Affichage des informations dans un masque
+ */
+.form-display {
+	border-style: solid;
+	border-width: 1px;
+	/*background:  #98c1e9;*/
+	background-color: var(--color-sec-3);
+}
+
+
+.form-display dt {
+	white-space: pre-wrap;
+	text-overflow: clip;
+}
+
+.form-display dd {
+	word-wrap: break-word;
+	border-style: solid;
+	border-width: 1px;
+	/*min-height: 20px;*/
+	border-radius: 0.4em;
+	background-color: white;
+}
+
+/*.form-display > row > label {
+	text-align: right;
+	word-wrap: break-word;
+}*/
+.display {
+	word-wrap: break-word;
+	border-style: solid;
+	border-width: 1px;
+	min-height: 20px;
+	border-radius: 0.4em;
+	background-color: white;
+}
+
+/* Ajouts pour le composant datetimepicker */
+.datepicker {
+	background-image: url("images/calendar-small.gif");
+	background-size: 1em;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}
+
+.datetimepicker {
+	background-image: url("images/clock.png");
+	background-size: 1em;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}
+
+/* Ajouts pour le composant combobox */
+.ui-state-default,
+.ui-button {
+	background: white;
+}
+
+.custom-combobox {
+	position: relative;
+	display: inline-block;
+	width: 95%;
+}
+
+.custom-combobox-toggle {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 0;
+	right: -1px;
+}
+
+/* Espacement entre deux lignes */
+.top5 {
+	margin-top: 5em;
+}
+
+.top10 {
+	margin-top: 10em;
+}
+
+
+.mapDisplay {
+	/*Affichage des cartes OSM*/
+	width: 400px;
+	height: 400px;
+}
+
+.map {
+	/*Affichage des cartes OSM*/
+	width: 100%;
+	min-height: 400px;
+	height: 80%;
+
+}
+
+.mapSearch {
+	position: relative;
+	height: 250px;
+	width: 90%;
+}
+
+.scrolltotop {
+	position: fixed;
+	bottom: 5px;
+	right: 5px;
+}
+
+.lexique dd {
+	margin-bottom: 1em;
+}
+
+.lexique dt {
+	white-space: pre-wrap;
+	text-overflow: clip;
+}
+
+td a {
+	display: inline-block;
+	height: 100%;
+	width: 100%;
+}
+
+/* Affichage de la structure de la base de donnees */
+.tablename {
+	margin-top: 1em;
+	background: var(--color-pri);
+	font-size: large;
+	color: white;
+}
+
+.tablecomment {
+	color: var(--color-sec);
+}
+
+.itemSelected {
+	background: var(--color-sec) !important;
+}
+
+meter {
+	/* Reset the default appearance */
+	/*-webkit-appearance: none;*/
+	-moz-appearance: none;
+	appearance: none;
+	margin: 0 auto 1em;
+	width: 100%;
+	height: .5em;
+	/* Applicable only to Firefox */
+	background: none;
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+meter::-webkit-meter-bar {
+	background: rgba(0, 0, 0, 0.1);
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2) inset;
+	border-radius: 3px;
+}
+
+meter::-webkit-meter-optimum-value {
+	background: var(--color-sec);
+}
+
+meter::-webkit-meter-suboptimum-value {
+	background: var(--color-sec);
+}
+
+meter::-webkit-meter-even-less-good-value {
+	background: var(--color-sec);
+}
+
+meter[value="1"]::-moz-meter-bar {
+	background: var(--color-red);
+}
+
+meter[value="2"]::-moz-meter-bar {
+	background: var(--color-pri);
+}
+
+meter[value="3"]::-moz-meter-bar {
+	background: var(--color-sec);
+}
+
+meter[value="4"]::-moz-meter-bar {
+	background: var(--color-green);
+}
+
+.messageLevel1 {
+	color: var(--color-red);
+}
+
+.messageLevel0 {
+	color: var(--color-red);
+}
+
+.messageLevel2 {
+	color: var(--color-pri);
+}
+
+.messageLevel3 {
+	color: var(--color-sec);
+}
+
+.messageLevel4 {
+	color: var(--color-green);
+}
+
+/* Nav */
+
+.tab-content {
+	border-top: 2px solid var(--color-sec);
+	border-right: 0px;
+	padding: 10px;
+}
+
+.tab-content-white {
+	background-color: white;
+	padding: 5px
+}
+
+.nav-tabs>li>a {
+	border: medium none;
+	background-color: var(--color-sec-3) !important;
+}
+
+.nav-tabs>li.active a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:visited {
+	background-color: var(--color-sec) !important;
+	color: #fff;
+	border: medium none;
+	border-radius: 0.5;
+}
+
+.trashed {
+	background-color: rgba(213, 19, 23, 0.5);
+}
+
+.tooltiplink {
+	text-decoration: underline dotted;
+	vertical-align: top;
+}
+
+.ui-tooltip {
+	max-width: 1200px;
+}
+
+.ui-tooltip-content {
+	max-width: 1200px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}
+
+.top {
+	vertical-align: text-top;
+}
+
+table {
+	width: 100%;
+}
+
+table a {
+	text-decoration: underline;
+}
+
+table a:hover {
+	/*text-decoration: underline;*/
+	color: var(--color-pri);
+}
+
+table a:visited {
+	/*text-decoration: none;*/
+	color: var(--color-sec);
+}
+
+.tableinput {
+	width: 100%;
+}
+
+.lexical {
+	/* display a question image into the field */
+	background-image: url("images/question.png");
+	background-size: 4pt 7pt;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+}
+
+thead {
+	background-color: red;
+	color: rgb(0, 58, 128);
+}
+
+th, .dt-column-title {
+	font-weight: normal;
+	text-align: center;
+	color: rgb(0, 58, 128);
+}
+
+tr {
+	width: 70%;
+}
+
+.hover {
+	cursor: pointer;
+}
+
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content>.tab-pane:not(.active),
+.pill-content>.pill-pane:not(.active) {
+	display: block;
+	height: 0;
+	overflow-y: hidden;
+}
+
+/* bootstrap hack end */
+
+.submenu {
+	border-bottom: solid;
+	border-right: solid;
+	border-bottom-color: var(--color-sec);
+	border-right-color: var(--color-sec);
+	background-color: var(--color-sec-3);
+	list-style: none;
+}
+
+.metadataDescription {
+	color: #aaa;
+	font-size: 12px;
+}
+
+.brmetadata {
+	content: "";
+	display: block;
+	height: 5em;
+}
+
+input:invalid {
+	border: 1px solid var(--color-red);
+}
+
+.move:hover {
+	cursor: move;
+}
+
+.disabled {
+	color: gray;
+	/* Change text color for disabled tab */
+	pointer-events: none;
+	/* Prevent any interaction */
+}
+/*
+bootstrap5
+*/
+a {
+	color:var(--color-pri);
+	text-decoration: none;
+}
+a:hover {
+	color:var(--color-pri);
+	text-decoration: underline;
+}
+/* menu */
+.navbar {
+	background-color: var(--color-pri);
+}
+.nav.navbar-nav > li > a {
+    color: white;
+}
+.nav.navbar-nav li a:hover,
+.nav.navbar-nav li a:focus,
+.nav.navbar-nav li a:active{
+	background-color: var(--color-sec-3);
+}
+.nav.navbar-nav > .open > a,
+.nav.navbar-nav > .active > a,
+.nav.navbar-nav > .focus > a
+{
+	color: white;
+	background-color: var(--color-sec);
+}
+.nav.navbar-nav > .open > a,
+.white {
+	color:white;
+}
+.nav a:hover {
+	text-decoration: none;
+	background-color: var(--color-sec-3);
+}
+
+/* tabs */
+.nav-tabs .nav-item a {
+	color: var(--color-pri) !important;
+	background-color:var(--color-sec-3) !important;
+}
+.nav-tabs .nav-item .active
+ {
+  color: white !important;
+  background-color: var(--color-sec) !important;
+}
+.nav-tabs .nav-item a:hover {
+	background-color: var(--color-sec-5) !important
+}
+/* buttons */
+
+.btn-primary {
+	background-color: var(--color-sec);
+}
+.btn-primary:link,
+.btn-primary:hover,
+.btn-primary:active
+{
+	background-color: var(--color-sec-7) !important;
+	color: black;
+}
+.btn-secondary {
+	background-color: var(--color-pri);
+}
+.btn-secondary:hover,
+.btn-secondary:active {
+	background-color: var(--color-pri-7) !important;
+	color: black;
+}
+.btn-danger {
+	background-color: var(--color-red);
+}
+.btn-danger:hover,
+ .btn-danger:active {
+	background-color: var(--color-red-7) !important;
+	color: black;
+}
+.btn-warning {
+	background-color: var(--color-green);
+	color: white;
+}
+.btn-warning:hover,
+ .btn-warning:active {
+	background-color: var(--color-green-7) !important;
+	color: black;
+}
+.btn-info {
+	background-color: var(--color-green);
+	color:white;
+}
+.btn-info:hover,
+.btn-info:active {
+background-color: var(--color-green-7) !important;
+	color: black;
+}
+
+.bg-info {
+	background-color: var(--color-sec-1) !important;
+}
+.tooltip-inner {
+    white-space:pre-wrap;
+	--bs-tooltip-max-width: 600px !important;
+	text-align: left;
+	background-color: whitesmoke;
+	color:var(--color-pri);
+	border-style: solid;
+
+}
+#btn-back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+}
+dl {
+	display: grid;
+    grid-template-columns: 30% 65%;
+	gap: 10px;
+}
+dt {
+	font-weight: normal;
+	text-align: right;
+}
+dt::after {
+	content: "\00a0";
+}
+input:read-only {
+	background-color: var(--color-text-muted);
+}
+.form-label.col-4 {
+	text-align: right;
+}
+.form-check-input:not(:checked) {
+	background-color: white !important;
+}

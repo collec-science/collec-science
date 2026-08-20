@@ -2,6 +2,7 @@
 
 namespace App\Libraries;
 
+use App\Libraries\Label as LibrariesLabel;
 use App\Models\Booking;
 use App\Models\Borrower;
 use App\Models\Borrowing;
@@ -23,6 +24,7 @@ use App\Models\MovementReason;
 use App\Models\ObjectClass;
 use App\Models\ObjectIdentifier;
 use App\Models\ObjectStatus;
+use App\Models\Operation;
 use App\Models\Printer;
 use App\Models\Referent;
 use App\Models\Sample as ModelsSample;
@@ -113,18 +115,18 @@ class Sample extends PpciLibrary
         /**
          * Search samples
          */
-        if ($_SESSION["searchSample"]->isSearch() == 1) {
-            try {
-                $this->dataclass->resetParam();
-                $data = $this->dataclass->sampleSearch($dataSearch);
-                $this->vue->set($this->dataclass->getNbSamples($dataSearch), "totalNumber");
-                $this->vue->set($data, "samples");
-                $this->vue->set(1, "isSearch");
-            } catch (PpciException $e) {
-                $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
-                $this->message->setSyslog($e->getMessage(), true);
-            }
+        //if ($_SESSION["searchSample"]->isSearch() == 1) {
+        try {
+            $this->dataclass->resetParam();
+            $data = $this->dataclass->sampleSearch($dataSearch);
+            $this->vue->set($this->dataclass->getNbSamples($dataSearch), "totalNumber");
+            $this->vue->set($data, "samples");
+            $this->vue->set(1, "isSearch");
+        } catch (PpciException $e) {
+            $this->message->set(_("Un problème est survenu lors de l'exécution de la requête. Contactez votre administrateur pour obtenir un diagnostic"));
+            $this->message->setSyslog($e->getMessage(), true);
         }
+        //}
         $this->vue->set($dataSearch, "sampleSearch");
         $this->vue->set("gestion/sampleList.tpl", "corps");
         $this->vue->set($_SESSION["dbparams"]["consultSeesAll"], "consultSeesAll");
@@ -132,20 +134,7 @@ class Sample extends PpciLibrary
          * Ajout des listes deroulantes
          */
         $this->setRelatedTablesToView($this->vue);
-        /**
-         * Ajout de la selection des modeles d'etiquettes
-         */
-        if (isset($_REQUEST["label_id"])) {
-            $this->vue->set($_REQUEST["label_id"], "label_id");
-        }
-        $label = new Label;
-        $this->vue->set($label->getListe(2), "labels");
 
-        $printer = new Printer;
-        $this->vue->set($printer->getListe(2), "printers");
-        if (isset($_REQUEST["printer_id"])) {
-            $this->vue->set($_REQUEST["printer_id"], "printer_id");
-        }
         /**
          * Map default data
          */
@@ -267,6 +256,24 @@ class Sample extends PpciLibrary
              */
             if ($is_modifiable) {
                 $this->vue->set(1, "modifiable");
+            }
+            /**
+             * Traitement de l'historique de l'échantillon
+             */
+            if (!empty($data["history"])) {
+                $parents = [];
+                $histoEvents = [];
+                $history = json_decode($data["history"], true);
+                foreach ($history as $h) {
+                    if ($h["type"] == "parent") {
+                        $parents[] = $h;
+                    } elseif ($h["type"] == "event") {
+                        $h["date"] = $this->dataclass->formatDateDBtoLocal($h["date"]);
+                        $histoEvents[] = $h;
+                    }
+                }
+                $this->vue->set($parents, "histoParents");
+                $this->vue->set($histoEvents, "histoEvents");
             }
             $this->vue->set($_SESSION["dbparams"]["APPLI_code"], "APPLI_code");
             /**
@@ -724,11 +731,13 @@ class Sample extends PpciLibrary
         $this->vue->set($separator, "separator");
         isset($_REQUEST["utf8_encode"]) ? $encode = $_REQUEST["utf8_encode"] : $encode = 0;
         $this->vue->set($encode, "utf8_encode");
+        $this->vue->help(_("gestion/importer-des-échantillons-externes-ou-modifier-les-échantillons-avec-un-logiciel-tiers.html"));
         return $this->vue->send();
     }
     function importStage2()
     {
         $this->vue = service("Smarty");
+        $this->vue->help(_("gestion/importer-des-échantillons-externes-ou-modifier-les-échantillons-avec-un-logiciel-tiers.html"));
         unset($_SESSION["realfilename"]);
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             try {
@@ -769,7 +778,11 @@ class Sample extends PpciLibrary
                             "uuid",
                             "country_code",
                             "country_origin_code",
-                            "comment"
+                            "comment",
+                            "protocol_name",
+                            "operation_name",
+                            "operation_code",
+                            "history"
                         );
                         $import = new Import($filename, $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                         $data = $import->getContentAsArray();
@@ -779,6 +792,7 @@ class Sample extends PpciLibrary
                          * Verification si l'import peut etre realise
                          */
                         $line = 1;
+                        $module_coderetour = 0;
                         foreach ($data as $row) {
                             if (count($row) > 0) {
                                 try {
@@ -882,7 +896,8 @@ class Sample extends PpciLibrary
             $this->message->set($oe->getMessage());
         }
     }
-    function setSampleType() {
+    function setSampleType()
+    {
         try {
             if (count($_POST["uids"]) == 0) {
                 throw new PpciException(_("Pas d'échantillons sélectionnés"));
@@ -925,15 +940,37 @@ class Sample extends PpciLibrary
             if (count($_POST["uids"]) == 0) {
                 throw new PpciException(_("Pas d'échantillons sélectionnés"));
             }
-            if (empty($_POST["parent_sample_id"])) {
-                throw new PpciException(_("Pas de parent sélectionné"));
-            }
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
-            $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
+            if (empty($_POST["parent_sample_id"]) && $_POST["delete-parent"] == 1) {
+                $this->dataclass->deleteParent($uids);
+            } else {
+                if (empty($_POST["parent_sample_id"])) {
+                    throw new PpciException(_("Pas de parent sélectionné"));
+                }
+                $this->dataclass->setParent($uids, $_POST["parent_sample_id"]);
+            }
             $this->message->set(_("Opération effectuée"));
         } catch (PpciException $oe) {
             $this->message->setSyslog($oe->getMessage(), true);
             $this->message->set(_("Une erreur est survenue pendant la mise à jour du parent"), true);
+            $this->message->set($oe->getMessage());
+        }
+    }
+    function setOperation()
+    {
+        try {
+            if (count($_POST["uids"]) == 0) {
+                throw new PpciException(_("Pas d'échantillons sélectionnés"));
+            }
+            if (empty($_POST["operation_id"])) {
+                throw new PpciException(_("Pas d'opération sélectionnée"));
+            }
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $this->dataclass->setOperation($uids, $_POST["operation_id"]);
+            $this->message->set(_("Opération effectuée"));
+        } catch (PpciException $oe) {
+            $this->message->setSyslog($oe->getMessage(), true);
+            $this->message->set(_("Une erreur est survenue pendant l'affectation de l'opération"), true);
             $this->message->set($oe->getMessage());
         }
     }
@@ -976,8 +1013,10 @@ class Sample extends PpciLibrary
         $vue->set($cf->getListe(2), "containerFamily");
         $country = new Country();
         $vue->set($country->getListe(2), "countries");
-        $label = new Label;
-        $vue->set($label->getListe(2), "labels");
+        $label = new LibrariesLabel;
+        $label->setRelatedTablesToView($vue);
+        $operation = new Operation;
+        $vue->set($operation->getListe(), "operations");
     }
     function createComposite()
     {
@@ -1046,7 +1085,8 @@ class Sample extends PpciLibrary
     {
         $this->dataclass->reindex();
     }
-    function verifyRights(int $uid) {
+    function verifyRights(int $uid)
+    {
         return $this->dataclass->verifyCollectionFromUid($uid);
     }
 }

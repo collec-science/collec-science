@@ -20,10 +20,11 @@ class System extends PpciLibrary
         return $content;
     }
 
-    static function index(array $param)
+    static function index(array $param, $title)
     {
         $vue = service("Smarty");
         $vue->set(System::systemPrepareData($param), "data");
+        $vue->set($title, "title");
         $vue->set("ppci/utils/system.tpl", "corps");
         return $vue->send();
     }

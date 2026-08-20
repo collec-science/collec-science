@@ -15,11 +15,7 @@ use Ppci\Models\PpciModel;
 class Protocol extends PpciModel
 {
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "protocol";

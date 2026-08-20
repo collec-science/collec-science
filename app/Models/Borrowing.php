@@ -14,11 +14,7 @@ class Borrowing extends PpciModel
                 join object using (uid)
                 join borrower using (borrower_id)
                 left outer join object_status using (object_status_id)";
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "borrowing";
@@ -171,7 +167,7 @@ class Borrowing extends PpciModel
      * @param Container $container
      * @return void
      */
-    function setReturn($uid, $return_date, ObjectClass $object = null, Container $container = null)
+    function setReturn($uid, $return_date)
     {
         if ($uid > 0 && !empty($return_date)) {
             if (str_contains($return_date, '-')) {

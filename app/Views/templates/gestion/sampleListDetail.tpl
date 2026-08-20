@@ -6,6 +6,7 @@
 		var searchByColumn = 0;
 		var myStorageSample = window.localStorage;
 		var metadatafilter = "{$sampleSearch['metadatafilter']}";
+		var childrenNumber = 0;
 		try {
 			searchByColumn = myStorageSample.getItem("searchByColumn");
 			if (!searchByColumn) {
@@ -31,17 +32,17 @@
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
 				if (isGestion == 1) {
-					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 				} else {
-					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 					maxcol = 20;
 				}
 			}
 		} catch {
 			if (isGestion == 1) {
-				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
+				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 			} else {
-				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 				maxcol = 20;
 			}
 		}
@@ -57,12 +58,12 @@
 				text: 'csv',
 				filename: 'samples',
 				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 				},
 				customize: function (csv) {
 					var split_csv = csv.split("\n");
 					//set headers
-					split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","storage_condition_name","referent","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
+					split_csv[0] = '"uid","identifier","other_identifiers","collection","type","status","sample_parent","last_movement","place","storage_condition_name","referent","operation","campaign","sampling_place","sampling_date","creation_date","expiration_date","available_quantity"';
 					csv = split_csv.join("\n");
 					return csv;
 				}
@@ -71,12 +72,12 @@
 				extend: 'copy',
 				text: '{t}Copier{/t}',
 				exportOptions: {
-					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]
+					columns: [1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 				},
 				customize: function (csv) {
 					var split_csv = csv.split("\n");
 					//set headers
-					split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\tstorage_condition_name\treferent\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
+					split_csv[3] = 'uid\tidentifier\tother_identifiers\tcollection\ttype\tstatus\tsample_parent\tlast_movement\tplace\tstorage_condition_name\treferent\toperation\tcampaign\tsampling_place\tsampling_date\tcreation_date\texpiration_date\tavailable_quantity';
 					split_csv.shift();
 					split_csv.shift();
 					split_csv.shift();
@@ -120,10 +121,10 @@
 				"searching": true,
 				//scrollY:scrolly,
 				scrollX: true,
-				fixedHeader: {
+				/*fixedHeader: {
 					header: true,
 					footer: true
-				},
+				},*/
 				"stateDuration": 60 * 60 * 24 * 30,
 				"columnDefs": [
 					{
@@ -246,8 +247,13 @@
 			"samplesDocument": "document",
 			"samplesExit": "samplesexit",
 			"lotCreate": "lotCreate",
-			"samplesCreateComposite": "createComposite"
+			"samplesCreateComposite": "createComposite",
+			"samplesSetOperation": "samplesOperation"
 		};
+		for (const actiontitle in actions) {
+			var actionclass = "." + actions[actiontitle];
+			$(actionclass).hide();
+		}
 		$("#checkedActionSample").change(function () {
 			var action = $(this).val();
 			var actionClass = actions[action];
@@ -270,145 +276,143 @@
 				getTypeEvents();
 			}
 		});
-		var tooltipContent;
-		/**
-		 * Display the content of a sample
-		 */
-		var delay = 1000, timer, ajaxDone = true;
+		/* Tooltip */
+		const tooltipparams = {
+			delay: { show: 1000, hide: 500 },
+			html: true
+		};
+		function initializeBootstrapTooltip() {
+			var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+			var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+				tooltipTriggerEl.setAttribute('title', 'content');
+				return new bootstrap.Tooltip(tooltipTriggerEl, tooltipparams)
+			})
+		}
+		initializeBootstrapTooltip();
 		$(".sample").mouseenter(function () {
-			var objet = $(this);
-			timer = setTimeout(function () {
-				var uid = objet.data("uid");
-				if (!objet.is(':ui-tooltip')) {
-					if (uid > 0 && ajaxDone) {
-						ajaxDone = false;
-						var url = "sampleDetail";
-						var data = { "uid": uid };
-						$.ajax({ url: url, data: data })
-							.done(function (d) {
-								ajaxDone = true;
-								if (d) {
-									d = JSON.parse(d);
-									if (!d.error_code) {
-										var content = "{t}UID et référence :{/t} "
-											+ encodeHtml(d.uid.toString()) + "&nbsp;" + encodeHtml(d.identifier);
-										if (d.dbuid_origin) {
-											content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml(d.dbuid_origin);
+			var id = this.getAttribute("id");
+			displayDetail(id);
+		});
+		function displayDetail(currentId) {
+			var objet = document.getElementById(currentId);
+			const tip = bootstrap.Tooltip.getOrCreateInstance(objet);
+			var title = objet.title;
+			var uid = objet.dataset.uid;
+			if (uid > 0) {
+				var url = "sampleDetail";
+				var data = { "uid": uid };
+				$.ajax({ url: url, data: data })
+					.done(function (d) {
+						if (d) {
+							d = JSON.parse(d);
+							if (!d.error_code) {
+								var content = "{t}UID et référence :{/t} "
+									+ encodeHtml(d.uid.toString()) + "&nbsp;" + encodeHtml(d.identifier);
+								if (d.dbuid_origin) {
+									content += "<br>{t}DB et UID d'origine :{/t} " + encodeHtml(d.dbuid_origin);
+								}
+								if (d.identifiers) {
+									d.identifiers.split(",").forEach(function (dc) {
+										//content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
+										content += "<br>" + encodeHtml(dc);
+									});
+								}
+								content += "<br>{t}Collection :{/t} " + encodeHtml(d.collection_name);
+								content += "<br>{t}Référent :{/t} " + encodeHtml(d.referent_name) + " " + encodeHtml(d.referent_firstname);
+								content += "<br>{t}Type :{/t} " + encodeHtml(d.sample_type_name);
+								if (d.container_type_name) {
+									content += " / " + encodeHtml(d.container_type_name);
+								}
+								if (d.product_name) {
+									content += " / {t}produit :{/t} " + encodeHtml(d.product_name);
+								}
+								if (d.risk_name) {
+									content += " / {t}clp :{/t} " + encodeHtml(d.risk_name);
+								}
+								if (d.campaign_id > 0) {
+									content += "<br>{t}Campagne :{/t} " + encodeHtml(d.campaign_name);
+								}
+								if (d.operation_name) {
+									content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " " + encodeHtml(d.protocol_name) + " " + encodeHtml(d.operation_name) + " " + encodeHtml(d.operation_version);
+								}
+								content += "<br>{t}Statut :{/t} " + encodeHtml(d.object_status_name);
+								content += "<br>{t}Date de création	de l'échantillon (d'échantillonnage) :{/t} " + encodeHtml(d.sampling_date);
+								content += "<br>{t}Date d'import dans la base de données :{/t} " + encodeHtml(d.sample_creation_date);
+								if (d.expiration_date) {
+									content += "<br>{t}Date d'expiration de l'échantillon :{/t} " + encodeHtml(d.expiration_date);
+								}
+								if (d.multiple_value) {
+									content += "<br>{t}Quantité initiale :{/t} " + encodeHtml(d.multiple_value) + " " + d.multiple_unit;
+									content += "<br>{t}Reste disponible :{/t} " + encodeHtml(d.subsample_quantity);
+								}
+								if (d.parent_uid) {
+									content += "<br>{t}Échantillon parent :{/t} " + encodeHtml(d.parent_uid.toString()) + " " + encodeHtml(d.parent_identifier);
+								}
+								if (d.sampling_place_id) {
+									content += "<br>{t}Lieu de prélèvement :{/t} " + encodeHtml(d.sampling_place_name);
+								}
+								if (d.country_name) {
+									content += "<br>{t}Pays de collecte :{/t} " + encodeHtml(d.country_name);
+								}
+								if (d.country_origin_name) {
+									content += "<br>{t}Pays de provenance :{/t} " + encodeHtml(d.country_origin_name);
+								}
+								if (d.object_comment) {
+									content += "<br>{t}Commentaires :{/t} " + encodeHtml(d.object_comment);
+								}
+								if (d.metadata) {
+									content += "<br><u>{t}Métadonnées :{/t}</u>";
+									dm = d.metadata;
+									var comma = "";
+									for (key in dm) {
+										dmunitname = "md_" + key + "_unit";
+										if (d[dmunitname]) {
+											mdunit = " (" + encodeHtml(d[dmunitname]) + ")";
+										} else {
+											mdunit = "";
 										}
-										if (d.identifiers) {
-											d.identifiers.split(",").forEach(function (dc) {
-												//content += "<br>" + encodeHtml(dc.identifier_type_code)+ ":" + encodeHtml(dc.object_identifier_value);
-												content += "<br>" + encodeHtml(dc);
-											});
-										}
-										content += "<br>{t}Collection :{/t} " + encodeHtml(d.collection_name);
-										content += "<br>{t}Référent :{/t} " + encodeHtml(d.referent_name) + " " + encodeHtml(d.referent_firstname);
-										content += "<br>{t}Type :{/t} " + encodeHtml(d.sample_type_name);
-										if (d.container_type_name) {
-											content += " / " + encodeHtml(d.container_type_name);
-										}
-										if (d.product_name) {
-											content += " / {t}produit :{/t} " + encodeHtml(d.product_name);
-										}
-										if (d.risk_name) {
-											content += " / {t}clp :{/t} " + encodeHtml(d.risk_name);
-										}
-										if (d.campaign_id > 0) {
-											content += "<br>{t}Campagne :{/t} " + encodeHtml(d.campaign_name);
-										}
-										if (d.operation_id > 0) {
-											content += "<br>{t}Protocole et opération :{/t} " + encodeHtml(d.protocol_year) + " " + encodeHtml(d.protocol_name) + " " + encodeHtml(d.operation_name) + " " + encodeHtml(d.operation_version);
-										}
-										content += "<br>{t}Statut :{/t} " + encodeHtml(d.object_status_name);
-										content += "<br>{t}Date de création	de l'échantillon (d'échantillonnage) :{/t} " + encodeHtml(d.sampling_date);
-										content += "<br>{t}Date d'import dans la base de données :{/t} " + encodeHtml(d.sample_creation_date);
-										if (d.expiration_date) {
-											content += "<br>{t}Date d'expiration de l'échantillon :{/t} " + encodeHtml(d.expiration_date);
-										}
-										if (d.multiple_value) {
-											content += "<br>{t}Quantité initiale :{/t} " + encodeHtml(d.multiple_value) + " " + d.multiple_unit;
-											content += "<br>{t}Reste disponible :{/t} " + encodeHtml(d.subsample_quantity);
-										}
-										if (d.parent_uid) {
-											content += "<br>{t}Échantillon parent :{/t} " + encodeHtml(d.parent_uid.toString()) + " " + encodeHtml(d.parent_identifier);
-										}
-										if (d.sampling_place_id) {
-											content += "<br>{t}Lieu de prélèvement :{/t} " + encodeHtml(d.sampling_place_name);
-										}
-										if (d.country_name) {
-											content += "<br>{t}Pays de collecte :{/t} " + encodeHtml(d.country_name);
-										}
-										if (d.country_origin_name) {
-											content += "<br>{t}Pays de provenance :{/t} " + encodeHtml(d.country_origin_name);
-										}
-										if (d.object_comment) {
-											content += "<br>{t}Commentaires :{/t} " + encodeHtml(d.object_comment);
-										}
-										if (d.metadata) {
-											content += "<br><u>{t}Métadonnées :{/t}</u>";
-											dm = d.metadata;
-											var comma = "";
-											for (key in dm) {
-												dmunitname = "md_" + key + "_unit";
-												if (d[dmunitname]) {
-													mdunit = " (" + encodeHtml(d[dmunitname]) + ")";
+										content += "<br>" + key + mdunit + "{t} : {/t}";
+										if (Array.isArray(dm[key])) {
+											$.each(dm[key], function (i, md) {
+												content += comma;
+												if (!md.value) {
+													content += encodeHtml(md);
 												} else {
-													mdunit = "";
+													content += encodeHtml(md.value);
 												}
-												content += "<br>" + key + mdunit + "{t} : {/t}";
-												if (Array.isArray(dm[key])) {
-													$.each(dm[key], function (i, md) {
-														content += comma;
-														if (!md.value) {
-															content += encodeHtml(md);
-														} else {
-															content += encodeHtml(md.value);
-														}
-														comma = ", ";
-													});
-												} else {
-													try {
-														content += encodeHtml(dm[key].toString());
-													} catch (Exception) { }
-												}
-											}
-										}
-										if (d.container.length > 0) {
-											content += "<br><u>{t}Contenants :{/t}</u> ";
-											d.container.forEach(function (dc) {
-												content += "<br>" + encodeHtml(dc.uid.toString()) + " " + encodeHtml(dc.identifier) + " <i>" + encodeHtml(dc.container_type_name) + "</i>";
+												comma = ", ";
 											});
+										} else {
+											try {
+												content += encodeHtml(dm[key].toString());
+											} catch (Exception) { }
 										}
-										if (d.events.length > 0) {
-											content += "<br><u>{t}Événements :{/t}</u> ";
-											d.events.forEach(function (dc) {
-												content += "<br>" + encodeHtml(dc.event_type_name) + "{t} : {/t}" + encodeHtml(dc.event_date);
-											});
-										}
-										tooltipContent = content;
-										tooltipDisplay(objet);
 									}
 								}
-							});
-					}
-				}
-			}, delay);
-
-		}).mouseleave(function () {
-			clearTimeout(timer);
-			if ($(this).is(':ui-tooltip')) {
-				try {
-					$(this).tooltip("close");
-				} catch { }
+								if (d.container.length > 0) {
+									content += "<br><u>{t}Contenants :{/t}</u> ";
+									d.container.forEach(function (dc) {
+										content += "<br>" + encodeHtml(dc.uid.toString()) + " " + encodeHtml(dc.identifier) + " <i>" + encodeHtml(dc.container_type_name) + "</i>";
+									});
+								}
+								if (d.events.length > 0) {
+									content += "<br><u>{t}Événements :{/t}</u> ";
+									d.events.forEach(function (dc) {
+										content += "<br>" + encodeHtml(dc.event_type_name) + "{t} : {/t}" + encodeHtml(dc.event_date);
+									});
+								}
+								$(this).attr("title", content);
+								tip.setContent({ '.tooltip-inner': content });
+								if (document.querySelector('.tooltip.show')) {
+									tip.show();
+								}
+							}
+						}
+					});
 			}
-		});
-		function tooltipDisplay(object) {
-			object.tooltip({
-				content: tooltipContent,
-			});
-			//object.attr( "title", tooltipContent );
-			object.tooltip("open");
-		}
+		};
+
+
 		/**
 		 * Add the search on columns headers
 		 */
@@ -571,21 +575,23 @@
 						var table = $("#sampleList").DataTable();
 						for (var lst = 0; lst < samples.length; lst++) {
 							var row = "";
+							var localId = parseFloat(9000000) + parseFloat(samples[lst].uid);
 							if (isGestion == 1) {
-								row += '<td class="center"> <input type="checkbox" class="checkSample" name="uids[]" value="' + samples[lst].uid + '"></td>';
+								row += '<td class="center"> <input type="checkbox" class="checkSample form-check-input" name="uids[]" value="' + samples[lst].uid + '"></td>';
 							}
 							row += '<td class="text-center">';
-							row += '<a href="sampleDisplay?uid=' + samples[lst].uid + '" title="{t}Consultez le détail{/t}">';
+							row += '<a class="sample " ';
+							row += 'data-bs-toggle="tooltip" data-bs-html="true" data-uid="' + samples[lst].uid + '" ';
+							row += 'id="uid-' + localId + '" href="sampleDisplay?uid=' + samples[lst].uid + '" title="{t}Consultez le détail{/t}">';
 							row += samples[lst].uid;
 							row += '</a>';
-							var localId = parseFloat(9000000) + parseFloat(samples[lst].uid);
 							if (samples[lst].nb_derivated_sample > 0) {
 								row += '<img class="plus hover" id="' + id + '-' + localId.toString() + '"';
 								row += 'data-uid="' + samples[lst].uid + '" src="display/images/plus.png" height="10">';
 							}
 							row += '</td>';
-							row += '<td class="sample nowrap" data-uid="' + samples[lst].uid + '" title="">';
-							row += '<a class="tooltiplink" href="sampleDisplay?uid=' + samples[lst].uid + '" title="">';
+							row += '<td class="nowrap" data-uid="' + samples[lst].uid + '" >';
+							row += '<a  class="" href="sampleDisplay?uid=' + samples[lst].uid + '">';
 							row += samples[lst].identifier;
 							row += '</a>';
 							row += '</td>';
@@ -609,7 +615,7 @@
 							if (samples[lst].parent_uid.length > 0) {
 								row += '<a class="sample" data-uid="' + samples[lst].parent_uid + '"';
 								row += 'href="sampleDisplay?uid=' + samples[lst].parent_uid + '">';
-								row += '<span class="tooltiplink">' + samples[lst].parent_uid + '&nbsp;' + samples[lst].parent_identifier + '</span>';
+								row += '<span class="">' + samples[lst].parent_uid + '&nbsp;' + samples[lst].parent_identifier + '</span>';
 								row += '</a>';
 							}
 							row += '</td>';
@@ -679,7 +685,15 @@
 							table.row.add(jRow);
 							$(document).on("click", "#" + id + '-' + localId.toString(), function () {
 								addChildren($(this));
+
 							})
+
+							/*$(document).on("mouseenter", "#uid-" + localId, function () {
+								var elem = document.getElementById("uid-" + localId);
+								new bootstrap.Tooltip(elem, tooltipparams);
+								displayDetail("uid-" + localId)
+							})*/
+
 						}
 						table.order([[maxcol, 'asc']]).draw();
 					}
@@ -688,17 +702,21 @@
 	});
 
 </script>
-<div class="col-lg-12">
-	{include file="gestion/displayPhotoScript.tpl"}
-	<form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel" enctype="multipart/form-data">
-		<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
-		<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
-		{if $rights.manage == 1}
-		<div class="row">
-			<div class="center">
-				<label id="lsamplecheck" for="checkSample">{t}Tout cocher{/t}</label>
-				<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample">
-				<select id="labels" name="label_id">
+
+{include file="gestion/displayPhotoScript.tpl"}
+<form method="POST" id="sampleFormListPrint" target="_blank" action="samplePrintLabel" enctype="multipart/form-data">
+	<input type="hidden" id="moduleFrom" name="moduleFrom" value="{$moduleFrom}">
+	<input type="hidden" id="containerUid" name="containerUid" value="{$containerUid}">
+
+	{if $rights.manage == 1 && !empty($samples)}
+	<div class="container-fluid">
+		<div class="row align-items-center">
+			<div class="col-auto ">
+				<label id="lsamplecheck" for="checkSample" class="form-check-label">{t}Tout cocher{/t}</label>
+				<input type="checkbox" id="checkSample1" class="checkSampleSelect checkSample form-check-inline">
+			</div>
+			<div class="col-auto ">
+				<select id="labels" name="label_id" class="form-select">
 					<option value="" {if $label_id=="" }selected{/if}>{t}Étiquette par défaut{/t}</option>
 					{section name=lst loop=$labels}
 					<option value="{$labels[lst].label_id}" {if $labels[lst].label_id==$label_id}selected{/if}>
@@ -706,180 +724,205 @@
 					</option>
 					{/section}
 				</select>
+			</div>
+			<div class="col-auto">
 				<button id="samplelabels" class="btn btn-primary">{t}Étiquettes{/t}</button>
-
-				{if !empty($printers)}
-				<select id="printers" name="printer_id">
+			</div>
+			{if !empty($printers) && $directPrintEnabled == 1}
+			<div class="col-auto">
+				<select id="printers" name="printer_id" class="form-select">
 					{section name=lst loop=$printers}
 					<option value="{$printers[lst].printer_id}">
 						{$printers[lst].printer_name}
 					</option>
 					{/section}
 				</select>
+			</div>
+			<div class="col-auto ">
 				<button id="sampledirect" class="btn btn-primary">{t}Impression directe{/t}</button>
-				{/if}
+			</div>
+			{/if}
+			<div class="col-auto ">
 				<button id="samplecsvfile" class="btn btn-primary">{t}Fichier CSV pour impression externe{/t}</button>
-				{if $rights["manage"] == 1}
+			</div>
+
+			{if $rights["manage"] == 1}
+			<div class="col-auto ">
 				<button id="sampleExport" class="btn btn-primary" title="{t}Export pour import dans une autre base Collec-Science{/t}">
 					{t}Export vers autre base{/t}</button>
-				{/if}
+			</div>
+
+			{/if}
+			<div class="col-auto ">
 				{$helpsamplelist}
 			</div>
 		</div>
-		{/if}
+	</div>
+	{/if}
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12">
-				<table id="sampleList" class="table table-bordered table-hover display" title="{t}Liste des échantillons{/t}">
-					<thead class="nowrap">
-						<tr>{if $rights.manage == 1}
-							<th class="center">
-								<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample">
-							</th>
+			<table id="sampleList" class="table table-bordered table-hover display">
+				<thead class="nowrap">
+					<tr>{if $rights.manage == 1}
+						<th class="center">
+							<input type="checkbox" id="checkSample2" class="checkSampleSelect checkSample form-check-input">
+						</th>
+						{/if}
+						<th>{t}UID{/t}</th>
+						<th>{t}Identifiant ou nom{/t}</th>
+						<th>{t}Autres identifiants{/t}</th>
+						<th>{t}Collection{/t}</th>
+						<th>{t}Type{/t}</th>
+						<th>{t}Statut{/t}</th>
+						<th>{t}Parent{/t}</th>
+						<th>{t}Photo{/t}</th>
+						<th>{t}Dernier mouvement{/t}</th>
+						<th>{t}Emplacement{/t}</th>
+						<th>{t}Condition de stockage{/t}</th>
+						<th>{t}Référent{/t}</th>
+						<th>{t}Opération{/t}</th>
+						<th>{t}Campagne{/t}</th>
+						<th>{t}Lieu de prélèvement{/t}</th>
+						<th>{t}Date d'échantillonnage{/t}</th>
+						<th>{t}Date de création dans la base{/t}</th>
+						<th>{t}Date d'expiration{/t}</th>
+						<th>{t}Quantité restante{/t}</th>
+						<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
+						<th>{t}Commentaires{/t}</th>
+						<th>{t}Tri technique{/t}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{section name=lst loop=$samples}
+					<tr>
+						{if $rights.manage == 1}
+						<td class="center">
+							<input type="checkbox" class="checkSample checkSampleList form-check-input" name="uids[]" value="{$samples[lst].uid}">
+						</td>
+						{/if}
+						<td class="text-center">
+							<a class="sample tooltiplink" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="empty">
+								{$samples[lst].uid}
+							</a>
+							{if $samples[lst].nb_derivated_sample > -1}
+							<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
 							{/if}
-							<th>{t}UID{/t}</th>
-							<th>{t}Identifiant ou nom{/t}</th>
-							<th>{t}Autres identifiants{/t}</th>
-							<th class="d-none d-lg-table-cell">{t}Collection{/t}</th>
-							<th>{t}Type{/t}</th>
-							<th>{t}Statut{/t}</th>
-							<th>{t}Parent{/t}</th>
-							<th>{t}Photo{/t}</th>
-							<th>{t}Dernier mouvement{/t}</th>
-							<th>{t}Emplacement{/t}</th>
-							<th>{t}Condition de stockage{/t}</th>
-							<th>{t}Référent{/t}</th>
-							<th>{t}Campagne{/t}</th>
-							<th>{t}Lieu de prélèvement{/t}</th>
-							<th>{t}Date d'échantillonnage{/t}</th>
-							<th>{t}Date de création dans la base{/t}</th>
-							<th>{t}Date d'expiration{/t}</th>
-							<th>{t}Quantité restante{/t}</th>
-							<th>{t}Métadonnées{/t}&nbsp;{$sampleSearch.metadatafilter}</th>
-							<th>{t}Commentaires{/t}</th>
-							<th>{t}Tri technique{/t}</th>
-						</tr>
-					</thead>
-					<tbody>
-						{section name=lst loop=$samples}
-						<tr>
-							{if $rights.manage == 1}
-							<td class="center">
-								<input type="checkbox" class="checkSample checkSampleList" name="uids[]" value="{$samples[lst].uid}">
-							</td>
+						</td>
+						<td class="nowrap">
+							<a class="" href="sampleDisplay?uid={$samples[lst].uid}" title="empty" data-uid="{$samples[lst].uid}" data-bs-toggle="tooltip" data-bs-html="true">
+								{$samples[lst].identifier}
+							</a>
+						</td>
+						<td class="nowrap">{$samples[lst].identifiers}
+							{if strlen($samples[lst].dbuid_origin) > 0}
+							{if strlen($samples[lst].identifiers) > 0}<br>{/if}
+							<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
 							{/if}
-							<td class="text-center">
-								<a href="sampleDisplay?uid={$samples[lst].uid}" title="{t}Consultez le détail{/t}">
-									{$samples[lst].uid}
+						</td>
+						<td class="nowrap" title="{$samples[lst].collection_description}">
+							{$samples[lst].collection_name}</td>
+						<td class="nowrap">{$samples[lst].sample_type_name}</td>
+						<td class="nowrap{if $samples[lst].trashed=='t' } trashed" title="{t}Échantillon mis à la corbeille{/t}" {else}" {/if}>
+							{$samples[lst].object_status_name}</td>
+						<td>
+							{if strlen($samples[lst].parent_uid) > 0}
+							<span class="nowrap">
+								<a class="sample tooltiplink" data-uid="{$samples[lst].parent_uid}" href="sampleDisplay?uid={$samples[lst].parent_uid}" data-bs-toggle="tooltip" data-bs-html="true" title="empty" id="parent{$samples[lst].parent_uid}-{counter}">
+									{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}
 								</a>
-								{if $samples[lst].nb_derivated_sample > -1}
-								<img class="plus hover" id="{$samples[lst].uid + 9000000}" data-uid="{$samples[lst].uid}" src="display/images/plus.png" height="15">
-								{/if}
-							</td>
-							<td class="nowrap" title="">
-								<a class="tooltiplink sample" href="sampleDisplay?uid={$samples[lst].uid}" title="" data-uid="{$samples[lst].uid}">
-									{$samples[lst].identifier}
-								</a>
-							</td>
-							<td class="nowrap">{$samples[lst].identifiers}
-								{if strlen($samples[lst].dbuid_origin) > 0}
-								{if strlen($samples[lst].identifiers) > 0}<br>{/if}
-								<span title="{t}UID de la base de données d'origine{/t}">{$samples[lst].dbuid_origin}</span>
-								{/if}
-							</td>
-							<td class="nowrap" title="{$samples[lst].collection_description}">{$samples[lst].collection_name}</td>
-							<td class="nowrap">{$samples[lst].sample_type_name}</td>
-							<td {if $samples[lst].trashed=='t' }class="trashed" title="{t}Échantillon mis à la corbeille{/t}" {/if}>
-								{$samples[lst].object_status_name}</td>
-							<td>
-								{if strlen($samples[lst].parent_uid) > 0}
-								<span class="nowrap">
-									<a class="sample" data-uid="{$samples[lst].parent_uid}" href="sampleDisplay?uid={$samples[lst].parent_uid}">
-										<span class="tooltiplink">{$samples[lst].parent_uid}&nbsp;{$samples[lst].parent_identifier}</span>
-									</a>
+							</span>
+							{/if}
+							{if strlen($samples[lst].sample_parents) > 0}
+							{$samples[lst].sample_parents}
+							{/if}
+						</td>
+						<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins" href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}"> <img src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2" height="30">
+							</a> {/if}
+						</td>
+						<td class="nowrap">
+							{if strlen($samples[lst].movement_date) > 0 }
+							{if $samples[lst].movement_type_id == 1}
+							<span class="green">{else}
+								<span class="red">
+									{/if}
+									{$samples[lst].movement_date}
 								</span>
 								{/if}
-								{if strlen($samples[lst].sample_parents) > 0}
-								{$samples[lst].sample_parents}
-								{/if}
-							</td>
-							<td class="center">{if $samples[lst].document_id > 0} <a class="image-popup-no-margins" href="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=1" title="{t}aperçu de la photo{/t}"> <img src="documentGet?document_id={$samples[lst].document_id}&attached=0&phototype=2" height="30">
-								</a> {/if}
-							</td>
-							<td class="nowrap">
-								{if strlen($samples[lst].movement_date) > 0 }
-								{if $samples[lst].movement_type_id == 1}
-								<span class="green">{else}
-									<span class="red">
-										{/if}
-										{$samples[lst].movement_date}
-									</span>
-									{/if}
-							</td>
-							<td class="nowrap">
-								{if $samples[lst].container_uid > 0}
-								<a href="containerDisplay?uid={$samples[lst].container_uid}">
-									{$samples[lst].container_identifier}
-								</a>
-								<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
-								{/if}
-							</td>
-							<td>{$samples[lst].storage_condition_name}</td>
-							<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
-							<td class="nowrap" title="{$samples[lst].campaign_description}">{$samples[lst].campaign_name}</td>
-							<td class="nowrap">{$samples[lst].sampling_place_name}</td>
-							<td class="nowrap">{$samples[lst].sampling_date}</td>
-							<td class="nowrap">{$samples[lst].sample_creation_date}</td>
-							<td class="nowrap">{$samples[lst].expiration_date}</td>
-							<td>{$samples[lst].subsample_quantity}</td>
-							<td>
-								{if empty($sampleSearch.metadatafilter)}
-								{$l = 0}
-								{foreach $samples[lst].metadata_array as $k => $v}
-								{if $l > 0}<br>{/if}
-								{$l = $l+1}
-								{$k}:
-								{if is_array($v)}
-								{foreach $v as $val}
-								{$val}&nbsp;
-								{/foreach}
-								{else}
-								{$v}
-								{/if}
-								{/foreach}
-								{else}
-								{$samples[lst].metadata}
-								{/if}
-							</td>
-							<td class="textareaDisplay">{$samples[lst].object_comment}</td>
-							<td>{$samples[lst].uid + 9000000}</td>
+						</td>
+						<td class="nowrap">
+							{if $samples[lst].container_uid > 0}
+							<a href="containerDisplay?uid={$samples[lst].container_uid}">
+								{$samples[lst].container_identifier}
+							</a>
+							<br>{t}col:{/t}{$samples[lst].column_number} {t}ligne:{/t}{$samples[lst].line_number}
+							{/if}
+						</td>
+						<td>{$samples[lst].storage_condition_name}</td>
+						<td class="nowrap">{$samples[lst].referent_name} {$samples[lst].referent_firstname}</td>
+						<td class="nowrap">
+							{if $samples[lst].operation_id > 0}
+							{$samples[lst].protocol_name}-{$samples[lst].protocol_version}/{$samples[lst].operation_name}-{$samples[lst].operation_version}
+							{/if}
+						</td>
+						<td class="nowrap" title="{$samples[lst].campaign_description}">
+							{$samples[lst].campaign_name}</td>
+						<td class="nowrap">{$samples[lst].sampling_place_name}</td>
+						<td class="nowrap">{$samples[lst].sampling_date}</td>
+						<td class="nowrap">{$samples[lst].sample_creation_date}</td>
+						<td class="nowrap">{$samples[lst].expiration_date}</td>
+						<td>{$samples[lst].subsample_quantity}</td>
+						<td>
+							{if empty($sampleSearch.metadatafilter)}
+							{$l = 0}
+							{foreach $samples[lst].metadata_array as $k => $v}
+							{if $l > 0}<br>{/if}
+							{$l = $l+1}
+							{$k}:
+							{if is_array($v)}
+							{foreach $v as $val}
+							{$val}&nbsp;
+							{/foreach}
+							{else}
+							{$v}
+							{/if}
+							{/foreach}
+							{else}
+							{$samples[lst].metadata}
+							{/if}
+						</td>
+						<td class="textareaDisplay">{$samples[lst].object_comment}</td>
+						<td>{$samples[lst].uid + 9000000}</td>
 
-						</tr>
-						{/section}
-					</tbody>
-				</table>
-			</div>
+					</tr>
+					{/section}
+				</tbody>
+			</table>
 		</div>
+	</div>
 
 
-		<!-- form at the bottom of the list-->
-		{if $rights.collection == 1}
+	<!-- form at the bottom of the list-->
+	{if $rights.collection == 1 && !empty($samples)}
+	<div class="container">
 		<div class="row">
 			<div id="nbSampleChecked"></div>
 		</div>
 		<div class="row">
-			<div class="col-md-6 form-horizontal">
+			<div class="form-horizontal col-10">
 				{t}Pour les éléments cochés :{/t}
 				<input type="hidden" name="lastModule" value="{$lastModule}">
 				<input type="hidden" name="uid" value="{$data.uid}">
 				<input type="hidden" name="collection_id" value="{$sampleSearch.collection_id}">
 				<input type="hidden" name="is_action" value="1">
-				<select id="checkedActionSample" class="form-control">
+				<select id="checkedActionSample" class="form-select">
 					<option value="" selected>{t}Choisissez{/t}</option>
 					<option value="samplesAssignReferent">{t}Assigner un référent aux échantillons{/t}</option>
 					<option value="samplesCreateEvent">{t}Créer un événement{/t}</option>
 					<option value="samplesLending">{t}Prêter les échantillons{/t}</option>
 					<option value="samplesExit">{t}Sortir les échantillons{/t}</option>
-					<option value="lotCreate" {if !$sampleSearch.collection_id> 0}disabled{/if}>{t}Créer un lot d'export{/t}</option>
+					<option value="lotCreate" {if !$sampleSearch.collection_id> 0}disabled{/if}>
+						{t}Créer un lot d'export{/t}
+					</option>
 					<option value="samplesSetCountry">{t}Affecter un pays de collecte{/t}</option>
 					<option value="samplesSetCampaign">{t}Attacher à une campagne de prélèvement{/t}</option>
 					<option value="samplesSetStatus">{t}Modifier le statut{/t}</option>
@@ -887,14 +930,19 @@
 					<option value="samplesEntry">{t}Entrer ou déplacer les échantillons au même emplacement{/t}</option>
 					<option value="samplesSetCollection">{t}Modifier la collection d'affectation{/t}</option>
 					<option value="samplesSetParent">{t}Assigner un parent aux échantillons{/t}</option>
-					<option value="samplesCreateComposite">{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}</option>
+					<option value="samplesCreateComposite">
+						{t}Créer un échantillon composé à partir des échantillons sélectionnés{/t}
+					</option>
+					<option value="samplesSetOperation">{t}Affecter une opération{/t}</option>
 					<option value="samplesSetTrashed">{t}Mettre ou sortir de la corbeille{/t}</option>
 					<option value="samplesDelete">{t}Supprimer les échantillons{/t}</option>
-					<option value="samplesDeleteWithChildren">{t}Supprimer les échantillons et tous les échantillons dérivés{/t}</option>
+					<option value="samplesDeleteWithChildren">
+						{t}Supprimer les échantillons et tous les échantillons dérivés{/t}
+					</option>
 					<option value="samplesDocument">{t}Ajouter les mêmes documents aux échantillons{/t}</option>
 				</select>
-				<div class="referentid" hidden>
-					<select id="referentid" name="referent_id" class="form-control">
+				<div class="referentid">
+					<select id="referentid" name="referent_id" class="form-select">
 						<option value="">{t}Choisissez le référent...{/t}</option>
 						{foreach $referents as $referent}
 						<option value="{$referent.referent_id}">
@@ -904,22 +952,24 @@
 					</select>
 				</div>
 				<!-- Ajout d'un nouvel evenement-->
-				<div class="event" hidden>
-					<div class="form-group">
-						<label for="due_date" class="control-label col-md-4">{t}Date d'échéance :{/t}</label>
-						<div class="col-md-8">
+				<div class="event">
+					<div class="row">
+						<label for="due_date" class="form-label col-4">{t}Date d'échéance :{/t}</label>
+						<div class="col-8">
 							<input id="due_date" name="due_date" value="" class="form-control datepicker">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="event_date" class="control-label col-md-4">{t}Date{/t} :</label>
-						<div class="col-md-8">
+					<div class="row ">
+						<label for="event_date" class="form-label col-4">{t}Date{/t} :</label>
+						<div class="col-8">
 							<input id="event_date" name="event_date" value="" class="form-control datepicker">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="eventsType" class="control-label col-md-4"><span class="red">*</span> {t}Type d'événement :{/t}</label>
-						<div class="col-md-8">
+					<div class="row ">
+						<label for="eventsType" class="form-label col-4"><span class="red">*</span>
+							{t}Type d'événement :{/t}
+						</label>
+						<div class="col-8">
 							<select id="eventsType" name="event_type_id" class="form-control">
 								{section name=lst loop=$eventType}
 								<option value="{$eventType[lst].event_type_id}">
@@ -929,21 +979,21 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="event_comment" class="control-label col-md-4">{t}Commentaire :{/t}</label>
-						<div class="col-md-8">
+					<div class="row ">
+						<label for="event_comment" class="form-label col-4">{t}Commentaire :{/t}</label>
+						<div class="col-8">
 							<textarea id="event_comment" name="event_comment" class="form-control" rows="3"></textarea>
 						</div>
 					</div>
 				</div>
 				<!-- add a borrowing -->
-				<div class="borrowing" hidden>
-					<div class="form-group ">
-						<label for="borrower_id" class="control-label col-md-4">
+				<div class="borrowing">
+					<div class="row ">
+						<label for="borrower_id" class="form-label col-4">
 							<span class="red">*</span>{t}Emprunteur :{/t}
 						</label>
-						<div class="col-md-8">
-							<select id="borrower_id" name="borrower_id" class="form-control">
+						<div class="col-8">
+							<select id="borrower_id" name="borrower_id" class="form-select">
 								{foreach $borrowers as $borrower}
 								<option value="{$borrower.borrower_id}">
 									{$borrower.borrower_name}
@@ -952,25 +1002,29 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="borrowing_date" class="control-label col-md-4"><span class="red">*</span>{t}Date d'emprunt :{/t}</label>
-						<div class="col-md-8">
+					<div class="row ">
+						<label for="borrowing_date" class="form-label col-4"><span class="red">*</span>
+							{t}Date d'emprunt :{/t}
+						</label>
+						<div class="col-8">
 							<input id="borrowing_date" name="borrowing_date" value="{$borrowing_date}" class="form-control datepicker">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="expected_return_date" class="control-label col-md-4">{t}Date de retour escomptée :{/t}</label>
-						<div class="col-md-8">
+					<div class="row ">
+						<label for="expected_return_date" class="form-label col-4">
+							{t}Date de retour escomptée :{/t}
+						</label>
+						<div class="col-8">
 							<input id="expected_return_date" name="expected_return_date" value="{$expected_return_date}" class="form-control datepicker">
 						</div>
 					</div>
 				</div>
 				<!-- set Trashed-->
-				<div class="trashedgroupsample" hidden>
-					<div class="form-group ">
-						<label for="trashed" class="control-label col-md-4">{t}Traitement de la corbeille{/t}</label>
-						<div class="col-md-8">
-							<select class="form-control" name="settrashed" id="trashedbin">
+				<div class="trashedgroupsample">
+					<div class="row ">
+						<label for="trashed" class="form-label col-4">{t}Traitement de la corbeille{/t}</label>
+						<div class="col-8">
+							<select class="form-select" name="settrashed" id="trashedbin">
 								<option value="1">{t}Mettre à la corbeille{/t}</option>
 								<option value="0">{t}Sortir de la corbeille{/t}</option>
 							</select>
@@ -1005,17 +1059,19 @@
 						});
 					});
 				</script>
-				<div class="entry" hidden>
-					<div class="form-group ">
-						<label for="container_uidChange" class="control-label col-md-4"><span class="red">*</span> {t}UID du contenant :{/t}</label>
-						<div class="col-md-8">
+				<div class="entry">
+					<div class="row ">
+						<label for="container_uidChange" class="form-label col-4"><span class="red">*</span>
+							{t}UID du contenant :{/t}
+						</label>
+						<div class="col-8">
 							<input id="container_uidChange" name="container_uid" value="" type="number" class="form-control slotFull">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="container_family_id" class="control-label col-md-4">{t}ou recherchez :{/t}</label>
-						<div class="col-md-8">
-							<select id="container_family_id" name="container_family_id" class="form-control">
+					<div class="row ">
+						<label for="container_family_id" class="form-label col-4">{t}ou recherchez :{/t}</label>
+						<div class="col-8">
+							<select id="container_family_id" name="container_family_id" class="form-select">
 								<option value="" selected>{t}Sélectionnez la famille...{/t}</option>
 								{section name=lst loop=$containerFamily}
 								<option value="{$containerFamily[lst].container_family_id}">
@@ -1023,42 +1079,43 @@
 								</option>
 								{/section}
 							</select>
-							<select id="container_type_id" name="container_type_id" class="form-control">
+							<select id="container_type_id" name="container_type_id" class="form-select">
 								<option value=""></option>
 							</select>
-							<select id="containersSample" name="containers" class="form-control">
+							<select id="containersSample" name="containers" class="form-select">
 								<option value=""></option>
 							</select>
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="storage_location" class="control-label col-md-4">
+					<div class="row ">
+						<label for="storage_location" class="form-label col-4">
 							{t}Emplacement dans le contenant (format libre) :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="storage_location" name="storage_location" value="{$data.storage_location}" type="text" class="form-control">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="line_number" class="control-label col-sm-4">{t}N° de ligne :{/t}</label>
-						<div class="col-sm-8">
+					<div class="row ">
+						<label for="line_number" class="form-label col-4">{t}N° de ligne :{/t}</label>
+						<div class="col-8">
 							<input id="line_number" name="line_number" value="" class="form-control nombre slotFull" title="{t}N° de la ligne de rangement dans le contenant{/t}">
 						</div>
 					</div>
-					<div class="form-group ">
-						<label for="column_number" class="control-label col-sm-4">{t}N° de colonne :{/t}</label>
-						<div class="col-sm-8">
+					<div class="row ">
+						<label for="column_number" class="form-label col-4">{t}N° de colonne :{/t}</label>
+						<div class="col-8">
 							<input id="column_number" name="column_number" value="" class="form-control nombre slotFull" title="{t}N° de la colonne de rangement dans le contenant{/t}">
 						</div>
 					</div>
 				</div>
 				<!-- set country -->
-				<div class="country" hidden>
-					<div class="form-group ">
-						<label for="country_id" class="control-label col-sm-4">{t}Pays :{/t}</label>
-						<div class="col-sm-8">
-							<select id="country_id" name="country_id" class="form-control">
-								<option value="0" {if $country.country_id=="0" }selected{/if}>{t}Choisissez...{/t}</option>
+				<div class="country">
+					<div class="row ">
+						<label for="country_id" class="form-label col-4">{t}Pays :{/t}</label>
+						<div class="col-8">
+							<select id="country_id" name="country_id" class="form-select">
+								<option value="0" {if $country.country_id=="0" }selected{/if}>{t}Choisissez...{/t}
+								</option>
 								{section name=lst loop=$countries}
 								<option value="{$countries[lst].country_id}">
 									{$countries[lst].country_name}
@@ -1069,11 +1126,13 @@
 					</div>
 				</div>
 				<!-- set collection-->
-				<div class="collection" hidden>
-					<div class="form-group ">
-						<label for="collection_id_change" class="control-label col-sm-4">{t}Nouvelle collection :{/t}</label>
-						<div class="col-sm-8">
-							<select id="collection_id_change" name="collection_id_change" class="form-control">
+				<div class="collection">
+					<div class="row ">
+						<label for="collection_id_change" class="form-label col-4">
+							{t}Nouvelle collection :{/t}
+						</label>
+						<div class="col-8">
+							<select id="collection_id_change" name="collection_id_change" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $collections as $collection}
 								<option value="{$collection.collection_id}">
@@ -1085,11 +1144,11 @@
 					</div>
 				</div>
 				<!-- set campaign -->
-				<div class="campaign" hidden>
-					<div class="form-group ">
-						<label for="campaign_id_change" class="control-label col-sm-4">{t}Nouvelle campagne :{/t}</label>
-						<div class="col-sm-8">
-							<select id="campaign_id_change" name="campaign_id" class="form-control">
+				<div class="campaign">
+					<div class="row ">
+						<label for="campaign_id_change" class="form-label col-4">{t}Nouvelle campagne :{/t}</label>
+						<div class="col-8">
+							<select id="campaign_id_change" name="campaign_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $campaigns as $campaign}
 								<option value="{$campaign.campaign_id}">{$campaign.campaign_name}</option>
@@ -1099,11 +1158,11 @@
 					</div>
 				</div>
 				<!-- set status -->
-				<div class="status" hidden>
-					<div class="form-group ">
-						<label for="object_status_id" class="col-sm-4 control-label">{t}Statut :{/t}</label>
-						<div class="col-sm-8">
-							<select id="object_status_id" name="object_status_id" class="form-control">
+				<div class="status">
+					<div class="row ">
+						<label for="object_status_id" class="col-4 form-label">{t}Statut :{/t}</label>
+						<div class="col-8">
+							<select id="object_status_id" name="object_status_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $objectStatus as $status}
 								<option value="{$status.object_status_id}">{$status.object_status_name}</option>
@@ -1113,13 +1172,13 @@
 					</div>
 				</div>
 				<!-- exit a sample-->
-				<div class="samplesexit" hidden>
+				<div class="samplesexit">
 					<div class="form-group">
-						<label for="movement_reason_id" class="control-label col-sm-4">
+						<label for="movement_reason_id" class="control-label col-4">
 							{t}Motif du déstockage :{/t}
 						</label>
-						<div class="col-sm-8">
-							<select id="movement_reason_id" name="movement_reason_id" class="form-control">
+						<div class="col-8">
+							<select id="movement_reason_id" name="movement_reason_id" class="form-select">
 								<option value="" selected>
 									{t}Choisissez...{/t}
 								</option>
@@ -1132,20 +1191,20 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="movement_comment" class="control-label col-sm-4">{t}Commentaire :{/t}</label>
-						<div class="col-sm-8">
+						<label for="movement_comment" class="control-label col-4">{t}Commentaire :{/t}</label>
+						<div class="col-8">
 							<textarea class="form-control" id="movement_comment" name="movement_comment" rows="3"></textarea>
 						</div>
 					</div>
 				</div>
 				<!-- change sampleType-->
-				<div class="samplestype" hidden>
-					<div class="form-group">
-						<label for="samplesTypeId" class="col-sm-4 control-label">
+				<div class="samplestype">
+					<div class="row">
+						<label for="samplesTypeId" class="col-4 form-label">
 							{t}Nouveau type d'échantillon :{/t}
 						</label>
-						<div class="col-sm-8">
-							<select id="samplesTypeId" name="sample_type_id" class="form-control">
+						<div class="col-8">
+							<select id="samplesTypeId" name="sample_type_id" class="form-select">
 								<option value="" selected>{t}Choisissez...{/t}</option>
 								{foreach $sample_type as $st}
 								<option value="{$st.sample_type_id}">
@@ -1157,45 +1216,51 @@
 					</div>
 				</div>
 				<!-- set parent -->
-				<div class="parentid" hidden>
-					<div class="form-group">
-						<label for="parent_search" class="control-label col-sm-4"> {t}Recherchez le parent :{/t}</label>
-						<div class="col-sm-6">
+				<div class="parentid">
+					<div class="row">
+						<label for="parent_search" class="form-label col-4"> {t}Recherchez le parent :{/t}</label>
+						<div class="col-6">
 							<input id="parent_search" class="form-control" placeholder="{t}UID ou identifiant{/t}">
 						</div>
-						<div class="col-sm-2">
+						<div class="col-2">
 							<img src="display/images/zoom.png" height="25" title="{t}Chercher{/t}">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="parent_sample_id" class="control-label col-sm-4"> {t}Parent à affecter :{/t}</label>
-						<div class="col-sm-8">
-							<select id="parent_sample_id" name="parent_sample_id" class="form-control">
+					<div class="row">
+						<label for="parent_sample_id" class="form-label col-4"> {t}Parent à affecter :{/t}</label>
+						<div class="col-8">
+							<select id="parent_sample_id" name="parent_sample_id" class="form-select">
 							</select>
 						</div>
 					</div>
+					<div class="row">
+						<label for="delete-parent" class="form-label col-4">{t}ou supprimer les parents rattachés :{/t}</label>
+						<div class="col-8">
+							<input class="form-check-input" type="checkbox" id="delete-parent" name="delete-parent" value="1">
+						</div>
+					</div>
 				</div>
-				<div class="document" hidden>
+				<div class="document">
 					<input type="hidden" name="parentKeyName" value="uid">
-					<div class="form-group">
-						<label for="documentName2" class="control-label col-md-4">
+					<div class="row">
+						<label for="documentName2" class="form-label col-4">
 							{t 1=$maxUploadSize}Fichier(s) à importer (taille maxi : %1 Mb):{/t} <br>({$extensions})
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="documentName2" type="file" class="form-control" name="documentName[]" multiple>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="documentDescription2" class="control-label col-md-4">
+					<div class="row">
+						<label for="documentDescription2" class="form-label col-4">
 							{t}Description :{/t} </label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="documentDescription2" name="document_description" class="form-control">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="document_creation_date2" class="control-label col-md-4">
+					<div class="row">
+						<label for="document_creation_date2" class="form-label col-4">
 							{t}Date de création du document :{/t} </label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="document_creation_date2" name="document_creation_date" class="form-control date">
 						</div>
 					</div>
@@ -1206,23 +1271,25 @@
 
 						function getSampletypeComposite() {
 							var collection_id = $("#collection_idComposite").val();
-							$.ajax({
-								url: "sampleTypeGetListAjax",
-								data: { "collection_id": collection_id }
-							})
-								.done(function (value) {
-									d = JSON.parse(value);
-									var options = '';
-									for (var i = 0; i < d.length; i++) {
-										options += '<option value="' + d[i].sample_type_id + '"';
-										options += '>' + d[i].sample_type_name;
-										if (d[i].multiple_type_id > 0) {
-											options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
-										}
-										options += '</option>';
-									};
-									$("#sample_type_idComposite").html(options);
-								});
+							if (collection_id > 0) {
+								$.ajax({
+									url: "sampleTypeGetListAjax",
+									data: { "collection_id": collection_id }
+								})
+									.done(function (value) {
+										d = JSON.parse(value);
+										var options = '';
+										for (var i = 0; i < d.length; i++) {
+											options += '<option value="' + d[i].sample_type_id + '"';
+											options += '>' + d[i].sample_type_name;
+											if (d[i].multiple_type_id > 0) {
+												options += ' / ' + d[i].multiple_type_name + ' : ' + d[i].multiple_unit;
+											}
+											options += '</option>';
+										};
+										$("#sample_type_idComposite").html(options);
+									});
+							}
 						}
 						function searchSampleComposite() {
 							var uid = $("#uidsearchComposite").val();
@@ -1279,26 +1346,26 @@
 						getSampletypeComposite();
 					});
 				</script>
-				<div class="createComposite" hidden>
-					<div class="form-group">
-						<label for="subsample_quantity" class="control-label col-md-4"><span class="red">*</span>
+				<div class="createComposite">
+					<div class="row">
+						<label for="subsample_quantity" class="form-label col-4"><span class="red">*</span>
 							{t}Quantité à retirer de chacun des échantillons sélectionnés :{/t}
 						</label>
-						<div class="col-md-8">
+						<div class="col-8">
 							<input id="subsample_quantity" name="subsample_quantity" value="{$data.subsample_quantity}" class="form-control taux">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="identifierComposite" class="control-label col-md-4">{t}Identifiant ou nom :{/t}</label>
-						<div class="col-md-8">
+					<div class="row">
+						<label for="identifierComposite" class="form-label col-4">{t}Identifiant ou nom :{/t}</label>
+						<div class="col-8">
 							<input id="identifierComposite" type="text" name="identifierComposite" class="form-control tocreate">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="collection_idComposite" class="control-label col-md-4"><span class="red">*</span>
+					<div class="row">
+						<label for="collection_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Collection :{/t}</label>
-						<div class="col-md-8">
-							<select id="collection_idComposite" name="collection_idComposite" class="form-control tocreate" autofocus>
+						<div class="col-8">
+							<select id="collection_idComposite" name="collection_idComposite" class="form-select tocreate" autofocus>
 								{foreach $collections as $collection}
 								<option value="{$collection.collection_id}" {if $sampleSearch.collection_id==$collection.collection_id}selected{/if}>
 									{$collection.collection_name}
@@ -1307,58 +1374,75 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="sample_type_idComposite" class="control-label col-md-4"><span class="red">*</span>
+					<div class="row">
+						<label for="sample_type_idComposite" class="form-label col-4"><span class="red">*</span>
 							{t}Type :{/t}
 						</label>
-						<div class="col-md-8">
-							<select id="sample_type_idComposite" name="sample_type_idComposite" class="form-control tocreate">
+						<div class="col-8">
+							<select id="sample_type_idComposite" name="sample_type_idComposite" class="form-select tocreate">
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="uidsearchComposite" class="col-md-4 control-label">
+					<div class="row">
+						<label for="uidsearchComposite" class="col-4 form-label">
 							{t}Échantillon déjà existant - UID :{/t}</label>
-						<div class="col-md-2">
+						<div class="col-2">
 							<input id="uidsearchComposite" name="uidsearchComposite" class="form-control nombre" value="{$data.created_uid}">
 						</div>
-						<label for="namesearchComposite" class="col-md-2 control-label">
+						<label for="namesearchComposite" class="col-2 form-label">
 							{t}ou identifiant ou UUID :{/t}
 						</label>
-						<div class="col-md-3">
+						<div class="col-3">
 							<input id="namesearchComposite" type="text" class="form-control" name="nameComposite" title="{t}identifiant principal, identifiants secondaires (p. e. : cab:15), UUID (p. e. : e1b1bdd8-d1e7-4f07-8e96-0d71e7aada2b){/t}">
 						</div>
-						<div class="col-md-1">
+						<div class="col-1">
 							<img src="display/images/zoom.png" height="25">
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="uidComposite" class="col-md-4 control-label">
+					<div class="row">
+						<label for="uidComposite" class="col-4 form-label">
 							{t}Échantillon composé correspondant :{/t}
 						</label>
-						<div class="col-md-8">
-							<select id="uidComposite" name="uidComposite" class="form-control">
+						<div class="col-8">
+							<select id="uidComposite" name="uidComposite" class="form-select">
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="multiple_valueComposite" class="control-label col-md-4">
-							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création uniquement):{/t}</label>
-						<div class="col-md-8">
+					<div class="row">
+						<label for="multiple_valueComposite" class="form-label col-4">
+							{t 1=$data.multiple_unit}Quantité à affecter à l'échantillon (en création uniquement):{/t}
+						</label>
+						<div class="col-8">
 							<input id="multiple_valueComposite" class="form-control taux tocreate" name="multiple_valueComposite">
 						</div>
 					</div>
 				</div>
-
+				<div class="samplesOperation">
+					<div class="row">
+						<label for="sampleOperationId" class="col-4 form-label">{t}Opération :{/t}</label>
+						<div class="col-8">
+							<select id="sampleOperationId" class="form-select" name="operation_id">
+								<option value="" selected>
+									{t}Choisissez...{/t}
+								</option>
+								{foreach $operations as $operation}
+								<option value="{$operation.operation_id}">
+									{$operation.protocol_name}-{$operation.protocol_version}/{$operation.operation_name}-{$operation.operation_version}
+								</option>
+								{/foreach}
+							</select>
+						</div>
+					</div>
+				</div>
 				<div class="center">
 					<button id="checkedButtonSample" class="btn btn-danger">{t}Exécuter{/t}</button>
 				</div>
 			</div>
-			<div class="col-md-2">
+			<div class="col-2">
 				{$helpsamplegroup}
 			</div>
 		</div>
-		{/if}
-		{$csrf}
-	</form>
-</div>
+	</div>
+	{/if}
+	{$csrf}
+</form>

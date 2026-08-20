@@ -120,3 +120,4 @@ id_collab*
 tests/testapi.php
 writable/cache/*
 tests/*
+genMailDev.sh

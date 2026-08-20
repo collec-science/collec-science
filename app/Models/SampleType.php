@@ -13,22 +13,15 @@ use Ppci\Models\PpciModel;
 class SampleType extends PpciModel
 {
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     private $sql = "select sample_type_id, sample_type_name,
 					container_type_name, sample_type_description, sample_type_code,
-					operation_id, operation_name ,operation_version, protocol_name, protocol_year, protocol_version,
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
                     identifier_generator_js,
                     product_name,risk_name
 					from sample_type s
 					left outer join container_type using (container_type_id)
-					left outer join operation using (operation_id)
-					left outer join protocol using (protocol_id)
 					left outer join multiple_type using (multiple_type_id)
                     left outer join metadata using (metadata_id)
                     left outer join product p on (s.product_id = p.product_id)
@@ -132,9 +125,9 @@ class SampleType extends PpciModel
     /**
      * Retourne le schéma des métadonnées de l'opération
      *
-     * @param int $operation_id
+     * @param int $sample_type_id
      */
-    function getMetadataForm($sample_type_id)
+    function getMetadataForm(int $sample_type_id)
     {
         if ($sample_type_id > 0) {
             $sql = "select metadata_schema
@@ -147,7 +140,7 @@ class SampleType extends PpciModel
             return $data["metadata_schema"];
         }
     }
-    function getMetadataSearchable($sample_type_id)
+    function getMetadataSearchable(int $sample_type_id)
     {
         $data = json_decode($this->getMetadataForm($sample_type_id), true);
         $val = array();

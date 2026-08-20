@@ -185,19 +185,19 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.1.1";
+    public string $version = "v26.2.0";
     /**
      * Date of version
      *
      * @var string
      */
-    public string $versionDate = "10/05/2026";
+    public string $versionDate = "21/08/2026";
     /**
      * Number of the database version
      *
      * @var string
      */
-    public string $dbversion = "26.1";
+    public string $dbversion = "26.2";
     /**
      * Location of the database schema
      *
@@ -216,8 +216,9 @@ class App extends BaseConfig
      *
      * @var string
      */
-    public $privateKey = ROOTPATH . "id_collec";
-    public $pubKey = ROOTPATH . "id_collec.pub";
+    public string $privateKey = ROOTPATH . "id_collec";
+
+    public string $pubKey = ROOTPATH . "id_collec.pub";
     /**
      * List of locales date formats
      *
@@ -231,7 +232,8 @@ class App extends BaseConfig
             "maskdatelong" => "d/m/Y H:i:s",
             "maskdate" => "d/m/Y",
             "maskdateexport" => 'd-m-Y'
-        ], "en" => [
+        ],
+        "en" => [
             "formatdate" => "DD/MM/YYYY",
             "formatdatetime" => "DD/MM/YYYY HH:mm:ss",
             "formatdatecourt" => "dd/mm/yy",
@@ -302,19 +304,15 @@ class App extends BaseConfig
     /**
      * Folder to store temporary files
      *
-     * @var [type]
+     * @var string
      */
     public $APP_temp = WRITEPATH . "temp";
 
     /**
-     * Ini file to add new parameters
-     */
-    public $APP_menufile = APPPATH . "Config/menu.xml";
-    /**
-     * Address to give help or to declare bug
-     *
+     * Menu file
      * @var string
      */
+    public $APP_menufile = APPPATH . "Config/menu.xml";
     /**
      * URL of assistance
      *
@@ -332,19 +330,23 @@ class App extends BaseConfig
      */
     public $docroot = "https://collec-science.github.io/userdocs";
     /**
+     * Enable direct print - 1 to enable it
+     */
+    public $sprint_direct_enabled = 0;
+    /**
      * Linux command used to print directly to a printer
      *
      * @var string
      */
     public $print_direct_command = "lpr";
-    
+
     /**
      * Fop program to generate labels
      *
      * @var string
      */
     public $fop = "/usr/bin/fop";
-    
+
     /**
      * Max duration of a session
      *
@@ -387,4 +389,5 @@ class App extends BaseConfig
         "description" => "description",
     ];
     */
+    public string $permittedURIChars = 'a-z 0-9~%.:_\-';
 }

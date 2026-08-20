@@ -1,33 +1,39 @@
 <script>
     $(document).ready(function () {
-    var myStorage = window.localStorage;
-    var defaults = {};
-      try {
-      defaults =JSON.parse( myStorage.getItem("campaignImportParameters"));
-      Object.keys(defaults).forEach(key=>{
-          $("#"+key).val(defaults[key]);
-    });
-      } catch (Exception) {
-      }
-      $("#campaignImport").submit(function(e) { 
-          defaults = {
+        var myStorage = window.localStorage;
+        var defaults = {};
+        try {
+            defaults = JSON.parse(myStorage.getItem("campaignImportParameters"));
+            Object.keys(defaults).forEach(key => {
+                $("#" + key).val(defaults[key]);
+            });
+        } catch (Exception) {
+        }
+        $("#campaignImport").submit(function (e) {
+            defaults = {
                 "separator": $("#separator").val(),
                 "encoding": $("#encoding").val()
-          };;
-          myStorage.setItem("campaignImportParameters", JSON.stringify(defaults));
-      });
+            };;
+            myStorage.setItem("campaignImportParameters", JSON.stringify(defaults));
+        });
     });
 </script>
-<h2>{t}Campagnes de prélèvement{/t}</h2>
-<div class="row">
-    <div class="col-md-6">
+<div class="container">
+    <h2>{t}Campagnes de prélèvement{/t}</h2>
+    <div class="row d-flex">
         {if $rights.param == 1}
-        <a href="campaignChange?campaign_id=0">
+        <div class="col-auto">
+             <a href="campaignChange?campaign_id=0">
             <img src="display/images/new.png" height="25">
             {t}Nouveau...{/t}
         </a>
+        </div>
         {/if}
-        {$help}
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
+    <div class="row">
         <table id="campaignList" class="table table-bordered table-hover datatable display">
             <thead>
                 <tr>
@@ -59,8 +65,7 @@
                     <td class="nowrap">{$row.uuid}</td>
                     {if $rights.param == 1}
                     <td class="center">
-                        <a href="campaignChange?campaign_id={$row.campaign_id}"
-                            title="{t}Modifier{/t}">
+                        <a href="campaignChange?campaign_id={$row.campaign_id}" title="{t}Modifier{/t}">
                             <img src="display/images/edit.gif" height="25" alt="{t}Modifier{/t}">
                         </a>
                     </td>
@@ -70,54 +75,58 @@
             </tbody>
         </table>
     </div>
-</div>
-<div class="row">
-    <fieldset class="col-md-6">
-        <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
-        <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport"
-            enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="upfile" class="control-label col-md-4"><span class="red">*</span> 
-                    {t}Nom du fichier à importer :{/t}
-                </label>
-                <div class="col-md-8">
-                    <input type="file" name="upfile" class="form-control" required>
+    <div class="row">
+        <fieldset>
+            <legend>{t}Importer une liste de campagnes à partir d'un fichier CSV{/t}</legend>
+            <form class="form-horizontal" id="campaignImport" method="post" action="campaignImport" enctype="multipart/form-data">
+                <div class="row">
+                    <label for="upfile" class="form-label col-4"><span class="red">*</span>
+                        {t}Nom du fichier à importer :{/t}
+                    </label>
+                    <div class="col-8">
+                        <input type="file" name="upfile" class="form-control" required>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label for="separator" class="control-label col-md-4">{t}Séparateur utilisé :{/t}</label>
-                <div class="col-md-8">
-                      <select id="separator" name="separator" class="form-control">
+                <div class="row">
+                    <label for="separator" class="form-label col-4">{t}Séparateur utilisé :{/t}</label>
+                    <div class="col-8">
+                        <select id="separator" name="separator" class="form-select">
                             <option value=",">{t}Virgule{/t}</option>
                             <option value=";">{t}Point-virgule{/t}</option>
                             <option value="tab">{t}Tabulation{/t}</option>
-                      </select>
+                        </select>
+                    </div>
                 </div>
-          </div>
-          <div class="form-group">
-                <label for="encoding" class="control-label col-md-4">{t}Encodage du fichier :{/t}</label>
-                <div class="col-md-8">
-                      <select id="encoding" name="utf8_encode" class="form-control">
-                            <option value="0" >UTF-8</option>
-                            <option value="1" >ISO-8859-x</option>
-                      </select>
+                <div class="row">
+                    <label for="encoding" class="form-label col-4">{t}Encodage du fichier :{/t}</label>
+                    <div class="col-8">
+                        <select id="encoding" name="utf8_encode" class="form-select">
+                            <option value="0">UTF-8</option>
+                            <option value="1">ISO-8859-x</option>
+                        </select>
+                    </div>
                 </div>
-          </div>
-            <div class="form-group center">
-                <button type="submit" class="btn btn-primary">{t}Importer les nouvelles campagnes{/t}</button>
-            </div>
-            <div class="bg-info">
-                {t}Description du fichier :{/t}
-                <ul>
-                    <li>{t}campaign_name : nom de la campagne (obligatoire){/t}</li>
-                    <li>{t}campaign_from : date de début de la campagne, sous la forme yyyy-mm-dd{/t}</li>
-                    <li>{t}campaign_to : date de fin de la campagne, sous la forme yyyy-mm-dd{/t}</li>
-                    <li>{t}referent_name : nom du responsable de la campagne. S'il n'existe pas dans la liste des référents, il sera créé{/t}</li>
-                    <li>{t}referent_firstname : prénom du responsable de la campagne{/t}</li>
-                    <li>{t}campaign_description : description textuelle de la campagne{/t}</li>
-                    <li>{t}uuid : identifiant de type UUID, si existant{/t}</li>
-                </ul>
-            </div>
-        {$csrf}</form>
-    </fieldset>
+                <div class="row d-flex justify-content-center">
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">{t}Importer les nouvelles campagnes{/t}</button>
+                    </div>
+
+                </div>
+
+                <div class="bg-info">
+                    {t}Description du fichier :{/t}
+                    <ul>
+                        <li>{t}campaign_name : nom de la campagne (obligatoire){/t}</li>
+                        <li>{t}campaign_from : date de début de la campagne, sous la forme yyyy-mm-dd{/t}</li>
+                        <li>{t}campaign_to : date de fin de la campagne, sous la forme yyyy-mm-dd{/t}</li>
+                        <li>{t}referent_name : nom du responsable de la campagne. S'il n'existe pas dans la liste des référents, il sera créé{/t}</li>
+                        <li>{t}referent_firstname : prénom du responsable de la campagne{/t}</li>
+                        <li>{t}campaign_description : description textuelle de la campagne{/t}</li>
+                        <li>{t}uuid : identifiant de type UUID, si existant{/t}</li>
+                    </ul>
+                </div>
+                {$csrf}
+            </form>
+        </fieldset>
+    </div>
 </div>

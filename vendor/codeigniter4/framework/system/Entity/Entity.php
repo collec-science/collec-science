@@ -157,7 +157,7 @@ class Entity implements JsonSerializable
      * properties, using any `setCamelCasedProperty()` methods
      * that may or may not exist.
      *
-     * @param array<string, array<int|string, mixed>|bool|float|int|object|string|null> $data
+     * @param array<string, mixed> $data
      *
      * @return $this
      */
@@ -458,6 +458,11 @@ class Entity implements JsonSerializable
             // Check for Entity instance (use raw values, recursive)
             if ($data instanceof self) {
                 $objectData = $data->toRawArray(false, true);
+            } elseif ($data instanceof UnitEnum) {
+                return [
+                    '__class' => $data::class,
+                    '__enum'  => $data instanceof BackedEnum ? $data->value : $data->name,
+                ];
             } elseif ($data instanceof JsonSerializable) {
                 $objectData = $data->jsonSerialize();
             } elseif (method_exists($data, 'toArray')) {
@@ -468,11 +473,6 @@ class Entity implements JsonSerializable
                 return [
                     '__class'    => $data::class,
                     '__datetime' => $data->format(DATE_RFC3339_EXTENDED),
-                ];
-            } elseif ($data instanceof UnitEnum) {
-                return [
-                    '__class' => $data::class,
-                    '__enum'  => $data instanceof BackedEnum ? $data->value : $data->name,
                 ];
             } else {
                 $objectData = get_object_vars($data);
@@ -556,7 +556,7 @@ class Entity implements JsonSerializable
      * @param string                     $attribute Attribute name
      * @param string                     $method    Allowed to "get" and "set"
      *
-     * @return array<int|string, mixed>|bool|float|int|object|string|null
+     * @return mixed
      *
      * @throws CastException
      */
@@ -631,7 +631,7 @@ class Entity implements JsonSerializable
      *  $this->my_property = $p;
      *  $this->setMyProperty() = $p;
      *
-     * @param array<int|string, mixed>|bool|float|int|object|string|null $value
+     * @param mixed $value
      *
      * @return void
      *
@@ -682,7 +682,7 @@ class Entity implements JsonSerializable
      *  $p = $this->my_property
      *  $p = $this->getMyProperty()
      *
-     * @return array<int|string, mixed>|bool|float|int|object|string|null
+     * @return mixed
      *
      * @throws Exception
      */

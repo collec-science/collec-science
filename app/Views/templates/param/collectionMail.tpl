@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t 1=$collection_name}Collection %1{/t}</h2>
 {if !empty($samples)}
 <h3>{t}Liste des échantillons dont l'expiration est proche{/t}</h3>

@@ -74,6 +74,9 @@ class Movement extends PpciLibrary
         $db = $this->dataclass->db;
         try {
             $db->transBegin();
+            if (!isset($_REQUEST["container_uid"])) {
+                $_REQUEST["container_uid"] = 0;
+            }
             $this->dataclass->addMovement($_REQUEST["uid"], $_REQUEST["movement_date"], $_REQUEST["movement_type_id"], $_REQUEST["container_uid"], $_SESSION["login"], $_REQUEST["storage_location"], $_REQUEST["movement_comment"], $_REQUEST["movement_reason_id"], $_REQUEST["column_number"], $_REQUEST["line_number"]);
             $db->transCommit();
             $this->message->set(_("Mouvement généré"));
@@ -216,6 +219,7 @@ class Movement extends PpciLibrary
         }
         $this->vue->set($dataSearch, "movementSearch");
         $this->vue->set("gestion/movementList.tpl", "corps");
+        $this->vue->help(_("maintain/visualiser-les-mouvements.html"));
         return $this->vue->send();
     }
 

@@ -27,7 +27,9 @@ class SearchContainer extends SearchParam
             "referent_id" => "",
             "event_type_id" => "",
             "movement_reason_id" => "",
-            "collection_id" => ""
+            "collection_id" => "",
+            "limit" => 100,
+            "page" =>1
         );
         /**
          * Ajout des dates
@@ -45,7 +47,9 @@ class SearchContainer extends SearchParam
             "referent_id",
             "event_type_id",
             "movement_reason_id",
-            "collection_id"
+            "collection_id",
+            "limit",
+            "page"
         );
         parent::__construct();
     }

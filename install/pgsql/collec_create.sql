@@ -1,5 +1,5 @@
 -- ** Database generated with pgModeler (PostgreSQL Database Modeler).
--- ** pgModeler version: 1.2.3
+-- ** pgModeler version: 2.0.0-beta
 -- ** PostgreSQL version: 18.0
 -- ** Project Site: pgmodeler.io
 -- ** Model Author: Éric Quinton
@@ -279,7 +279,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.1', E'2026-04-01');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.2', E'2026-08-21');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -790,8 +790,10 @@ CREATE TABLE col.operation (
 	operation_order integer,
 	operation_version character varying,
 	last_edit_date timestamp,
+	operation_code varchar,
 	CONSTRAINT operation_name_version_unique UNIQUE (operation_name,operation_version),
-	CONSTRAINT operation_pk PRIMARY KEY (operation_id)
+	CONSTRAINT operation_pk PRIMARY KEY (operation_id),
+	CONSTRAINT operation_code_unique UNIQUE (operation_code)
 );
 -- ddl-end --
 COMMENT ON TABLE col.operation IS E'List of operations attached to a protocol';
@@ -801,6 +803,8 @@ COMMENT ON COLUMN col.operation.operation_order IS E'Order to perform the operat
 COMMENT ON COLUMN col.operation.operation_version IS E'Version of the operation';
 -- ddl-end --
 COMMENT ON COLUMN col.operation.last_edit_date IS E'Last edit date of the operation';
+-- ddl-end --
+COMMENT ON COLUMN col.operation.operation_code IS E'Code of operation, for importations';
 -- ddl-end --
 
 -- object: col.printer_printer_id_seq | type: SEQUENCE --
@@ -1025,9 +1029,11 @@ CREATE TABLE col.sample (
 	dbuid_origin character varying,
 	metadata json,
 	expiration_date timestamp,
+	history json,
 	campaign_id integer,
 	country_id integer,
 	country_origin_id integer,
+	operation_id integer,
 	CONSTRAINT sample_pk PRIMARY KEY (sample_id)
 );
 -- ddl-end --
@@ -1042,6 +1048,8 @@ COMMENT ON COLUMN col.sample.dbuid_origin IS E'Reference used in the original da
 COMMENT ON COLUMN col.sample.metadata IS E'Metadata associated with the sample, in JSON format';
 -- ddl-end --
 COMMENT ON COLUMN col.sample.expiration_date IS E'Date of expiration of the sample. After this date, the sample is not usable';
+-- ddl-end --
+COMMENT ON COLUMN col.sample.history IS E'History of the sample when it''s imported from another database\ndborigin: code of the database of origin\ntype: event/parent\ndate: date of event (yyyy-mm-dd)\nname: name of the event / identifier of the parent\ncomment: comment of the event';
 -- ddl-end --
 
 -- object: col.sample_type_sample_type_id_seq | type: SEQUENCE --
@@ -1066,7 +1074,6 @@ CREATE TABLE col.sample_type (
 	multiple_type_id integer,
 	multiple_unit character varying,
 	metadata_id integer,
-	operation_id integer,
 	identifier_generator_js character varying,
 	sample_type_description varchar,
 	sample_type_code varchar,
@@ -1900,9 +1907,9 @@ COMMENT ON COLUMN col.request.login IS E'Login of the creator of the request';
 COMMENT ON COLUMN col.request.datefields IS E'List of the date fields used in the request, separated by a comma, for format it';
 -- ddl-end --
 
-/* Failed to create initial data commands! 
+/* Failed to create initial data commands!
 
- Malformed CSV document detected! The number of columns is `6' but the row `1' has `4' columns! */
+Malformed CSV document detected! The number of columns is `6' but row `1' has `4' columns! */
 
 -- object: col.export_model_export_model_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.export_model_export_model_id_seq CASCADE;
@@ -2250,6 +2257,9 @@ COMMENT ON COLUMN col.export_template.is_zipped IS E'Specify if the generated fi
 COMMENT ON COLUMN col.export_template.filename IS E'Name of the file generated';
 -- ddl-end --
 
+INSERT INTO col.export_template (export_template_name, export_template_description, filename) VALUES (E'elabftw', E'Export to ElabFTW', E'export_to_elabftw.csv');
+-- ddl-end --
+
 -- object: export_template_fk | type: CONSTRAINT --
 -- ALTER TABLE col.export DROP CONSTRAINT IF EXISTS export_template_fk CASCADE;
 ALTER TABLE col.export ADD CONSTRAINT export_template_fk FOREIGN KEY (export_template_id)
@@ -2290,6 +2300,9 @@ COMMENT ON COLUMN col.dataset_template.xmlnodename IS E'Name of a node in a xml 
 COMMENT ON COLUMN col.dataset_template.xslcontent IS E'Transformation of the generated xml to create a specific xml file';
 -- ddl-end --
 
+INSERT INTO col.dataset_template (dataset_template_name, export_format_id, separator, filename, dataset_type_id) VALUES (E'elabftw', E'1', E',', E'export_to_elabftw.csv', E'5');
+-- ddl-end --
+
 -- object: col.export_format | type: TABLE --
 -- DROP TABLE IF EXISTS col.export_format CASCADE;
 CREATE TABLE col.export_format (
@@ -2324,6 +2337,9 @@ CREATE TABLE col.export_dataset (
 );
 -- ddl-end --
 COMMENT ON TABLE col.export_dataset IS E'List of datasets embedded into the template of export';
+-- ddl-end --
+
+INSERT INTO col.export_dataset (export_template_id, dataset_template_id) VALUES (E'1', E'1');
 -- ddl-end --
 
 -- object: export_template_fk | type: CONSTRAINT --
@@ -2413,7 +2429,7 @@ CREATE TABLE col.dataset_type (
 	CONSTRAINT dataset_type_pk PRIMARY KEY (dataset_type_id)
 );
 -- ddl-end --
-COMMENT ON TABLE col.dataset_type IS E'Origine of the dataset: sample, collection, document';
+COMMENT ON TABLE col.dataset_type IS E'Origine of the dataset: sample, collection, document, elabftw';
 -- ddl-end --
 COMMENT ON COLUMN col.dataset_type.fields IS E'List of allowed fields of the database (json array)';
 -- ddl-end --
@@ -2425,6 +2441,8 @@ INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES
 INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'3', E'document', E'["document_name","document_uuid","uid","sample_uuid","identifier","content_type","extension","size","document_creation_date","fixed_value", "web_address"]');
 -- ddl-end --
 INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'4', E'arbitrary content', E'["content"]');
+-- ddl-end --
+INSERT INTO col.dataset_type (dataset_type_id, dataset_type_name, fields) VALUES (E'5', E'elabftw', DEFAULT);
 -- ddl-end --
 
 -- object: dataset_type_fk | type: CONSTRAINT --
@@ -3599,6 +3617,22 @@ REFERENCES col.product (product_id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
+-- object: operation_fk | type: CONSTRAINT --
+-- ALTER TABLE col.sample DROP CONSTRAINT IF EXISTS operation_fk CASCADE;
+ALTER TABLE col.sample ADD CONSTRAINT operation_fk FOREIGN KEY (operation_id)
+REFERENCES col.operation (operation_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: sample_operation_id_idx | type: INDEX --
+-- DROP INDEX IF EXISTS col.sample_operation_id_idx CASCADE;
+CREATE INDEX sample_operation_id_idx ON col.sample
+USING btree
+(
+	operation_id
+);
+-- ddl-end --
+
 -- object: object_booking_fk | type: CONSTRAINT --
 -- ALTER TABLE col.booking DROP CONSTRAINT IF EXISTS object_booking_fk CASCADE;
 ALTER TABLE col.booking ADD CONSTRAINT object_booking_fk FOREIGN KEY (uid)
@@ -3778,13 +3812,6 @@ ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS multiple_type_sample_type_fk CASCADE;
 ALTER TABLE col.sample_type ADD CONSTRAINT multiple_type_sample_type_fk FOREIGN KEY (multiple_type_id)
 REFERENCES col.multiple_type (multiple_type_id) MATCH SIMPLE
-ON DELETE NO ACTION ON UPDATE NO ACTION;
--- ddl-end --
-
--- object: operation_sample_type_fk | type: CONSTRAINT --
--- ALTER TABLE col.sample_type DROP CONSTRAINT IF EXISTS operation_sample_type_fk CASCADE;
-ALTER TABLE col.sample_type ADD CONSTRAINT operation_sample_type_fk FOREIGN KEY (operation_id)
-REFERENCES col.operation (operation_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 

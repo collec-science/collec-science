@@ -169,10 +169,14 @@ class Label extends PpciLibrary
             $vue->set($_REQUEST["label_id"], "label_id");
         }
         $vue->set($this->dataclass->getListe(2), "labels");
-        $printer = new Printer();
-        $vue->set($printer->getListe(2), "printers");
-        if (isset($_REQUEST["printer_id"])) {
-            $vue->set($_REQUEST["printer_id"], "printer_id");
+        $directPrintEnabled = $this->appConfig->print_direct_command;
+        $vue->set($directPrintEnabled, "directPrintEnabled");
+        if ($directPrintEnabled) {
+            $printer = new Printer;
+            $vue->set($printer->getListe(2), "printers");
+            if (isset($_REQUEST["printer_id"])) {
+                $vue->set($_REQUEST["printer_id"], "printer_id");
+            }
         }
     }
 

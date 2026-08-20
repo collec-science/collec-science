@@ -1,6 +1,7 @@
+<div class="container">
 <h2>{t}Dernières connexions enregistrées{/t}</h2>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-6">
         <table id="connections" class="table table-bordered table-hover " >
             <thead>
                 <tr>

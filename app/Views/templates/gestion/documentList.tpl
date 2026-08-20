@@ -1,6 +1,6 @@
 <script>
-	$( document ).ready( function () {
-		$( '.image-popup-no-margins' ).magnificPopup( {
+	$(document).ready(function () {
+		$('.image-popup-no-margins').magnificPopup({
 			type: 'image',
 			closeOnContentClick: true,
 			closeBtnInside: false,
@@ -13,28 +13,39 @@
 				enabled: true,
 				duration: 300 // don't foget to change the duration also in CSS
 			}
-		} );
+		});
 		var documentChangeShow = 0;
-		$( '#documentChange' ).hide( "" );
-		$( '#documentChangeActivate' ).click( function () {
-			if ( documentChangeShow == 0 ) {
-				$( '#documentChange' ).show( "" );
+		$('#documentChange').hide("");
+		$('#documentChangeActivate').click(function () {
+			if (documentChangeShow == 0) {
+				$('#documentChange').show("");
 				documentChangeShow = 1;
 				//$("html, body").animate({ scrollTop: $(document).height() }, 1000);
 			} else {
-				$( '#documentChange' ).hide( "" );
+				$('#documentChange').hide("");
 				documentChangeShow = 0;
 			}
-		} );
-	} );
+		});
+		$("#documentChange").hide();
+	});
 </script>
 {if $rights["manage"] == 1 && $modifiable == 1 }
 <a href="#" id="documentChangeActivate">{t}Saisir un nouveau document...{/t}</a>
-<div id="documentChange" hidden="true">
-	{include file="gestion/documentChange.tpl"}
-	{if $externalStorageEnabled == "t"}
-		{include file="gestion/documentExternalAdd.tpl"}
-	{/if}
+<div id="documentChange">
+	<div class="row">
+		{if $externalStorageEnabled == "t"}
+		<div class="col-lg-6">
+		{else}
+		<div class="col-lg-12">
+		{/if}
+			{include file="gestion/documentChange.tpl"}
+		</div>
+		{if $externalStorageEnabled == "t"}
+		<div class="col-lg-6">
+			{include file="gestion/documentExternalAdd.tpl"}
+		</div>
+		{/if}
+	</div>
 </div>
 {/if}
 <table id="documentList" class="table table-bordered table-hover datatable display" data-order='[[5, "desc"], [4, "desc"]]'>
@@ -58,28 +69,20 @@
 		<tr>
 			<td class="center">
 				{if in_array($dataDoc[lst].mime_type_id, array(4, 5, 6)) && $dataDoc[lst].external_storage != 't'}
-				<a class="image-popup-no-margins"
-					href="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1"
-					title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
-					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
-						height="30">
+				<a class="image-popup-no-margins" href="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].photo_preview}&attached=0&phototype=1" title="{t}aperçu de la photo :{/t} {substr($dataDoc[lst].photo_name, strrpos($dataDoc[lst].photo_name, '/') + 1)}">
+					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 				</a>
 				{elseif $dataDoc[lst].mime_type_id == 1 && $dataDoc[lst].external_storage != 't'}
-				<a class="image-popup-no-margins"
-					href="documentGet?document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
-					title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
-					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2"
-						height="30">
+				<a class="image-popup-no-margins" href="documentGet?document_id={$dataDoc[lst].document_id}&&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" title="{t}aperçu du document :{/t} {substr($dataDoc[lst].thumbnail_name, strrpos($dataDoc[lst].thumbnail_name, '/') + 1)}">
+					<img src="documentGet?document_id={$dataDoc[lst].document_id}&document_name={$dataDoc[lst].thumbnail_name}&attached=0&phototype=2" height="30">
 				</a>
 				{/if}
 			<td>
 				{if $dataDoc[lst].external_storage == 't'}
-				<a href="documentGetExternal?document_id={$dataDoc[lst].document_id}"
-					title="{t}Téléchargez le fichier{/t}">
+				<a href="documentGetExternal?document_id={$dataDoc[lst].document_id}" title="{t}Téléchargez le fichier{/t}">
 
 					{else}
-					<a href="documentGet?document_id={$dataDoc[lst].document_id}&attached=1&phototype=0"
-						title="{t}document original{/t}">
+					<a href="documentGet?document_id={$dataDoc[lst].document_id}&attached=1&phototype=0" title="{t}document original{/t}">
 						{/if}
 						{if $dataDoc[lst].external_storage == 1}
 						{$dataDoc[lst].external_storage_path}
@@ -104,8 +107,7 @@
 			{if $rights["manage"] == 1 && $modifiable == 1}
 			<td>
 				<div class="center">
-					<a href="{$moduleParent}documentDelete?document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&collection_id={$data.collection_id}&activeTab=tab-document"
-						onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
+					<a href="{$moduleParent}documentDelete?document_id={$dataDoc[lst].document_id}&uid={$data.uid}&campaign_id={$data.campaign_id}&event_id={$data.event_id}&collection_id={$data.collection_id}&activeTab=tab-document" onclick="return confirm('{t}Confirmez-vous la suppression ?{/t}');">
 						<img src="display/images/corbeille.png" height="20">
 					</a>
 				</div>

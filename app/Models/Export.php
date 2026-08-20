@@ -161,7 +161,7 @@ class Export extends PpciModel
          */
         if ($dtemplate["is_zipped"] == 1 || count($files) > 1) {
             $zip = new \ZipArchive;
-            $zipname = tempnam($$this->temp, $dtemplate["filename"]);
+            $zipname = tempnam($this->temp, $dtemplate["filename"]);
             if ($zip->open($zipname, \ZipArchive::CREATE) === true) {
                 foreach ($files as $file) {
                     $zip->addFile($file["filetmp"], $file["filename"]);

@@ -301,31 +301,38 @@ class LoginGestion extends PpciModel
             $data["lastattempt"] = "";
         }
         $id = parent::write($data);
-        if ($data["id"] > 0 && $dataBefore["actif"] == 0 && $data["actif"] == 1 && !empty($data["mail"])) {
-            /**
-             * Send mail to prevent of the activation of the account
-             */
-            if ($this->paramApp->MAIL_enabled == 1) {
+        if ($data["id"] > 0 && $dataBefore["actif"] == 0 && $data["actif"] == 1) {
+            $mailsent = false;
+            if (!empty($data["mail"])) {
                 /**
-                 * Send a mail
+                 * Send mail to prevent of the activation of the account
                  */
-                if (!isset($this->mail)) {
-                    $this->mail = new Mail($this->paramApp->MAIL_param);
+                if ($this->paramApp->MAIL_enabled == 1) {
+                    /**
+                     * Send a mail
+                     */
+                    if (!isset($this->mail)) {
+                        $this->mail = new Mail($this->paramApp->MAIL_param);
+                    }
+                    $APPLI_address = "https://" . $_SERVER["HTTP_HOST"];
+                    $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Activation de votre compte");
+                    $this->mail->SendMailSmarty(
+                        $data["mail"],
+                        $subject,
+                        "ppci/mail/accountActivate.tpl",
+                        array(
+                            "prenom" => $data["prenom"],
+                            "nom" => $data["nom"],
+                            "applicationName" => $_SESSION["dbparams"]["APPLI_title"],
+                            "APPLI_address" => $APPLI_address
+                        )
+                    );
+                    $mailSent = true;
+                    $this->message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
                 }
-                $APPLI_address = "https://" . $_SERVER["HTTP_HOST"];
-                $subject = $_SESSION["dbparams"]["APPLI_title"] . " - " . _("Activation de votre compte");
-                $this->mail->SendMailSmarty(
-                    $data["mail"],
-                    $subject,
-                    "ppci/mail/accountActivate.tpl",
-                    array(
-                        "prenom" => $data["prenom"],
-                        "nom" => $data["nom"],
-                        "applicationName" => $_SESSION["dbparams"]["APPLI_title"],
-                        "APPLI_address" => $APPLI_address
-                    )
-                );
-                $this->message->set(_("Un message vient d'être envoyé à l'utilisateur pour l'informer de l'activation de son compte"));
+            }
+            if (!$mailSent) {
+                $this->message->set(_("Le compte a été activé, mais l'utilisateur ne dispose pas d'adresse email : vous devrez le prévenir directement"));
             }
         }
         return $id;

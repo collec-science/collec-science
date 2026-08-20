@@ -84,6 +84,8 @@ use stdClass;
  * @method $this whereIn(?string $key = null, $values = null, ?bool $escape = null)
  * @method $this whereNotIn(?string $key = null, $values = null, ?bool $escape = null)
  *
+ * @phpstan-method $this when($condition, callable(BaseBuilder, mixed): mixed $callback, (callable(BaseBuilder): mixed)|null $defaultCallback = null)
+ * @phpstan-method $this whenNot($condition, callable(BaseBuilder, mixed): mixed $callback, (callable(BaseBuilder): mixed)|null $defaultCallback = null)
  * @phpstan-import-type row_array from BaseModel
  */
 class Model extends BaseModel
@@ -232,7 +234,7 @@ class Model extends BaseModel
      */
     protected function doFindAll(?int $limit = null, int $offset = 0)
     {
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll) {
             $limit ??= 0;
         }
@@ -709,15 +711,10 @@ class Model extends BaseModel
         return parent::update($id, $row);
     }
 
-    protected function objectToRawArray($object, bool $onlyChanged = true, bool $recursive = false): array
-    {
-        return parent::objectToRawArray($object, $onlyChanged);
-    }
-
     /**
      * Provides/instantiates the builder/db connection and model's table/primary key names and return type.
      *
-     * @return array<int|string, mixed>|BaseBuilder|bool|float|int|object|string|null
+     * @return mixed
      */
     public function __get(string $name)
     {
@@ -744,7 +741,7 @@ class Model extends BaseModel
      * Provides direct access to method in the builder (if available)
      * and the database connection.
      *
-     * @return $this|array<int|string, mixed>|BaseBuilder|bool|float|int|object|string|null
+     * @return mixed
      */
     public function __call(string $name, array $params)
     {

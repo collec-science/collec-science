@@ -18,6 +18,9 @@ use Ppci\Libraries\PpciLibrary;
 class SampleWs extends PpciLibrary
 {
 
+    /**
+     * @var DatasetTemplate
+     */
     private $datasetTemplate;
     private $errors = array(
         500 => "Internal Server Error",
@@ -27,6 +30,9 @@ class SampleWs extends PpciLibrary
         520 => "Unknown error",
         404 => "Not Found"
     );
+    /**
+     * @var ModelsSamplews
+     */
     private $samplews;
     /**
      *
@@ -61,10 +67,10 @@ class SampleWs extends PpciLibrary
         $searchOrder = "";
         $retour = [];
         $uids = [];
+        $db = $this->container->db;
         try {
             $dataSent = $_POST;
             $this->container = new Container();
-            $db = $this->container->db;
             $dataset = [];
             if (!empty($_POST["template_name"])) {
                 /**
@@ -95,8 +101,6 @@ class SampleWs extends PpciLibrary
             } else {
                 $uids[] = $this->writeUniqueSample($dataSent, $searchOrder, $dataset);
             }
-
-
             $db->transCommit();
             $retour = array(
                 "error_code" => 200,
@@ -123,11 +127,7 @@ class SampleWs extends PpciLibrary
             );
             http_response_code($error_code);
             $this->message->setSyslog($e->getMessage(), true);
-        } /*finally {
-            $this->vue = service("AjaxView");
-            $this->vue->setJson(json_encode($retour));
-            return $this->vue->send();
-        }*/
+        }
         if (empty($retour)) {
             $retour = array(
                 "error_code" => 520,
@@ -176,7 +176,7 @@ class SampleWs extends PpciLibrary
          * Generate subsamplings for composite sample
          * only when the sample is created
          */
-        if ( !empty($dataSent["composite_parents_identifier"]) || !empty($dataSent["composite_parents_uid"])) {
+        if (!empty($dataSent["composite_parents_identifier"]) || !empty($dataSent["composite_parents_uid"])) {
             if (!isset($this->subsample)) {
                 $this->subsample = new Subsample;
             }
@@ -271,7 +271,7 @@ class SampleWs extends PpciLibrary
             $withTemplate = false;
             if (isset($_REQUEST["template_name"])) {
                 $datasetTemplate = new DatasetTemplate();
-                $ddataset = $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
+                $datasetTemplate->getTemplateFromName($_REQUEST["template_name"]);
                 $withTemplate = true;
             }
             $data = $this->samplews->sample->getRawDetail($id, $withContainer, $withEvent);
@@ -368,6 +368,7 @@ class SampleWs extends PpciLibrary
     }
     function getList()
     {
+        $data = [];
         try {
             if (empty($_REQUEST["collection_id"])) {
                 throw new PpciException(_("Le numéro de la collection est obligatoire"), 400);
@@ -413,9 +414,11 @@ class SampleWs extends PpciLibrary
     }
     function delete()
     {
+        $db = $this->samplews->sample->db;
+        $retour = [];
         try {
             $uid = $_POST["uid"];
-            $db = $this->samplews->sample->db;
+
             $db->transBegin();
             if (!empty($uid)) {
                 $data = $this->samplews->sample->lire($uid);

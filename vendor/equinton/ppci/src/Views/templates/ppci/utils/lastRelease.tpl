@@ -15,8 +15,9 @@
     } );
 </script>
 
+<div class="container">
 <h2>{t}Dernière version publiée{/t}</h2>
-<div class="col-md-8 col-lg-6">
+<div class="col-8 col-6">
     {t}Version actuelle : {/t}{$currentVersion}<br>
     {t}Dernière version publiée : {/t}{$release.tag} du {$release.date}<br>
     {if $currentVersion != $release.tag}

@@ -464,7 +464,7 @@ class Document extends PpciModel
     function getDetail(string $key, $field = "document_id"): ?array
     {
         if (in_array($field, array("uuid", "uid", "campaign_id", "document_id"))) {
-            $sql = "SELECT document_id, d.uuid, content_type, size, collection_id, document_name
+            $sql = "SELECT document_id, d.uuid, content_type, size, d.collection_id, document_name
             ,external_storage, external_storage_path
             from document d
             left outer join mime_type using (mime_type_id)

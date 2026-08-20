@@ -1,3 +1,4 @@
+<div class="container">
 <h2>{t}Liste des requêtes SQL{/t}</h2>
 <a href="requestChange?request_id=0">
     <img src="display/images/new.png" height="25">

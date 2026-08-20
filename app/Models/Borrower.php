@@ -9,11 +9,7 @@ use Ppci\Models\PpciModel;
  */
 class Borrower extends PpciModel
 {
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "borrower";

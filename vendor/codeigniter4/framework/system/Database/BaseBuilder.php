@@ -310,9 +310,7 @@ class BaseBuilder
             throw new DatabaseException('A table must be specified when creating a new Query Builder.');
         }
 
-        /**
-         * @var BaseConnection $db
-         */
+        /** @var BaseConnection $db */
         $this->db = $db;
 
         if ($tableName instanceof TableName) {
@@ -766,14 +764,18 @@ class BaseBuilder
             $keyValue = $key;
         }
 
+        if ($keyValue === []) {
+            return $this;
+        }
+
         // If the escape value was not set will base it on the global setting
         if (! is_bool($escape)) {
             $escape = $this->db->protectIdentifiers;
         }
 
-        foreach ($keyValue as $k => $v) {
-            $prefix = empty($this->{$qbKey}) ? $this->groupGetType('') : $this->groupGetType($type);
+        $prefix = empty($this->{$qbKey}) ? $this->groupGetType('') : $this->groupGetType($type);
 
+        foreach ($keyValue as $k => $v) {
             if ($rawSqlOnly) {
                 $k  = '';
                 $op = '';
@@ -832,6 +834,8 @@ class BaseBuilder
                     'escape'    => $escape,
                 ];
             }
+
+            $prefix = $type;
         }
 
         return $this;
@@ -1154,12 +1158,16 @@ class BaseBuilder
 
         $keyValue = is_array($field) ? $field : [$field => $match];
 
+        if ($keyValue === []) {
+            return $this;
+        }
+
+        $prefix = $this->{$clause} === [] ? $this->groupGetType('') : $this->groupGetType($type);
+
         foreach ($keyValue as $k => $v) {
             if ($insensitiveSearch) {
                 $v = mb_strtolower($v, 'UTF-8');
             }
-
-            $prefix = empty($this->{$clause}) ? $this->groupGetType('') : $this->groupGetType($type);
 
             if ($side === 'none') {
                 $bind = $this->setBind($k, $v, $escape);
@@ -1182,6 +1190,8 @@ class BaseBuilder
                 'condition' => $likeStatement,
                 'escape'    => $escape,
             ];
+
+            $prefix = $type;
         }
 
         return $this;
@@ -1513,7 +1523,7 @@ class BaseBuilder
      */
     public function limit(?int $value = null, ?int $offset = 0)
     {
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll && $value === 0) {
             $value = null;
         }
@@ -1635,7 +1645,7 @@ class BaseBuilder
      */
     public function get(?int $limit = null, int $offset = 0, bool $reset = true)
     {
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll && $limit === 0) {
             $limit = null;
         }
@@ -1773,7 +1783,7 @@ class BaseBuilder
             $this->where($where);
         }
 
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll && $limit === 0) {
             $limit = null;
         }
@@ -2500,7 +2510,7 @@ class BaseBuilder
             $this->where($where);
         }
 
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll && $limit === 0) {
             $limit = null;
         }
@@ -2547,7 +2557,7 @@ class BaseBuilder
             $valStr[] = $key . ' = ' . $val;
         }
 
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll) {
             return 'UPDATE ' . $this->compileIgnore('update') . $table . ' SET ' . implode(', ', $valStr)
                 . $this->compileWhereHaving('QBWhere')
@@ -2591,6 +2601,13 @@ class BaseBuilder
      */
     public function updateBatch($set = null, $constraints = null, int $batchSize = 100)
     {
+        if ($this->QBWhere !== []) {
+            throw new DatabaseException(
+                'updateBatch() cannot be safely combined with existing Query Builder WHERE conditions. '
+                . 'Use updateBatch($data, $constraints), onConstraint(), or include all required constraint fields in the batch data.',
+            );
+        }
+
         $this->onConstraint($constraints);
 
         if (isset($this->QBOptions['setQueryAsData'])) {
@@ -2669,7 +2686,7 @@ class BaseBuilder
             $sql .= 'WHERE ' . implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         ($value instanceof RawSql && is_string($key))
                         ?
                         $table . '.' . $key . ' = ' . $value
@@ -2800,7 +2817,7 @@ class BaseBuilder
     /**
      * Compiles a delete string and runs the query
      *
-     * @param array|RawSql|string $where
+     * @param array<int|string, mixed>|RawSql|string $where
      *
      * @return bool|string Returns a SQL string if in test mode.
      *
@@ -2824,7 +2841,7 @@ class BaseBuilder
 
         $sql = $this->_delete($this->removeAlias($table));
 
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll && $limit === 0) {
             $limit = null;
         }
@@ -2919,7 +2936,7 @@ class BaseBuilder
             $sql .= 'ON ' . implode(
                 ' AND ',
                 array_map(
-                    static fn ($key, $value) => (
+                    static fn ($key, $value): RawSql|string => (
                         $value instanceof RawSql ?
                         $value :
                         (
@@ -2934,11 +2951,7 @@ class BaseBuilder
             );
 
             // convert binds in where
-            foreach ($this->QBWhere as $key => $where) {
-                foreach ($this->binds as $field => $bind) {
-                    $this->QBWhere[$key]['condition'] = str_replace(':' . $field . ':', $bind[0], $where['condition']);
-                }
-            }
+            $this->convertWhereBindsForBatch();
 
             $sql .= ' ' . $this->compileWhereHaving('QBWhere');
 
@@ -2962,6 +2975,35 @@ class BaseBuilder
         }
 
         return str_replace('{:_table_:}', $data, $sql);
+    }
+
+    /**
+     * Escapes and substitutes the WHERE binds into the QBWhere conditions
+     * for batch delete queries.
+     *
+     * The bound values respect their escape flag and are escaped the same way
+     * as a regular query (see Query::matchNamedBinds()), instead of being
+     * injected into the SQL as raw, unescaped values.
+     *
+     * @used-by _deleteBatch()
+     */
+    protected function convertWhereBindsForBatch(): void
+    {
+        $replacers = [];
+
+        foreach ($this->binds as $field => $bind) {
+            $escapedValue = $bind[1] ? $this->db->escape($bind[0]) : $bind[0];
+
+            if (is_array($bind[0])) {
+                $escapedValue = '(' . implode(',', $escapedValue) . ')';
+            }
+
+            $replacers[':' . $field . ':'] = (string) $escapedValue;
+        }
+
+        foreach ($this->QBWhere as $key => $where) {
+            $this->QBWhere[$key]['condition'] = strtr($where['condition'], $replacers);
+        }
     }
 
     /**
@@ -3058,7 +3100,7 @@ class BaseBuilder
      * Generates a query string based on which functions were used.
      * Should not be called directly.
      *
-     * @param mixed $selectOverride
+     * @param false|string $selectOverride
      */
     protected function compileSelect($selectOverride = false): string
     {
@@ -3099,7 +3141,7 @@ class BaseBuilder
             . $this->compileWhereHaving('QBHaving')
             . $this->compileOrderBy();
 
-        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true;
+        $limitZeroAsAll = config(Feature::class)->limitZeroAsAll ?? true; // @phpstan-ignore nullCoalesce.property
         if ($limitZeroAsAll) {
             if ($this->QBLimit) {
                 $sql = $this->_limit($sql . "\n");

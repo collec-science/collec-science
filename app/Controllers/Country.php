@@ -16,4 +16,8 @@ class Country extends PpciController
     {
         return $this->lib->list();
     }
+    function import() {
+        $this->lib->import();
+        return $this->lib->list();
+    }
 }

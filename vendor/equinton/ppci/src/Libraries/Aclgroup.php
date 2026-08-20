@@ -1,4 +1,5 @@
 <?php
+
 namespace Ppci\Libraries;
 
 class Aclgroup extends PpciLibrary
@@ -11,32 +12,31 @@ class Aclgroup extends PpciLibrary
         if (isset($_REQUEST[$this->keyName])) {
             $this->id = $_REQUEST[$this->keyName];
         }
-        
     }
     function list()
     {
         $vue = service("Smarty");
         $vue->set($this->dataclass->getGroups(), "data");
-		$vue->set("ppci/droits/groupList.tpl", "corps");
+        $vue->set("ppci/droits/groupList.tpl", "corps");
         return $vue->send();
     }
     function change()
     {
         $vue = service("Smarty");
         empty($_REQUEST["aclgroup_id_parent"]) ? $parent_id = 0 : $parent_id = $_REQUEST["aclgroup_id_parent"];
-        $this->dataRead( $this->id, "ppci/droits/groupChange.tpl", $parent_id);
+        $this->dataRead($this->id, "ppci/droits/groupChange.tpl", $parent_id);
         $acllogin = new \Ppci\Models\Acllogin();
-		$vue->set($acllogin->getAllFromGroup($this->id), "logins");
-		/**
-		 * Get the list of the groups
-		 */
-		$vue->set($this->dataclass->getGroups(), "groups");
+        $vue->set($acllogin->getAllFromGroup($this->id), "logins");
+        /**
+         * Get the list of the groups
+         */
+        $vue->set($this->dataclass->getGroups(), "groups");
         return $vue->send();
     }
     function write()
     {
         try {
-            $this->id = $this->dataWrite( $_REQUEST);
+            $this->id = $this->dataWrite($_REQUEST);
             return true;
         } catch (\Exception $e) {
             return false;
@@ -44,10 +44,20 @@ class Aclgroup extends PpciLibrary
     }
     function delete()
     {
-        if ($this->dataDelete($this->id)) {
+        $db = $this->dataclass->db;
+        try {
+            /**
+             * Start transaction
+             */
+            $db->transBegin();
+            $this->dataDelete($this->id);
+            $db->transCommit();
             return true;
-        } else {
-            return false;
+        } catch (PpciException $ie) {
+            if ($db->transEnabled) {
+                $db->transRollback();
+                return false;
+            }
         }
     }
 }

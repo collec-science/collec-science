@@ -17,11 +17,7 @@ use Ppci\Models\PpciModel;
 class Movement extends PpciModel
 {
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
 					movement_date, storage_location, login, movement_comment,
 					identifier, o.uid as parent_uid, o.identifier as parent_identifier,

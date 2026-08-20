@@ -9,9 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alpaca": "^1.5.27",
-    "bootstrap": "^3.4.1",
-    "combobox": "^1.0.1",
+    "bootstrap": "^5.3.8",
     "datatables.net": "^2.1.8",
     "datatables.net-bs": "^2.1.8",
     "datatables.net-buttons-bs": "^3.1.2",
@@ -25,7 +23,6 @@
     "leaflet": "^1.7.1",
     "leaflet-draw": "^1.0.4",
     "leaflet-mouse-position": "^1.2.0",
-    "leaflet.polyline.snakeanim": "^0.2.0",
     "leaflet.tilelayer.pouchdbcached": "^1.0.0",
     "magnific-popup": "^1.1.0",
     "markdown-it": "^12.0.2",

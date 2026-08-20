@@ -1,6 +1,7 @@
 {
     "name": "equinton/ppci",
     "description": "PrototypePHP to CodeIgniter",
+    "version":"v2.0.3",
     "type": "library",
     "license": "BSD-3-Clause",
     "autoload": {
@@ -23,7 +24,7 @@
         "smarty/smarty": "^4.0",
         "smarty-gettext/smarty-gettext": "^1.7",
         "apereo/phpcas": "^1.6",
-        "spomky-labs/otphp": "~10.0",
+        "spomky-labs/otphp": "^11.0",
         "bjeavons/zxcvbn-php": "^1.4",
         "chillerlan/php-qrcode": "^5.0"
 		}

@@ -12,6 +12,7 @@ use App\Models\ImportObject;
 use App\Models\Movement;
 use App\Models\ObjectIdentifier;
 use App\Models\ObjectStatus;
+use App\Models\Operation;
 use App\Models\Referent;
 use App\Models\Sample;
 use App\Models\SampleInitClass;
@@ -34,7 +35,15 @@ use Ppci\Models\PpciModel;
 class Import extends PpciLibrary
 {
 
-    private $import, $sample, $sampleType, $containerType, $objectStatus, $samplingPlace, $referent, $campaign;
+    private ImportObject $import;
+    private Sample $sample;
+    private SampleType $sampleType;
+    private ContainerType $containerType;
+    private ObjectStatus $objectStatus;
+    private SamplingPlace $samplingPlace;
+    private Referent $referent;
+    private Campaign $campaign;
+    private Operation $operation;
 
     function __construct()
     {
@@ -50,19 +59,8 @@ class Import extends PpciLibrary
         $this->samplingPlace = new SamplingPlace();
         $this->referent = new Referent();
         $this->campaign = new Campaign();
-
-
-        $this->import->initAllClasses();
-        //$import->initClass("objectIdentifier", $objectIdentifier);
-        $this->import->initControl(
-            $_SESSION["collections"],
-            $this->sampleType->getList(),
-            $this->containerType->getList(),
-            $this->objectStatus->getList(),
-            $this->samplingPlace->getList(),
-            $this->referent->getListe(),
-            $this->campaign->getListe()
-        );
+        $this->operation = new Operation;
+        $this->import->init();
         /*
         * Traitement
         */
@@ -194,12 +192,17 @@ class Import extends PpciLibrary
                     "campaign_name",
                     "comment",
                     "country_code",
-                    "country_origin_code"
+                    "country_origin_code",
+                    "protocol_name",
+                    "operation_name",
+                    "operation_code",
+                    "history"
                 );
                 $importFile = new ModelsImport($_SESSION["realfilename"], $_REQUEST["separator"], $_REQUEST["utf8_encode"], $fields);
                 $data = $importFile->getContentAsArray();
             } catch (PpciException $ie) {
                 $this->message->set($ie->getMessage(), true);
+                return false;
             }
 
             /*

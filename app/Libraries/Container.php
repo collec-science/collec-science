@@ -63,11 +63,13 @@ class Container extends PpciLibrary
             $_SESSION["searchContainer"]->setParam($_REQUEST);
         }
         $dataSearch = $_SESSION["searchContainer"]->getParam();
-        if ($_SESSION["searchContainer"]->isSearch() == 1) {
-            $data = $this->dataclass->containerSearch($dataSearch);
-            $this->vue->set($data, "containers");
-            $this->vue->set(1, "isSearch");
-        }
+        //if ($_SESSION["searchContainer"]->isSearch() == 1) {
+        $this->dataclass->resetParam();
+        $data = $this->dataclass->containerSearch($dataSearch);
+        $this->vue->set($this->dataclass->getNbContainers($dataSearch), "totalNumber");
+        $this->vue->set($data, "containers");
+        $this->vue->set(1, "isSearch");
+        //}
         $this->vue->set($dataSearch, "containerSearch");
         $this->vue->set("gestion/containerList.tpl", "corps");
         $borrower = new Borrower();
@@ -83,6 +85,10 @@ class Container extends PpciLibrary
          */
         $label = new Label;
         $label->setRelatedTablesToView($this->vue);
+        /**
+         * online help
+         */
+        $this->vue->help(_("gestion/chercher-des-contenants.html"));
         return $this->vue->send();
     }
     function display()
@@ -92,7 +98,10 @@ class Container extends PpciLibrary
          * Display the detail of the record
          */
         if (isset($this->id)) {
-            $data = $this->dataclass->lire($this->id);
+            $data = $this->dataclass->read($this->id);
+            if (empty($data)) {
+                return $this->list();
+            }
             $this->vue->set($data, "data");
             $this->vue->set("containerDisplay", "moduleFrom");
             $this->vue->set($this->id, "containerUid");
@@ -553,6 +562,7 @@ class Container extends PpciLibrary
     {
         $this->vue = service('Smarty');
         $this->vue->set("gestion/containerVerifyCyclic.tpl", "corps");
+        $this->vue->help(_("maintain/rechercher-des-mouvements-cycliques.html"));
         return $this->vue->send();
     }
     function verifyCyclicExec()
@@ -670,5 +680,59 @@ class Container extends PpciLibrary
             $this->vue->set(["isFull" => 0]);
         }
         return $this->vue->send();
+    }
+    function verifyIdentifier()
+    {
+        /**
+         * @var AjaxView
+         */
+        $this->vue = service("AjaxView");
+        if (is_numeric($_REQUEST["uid"]) && !empty($_REQUEST["identifier"])) {
+            $this->vue->set([$this->dataclass->getNbFromIdentifier($_REQUEST["uid"], $_REQUEST["identifier"])]);
+        } else {
+            $this->vue->set([["nb" => 0]]);
+        }
+        return $this->vue->send();
+    }
+
+    function eventMulti() {
+        if (count($_POST["uids"]) > 0) {
+            is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
+            $event = new Event;
+            $de = $event->getDefaultValues();
+            $de["event_date"] = $_POST["event_date"];
+            $de["due_date"] = $_POST["due_date"];
+            $de["event_type_id"] = $_POST["event_type_id"];
+            $de["event_comment"] = $_POST["event_comment"];
+            $db = $this->dataclass->db;
+            $db->transBegin();
+            try {
+                foreach ($uids as $uid) {
+                    $de["uid"] = $uid;
+                    $event->ecrire($de);
+                }
+                $db->transCommit();
+                $this->message->set(_("Création des événements effectuée"));
+                /**
+                 * Forçage du retour
+                 */
+                $t_module["retourok"] = $_POST["lastModule"];
+            } catch (PpciException $oe) {
+                $this->message->set(_("Erreur d'écriture dans la base de données"), true);
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            } catch (\Exception $e) {
+                $this->message->set(
+                    _("La création des événements a échoué"),
+                    true
+                );
+                $this->message->set($e->getMessage());
+                $t_module["retourko"] = $_REQUEST["lastModule"];
+                if ($db->transEnabled) {
+                    $db->transRollback();
+                }
+            }
+        }
     }
 }

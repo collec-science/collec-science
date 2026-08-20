@@ -6,6 +6,8 @@
 <script src="display/node_modules/leaflet.polyline.snakeanim/L.Polyline.SnakeAnim.js"></script>
 <script src="display/node_modules/leaflet-mouse-position/src/L.Control.MousePosition.js"></script>
 <script src="display/node_modules/leaflet-easyprint/dist/bundle.js"></script>
+<!--script src="display/node_modules/pdfmake/build/pdfmake.min.js"></script>
+<script src="display/node_modules/pdfmake/build/vfs_fonts.js"></script-->
 <script>
     /**
      * Generate a popup for lexical entries, when mouse is over a question icon
@@ -13,52 +15,50 @@
      * the value to found
      */
     $(document).ready(function () {
-        var lexicalDelay = 1000, lexicalTimer, tooltipContent;
+        /* Tooltip */
+        function initializeBootstrapTooltip() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('.lexical'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                tooltipTriggerEl.setAttribute('title', 'lexical');
+                if (!bootstrap.Tooltip.getInstance(tooltipTriggerEl))
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    delay: { show: 2000, hide: 500}
+                })
+            })
+        }
+        initializeBootstrapTooltip();
         $(".lexical").mouseenter(function () {
             var objet = $(this);
-            lexicalTimer = setTimeout(function () {
-                var entry = objet.data("lexical");
-                if (entry.length > 0) {
-                    var url = "lexicalGet";
-                    var data = {
-                        "lexical": entry
-                    }
-                    $.ajax({ url: url, data: data })
-                        .done(function (d) {
-                            if (d) {
-                                d = JSON.parse(d);
-                                var content = d[0].split(" ");
-                                var length = 0;
-                                tooltipContent = "";
-                                content.forEach(function (word) {
-                                    if (length > 40) {
-                                        tooltipContent += "<br>";
-                                        length = 0;
-                                    }
-                                    tooltipContent += word + " ";
-                                    length += word.length + 1;
-                                });
-                                tooltipDisplay(objet);
-                            }
-                        });
+            const tip = bootstrap.Tooltip.getInstance(this);
+            var entry = objet.data("lexical");
+            if (entry.length > 0) {
+                var url = "lexicalGet";
+                var data = {
+                    "lexical": entry
                 }
-            }, lexicalDelay);
-        }).mouseleave(function () {
-            clearTimeout(lexicalTimer);
-            if ($(this).is(':ui-tooltip')) {
-                $(this).tooltip("close");
+                $.ajax({ url: url, data: data })
+                    .done(function (d) {
+                        if (d) {
+                            d = JSON.parse(d);
+                            var content = d[0];
+                            /*
+                             * decode html entities
+                             */
+                            const parser = new DOMParser();
+                            const contentdecoded = parser.parseFromString(content, 'text/html');
+                            content = contentdecoded.body.textContent;
+                            tip.setContent({ '.tooltip-inner': content });
+                            //tip.show();
+                            $(this).attr("title", content);
+                            if (document.querySelector('.tooltip.show')) {
+                                tip.show();
+                            }
+                        }
+                    });
             }
         });
-        function tooltipDisplay(object) {
-            $(object).tooltip({
-                content: tooltipContent
-            });
-            //object.tooltip("option", "content", tooltipContent);
-            $(object).attr("title", tooltipContent);
-            $(object).tooltip("open");
-        }
         $('.datatable-export-pdf').DataTable({
-            layout: { 
+            layout: {
                 topStart: {
                     buttons: [
                         'copyHtml5',
@@ -67,7 +67,7 @@
                         'print',
                         'pdfHtml5'
                     ]
-                } 
+                }
             },
             "language": dataTableLanguage,
             "paging": false,

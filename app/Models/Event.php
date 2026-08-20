@@ -15,11 +15,7 @@ class Event extends PpciModel
 {
     private $sql = "select * from event
             join event_type using (event_type_id)";
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "event";
@@ -173,7 +169,7 @@ class Event extends PpciModel
         $ret = false;
         $sql = "select s.collection_id as samplecollection, c.collection_id as containercollection
         from object ";
-        if ($field = "event_id") {
+        if ($field == "event_id") {
             $sql .= " join event using (uid)";
         }
         $sql .= "
@@ -181,7 +177,7 @@ class Event extends PpciModel
         left outer join container c using (uid)
          where $field = :id:";
         $data = $this->readParam($sql, $param);
-        empty($data["samplecollection"]) ? $collection_id = $data["containercollection"]: $collection_id = $data["samplecollection"];
+        empty($data["samplecollection"]) ? $collection_id = $data["containercollection"] : $collection_id = $data["samplecollection"];
         if (!empty($collection_id)) {
             if (array_key_exists($collection_id, $_SESSION["collections"])) {
                 $ret = true;
@@ -235,5 +231,17 @@ class Event extends PpciModel
             join event_type using (event_type_id)
             where event_id = :id:";
         return $this->lireParamAsPrepared($sql, array("id" => $id));
+    }
+    function getEventsAcheviedFromUid(int $uid)
+    {
+        $sql = "SELECT event_id, event_type_name, event_date::date, event_comment
+                ,identifier
+                from event
+                join object using (uid)
+                join event_type using (event_type_id)
+                where uid = :uid: 
+                and event_date is not null
+                order by event_date";
+        return $this->getListParam($sql, ["uid" => $uid]);
     }
 }

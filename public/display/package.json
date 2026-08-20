@@ -9,11 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "~3.4.1",
-    "combobox": "^1.0.1",
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "datatables.net": "^2.1.8",
     "datatables.net-bs": "^2.1.8",
+    "datatables.net-bs5": "^2.3.7",
     "datatables.net-buttons-bs": "^3.1.2",
+    "datatables.net-buttons-bs5": "^3.2.6",
     "datatables.net-fixedheader": "^4.0.1",
     "datatables.net-rowreorder": "^1.5.0",
     "datetime-moment": "^1.0.0",
@@ -37,10 +39,14 @@
     "markdown-it-attrs": "^4.1.6",
     "moment": "2.29.4",
     "moment-timezone": "0.4.1",
+    "pdfmake": "github:bpampuch/pdfmake",
     "pouchdb": "^7.2.2",
     "qr-scanner": "^1.4.2",
     "smartmenus": "^1.1.1",
     "wordwrap": "^1.0.0",
     "zxcvbn": "^4.4.2"
+  },
+  "allowScripts": {
+    "leveldown@5.6.0": true
   }
 }

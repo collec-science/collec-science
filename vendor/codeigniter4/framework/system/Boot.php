@@ -205,7 +205,7 @@ class Boot
     protected static function loadDotEnv(Paths $paths): void
     {
         require_once $paths->systemDirectory . '/Config/DotEnv.php';
-        $envDirectory = $paths->envDirectory ?? $paths->appDirectory . '/../';
+        $envDirectory = $paths->envDirectory ?? $paths->appDirectory . '/../'; // @phpstan-ignore nullCoalesce.property
         (new DotEnv($envDirectory))->load();
     }
 
@@ -426,9 +426,11 @@ class Boot
     {
         $console = new Console();
 
+        $args = $_SERVER['argv'] ?? []; // @phpstan-ignore codeigniter.superglobalsOffsetAccess (reads live $_SERVER, not the snapshot service)
+
         // Show basic information before we do anything else.
-        if (is_int($suppress = array_search('--no-header', $_SERVER['argv'], true))) {
-            unset($_SERVER['argv'][$suppress]);
+        if (is_int($suppress = array_search('--no-header', $args, true))) {
+            unset($args[$suppress]);
             $suppress = true;
         }
 

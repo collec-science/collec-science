@@ -17,7 +17,7 @@ class ExportTemplate extends PpciLibrary
      */
     protected PpciModel $dataclass;
 
-    
+
 
     function __construct()
     {
@@ -37,6 +37,7 @@ class ExportTemplate extends PpciLibrary
          */
         $this->vue->set($this->dataclass->getListe(2), "data");
         $this->vue->set("export/exportTemplateList.tpl", "corps");
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_le_modèle_d'export_et_associer_les_modèles_de_jeux_de_données_0");
         return $this->vue->send();
     }
     function display()
@@ -52,11 +53,7 @@ class ExportTemplate extends PpciLibrary
     function change()
     {
         $this->vue = service('Smarty');
-        /*
-         * open the form to modify the record
-         * If is a new record, generate a new record with default value :
-         * $_REQUEST["idParent"] contains the identifiant of the parent record 
-         */
+        $this->vue->help("gestion/préparer-un-modèle-d'exportation.html#Créer_le_modèle_d'export_et_associer_les_modèles_de_jeux_de_données_0");
         $this->dataRead($this->id, "export/exportTemplateChange.tpl");
         $dt = new DatasetTemplate();
         $this->vue->set($dt->getListFromExportTemplate($this->id), "datasets");

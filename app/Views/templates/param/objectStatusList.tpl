@@ -1,6 +1,6 @@
-<h2>{t}Liste des statuts utilisables pour les objets{/t}</h2>
-<div class="row">
-	<div class="col-md-6">
+<div class="container">
+	<h2>{t}Liste des statuts utilisables pour les objets{/t}</h2>
+	<div class="row">
 		<table id="objectStatusList" class="table table-bordered table-hover datatable display">
 			<thead>
 				<tr>

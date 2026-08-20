@@ -19,11 +19,7 @@ class ContainerType extends PpciModel
             left outer join product using (product_id)
             left outer join risk using (risk_id)";
 
-    /**
-     *
-     * @param PDO $bdd
-     * @param array $param
-     */
+
     function __construct()
     {
         $this->table = "container_type";

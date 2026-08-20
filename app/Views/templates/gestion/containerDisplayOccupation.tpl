@@ -1,4 +1,4 @@
-{* Objets > Contenants > Rechercher > UID d'un contenant > section "Répartition des objets dans le contenant" si visible > *}
+
 {if $nblignes > 1 || $nbcolonnes > 1}
     {if $first_line == "T"}
         {$ln = 1}

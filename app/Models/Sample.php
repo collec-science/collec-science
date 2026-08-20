@@ -19,7 +19,7 @@ class Sample extends PpciModel
 					s.collection_id, collection_name, collection_description, no_localization, s.sample_type_id, s.dbuid_origin,
                     sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
                     s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
-                    s.parent_sample_id,
+                    s.parent_sample_id, s.history,
 					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,
           case when so.wgs84_x is not null then so.wgs84_x else sp.sampling_place_x end as wgs84_x,
@@ -34,7 +34,7 @@ class Sample extends PpciModel
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
 					ct.container_type_name, product_name,risk_name,
-					operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,
+					s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,operation_code,
 					document_id, voi.identifiers,
 					movement_date, movement_type_name, movement_type_id,
 					sp.sampling_place_id, sp.sampling_place_name,
@@ -67,7 +67,7 @@ class Sample extends PpciModel
 					left outer join sample ps on (s.parent_sample_id = ps.sample_id)
 					left outer join object pso on (ps.uid = pso.uid)
 					left outer join container_type ct using (container_type_id)
-					left outer join operation using (operation_id)
+					left outer join operation op on (s.operation_id = op.operation_id)
 					left outer join protocol using (protocol_id)
 					left outer join multiple_type mt on (st.multiple_type_id = mt.multiple_type_id)
 					left outer join last_photo on (so.uid = last_photo.uid)
@@ -158,7 +158,9 @@ class Sample extends PpciModel
             ),
             "campaign_id" => array("type" => 1),
             "country_id" => array("type" => 1),
-            "country_origin_id" => array("type" => 1)
+            "country_origin_id" => array("type" => 1),
+            "operation_id" => ["type" => 1],
+            "history" => ["type" => 0]
         );
         parent::__construct();
     }
@@ -202,8 +204,8 @@ class Sample extends PpciModel
     /**
      * Get the id of the sample from the identifier
      *
-     * @param [type] $identifier
-     * @return void
+     * @param string $identifier
+     * @param int $collection_id
      */
     public function getIdFromIdentifier(string $identifier, int $collection_id = 0)
     {
@@ -672,8 +674,8 @@ class Sample extends PpciModel
                             break;
                     }
                     $where .= $and . " $tablefield.$field::date between :date_from: and :date_to:";
-                    $data["date_from"] = $this->formatDateLocaleVersDB($param["date_from"], 2);
-                    $data["date_to"] = $this->formatDateLocaleVersDB($param["date_to"], 2);
+                    $data["date_from"] = $this->formatDateLocaleToDB($param["date_from"]);
+                    $data["date_to"] = $this->formatDateLocaleToDB($param["date_to"]);
                     $and = " and ";
                 }
                 /**
@@ -753,9 +755,9 @@ class Sample extends PpciModel
                  * Search on booking
                  */
                 if ($param["booking_type"] != 0) {
-                    $data["booking_from"] = $this->formatDateLocaleVersDB($param["booking_from"], 2) . " 00:00:00";
-                    $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"], 2) . " 23:59:59";
-                    $where .= $and . " (select count(*) from booking b where ((:booking_from: ::timestamp, :booking_to: ::timestamp) overlaps (date_from: ::timestamp, date_to: ::timestamp)) = true
+                    $data["booking_from"] = $this->formatDateLocaleToDB($param["booking_from"]) . " 00:00:00";
+                    $data["booking_to"] = $this->formatDateLocaleVersDB($param["booking_to"]) . " 23:59:59";
+                    $where .= $and . " (select count(*) from booking b where ((:booking_from: ::timestamp, :booking_to: ::timestamp) overlaps (:date_from: ::timestamp, :date_to: ::timestamp)) = true
         and b.uid = so.uid)  ";
                     $param["booking_type"] == 1 ? $where .= " > 0 " : $where .= " = 0 ";
                     $and = " and ";
@@ -787,6 +789,14 @@ class Sample extends PpciModel
                         $where .= $and . "s.collection_id in " . $collections;
                         $and = " and ";
                     }
+                }
+                /**
+                 * Search by operation
+                 */
+                if ($param["operation_id"] > 0) {
+                    $where .= $and . " s.operation_id = :operation_id:";
+                    $data["operation_id"] = $param["operation_id"];
+                    $and = " and ";
                 }
 
                 /**
@@ -822,21 +832,21 @@ class Sample extends PpciModel
      */
     function sampleSearch(array $param): array
     {
-        $this->_generateSearch($param);
-        if (!empty($this->where)) {
 
-            if ($param["limit"] > 0) {
-                $limit = " order by s.uid desc limit " . $param["limit"];
-                if ($param["page"] > 0 && is_numeric($param["page"])) {
-                    $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
-                }
-            } else {
-                $limit = "";
-            }
-            return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
-        } else {
-            return array();
+        $this->_generateSearch($param);
+        if (empty($this->where) && (empty($param["limit"]) || !is_numeric($param["limit"]))) {
+            $param["limit"] = 50;
+            $_SESSION["searchSample"]->setParam(["limit" => 50]);
         }
+        if ($param["limit"] > 0) {
+            $limit = " order by s.uid desc limit " . $param["limit"];
+            if ($param["page"] > 0 && is_numeric($param["page"])) {
+                $limit .= " offset " . (($param["page"] - 1) * $param["limit"]);
+            }
+        } else {
+            $limit = "";
+        }
+        return $this->_executeSearch($this->sql . $this->from . $this->where . $limit, $this->data, $param["metadatafilter"]);
     }
 
     private function _executeSearch(string $sql, array $data, $metadatafilter = ""): array
@@ -851,7 +861,6 @@ class Sample extends PpciModel
         /**
          * Execute the request
          */
-
         $list = $this->getListParam($sql, $data);
         /**
          * Purge metadata if necessary
@@ -892,11 +901,11 @@ class Sample extends PpciModel
     {
         $this->_generateSearch($param);
         $number = 0;
-        if (!empty($this->where)) {
-            $sql = "select count(s.sample_id) as samplenumber";
-            $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
-            $number = $data["samplenumber"];
-        }
+        //if (!empty($this->where)) {
+        $sql = "select count(s.sample_id) as samplenumber";
+        $data = $this->lireParamAsPrepared($sql . $this->from . $this->where, $this->data);
+        $number = $data["samplenumber"];
+        //}
         return $number;
     }
 
@@ -929,7 +938,7 @@ class Sample extends PpciModel
             throw new PpciException("Pas d'échantillons sélectionnés");
         } else {
             $this->autoFormatDate = false;
-            $sql = "select o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
+            $sql = "select sample_id, o.uid, identifier, object_status_name, wgs84_x, wgs84_y, location_accuracy
             , object_comment as comment,
             c.collection_id, collection_name, sample_type_name, sample_creation_date, sampling_date, expiration_date,
             multiple_value, sampling_place_name, metadata::varchar,
@@ -938,6 +947,8 @@ class Sample extends PpciModel
             case when ro.referent_name is not null then trim(ro.referent_name || ' ' || coalesce(ro.referent_firstname, '')) else trim(cr.referent_name || ' ' || coalesce(cr.referent_firstname, '')) end as referent_name
             ,o.uuid
             ,ctry.country_code2 as country_code, ctryo.country_code2 as country_origin_code
+            ,protocol_name, operation_name, operation_code
+            ,history
             from sample
             join object o using(uid)
             join collection c using (collection_id)
@@ -950,15 +961,21 @@ class Sample extends PpciModel
             left outer join campaign using (campaign_id)
             left outer join country ctry on (sample.country_id = ctry.country_id)
             left outer join country ctryo on (sample.country_origin_id = ctryo.country_id)
+            left outer join operation using (operation_id)
+            left outer join protocol using (protocol_id)
             where o.uid in (" . $uids . ")";
             $d = $this->getListeParam($sql);
             $this->autoFormatDate = false;
+            $subsample = new Subsample;
+            $event = new Event;
+            $event->autoFormatDate = false;
             /*
              * genere le dbuid pour import dans base externe
              */
             $data = array();
             foreach ($d as $value) {
                 if ($this->verifyCollection($value)) {
+                    $history = json_decode($value["history"], true);
                     if (empty($value["dbuid_origin"])) {
                         $value["dbuid_origin"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $value["uid"];
                     }
@@ -968,35 +985,83 @@ class Sample extends PpciModel
                     if ($value["parent_sample_id"] > 0) {
                         $dparent = $this->readFromId($value["parent_sample_id"]);
                         $value["dbuid_parent"] = $_SESSION["dbparams"]["APPLI_code"] . ":" . $dparent["uid"];
+                        /**
+                         * add to history
+                         */
+                        $history[] = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "parent",
+                            "name" => $dparent["identifier"],
+                            "comment" => $dparent["sample_type_name"]
+                        ];
                     }
-                    unset($value["parent_sample_id"]);
-                    unset($value["collection_id"]);
-                    unset($value["uid"]);
+                    /**
+                     * get multiple parents to history
+                     */
+                    $parents = $subsample->getParents($value["sample_id"]);
+                    foreach ($parents as $parent) {
+                        $history[] = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "parent",
+                            "name" => $parent["identifier"],
+                            "comment" => $parent["sample_type_name"]
+                        ];
+                    }
                     /*
                      * Traitement des metadonnees - ajout de colonnes prefixees avec md_
                      */
-                    $metadata = json_decode($value["metadata"], true);
-                    foreach ($metadata as $kmd => $md) {
-                        if (is_array($md)) {
-                            $val = "";
-                            $comma = "";
-                            foreach ($md as $v) {
-                                if (is_array($v)) {
-                                    // it's a checkbox
-                                    $val .= $comma . $v["value"];
-                                } else {
-                                    $val .= $comma . $v;
+                    if (!empty($value["metadata"]) && $value["metadata"] != "null") {
+                        $metadata = json_decode($value["metadata"], true);
+                        foreach ($metadata as $kmd => $md) {
+                            if (is_array($md)) {
+                                $val = "";
+                                $comma = "";
+                                foreach ($md as $v) {
+                                    if (is_array($v)) {
+                                        // it's a checkbox
+                                        $val .= $comma . $v["value"];
+                                    } else {
+                                        $val .= $comma . $v;
+                                    }
+                                    $comma = ", ";
                                 }
-                                $comma = ", ";
+                            } else {
+                                $val = $md;
                             }
-                        } else {
-                            $val = $md;
+                            $value["md_" . $kmd] = $val;
                         }
-                        $value["md_" . $kmd] = $val;
+                    } else {
+                        $value["metadata"] = "";
+                    }
+                    /**
+                     * Generate history
+                     */
+                    /**
+                     * Add events
+                     */
+                    $events = $event->getEventsAcheviedFromUid($value["uid"]);
+                    foreach ($events as $devent) {
+                        $current = [
+                            "dborigin" => $_SESSION["dbparams"]["APPLI_code"],
+                            "type" => "event",
+                            "name" => $devent["event_type_name"],
+                            "date" => $devent["event_date"]
+                        ];
+                        if (!empty($devent["event_comment"])) {
+                            $current["comment"] = $devent["event_comment"];
+                        }
+                        $history[] = $current;
+                    }
+                    if (!empty($history)) {
+                        $value["history"] = json_encode($history);
                     }
                     /*
                      * Fin de traitement - rajout de la ligne reformatee
                      */
+                    unset($value["parent_sample_id"]);
+                    unset($value["collection_id"]);
+                    unset($value["uid"]);
+                    unset($value["sample_id"]);
                     $data[] = $value;
                 }
             }
@@ -1050,7 +1115,8 @@ class Sample extends PpciModel
             "collection_name",
             "sample_type_name",
             "referent_name",
-            "campaign_name"
+            "campaign_name",
+            "operation_code"
         );
         foreach ($data as $line) {
             foreach ($fields as $field) {
@@ -1199,8 +1265,8 @@ class Sample extends PpciModel
      * Fonction d'ecriture dans le cadre d'un import externe
      *
      * @param array $data
-     * @throws SampleException
-     * @return number
+     * @throws PpciException
+     * @return int
      */
     public function writeImport($data)
     {
@@ -1465,11 +1531,16 @@ class Sample extends PpciModel
      */
     function setCountry(array $uids, int $country_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set country_id = :country_id: where uid = :uid:";
         $data = array("country_id" => $country_id);
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["country_id" => $country_id]);
         }
     }
     /**
@@ -1481,11 +1552,16 @@ class Sample extends PpciModel
      */
     function setCollection(array $uids, int $collection_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set collection_id = :collection_id: where uid = :uid:";
         $data = array("collection_id" => $collection_id);
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSQL($sql, $data, true);
+            $this->samplehisto->generateHisto(["collection_id" => $collection_id]);
         }
     }
     /**
@@ -1497,8 +1573,30 @@ class Sample extends PpciModel
      */
     function setcampaign(array $uids, int $campaign_id)
     {
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set campaign_id = :campaign_id: where uid = :uid:";
         $data = array("campaign_id" => $campaign_id);
+        foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
+            $data["uid"] = $uid;
+            $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["campaign_id" => $campaign_id]);
+        }
+    }
+    /**
+     * Method setOperation - assign an operation to the list of uid
+     *
+     * @param array $uids 
+     * @param int $operation_id 
+     *
+     * @return void
+     */
+    function setOperation(array $uids, int $operation_id)
+    {
+        $sql = "update sample set operation_id = :operation_id: where uid = :uid:";
+        $data = array("operation_id" => $operation_id);
         foreach ($uids as $uid) {
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
@@ -1516,16 +1614,20 @@ class Sample extends PpciModel
     {
         $sql = "update sample set sample_type_id = :sample_type_id: where uid = :uid:";
         $data = array("sample_type_id" => $sample_type_id);
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $data["uid"] = $uid;
             $this->executeSql($sql, $data, true);
+            $this->samplehisto->generateHisto(["sample_type_id" => $sample_type_id]);
         }
     }
     /**
      * Change parent for all furnished uid
      * @param array $uids
      * @param int $parent_id
-     * @throws SampleException
      * @return void
      */
     function setParent(array $uids, int $parent_id)
@@ -1534,12 +1636,35 @@ class Sample extends PpciModel
         if (empty($parent["sample_id"])) {
             throw new PpciException(_("Le parent n'existe pas"));
         }
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
         $sql = "update sample set parent_sample_id = :parent_id: where uid = :uid: and sample_id <> :parent_id:";
         foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
             $this->executeSql($sql, array("parent_id" => $parent_id, "uid" => $uid), true);
+            $this->samplehisto->generateHisto(["parent_sample_id" => $parent_id]);
         }
     }
-
+    /**
+     * Delete parent for all uids. Only for direct link (not for multiple parents)
+     *
+     * @param array $uids 
+     *
+     * @return void
+     */
+    function deleteParent(array $uids)
+    {
+        $sql = "update sample set parent_sample_id = null where uid = :uid:";
+        if (!isset($this->samplehisto)) {
+            $this->samplehisto = new Samplehisto;
+        }
+        foreach ($uids as $uid) {
+            $this->samplehisto->initOldValues($uid);
+            $this->executeSql($sql, array("uid" => $uid), true);
+            $this->samplehisto->generateHisto(["parent_sample_id" => ""]);
+        }
+    }
     /**
      * Get a sample from an identifier (uid, uuid, etc.)
      *

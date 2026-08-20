@@ -155,4 +155,9 @@ class Lot extends PpciModel
             $this->executeSql($sql, $data, true);
         }
     }
+    function getNbFromCollection(int $collection_id) {
+        $sql = "SELECT count(*) as nb from lot where collection_id = :id:";
+        $data = $this->readParam($sql, ["id"=>$collection_id]);
+        return $data["nb"];
+    }
 }

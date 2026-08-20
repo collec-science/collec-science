@@ -2,25 +2,33 @@
 
 namespace Ppci\Controllers;
 
+use Ppci\Libraries\Login as LibrariesLogin;
+
 class Login extends PpciController
 {
+    protected $lib;
+    function __construct()
+    {
+        $this->lib = new LibrariesLogin();
+    }
     function index()
     {
-        $login = new \Ppci\Libraries\Login();
         $idConfig = service("IdentificationConfig");
         if (isset($_COOKIE["tokenIdentity"])) {
-            return $this->defaultReturn($login->getLogin());
+            return $this->defaultReturn($this->lib->getLogin());
         }
-        if (in_array($idConfig->identificationMode, ["BDD", "LDAP", "LDAP-BDD", "CAS-BDD", "OIDC-BDD"])) {
-            return ($login->display());
+        if ($idConfig->identificationMode == "MIXED") {
+            return $this->lib->displayMixed();
+        } else if (in_array($idConfig->identificationMode, ["BDD", "LDAP", "LDAP-BDD", "CAS-BDD", "OIDC-BDD"])) {
+            return ($this->lib->display());
         } else {
             /**
              * Identification HEADER
              */
             if (!$_SESSION["isLogged"] && $idConfig->identificationMode == "HEADER") {
-                $retour = $login->getLogin();
-                if (empty($retour) && !$_SESSION["isLogged"]) {                  
-                        $_SESSION["filterMessages"][] = _("Identification refusée");
+                $retour = $this->lib->getLogin();
+                if (empty($retour) && !$_SESSION["isLogged"]) {
+                    $_SESSION["filterMessages"][] = _("Identification refusée");
                 }
                 return $this->defaultReturn($retour);
             } else {
@@ -40,10 +48,63 @@ class Login extends PpciController
         if (!in_array($config->identificationMode, ["BDD", "LDAP", "CAS", "LDAP-BDD", "CAS-BDD", "OIDC-BDD"])) {
             return defaultPage();
         } else {
-            $login = new \Ppci\Libraries\Login();
-            return $this->defaultReturn($login->getLogin());
+            return $this->defaultReturn($this->lib->getLogin());
         }
     }
+    public function loginMixedExec()
+    {
+        $config = service("IdentificationConfig");
+        if ($config->identificationMode == "MIXED" && in_array($_POST["identificationType"], ["BDD", "LDAP", "LDAP-BDD"])) {
+            return $this->defaultReturn($this->lib->getLogin($_POST["identificationType"]));
+        } else {
+            return defaultPage();
+        }
+    }
+    public function loginExternalExec()
+    {
+        /**
+         * Search if it's cas or oidc
+         */
+        unset($_SESSION["CasParams"]);
+        unset($_SESSION["OidcParam"]);
+        $cas = service("Cas");
+        $found = false;
+        $type = "MIXED";
+        if (!empty($cas->servers)) {
+            $cass = explode(",", $cas->servers);
+            if (in_array($_POST["provider"], $cass)) {
+                $provider = $_POST["provider"];
+                $_SESSION["CasParam"] = $this->getProviderParam($provider,"Cas");
+                $type = "CAS";
+                $found = true;
+            }
+        }
+        if (!$found) {
+            $oidc = service("Oidc");
+            $oidcs = explode(",", $oidc->servers);
+            if (in_array($_POST["provider"], $oidcs)) {
+                $provider = $_POST["provider"];
+                $_SESSION["OidcParam"] = $this->getProviderParam($provider,"Oidc");
+                $type = "OIDC";
+                $found = true;
+            }
+        }
+        if ($found) {
+            return $this->defaultReturn($this->lib->getLogin($type));
+        }
+        return defaultPage();
+    }
+    public function getProviderParam(string $provider, string $type)
+    {
+        $param = [];
+        $oidc = service("Oidc");
+        $root = "Ppci\Config\\$type." . $provider . ".";
+        foreach ($oidc->default as $k => $v) {
+            $param[$k] = env($root . $k);
+        }
+        return $param;
+    }
+
     public function loginCasExec()
     {
         $config = service("IdentificationConfig");
@@ -52,8 +113,7 @@ class Login extends PpciController
             $ident_type = "CAS";
         }
         if ($ident_type == "CAS") {
-            $login = new \Ppci\Libraries\Login();
-            return $this->defaultReturn($login->getLogin());
+            return $this->defaultReturn($this->lib->getLogin());
         } else {
             return $this->defaultReturn();
         }
@@ -65,18 +125,24 @@ class Login extends PpciController
         if ($ident_type == "OIDC-BDD" && $_REQUEST["identificationType"] != "BDD") {
             $ident_type = "OIDC";
         }
-        if ($ident_type == "OIDC") {
-            $login = new \Ppci\Libraries\Login();
-            return $this->defaultReturn($login->getLogin());
+        if ($ident_type == "OIDC" || !empty($_SESSION["OidcParam"])) {
+            return $this->defaultReturn($this->lib->getLogin("OIDC"));
         } else {
             return $this->defaultReturn();
         }
+    }
+    public function oidc()
+    {
+        return $this->defaultReturn($this->lib->getLogin("OIDC"));
+    }
+    public function cas()
+    {
+        return $this->defaultReturn($this->lib->getLogin("CAS"));
     }
     public function getLogo()
     {
         $vue = service("BinaryView");
         $config = service("IdentificationConfig");
-
         $vue->setParam(
             array(
                 "disposition" => "inline",
@@ -87,8 +153,7 @@ class Login extends PpciController
     }
     public function disconnect()
     {
-        $login = new \Ppci\Models\Login();
-        $login->disconnect();
+        $this->lib->disconnect();
         $_SESSION["filterMessages"][] = (_("Vous avez été déconnecté"));
         return $this->defaultReturn();
     }

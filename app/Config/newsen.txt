@@ -2,17 +2,41 @@ News
 ====================
 Translated with DeepL.com (free version)
 
-Version v26.1.1 of 10/5/2026
+Version v26.2.0 of 21/08/2026
 -----------------------------
 Bug fixes:
-- Labels created for containers did not take into account the associated collection
-- When displaying OpenStreetMap maps, some tiles displayed an error message
-- When creating an exit movement, the programme did not search for items using the business ID
-- From the list of samples, when creating global exit movements, it was not possible to specify a reason or a comment
-- When creating a sample, the button to automatically generate a business identifier did not activate if the first sample type suggested included this feature
-- The template for creating an import contained an error: the composite_parents_identifier field was misspelled
-- In bulk imports, a check has been added to ensure that the composite_multiple_value field is populated when creating a composite sample
-- In bulk imports of a composite sample, spaces surrounding the parent sample identifiers are now removed
+- campaign import was not working correctly
+- deleting an item from metadata templates was not working properly
+- QR code scanning: various fixes and standardisation of functionality
+- when operations were carried out on multiple containers at the same time, the list of containers was displayed automatically, regardless of where the operation was initiated
+
+New features:
+Usability:
+- Switch to version 5 of Bootstrap, the web page rendering engine
+- Upgrade to the software’s overall usability to accommodate this version of Bootstrap
+- The “Mandatory field” message has been repositioned for better readability
+- The display of printers connected directly to the server is disabled if none have been configured or if the feature is disabled
+- When the user first accesses the search window for samples or containers, a list of the most recent items is now displayed
+
+Sample and container management:
+- It is now possible to remove the parent reference for a list of samples in the event of an assignment error
+- Operations are now linked directly to samples, rather than to sample types
+- It is now possible to create identical events for a list of containers
+- A check has been added to prevent a sample from being the parent of its own parent
+- A check has been added to prevent a container from being contained within a container that it itself contains
+- When creating a new container, a warning message is displayed if the container name already exists in the database
+
+Import and export functions:
+- A function has been added to generate a sample file for ElabFTW (accessible when creating a batch)
+- It is now possible to import collections from a CSV file
+- When exporting to another database, the parent(s) and events are recorded in the ‘history’ column, which allows the information to be retained in the destination instance
+
+Administration:
+- A new user authentication mode has been added: the MIXED mode. This allows multiple authentication servers (CAS or OIDC) to be configured, and replaces the BDD and LDAP-BDD modes
+- The authentication module for OIDC servers has been revised: it is now possible to configure multiple servers, including some public ones. New accounts on public servers are locked pending action by the administrator
+- User authentication via ORCID (OIDC server) has been tested, allowing users from outside the organisation to log in
+- It is now possible to trigger the sending of emails manually (for events or samples due). Sending logs are now recorded
+- in the database, the list of countries can now be replaced with the English version
 
 Version v26.1.0 of 1/4/2026
 -----------------------------

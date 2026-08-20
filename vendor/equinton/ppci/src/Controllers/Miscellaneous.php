@@ -21,10 +21,10 @@ class Miscellaneous extends PpciController {
         return News::getNews();
     }
     function systemServer() {
-        return System::index($_SERVER);
+        return System::index($_SERVER, _("Variables SERVER"));
     }
     function systemSession() {
-        return System::index($_SESSION);
+        return System::index($_SESSION, _("Variables de session"));
     }
     function structureHtml() {
         $structure = new Structure();

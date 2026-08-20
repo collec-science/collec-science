@@ -14,6 +14,6 @@
 		} );
    });
 </script>
-<div class="col-md-8 col-lg-6">
+<div class="col-8 col-6">
 <div id="content"></div>
 </div>

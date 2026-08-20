@@ -72,4 +72,4 @@ from col.export_template
 join col.dataset_template on (export_template_name = dataset_template_name)
 where export_template_name = 'elabftw';
 
-insert into col.dbversion(dbversion_number, dbversion_date) values ('26.2', '2026-06-11');
+insert into col.dbversion(dbversion_number, dbversion_date) values ('26.2', '2026-08-21');

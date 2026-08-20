@@ -279,7 +279,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.2', E'2026-06-18');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.2', E'2026-08-21');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --

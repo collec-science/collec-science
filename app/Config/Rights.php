@@ -366,6 +366,9 @@ class Rights extends RightsPpci
         "importTemplateChange" => ["import"],
         "importTemplateGenerate" => ["import"],
         "collectionsSendMail" => ["param"],
-        "odkList" => ["collection"]
+        "odkList" => ["collection"],
+        "odkChange"=>["collection"],
+        "odkWrite"=>["collection"],
+        "odkDelete"=>["collection"]
     ];
 }

@@ -362,6 +362,9 @@ $routes->post('importTemplateGenerate', 'ImportTemplate::generate');
  * ODK
  */
 $routes->add("odkList", "Odk::list");
+$routes->add("odkChange", "Odk::change");
+$routes->post("odkWrite", "Odk::write");
+$routes->post("odkDelete", "Odk::delete");
 /**
  * Documentation
  */

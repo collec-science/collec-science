@@ -359,6 +359,10 @@ $routes->add('apiv1sampleList', 'SampleWs::getList');
 $routes->add('importTemplateChange', 'ImportTemplate::change');
 $routes->post('importTemplateGenerate', 'ImportTemplate::generate');
 /**
+ * ODK
+ */
+$routes->add("odkList", "Odk::list");
+/**
  * Documentation
  */
 $routes->add('metadatafield_fr', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_fr.md');

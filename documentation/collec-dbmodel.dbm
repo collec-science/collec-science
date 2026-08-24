@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="2.0.0-beta" use-changelog="false" author="Éric Quinton" max-obj-count="81"
+<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="88"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1092,952" last-zoom="0.8" scene-rect="-20,-10,3583.12,2932.52"
+	 last-position="-592,836" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -123,6 +123,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<style id="table-name" colors="#000000"/>
 	<style id="table-schema-name" colors="#000000"/>
 	<style id="table-title" colors="#ff00ff,#ff00ff,#3175b0"/>
+	<style id="table-toggler-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-toggler-btns" colors="#f3f3f3,#e1e1e1,#bebebe"/>
+</tag>
+<tag name="odk">
+	<style id="table-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-ext-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
+	<style id="table-name" colors="#ffffff"/>
+	<style id="table-schema-name" colors="#000000"/>
+	<style id="table-title" colors="#55007f,#55007f,#3175b0"/>
 	<style id="table-toggler-body" colors="#fcfcfc,#fcfcfc,#d7d7d7"/>
 	<style id="table-toggler-btns" colors="#f3f3f3,#e1e1e1,#bebebe"/>
 </tag>
@@ -3928,6 +3937,331 @@ group by ss.createdsample_id]]> </definition>
 		</idxelement>
 </index>
 
+<table name="odk" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of odk projects]]> </comment>
+	<tag name="odk"/>
+	<position x="-720" y="1320"/>
+	<column name="odk_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="odk_project">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Name of the project in the ODK platform]]> </comment>
+	</column>
+	<column name="odk_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Name of the form]]> </comment>
+	</column>
+	<column name="odk_code" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Code of the odk form. Used when generate identifiers to the samples]]> </comment>
+	</column>
+	<column name="odk_description">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Description of the form]]> </comment>
+	</column>
+	<column name="odk_version" not-null="true" default-value="1.0">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Version of the odk form]]> </comment>
+	</column>
+	<column name="odk_author" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Login of the author of the form]]> </comment>
+	</column>
+	<constraint name="odk_pk" type="pk-constr" table="col.odk">
+		<columns names="odk_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="campaign_id" index="2"/>
+		<object name="collection_id" index="1"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="campaign_fk" index="2"/>
+		<object name="collection_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="collection_has_many_odk" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.collection"
+	 dst-table="col.odk"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="campaign_has_many_odk" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.campaign"
+	 dst-table="col.odk"
+	 src-required="false" dst-required="false"/>
+
+<table name="odk_referent" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of referents attached to an odk project]]> </comment>
+	<tag name="odk"/>
+	<position x="-320" y="1080"/>
+</table>
+
+<relationship name="odk_has_many_odk_referent" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_referent"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="referent_has_many_odk_referent" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.referent"
+	 dst-table="col.odk_referent"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<table name="odk_station" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of stations attached to an odk project]]> </comment>
+	<tag name="odk"/>
+	<position x="-320" y="920"/>
+</table>
+
+<relationship name="odk_has_many_odk_station" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_station"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="sampling_place_has_many_odk_station" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.sampling_place"
+	 dst-table="col.odk_station"
+	 src-required="false" dst-required="false"/>
+
+<table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of types of samples usable in the odk form]]> </comment>
+	<tag name="odk"/>
+	<position x="-320" y="1320"/>
+	<column name="odk_sampletype_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="parent_sampletype_id">
+		<type name="integer" length="0"/>
+		<comment> <![CDATA[Id of the sample type parent when the current sample type is only a subsample]]> </comment>
+	</column>
+	<column name="sampletype_order" not-null="true" default-value="1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[Sort order of the sample types]]> </comment>
+	</column>
+	<column name="image_number" not-null="true" default-value="-1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[-1: no image
+0: not defined, but possible
+1..: fixed number of images]]> </comment>
+	</column>
+	<column name="sound_number" not-null="true" default-value="-1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[-1: no sound record
+0: not defined, but possible
+1..: fixed number of recorded sounds]]> </comment>
+	</column>
+	<column name="video_number" not-null="true" default-value="-1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[-1: no video
+0: not defined, but possible
+1..: fixed number of videos]]> </comment>
+	</column>
+	<constraint name="odk_sampletype_pk" type="pk-constr" table="col.odk_sampletype">
+		<columns names="odk_sampletype_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="odk_id" index="1"/>
+		<object name="sample_type_id" index="2"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="odk_fk" index="1"/>
+		<object name="sample_type_fk" index="2"/>
+	</customidxs></table>
+
+<relationship name="odk_has_many_odk_sampletype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_sampletype"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="sample_type_has_many_odk_sampletype" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.sample_type"
+	 dst-table="col.odk_sampletype"
+	 src-required="true" dst-required="false"/>
+
+<table name="odk_line" layers="0" collapse-mode="2" max-obj-count="21" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[Lines corresponding to the ods file]]> </comment>
+	<tag name="odk"/>
+	<position x="-720" y="1840"/>
+	<column name="odk_line_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="line_order" not-null="true" default-value="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="line_type" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Type of information]]> </comment>
+	</column>
+	<column name="line_name" not-null="true">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[column name]]> </comment>
+	</column>
+	<column name="line_label">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Displayed label]]> </comment>
+	</column>
+	<column name="line_default">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Default value]]> </comment>
+	</column>
+	<column name="line_required">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Specify if information is mandatory]]> </comment>
+	</column>
+	<column name="line_relevant">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[condition of display of this line]]> </comment>
+	</column>
+	<column name="line_constraint">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Constraint of data entry]]> </comment>
+	</column>
+	<column name="line_constraint_message">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Message associated to the contraint]]> </comment>
+	</column>
+	<column name="line_appearance">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Apperance of the field]]> </comment>
+	</column>
+	<column name="line_calculation">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Formula of calculation]]> </comment>
+	</column>
+	<column name="line_hint">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Online help on the field]]> </comment>
+	</column>
+	<column name="line_read_only">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Specify if the field is readonly]]> </comment>
+	</column>
+	<column name="line_choice_filter">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[filter on the choice]]> </comment>
+	</column>
+	<column name="line_repeat_count">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Number of loops in the same group]]> </comment>
+	</column>
+	<column name="line_parameters">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Others parameters]]> </comment>
+	</column>
+	<constraint name="odk_line_pk" type="pk-constr" table="col.odk_line">
+		<columns names="odk_line_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="odk_id" index="1"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="odk_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="odk_has_many_odk_line" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_line"
+	 src-required="false" dst-required="false"/>
+
+<table name="odk_choice" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of choice entries]]> </comment>
+	<tag name="odk"/>
+	<position x="-320" y="1840"/>
+	<column name="odk_choice_id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="list_name" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="choice_name" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="choice_label" not-null="true">
+		<type name="varchar" length="0"/>
+	</column>
+	<column name="choice_filter">
+		<type name="varchar" length="0"/>
+	</column>
+	<constraint name="odk_choice_pk" type="pk-constr" table="col.odk_choice">
+		<columns names="odk_choice_id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="odk_id" index="1"/>
+	</customidxs>
+	<customidxs object-type="constraint">
+		<object name="odk_fk" index="1"/>
+	</customidxs></table>
+
+<relationship name="odk_has_many_odk_choice" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_choice"
+	 src-required="false" dst-required="false"/>
+
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">
 	<columns names="uid" ref-type="src-columns"/>
@@ -4226,6 +4560,12 @@ group by ss.createdsample_id]]> </definition>
 	 upd-action="CASCADE" del-action="NO ACTION" ref-table="col.collection" table="col.collection_eventtype">
 	<columns names="collection_id" ref-type="src-columns"/>
 	<columns names="collection_id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="rel_odk_sample_type_parent" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.odk_sampletype" table="col.odk_sampletype">
+	<columns names="parent_sampletype_id" ref-type="src-columns"/>
+	<columns names="odk_sampletype_id" ref-type="dst-columns"/>
 </constraint>
 
 <relationship name="rel_booking_object" type="relfk" layers="0"
@@ -4544,5 +4884,17 @@ group by ss.createdsample_id]]> </definition>
 	 src-table="col.collection_sampletype"
 	 dst-table="col.sample_type" reference-fk="collection_sampletype_sample_type_fk"
 	 src-required="false" dst-required="true"/>
+
+<relationship name="rel_odk_sampletype_odk_sampletype" type="relfk" layers="0"
+	 custom-color="#55007f"
+	 src-table="col.odk_sampletype"
+	 dst-table="col.odk_sampletype" reference-fk="rel_odk_sample_type_parent"
+	 src-required="false" dst-required="false">
+	<line>
+		<position x="7.68516" y="1395.91"/>
+	<position x="7.68516" y="1287"/>
+	<position x="-123.543" y="1287"/>
+	</line>
+</relationship>
 
 </dbmodel>

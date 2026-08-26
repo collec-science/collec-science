@@ -27,7 +27,6 @@ CREATE TABLE col.odk (
 	campaign_id integer,
 	odk_project varchar,
 	odk_name varchar NOT NULL,
-	odk_code varchar NOT NULL,
 	odk_description varchar,
 	odk_version varchar NOT NULL DEFAULT 1.0,
 	odk_author varchar NOT NULL,

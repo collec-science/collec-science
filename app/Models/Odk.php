@@ -23,7 +23,6 @@ class Odk extends PpciModel
             ),
             "campaign_id" => array(
                 "type" => 1,
-                "requis" => 1
             ),
             "odk_project" => array(
                 "type" => 0
@@ -34,11 +33,8 @@ class Odk extends PpciModel
             ),
             "odk_author" => array(
                 "type" => 0,
-                "requis" => 1
-            ),
-            "odk_code" => array(
-                "type" => 0,
-                "requis" => 1
+                "requis" => 1,
+                "defaultValue" => $_SESSION["login"]
             ),
             "odk_description" => array(
                 "type" => 0
@@ -54,7 +50,7 @@ class Odk extends PpciModel
 
     function getList(string $order = ""): array
     {
-        $sql = "SELECT odk_id, collection_id, campaign_id, odk_project, odk_name, odk_author, odk_code, odk_description, odk_version,
+        $sql = "SELECT odk_id, collection_id, campaign_id, odk_project, odk_name, odk_author, odk_description, odk_version,
         collection_name, campaign_name
         from odk
         join collection using (collection_id)
@@ -150,5 +146,14 @@ class Odk extends PpciModel
         order by sampling_place_name
         ";
         return $this->getListParam($sql, ["id" => $id, "col_id" => $collection_id]);
+    }
+    function getDetail(int $id) {
+        $sql = "SELECT odk_id, odk_name, collection_id, collection_name,
+        campaign_id, campaign_name, odk_description, odk_version, odk_author
+        from odk 
+        join collection using (collection_id)
+        left outer join campaign using (campaign_id)
+        where odk_id = :id:";
+        return $this->readParam($sql, ["id"=>$id]);
     }
 }

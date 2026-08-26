@@ -26,7 +26,9 @@
                 {foreach $data as $row}
                 <tr>
                     <td>
-                        {$row.odk_name}
+                        <a href="odkDisplay?odk_id={$row.odk_id}">
+                            {$row.odk_name}
+                        </a>
                     </td>
                     <td>
                         {$row.collection_name}
@@ -37,9 +39,7 @@
                     <td>
                         {$row.odk_project}
                     </td>
-                    <td>
-                        {$row.odk_description}
-                    </td>
+                    <td class="textareaDisplay">{$row.odk_description}</td>
                     <td>
                         {$row.odk_version}
                     </td>

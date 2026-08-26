@@ -8,10 +8,11 @@ use App\Libraries\Odk as LibrariesOdk;
 class Odk extends PpciController
 {
     protected $lib;
-    function __construct() {
-    $this->lib = new LibrariesOdk();
+    function __construct()
+    {
+        $this->lib = new LibrariesOdk();
     }
-       function list()
+    function list()
     {
         return $this->lib->list();
     }
@@ -38,5 +39,9 @@ class Odk extends PpciController
         } else {
             return $this->change();
         }
+    }
+    function display()
+    {
+        return $this->lib->display();
     }
 }

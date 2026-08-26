@@ -2,7 +2,9 @@
 
 namespace App\Libraries;
 
+use App\Models\Campaign;
 use App\Models\Odk as ModelsOdk;
+use App\Models\OdkSampletype;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Models\PpciModel;
@@ -33,7 +35,25 @@ class Odk extends PpciLibrary
     function change()
     {
         $this->vue = service('Smarty');
-        $this->dataRead($this->id, "odk/odkChange.tpl", $_REQUEST["protocol_id"]);
+        $this->dataRead($this->id, "odk/odkChange.tpl");
+        $this->vue->set($_SESSION["collections"], "collections");
+        $campaign = new Campaign;
+        $this->vue->set($campaign->getList("campaign_name"), "campaigns");
+        return $this->vue->send();
+    }
+    function display() {
+        $this->vue = service('Smarty');
+        $this->vue->set("odk/odkDisplay.tpl", "corps");
+        $this->vue->set($this->dataclass->getDetail($_REQUEST["odk_id"]),"data");
+        /**
+         * Treatment of sampletypes
+         */
+        if (!isset($_REQUEST["odk_sampletype_id"])) {
+            $_REQUEST["odk_sampletype_id"] = 0;
+        }
+        $sampletype = new OdkSampletype;
+        $this->vue->set($sampletype->read($_REQUEST["odk_sampletype_id"]),"sampletype");
+        $this->vue->set($_REQUEST["odk_sampletype_id"], "sampletypeCurrent");
         return $this->vue->send();
     }
      function write()

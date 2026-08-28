@@ -366,6 +366,8 @@ $routes->add("odkChange", "Odk::change");
 $routes->post("odkWrite", "Odk::write");
 $routes->post("odkDelete", "Odk::delete");
 $routes->add("odkDisplay", "Odk::display");
+$routes->post("odkSampletypeWrite", "Odk::sampletypeWrite");
+$routes->post("odkSampletypeDelete", "Odk::sampletypeDelete");
 /**
  * Documentation
  */

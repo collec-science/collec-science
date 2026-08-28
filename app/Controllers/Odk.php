@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Odk as LibrariesOdk;
+use App\Libraries\OdkSampletype;
 
 class Odk extends PpciController
 {
@@ -19,10 +20,6 @@ class Odk extends PpciController
     function change()
     {
         return $this->lib->change();
-    }
-    function copy()
-    {
-        return $this->lib->copy();
     }
     function write()
     {
@@ -43,5 +40,11 @@ class Odk extends PpciController
     function display()
     {
         return $this->lib->display();
+    }
+    function sampletypeWrite()
+    {
+        $odkSampletype = new OdkSampletype;
+        $odkSampletype->write();
+        return $this->display();
     }
 }

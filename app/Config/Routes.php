@@ -369,6 +369,7 @@ $routes->add("odkDisplay", "Odk::display");
 $routes->post("odkSampletypeWrite", "Odk::sampletypeWrite");
 $routes->post("odkSampletypeDelete", "Odk::sampletypeDelete");
 $routes->post("odkWriteComp", "Odk::writeComp");
+$routes->post("odkCalculate", "Odk::calculate");
 /**
  * Documentation
  */

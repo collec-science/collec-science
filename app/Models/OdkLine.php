@@ -32,7 +32,6 @@ class OdkLine extends PpciModel
             ],
             "line_name" => [
                 "type" => 0,
-                "requis" => 1,
             ],
             "line_label" => [
                 "type" => 0

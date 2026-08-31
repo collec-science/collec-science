@@ -104,7 +104,7 @@ CREATE TABLE col.odk_line (
 	odk_id integer,
 	line_order smallint NOT NULL DEFAULT 1,
 	line_type varchar NOT NULL,
-	line_name varchar NOT NULL,
+	line_name varchar,
 	line_label varchar,
 	line_default varchar,
 	line_required varchar,

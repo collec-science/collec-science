@@ -24,7 +24,7 @@
         });
     });
 </script>
-<div class="container">
+<div class="container-fluid">
     <div class="row align-items-center">
         <div class="col-auto">
             <a href="odkList">
@@ -263,10 +263,10 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="navsurvey" role="tabpanel" aria-labelledby="tabsurvey">
-
+                    {include file="odk/odkLine.tpl"}
                 </div>
                 <div class="tab-pane fade" id="navchoice" role="tabpanel" aria-labelledby="tabchoice">
-
+                    {include file="odk/odkChoice.tpl"}
                 </div>
             </div>
         </div>

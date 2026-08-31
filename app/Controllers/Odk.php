@@ -51,4 +51,8 @@ class Odk extends PpciController
         $odkSampletype->write();
         return $this->display();
     }
+
+    function calculate() {
+        
+    }
 }

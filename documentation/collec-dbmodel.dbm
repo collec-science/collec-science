@@ -3,9 +3,9 @@
 CAUTION: Do not modify this file unless you know what you are doing.
  Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="88"
+<dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-592,836" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-592,596" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -3937,7 +3937,7 @@ group by ss.createdsample_id]]> </definition>
 		</idxelement>
 </index>
 
-<table name="odk" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="odk" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of odk projects]]> </comment>
 	<tag name="odk"/>
@@ -3952,10 +3952,6 @@ group by ss.createdsample_id]]> </definition>
 	<column name="odk_name" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Name of the form]]> </comment>
-	</column>
-	<column name="odk_code" not-null="true">
-		<type name="varchar" length="0"/>
-		<comment> <![CDATA[Code of the odk form. Used when generate identifiers to the samples]]> </comment>
 	</column>
 	<column name="odk_description">
 		<type name="varchar" length="0"/>
@@ -4261,6 +4257,37 @@ group by ss.createdsample_id]]> </definition>
 	 src-table="col.odk"
 	 dst-table="col.odk_choice"
 	 src-required="false" dst-required="false"/>
+
+<table name="odk_identifier" layers="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="col"/>
+	<comment> <![CDATA[List of secundary identifiers used in the form]]> </comment>
+	<tag name="odk"/>
+	<position x="-720" y="1080"/>
+</table>
+
+<relationship name="odk_has_many_odk_identifier" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.odk"
+	 dst-table="col.odk_identifier"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
+
+<relationship name="identifier_type_has_many_odk_identifier" type="rel1n" layers="0"
+	 src-col-pattern="{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 fk-idx-pattern="{st}_idx"
+	 custom-color="#55007f"
+	 src-table="col.identifier_type"
+	 dst-table="col.odk_identifier"
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
 
 <constraint name="object_booking_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.object" table="col.booking">

@@ -248,3 +248,28 @@ REFERENCES col.odk_sampletype (odk_sampletype_id) MATCH SIMPLE
 ON DELETE NO ACTION ON UPDATE NO ACTION;
 -- ddl-end --
 
+-- DROP TABLE IF EXISTS col.odk_identifier CASCADE;
+CREATE TABLE col.odk_identifier (
+	odk_id integer NOT NULL,
+	identifier_type_id integer NOT NULL,
+	CONSTRAINT odk_identifier_pk PRIMARY KEY (odk_id,identifier_type_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_identifier IS E'List of secundary identifiers used in the form';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_identifier DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_identifier ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: identifier_type_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_identifier DROP CONSTRAINT IF EXISTS identifier_type_fk CASCADE;
+ALTER TABLE col.odk_identifier ADD CONSTRAINT identifier_type_fk FOREIGN KEY (identifier_type_id)
+REFERENCES col.identifier_type (identifier_type_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+

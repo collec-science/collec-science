@@ -373,5 +373,6 @@ class Rights extends RightsPpci
         "odkDisplay" => ["collection"],
         "odkSampletypeWrite" => ["collection"],
         "odkSampletypeDelete" => ["collection"],
+        "odkWriteComp" => ["collection"],
     ];
 }

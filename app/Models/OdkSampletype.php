@@ -45,6 +45,9 @@ class OdkSampletype extends PpciModel
                 "type" => 1,
                 "defaultValue" => -1
             ],
+            "identifier_prefix" => [
+                "type" => 0
+            ]
         ];
         parent::__construct();
     }
@@ -52,10 +55,15 @@ class OdkSampletype extends PpciModel
     function getListFromOdk(int $id)
     {
         $sql = "SELECT odk_sampletype_id, odk_id, sample_type_id, sample_type_name, 
-                sampletype_order, parent_sampletype_id, image_number, sound_number, video_number
+                sampletype_order, parent_sampletype_id, image_number, sound_number, video_number,
+                identifier_prefix, metadata_schema,
+                multiple_type_name, multiple_unit
                 from odk_sampletype
                 join sample_type using (sample_type_id)
-                where odk_id = :id:";
+                left outer join metadata using (metadata_id)
+                left outer join multiple_type using (multiple_type_id)
+                where odk_id = :id:
+                order by sampletype_order";
         return $this->getListParam($sql, ["id" => $id]);
     }
 }

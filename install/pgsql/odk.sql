@@ -81,6 +81,7 @@ CREATE TABLE col.odk_sampletype (
 	image_number smallint NOT NULL DEFAULT -1,
 	sound_number smallint NOT NULL DEFAULT -1,
 	video_number smallint NOT NULL DEFAULT -1,
+	identifier_prefix varchar,
 	CONSTRAINT odk_sampletype_pk PRIMARY KEY (odk_sampletype_id)
 );
 -- ddl-end --
@@ -96,6 +97,7 @@ COMMENT ON COLUMN col.odk_sampletype.sound_number IS E'-1: no sound record\n0: n
 -- ddl-end --
 COMMENT ON COLUMN col.odk_sampletype.video_number IS E'-1: no video\n0: not defined, but possible\n1..: fixed number of videos';
 -- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.identifier_prefix IS E'Prefix used to create a new business identifier';
 
 -- object: col.odk_line | type: TABLE --
 -- DROP TABLE IF EXISTS col.odk_line CASCADE;

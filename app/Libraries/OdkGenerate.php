@@ -5,6 +5,7 @@ namespace App\Libraries;
 use App\Models\Odk;
 use App\Models\OdkChoice;
 use App\Models\OdkLine;
+use App\Models\OdkSampletype;
 use Override;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Libraries\PpciException;
@@ -17,10 +18,12 @@ class OdkGenerate extends PpciLibrary
     private array $identifiers = [];
     private array $referents = [];
     private array $stations = [];
+    private array $samples = [];
 
     public Odk $odk;
     public OdkLine $odkLine;
     public OdkChoice $odkChoice;
+    public OdkSampletype $odkSample;
 
     #[Override]
     function __construct()
@@ -29,6 +32,7 @@ class OdkGenerate extends PpciLibrary
         $this->odkLine = new OdkLine;
         $this->odkChoice = new OdkChoice;
         $this->odk = new Odk;
+        $this->odkSample = new OdkSampletype;
     }
 
     function calculate(int $id)
@@ -47,6 +51,7 @@ class OdkGenerate extends PpciLibrary
             $this->identifiers = $this->odk->getIdentifiers($id);
             $this->referents = $this->odk->getReferents($id);
             $this->stations = $this->odk->getStations($id);
+            $this->samples = $this->odkSample->getListFromOdk($id);
 
             /**
              * Create lines
@@ -105,10 +110,11 @@ class OdkGenerate extends PpciLibrary
         }
     }
 
-    function addLine(string $type, string $name = "", string $label = "", string $hint = "", string $appearance = "", string $default ="", array $others = []) {
-        
-    $line = [ "type"=>$type];
-        $fields = ["label","hint", "appearance", "default"] ;
+    function addLine(string $type, string $name = "", string $label = "", string $hint = "", string $appearance = "", string $default = "", string $relevant = "", array $others = [])
+    {
+
+        $line = ["type" => $type];
+        $fields = ["label", "hint", "appearance", "default", "relevant"];
         foreach ($fields as $field) {
             if (strlen($$field) > 0) {
                 $line["line_$field"] = $$field;
@@ -118,14 +124,15 @@ class OdkGenerate extends PpciLibrary
             $line["line_$k"] = $v;
         }
         $this->lines[] = $line;
-        
     }
 
-    function addChoice(string $listName, string $name, string $label, string $filter = "") {
-        $choice = ["list_name"=>$listName,
-        "choice_name"=>$name,
-        "choice_label"=>$label,
-        "choice_filter"=>$filter
+    function addChoice(string $listName, string $name, string $label, string $filter = "")
+    {
+        $choice = [
+            "list_name" => $listName,
+            "choice_name" => $name,
+            "choice_label" => $label,
+            "choice_filter" => $filter
         ];
         $this->choices[] = $choice;
     }
@@ -133,11 +140,11 @@ class OdkGenerate extends PpciLibrary
     function generateSampling()
     {
         $this->openGroup("general", _("Point de prélèvement"));
-        $this->addLine("date", "sampling_date", "Date de prélèvement", "", "calendar", "today()");
+        $this->addLine("date", "sampling_date", "Date de prélèvement", "", "no-calendar", "today()");
         if (!empty($this->referents)) {
             $this->addLine("select one referent", "referent_id", _("Référent des échantillons"));
             foreach ($this->referents as $referent) {
-                $this->addChoice("referent", $referent["referent_id"], trim($referent["referent_name"]." ".$referent["referent_firstname"]));
+                $this->addChoice("referent", $referent["referent_id"], trim($referent["referent_name"] . " " . $referent["referent_firstname"]));
             }
         }
         if (!empty($this->stations)) {
@@ -150,8 +157,46 @@ class OdkGenerate extends PpciLibrary
         $this->closeGroup();
     }
 
-    function generateSamples() {
+    function generateSamples()
+    {
+        $this->openGroup("samples", _("Échantillonnage"));
+        $this->addLine("begin repeat", "samples", _("Échantillons"));
+        $this->addLine("select one sample", "sample_type_id", "Type d'échantillon", "", "field-list");
+        $unit = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_unit')";
+        $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
+        $relevant = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_type_id') = 1";
+        $this->addLine("decimal", "multiple_value", _("Quantité"), '${hint-quantity}', "", "", $relevant);
+        $prefix = [];
+        $md_list = [];
+        $md_list_relevant = [];
+        foreach ($this->samples as $sample) {
+            if (!empty($sample["multiple_unit"])) {
+                $this->addChoice("multiple_unit", $sample["sample_type_id"], $sample["multiple_unit"]);
+            }
+            $this->addChoice("quantity", $sample["sample_type_id"], $sample["multiple_type_id"] > 0 ? 1 : 0);
+            /**
+             * get metadata
+             */
+            $metadatas = json_decode($sample["metadata_schema"], true);
 
+            foreach ($metadatas as $metadata) {
+                $md_list[$metadata["name"]] = [
+                    "type" => $metadata["type"],
+                    "required" => $metadata["required"],
+                    "description" => $metadata["description"],
+                    "choiceList" => $metadata["choiceList"]
+                ];
+                $md_list_relevant[$metadata["name"]][] = $sample["sample_type_id"];
+            }
+        }
+        /**
+         * generate lines for metadata
+         */
+        foreach ($md_list as $name=> $md) {
+
+        }
+        $this->addLine("end repeat");
+        $this->closeGroup();
     }
 
     function openGroup(string $name, string $label)

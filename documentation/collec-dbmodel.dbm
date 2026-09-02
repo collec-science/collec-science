@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-592,596" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-592,805" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -4058,7 +4058,7 @@ group by ss.createdsample_id]]> </definition>
 	 dst-table="col.odk_station"
 	 src-required="false" dst-required="false"/>
 
-<table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+<table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of types of samples usable in the odk form]]> </comment>
 	<tag name="odk"/>
@@ -4091,6 +4091,10 @@ group by ss.createdsample_id]]> </definition>
 		<comment> <![CDATA[-1: no video
 0: not defined, but possible
 1..: fixed number of videos]]> </comment>
+	</column>
+	<column name="identifier_prefix">
+		<type name="varchar" length="0"/>
+		<comment> <![CDATA[Prefix used to create a new business identifier]]> </comment>
 	</column>
 	<constraint name="odk_sampletype_pk" type="pk-constr" table="col.odk_sampletype">
 		<columns names="odk_sampletype_id" ref-type="src-columns"/>
@@ -4918,7 +4922,7 @@ group by ss.createdsample_id]]> </definition>
 	 dst-table="col.odk_sampletype" reference-fk="rel_odk_sample_type_parent"
 	 src-required="false" dst-required="false">
 	<line>
-		<position x="7.68516" y="1395.91"/>
+		<position x="7.68516" y="1403.44"/>
 	<position x="7.68516" y="1287"/>
 	<position x="-123.543" y="1287"/>
 	</line>

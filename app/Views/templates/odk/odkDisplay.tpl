@@ -22,6 +22,11 @@
                 event.preventDefault();
             }
         });
+        $("#odkCalculate").submit(function(event) {
+            if (!confirm("{t}Le contenu des lignes de formulaires et des choix va être réinitialisé{/t}")) {
+                event.preventDefault();
+            }
+        });
     });
 </script>
 <div class="container-fluid">
@@ -31,6 +36,13 @@
                 <img src="display/images/list.png" height="25">
                 {t}Retour à la liste{/t}
             </a>
+        </div>
+        <div class="col-auto">
+            <form id="odkCalculate" method="post" action="odkCalculate">
+                <input type="hidden" name="odk_id" value="{$data.odk_id}">
+                <button id="btn-calculate" type="submit" class="btn btn-danger">{t}Calculer le formulaire{/t}</button>
+                {$csrf}
+            </form>
         </div>
     </div>
     <div class="row">
@@ -137,7 +149,7 @@
                             </tbody>
                         </table>
                     </div>
-                    {input file="odk/odkSampleChange.tpl"}
+                    {include file="odk/odkSampleChange.tpl"}
                 </div>
                 <div class="tab-pane fade" id="navcomp" role="tabpanel" aria-labelledby="tabcomp">
                     <div class="row">

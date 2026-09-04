@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-592,805" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-592,1233" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -4144,7 +4144,7 @@ group by ss.createdsample_id]]> </definition>
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Type of information]]> </comment>
 	</column>
-	<column name="line_name" not-null="true">
+	<column name="line_name">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[column name]]> </comment>
 	</column>

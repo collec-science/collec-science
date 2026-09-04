@@ -74,5 +74,23 @@ class OdkLine extends PpciModel
             ],
 
         ];
+        parent::__construct();
+    }
+
+    function createLine(array $data): int
+    {
+        $content = [];
+        foreach ($this->fields as $k => $v) {
+            /**
+             * add line_ to $data fields if necessary
+             */
+            if (substr($k, 0, 5) == "line_") {
+                $key = substr($k,  5);
+            } else {
+                $key = $k;
+            }
+            $content[$k] = $data[$key];
+        }
+        return parent::write($content);
     }
 }

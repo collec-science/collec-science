@@ -25,7 +25,6 @@ class OdkGenerate extends PpciLibrary
     public OdkChoice $odkChoice;
     public OdkSampletype $odkSample;
 
-    #[Override]
     function __construct()
     {
         parent::__construct();
@@ -110,11 +109,11 @@ class OdkGenerate extends PpciLibrary
         }
     }
 
-    function addLine(string $type, string $name = "", string $label = "", string $hint = "", string $appearance = "", string $default = "", string $relevant = "", array $others = [])
+    function addLine(string $type, ?string $name = "", ?string $label = "", ?string $hint = "", ?string $appearance = "", ?string $default = "", ?string $relevant = "", ?array $others = [])
     {
 
-        $line = ["type" => $type];
-        $fields = ["label", "hint", "appearance", "default", "relevant"];
+        $line = ["line_type" => $type];
+        $fields = ["name", "label", "hint", "appearance", "default", "relevant"];
         foreach ($fields as $field) {
             if (strlen($$field) > 0) {
                 $line["line_$field"] = $$field;
@@ -159,7 +158,7 @@ class OdkGenerate extends PpciLibrary
 
     function generateSamples()
     {
-        $this->openGroup("samples", _("Échantillonnage"));
+        $this->openGroup("sampling", _("Échantillonnage"));
         $this->addLine("begin repeat", "samples", _("Échantillons"));
         $this->addLine("select one sample", "sample_type_id", "Type d'échantillon", "", "field-list");
         $unit = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_unit')";
@@ -184,7 +183,10 @@ class OdkGenerate extends PpciLibrary
                     "type" => $metadata["type"],
                     "required" => $metadata["required"],
                     "description" => $metadata["description"],
-                    "choiceList" => $metadata["choiceList"]
+                    "choiceList" => $metadata["choiceList"],
+                    "multiple" => $metadata["multiple"],
+                    "default" => $metadata["defaultValue"],
+                    "helper" => $metadata["helper"]
                 ];
                 $md_list_relevant[$metadata["name"]][] = $sample["sample_type_id"];
             }
@@ -192,8 +194,62 @@ class OdkGenerate extends PpciLibrary
         /**
          * generate lines for metadata
          */
-        foreach ($md_list as $name=> $md) {
-
+        $mdPerformed = [];
+        foreach ($md_list as $name => $md) {
+            if (!in_array($name, $mdPerformed)) {
+                $mdline = [];
+                if ($md["type"] == "text" || $md["type"] == "textarea" || $md["type"] == "url") {
+                    $mdline["type"] = "text";
+                } else if ($md["type"] == "number") {
+                    $mdline["type"] = "decimal";
+                } else if ($md["type"] == "date") {
+                    $mdline["type"] = "date";
+                    $mdline["appearance"] = "no-calendar";
+                } else {
+                    /**
+                     * list of values
+                     */
+                    if ($md["multiple"] == "yes") {
+                        $mdline["type"] = "select_multiple md_$name";
+                    } else {
+                        $mdline["type"] = "select_one md_$name";
+                    }
+                    /**
+                     * create the list choice
+                     */
+                    foreach ($md["choiceList"] as $val) {
+                        if (strlen($val) > 0) {
+                            $this->addChoice("md_$name", $val, $val);
+                        }
+                    }
+                }
+                /**
+                 * add relevant
+                 */
+                $i = 0;
+                $rel = '';
+                foreach ($md_list_relevant[$name] as $val) {
+                    if ($i > 0) {
+                        $rel .= " or ";
+                    }
+                    $rel .= '${' . $name . '} = "' . $val . '"';
+                }
+                $mdline["relevant"] = $rel;
+                $mdPerformed[] = $name;
+                /**
+                 * add line
+                 */
+                $this->addLine(
+                    $mdline["type"],
+                    "md_$name",
+                    $name,
+                    $md["helper"],
+                    $mdline["appearance"],
+                    $md["default"],
+                    $relevant,
+                    ["required" => $md["required"]]
+                );
+            }
         }
         $this->addLine("end repeat");
         $this->closeGroup();

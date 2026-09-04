@@ -119,4 +119,8 @@ class Odk extends PpciLibrary
             return false;
         }
     }
+    function calculate() {
+        $odkGenerate = new OdkGenerate;
+        $odkGenerate->calculate($this->id);
+    }
 }

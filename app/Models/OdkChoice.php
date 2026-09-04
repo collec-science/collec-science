@@ -21,21 +21,38 @@ class OdkChoice extends PpciModel
                 "requis" => 1,
                 "parentAttrib" => 1
             ],
-            "list_name"=> [
-                "type"=>0,
-                "requis"=>1,
+            "list_name" => [
+                "type" => 0,
+                "requis" => 1,
             ],
-            "choice_name"=> [
-                "type"=>0,
-                "requis"=>1,
+            "choice_name" => [
+                "type" => 0,
+                "requis" => 1,
             ],
-            "choice_label"=> [
-                "type"=>0,
-                "requis"=>1,
+            "choice_label" => [
+                "type" => 0,
+                "requis" => 1,
             ],
-            "choice_filter"=> [
-                "type"=>0
+            "choice_filter" => [
+                "type" => 0
             ],
         ];
+        parent::__construct();
+    }
+    function createChoice(array $data): int
+    {
+        $content = [];
+        foreach ($this->fields as $k => $v) {
+            /**
+             * add line_ to $data fields if necessary
+             */
+            if (substr($k, 0, 7) == "choice_") {
+                $key = substr($k, 7);
+            } else {
+                $key = $k;
+            }
+            $content[$k] = $data[$key];
+        }
+        return parent::write($content);
     }
 }

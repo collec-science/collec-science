@@ -11,8 +11,8 @@
         <tbody>
             {foreach $choices as $choice}
             <tr>
-                <td>{$choice.name}</td>
-                <td>{$choice.label}</td>
+                <td>{$choice.list_name}</td>
+                <td>{$choice.choice_label}</td>
                 <td>{$choice.choice_name}</td>
                 <td>{$choice.choice_filter}</td>
             </tr>

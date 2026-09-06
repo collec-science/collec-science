@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-592,1233" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-592,609" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -4056,7 +4056,9 @@ group by ss.createdsample_id]]> </definition>
 	 custom-color="#55007f"
 	 src-table="col.sampling_place"
 	 dst-table="col.odk_station"
-	 src-required="false" dst-required="false"/>
+	 src-required="true" dst-required="false"
+	 identifier="true"
+/>
 
 <table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="col"/>

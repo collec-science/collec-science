@@ -60,7 +60,7 @@
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
             </div>
-            {if $data.odk_sampletype_id > 0 }
+            {if $odksampletype.odk_sampletype_id > 0 }
             <div class="col-auto">
                 <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
             </div>

@@ -28,7 +28,7 @@ class OdkSampletype extends PpciLibrary
         try {
             $this->id = $this->dataWrite($_REQUEST);
             if ($this->id > 0) {
-                $_REQUEST[$this->keyName] = $this->id;
+                $_REQUEST[$this->keyName] = 0;
                 return true;
             } else {
                 return false;

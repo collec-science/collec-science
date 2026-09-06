@@ -103,7 +103,8 @@ class Odk extends PpciLibrary
         try {
             $this->dataclass->writeComp($_POST["odk_id"], $_POST);
             return true;
-        } catch (PpciException) {
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
             return false;
         }
     }

@@ -64,7 +64,7 @@ COMMENT ON TABLE col.odk_referent IS E'List of referents attached to an odk proj
 CREATE TABLE col.odk_station (
 	odk_id integer NOT NULL,
 	sampling_place_id integer,
-	CONSTRAINT odk_station_pk PRIMARY KEY (odk_id)
+	CONSTRAINT odk_station_pk PRIMARY KEY (odk_id,sampling_place_id)
 );
 -- ddl-end --
 COMMENT ON TABLE col.odk_station IS E'List of stations attached to an odk project';

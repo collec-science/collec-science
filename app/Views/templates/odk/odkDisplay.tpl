@@ -119,7 +119,7 @@
                     <div class="row">
                         <!--List of sample types-->
                         {$maxSortOrder = 0}
-                        <table class="table table-bordered table-hover datatable-nopaging-nosearching" id="odkSamples">
+                        <table class="table table-bordered table-hover datatable-nopaging-nosearching" id="odkSamples" data-order='[[1,"asc"],[0,"asc"]]'>
                             <thead>
                                 <tr>
                                     <th>{t}Type d'échantillon{/t}</th>

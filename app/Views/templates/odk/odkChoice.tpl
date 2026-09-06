@@ -1,5 +1,5 @@
 <div class="row">
-    <table id="odkChoices" class="table table-bordered table-hover datatable display" data-order='[[0,"asc"],[1,"asc"]]'>
+    <table id="odkChoices" class="table table-bordered table-hover datatable-nosort display" data-order='[[0,"asc"],[1,"asc"]]'>
         <thead>
             <tr>
                 <th>{t}Nom de la rubrique{/t}</th>

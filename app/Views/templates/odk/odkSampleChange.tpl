@@ -33,7 +33,9 @@
         </div>
         <div class="row">
             <label for="identifier_prefix" class="form-label col-4">{t}Préfixe utilisé pour générer l'identifiant métier :{/t}</label>
-            <input id="identifier_prefix" name="identifier_prefix" class="form-control" value="{$odksampletype.identifier_prefix}">
+            <div class="col-8">
+                <input id="identifier_prefix" name="identifier_prefix" class="form-control" value="{$odksampletype.identifier_prefix}">
+            </div>
         </div>
         <div class="row">
             <label for="image_number" class="form-label col-4">{t}Nombre de photos (-1 : aucune, 0 : non défini) :{/t}</label>

@@ -168,6 +168,15 @@ class OdkGenerate extends PpciLibrary
         $prefix = [];
         $md_list = [];
         $md_list_relevant = [];
+        /**
+         * Add list of sample types in choice
+         */
+        foreach ($this->samples as $sample) {
+            $this->addChoice("sample_type_id", $sample["sample_type_name"], $sample["sample_type_id"]);
+        }
+        /**
+         * add if necessary quantity and metadata
+         */
         foreach ($this->samples as $sample) {
             if (!empty($sample["multiple_unit"])) {
                 $this->addChoice("multiple_unit", $sample["sample_type_id"], $sample["multiple_unit"]);
@@ -198,7 +207,7 @@ class OdkGenerate extends PpciLibrary
         foreach ($md_list as $name => $md) {
             if (!in_array($name, $mdPerformed)) {
                 $mdline = [];
-                if ($md["type"] == "text" || $md["type"] == "textarea" || $md["type"] == "url") {
+                if ($md["type"] == "string" || $md["type"] == "textarea" || $md["type"] == "url") {
                     $mdline["type"] = "text";
                 } else if ($md["type"] == "number") {
                     $mdline["type"] = "decimal";
@@ -232,7 +241,8 @@ class OdkGenerate extends PpciLibrary
                     if ($i > 0) {
                         $rel .= " or ";
                     }
-                    $rel .= '${' . $name . '} = "' . $val . '"';
+                    $rel .= '${sample_type_id} = "' . $val . '"';
+                    $i++;
                 }
                 $mdline["relevant"] = $rel;
                 $mdPerformed[] = $name;
@@ -246,7 +256,7 @@ class OdkGenerate extends PpciLibrary
                     $md["helper"],
                     $mdline["appearance"],
                     $md["default"],
-                    $relevant,
+                    $mdline["relevant"],
                     ["required" => $md["required"]]
                 );
             }

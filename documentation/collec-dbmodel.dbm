@@ -4076,27 +4076,21 @@ group by ss.createdsample_id]]> </definition>
 		<type name="smallint" length="0"/>
 		<comment> <![CDATA[Sort order of the sample types]]> </comment>
 	</column>
-	<column name="image_number" not-null="true" default-value="-1">
-		<type name="smallint" length="0"/>
-		<comment> <![CDATA[-1: no image
-0: not defined, but possible
-1..: fixed number of images]]> </comment>
-	</column>
-	<column name="sound_number" not-null="true" default-value="-1">
-		<type name="smallint" length="0"/>
-		<comment> <![CDATA[-1: no sound record
-0: not defined, but possible
-1..: fixed number of recorded sounds]]> </comment>
-	</column>
-	<column name="video_number" not-null="true" default-value="-1">
-		<type name="smallint" length="0"/>
-		<comment> <![CDATA[-1: no video
-0: not defined, but possible
-1..: fixed number of videos]]> </comment>
-	</column>
 	<column name="identifier_prefix">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Prefix used to create a new business identifier]]> </comment>
+	</column>
+	<column name="with_picture" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[1 if pictures can be added]]> </comment>
+	</column>
+	<column name="with_video" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[1 if videos can be added]]> </comment>
+	</column>
+	<column name="with_sound" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[1 if recordings of sound can be added]]> </comment>
 	</column>
 	<constraint name="odk_sampletype_pk" type="pk-constr" table="col.odk_sampletype">
 		<columns names="odk_sampletype_id" ref-type="src-columns"/>

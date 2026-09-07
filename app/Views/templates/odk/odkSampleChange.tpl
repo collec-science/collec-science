@@ -2,13 +2,13 @@
     <legend>
         {t}Ajout ou modification{/t}
         {if $odksampletype.odk_sampletype_id > 0}
-        <button class="btn btn-primary" onclick="window.location.href='odkDisplay?odk_id={$data.odk_id}&odk_sampletype_id=0'" ;>{t}Nouveau{/t}</button>
+        <button class="btn btn-primary" onclick="window.location.href='odkDisplay?odk_id={$odksampletype.odk_id}&odk_sampletype_id=0'" ;>{t}Nouveau{/t}</button>
         {/if}
     </legend>
     <form class="form-horizontal " id="odkSampletypeForm" method="post">
         <input type="hidden" name="moduleBase" value="odkSampletype">
         <input type="hidden" name="action" value="Write">
-        <input type="hidden" name="odk_id" value="{$data.odk_id}">
+        <input type="hidden" name="odk_id" value="{$odksampletype.odk_id}">
         <input type="hidden" name="odk_sampletype_id" value="{$odksampletype.odk_sampletype_id}">
         <div class="row">
             <label for="sample_type_id" class="form-label col-4"><span class="red">*</span>
@@ -38,36 +38,56 @@
             </div>
         </div>
         <div class="row">
-            <label for="image_number" class="form-label col-4">{t}Nombre de photos (-1 : aucune, 0 : non défini) :{/t}</label>
+            <label for="with_picture" class="form-label col-4">{t}Ajout de photos :{/t}</label>
             <div class="col-8">
-                <input id="image_number" type="number" class="form-control" name="image_number" value="{$odksampletype.image_number}">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_picture" id="with_picture1" value="1" {if $odksampletype.with_picture==1}checked{/if}>
+                    <label class="form-check-label" for="with_picture1">{t}oui{/t}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_picture" id="with_picture0" value="0" {if $odksampletype.with_picture==0}checked{/if}>
+                    <label class="form-check-label" for="with_picture0">{t}non{/t}</label>
+                </div>
             </div>
         </div>
         <div class="row">
-            <label for="video_number" class="form-label col-4">{t}Nombre de vidéos (-1 : aucune, 0 : non défini) :{/t}</label>
+            <label for="with_video" class="form-label col-4">{t}Ajout de vidéos :{/t}</label>
             <div class="col-8">
-                <input id="video_number" type="number" class="form-control" name="video_number" value="{$odksampletype.video_number}">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_video" id="with_video1" value="1" {if $odksampletype.with_video==1}checked{/if}>
+                    <label class="form-check-label" for="with_video1">{t}oui{/t}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_video" id="with_video0" value="0" {if $odksampletype.with_video==0}checked{/if}>
+                    <label class="form-check-label" for="with_video0">{t}non{/t}</label>
+                </div>
             </div>
         </div>
         <div class="row">
-            <label for="sound_number" class="form-label col-4">{t}Nombre d'enregistrements sonores (-1 : aucun, 0 : non défini) :{/t}</label>
+            <label for="with_sound" class="form-label col-4">{t}Ajout d'enregistrements sonores :{/t}</label>
             <div class="col-8">
-                <input id="sound_number" type="number" class="form-control" name="sound_number" value="{$odksampletype.sound_number}">
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_sound" id="with_sound1" value="1" {if $odksampletype.with_sound==1}checked{/if}>
+                    <label class="form-check-label" for="with_sound1">{t}oui{/t}</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="with_sound" id="with_sound0" value="0" {if $odksampletype.with_sound==0}checked{/if}>
+                    <label class="form-check-label" for="with_sound0">{t}non{/t}</label>
+                </div>
             </div>
-        </div>
-        <div class="row d-inline">
-            <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-auto">
-                <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+            <div class="row d-inline">
+                <span class="messagebas"><span class="red">*</span>&nbsp;{t}Donnée obligatoire{/t}</span>
             </div>
-            {if $odksampletype.odk_sampletype_id > 0 }
-            <div class="col-auto">
-                <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+            <div class="row d-flex justify-content-center">
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary button-valid">{t}Valider{/t}</button>
+                </div>
+                {if $odksampletype.odk_sampletype_id > 0 }
+                <div class="col-auto">
+                    <button class="btn btn-danger button-delete">{t}Supprimer{/t}</button>
+                </div>
+                {/if}
             </div>
-            {/if}
-        </div>
-        {$csrf}
+            {$csrf}
     </form>
 </fieldset>

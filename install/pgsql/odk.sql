@@ -79,9 +79,9 @@ CREATE TABLE col.odk_sampletype (
 	odk_id integer NOT NULL,
 	sample_type_id integer NOT NULL,
 	sampletype_order smallint NOT NULL DEFAULT 1,
-	image_number smallint NOT NULL DEFAULT -1,
-	sound_number smallint NOT NULL DEFAULT -1,
-	video_number smallint NOT NULL DEFAULT -1
+	with_picture smallint DEFAULT 0,
+	with_video smallint DEFAULT 0,
+	with_sound smallint DEFAULT 0,
 	identifier_prefix varchar,
 	CONSTRAINT odk_sampletype_pk PRIMARY KEY (odk_sampletype_id)
 );
@@ -92,13 +92,13 @@ COMMENT ON COLUMN col.odk_sampletype.parent_sampletype_id IS E'Id of the sample 
 -- ddl-end --
 COMMENT ON COLUMN col.odk_sampletype.sampletype_order IS E'Sort order of the sample types';
 -- ddl-end --
-COMMENT ON COLUMN col.odk_sampletype.image_number IS E'-1: no image\n0: not defined, but possible\n1..: fixed number of images';
--- ddl-end --
-COMMENT ON COLUMN col.odk_sampletype.sound_number IS E'-1: no sound record\n0: not defined, but possible\n1..: fixed number of recorded sounds';
--- ddl-end --
-COMMENT ON COLUMN col.odk_sampletype.video_number IS E'-1: no video\n0: not defined, but possible\n1..: fixed number of videos';
--- ddl-end --
 COMMENT ON COLUMN col.odk_sampletype.identifier_prefix IS E'Prefix used to create a new business identifier';
+COMMENT ON COLUMN col.odk_sampletype.with_picture IS E'1 if pictures can be added';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.with_video IS E'1 if videos can be added';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.with_sound IS E'1 if recordings of sound can be added';
+-- ddl-end --
 
 -- object: col.odk_line | type: TABLE --
 -- DROP TABLE IF EXISTS col.odk_line CASCADE;

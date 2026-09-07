@@ -7,9 +7,9 @@
                 <th>{t}Type d'échantillon{/t}</th>
                 <th>{t}Ordre d'affichage{/t}</th>
                 <th>{t}Radical de l'identifiant métier{/t}</th>
-                <th>{t}Nombre d'images{/t}</th>
-                <th>{t}Nombre de vidéos{/t}</th>
-                <th>{t}Nombre de prises sonores{/t}</th>
+                <th>{t}Ajout d'images{/t}</th>
+                <th>{t}Ajout de vidéos{/t}</th>
+                <th>{t}Ajout de prises sonores{/t}</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,9 @@
                 </td>
                 <td class="center">{$sample.sampletype_order}</td>
                 <td>{$sample.identifier_prefix}</td>
-                <td class="center">{$sample.image_number}</td>
-                <td class="center">{$sample.video_number}</td>
-                <td class="center">{$sample.sound_number}</td>
+                <td class="center">{if $sample.with_picture == 1}{t}oui{/t}{else}{t}non{/t}{/if}</td>
+                <td class="center">{if $sample.with_video == 1}{t}oui{/t}{else}{t}non{/t}{/if}</td>
+                <td class="center">{if $sample.with_sound == 1}{t}oui{/t}{else}{t}non{/t}{/if}</td>
             </tr>
             {if $sample.sampletype_order > $maxSortOrder}
             {$maxSortOrder = $sample.sampletype_order}

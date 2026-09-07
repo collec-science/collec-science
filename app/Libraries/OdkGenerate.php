@@ -282,6 +282,11 @@ class OdkGenerate extends PpciLibrary
                 );
             }
         }
+        /**
+         * media records
+         */
+        
+
         $this->addLine("end repeat");
         $this->closeGroup();
     }

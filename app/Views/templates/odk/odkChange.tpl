@@ -70,6 +70,19 @@
                 </div>
             </div>
             <div class="row">
+                <label for="with_subsampling" class="form-label col-4">{t}Certains échantillons peuvent être du sous-échantillonnage de l'échantillon principal ?{/t}</label>
+                <div class="col-8">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="with_subsampling" id="withsubsampling1" value="1" {if $data.with_subsampling == 1}checked{/if}>
+                        <label class="form-check-label" for="withsubsampling1">{t}oui{/t}</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="with_subsampling" id="withsubsampling0" value="0" {if $data.with_subsampling == 0}checked{/if}>
+                        <label class="form-check-label" for="withsubsampling1">{t}non{/t}</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <label for="odk_version" class="form-label col-4"><span class="red">*</span> {t}Version du formulaire :{/t}</label>
                 <div class="col-8">
                     <input id="odk_version" type="text" class="form-control" name="odk_version" value="{$data.odk_version}" required>

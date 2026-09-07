@@ -30,6 +30,7 @@ CREATE TABLE col.odk (
 	odk_description varchar,
 	odk_version varchar NOT NULL DEFAULT 1.0,
 	odk_author varchar NOT NULL,
+	with_subsample smallint DEFAULT 0,
 	CONSTRAINT odk_pk PRIMARY KEY (odk_id)
 );
 -- ddl-end --
@@ -46,6 +47,7 @@ COMMENT ON COLUMN col.odk.odk_description IS E'Description of the form';
 COMMENT ON COLUMN col.odk.odk_version IS E'Version of the odk form';
 -- ddl-end --
 COMMENT ON COLUMN col.odk.odk_author IS E'Login of the author of the form';
+COMMENT ON COLUMN col.odk.with_subsample IS E'if 1, it is possible to declare a sample subsample of the last sample which is not subsample';
 -- ddl-end --
 
 -- object: col.odk_referent | type: TABLE --
@@ -76,11 +78,10 @@ CREATE TABLE col.odk_sampletype (
 	odk_sampletype_id serial NOT NULL,
 	odk_id integer NOT NULL,
 	sample_type_id integer NOT NULL,
-	parent_sampletype_id integer,
 	sampletype_order smallint NOT NULL DEFAULT 1,
 	image_number smallint NOT NULL DEFAULT -1,
 	sound_number smallint NOT NULL DEFAULT -1,
-	video_number smallint NOT NULL DEFAULT -1,
+	video_number smallint NOT NULL DEFAULT -1
 	identifier_prefix varchar,
 	CONSTRAINT odk_sampletype_pk PRIMARY KEY (odk_sampletype_id)
 );

@@ -13,6 +13,7 @@
                     <th>{t}Nom{/t}</th>
                     <th>{t}Collection{/t}</th>
                     <th>{t}Campagne{/t}</th>
+                    <th>{t}Sous-échantillonnage autorisé{/t}</th>
                     <th>{t}Projet ODK{/t}</th>
                     <th>{t}Description{/t}</th>
                     <th>{t}Version{/t}</th>
@@ -26,26 +27,15 @@
                 {foreach $data as $row}
                 <tr>
                     <td>
-                        <a href="odkDisplay?odk_id={$row.odk_id}">
-                            {$row.odk_name}
-                        </a>
+                        <a href="odkDisplay?odk_id={$row.odk_id}"> {$row.odk_name} </a>
                     </td>
-                    <td>
-                        {$row.collection_name}
-                    </td>
-                    <td>
-                        {$row.campaign_name}
-                    </td>
-                    <td>
-                        {$row.odk_project}
-                    </td>
+                    <td> {$row.collection_name} </td>
+                    <td> {$row.campaign_name} </td>
+                    <td class="center">{if $row.with_subsampling == 1}{t}oui{/t}{else}{t}non{/t}{/if}</td>
+                    <td> {$row.odk_project} </td>
                     <td class="textareaDisplay">{$row.odk_description}</td>
-                    <td>
-                        {$row.odk_version}
-                    </td>
-                    <td>
-                        {$row.odk_author}
-                    </td>
+                    <td> {$row.odk_version} </td>
+                    <td> {$row.odk_author} </td>
                     {if $rights.collection == 1}
                     <td class="center">
                         <a href="odkChange?odk_id={$row.odk_id}">

@@ -3937,7 +3937,7 @@ group by ss.createdsample_id]]> </definition>
 		</idxelement>
 </index>
 
-<table name="odk" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
+<table name="odk" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of odk projects]]> </comment>
 	<tag name="odk"/>
@@ -3964,6 +3964,10 @@ group by ss.createdsample_id]]> </definition>
 	<column name="odk_author" not-null="true">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Login of the author of the form]]> </comment>
+	</column>
+	<column name="with_subsampling" default-value="0">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[if 1, it is possible to declare a sample subsample of the last sample which is not subsample]]> </comment>
 	</column>
 	<constraint name="odk_pk" type="pk-constr" table="col.odk">
 		<columns names="odk_id" ref-type="src-columns"/>
@@ -4060,17 +4064,13 @@ group by ss.createdsample_id]]> </definition>
 	 identifier="true"
 />
 
-<table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="10" z-value="0">
+<table name="odk_sampletype" layers="0" collapse-mode="2" max-obj-count="9" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of types of samples usable in the odk form]]> </comment>
 	<tag name="odk"/>
 	<position x="-320" y="1320"/>
 	<column name="odk_sampletype_id" not-null="true">
 		<type name="serial" length="0"/>
-	</column>
-	<column name="parent_sampletype_id">
-		<type name="integer" length="0"/>
-		<comment> <![CDATA[Id of the sample type parent when the current sample type is only a subsample]]> </comment>
 	</column>
 	<column name="sampletype_order" not-null="true" default-value="1">
 		<type name="smallint" length="0"/>
@@ -4595,12 +4595,6 @@ group by ss.createdsample_id]]> </definition>
 	<columns names="collection_id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="rel_odk_sample_type_parent" type="fk-constr" comparison-type="MATCH SIMPLE"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="col.odk_sampletype" table="col.odk_sampletype">
-	<columns names="parent_sampletype_id" ref-type="src-columns"/>
-	<columns names="odk_sampletype_id" ref-type="dst-columns"/>
-</constraint>
-
 <relationship name="rel_booking_object" type="relfk" layers="0"
 	 custom-color="#55aa00"
 	 src-table="col.booking"
@@ -4917,17 +4911,5 @@ group by ss.createdsample_id]]> </definition>
 	 src-table="col.collection_sampletype"
 	 dst-table="col.sample_type" reference-fk="collection_sampletype_sample_type_fk"
 	 src-required="false" dst-required="true"/>
-
-<relationship name="rel_odk_sampletype_odk_sampletype" type="relfk" layers="0"
-	 custom-color="#55007f"
-	 src-table="col.odk_sampletype"
-	 dst-table="col.odk_sampletype" reference-fk="rel_odk_sample_type_parent"
-	 src-required="false" dst-required="false">
-	<line>
-		<position x="7.68516" y="1403.44"/>
-	<position x="7.68516" y="1287"/>
-	<position x="-123.543" y="1287"/>
-	</line>
-</relationship>
 
 </dbmodel>

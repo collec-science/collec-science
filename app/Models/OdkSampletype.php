@@ -30,9 +30,6 @@ class OdkSampletype extends PpciModel
                 "requis" => 1,
                 "defaultValue" => 1
             ],
-            "parent_sampletype_id" => [
-                "type" => 1,
-            ],
             "image_number" => [
                 "type" => 1,
                 "defaultValue" => -1
@@ -55,9 +52,9 @@ class OdkSampletype extends PpciModel
     function getListFromOdk(int $id)
     {
         $sql = "SELECT odk_sampletype_id, odk_id, sample_type_id, sample_type_name, 
-                sampletype_order, parent_sampletype_id, image_number, sound_number, video_number,
+                sampletype_order, image_number, sound_number, video_number,
                 identifier_prefix, metadata_schema,
-                multiple_type_name, multiple_unit
+                multiple_type_id, multiple_type_name, multiple_unit
                 from odk_sampletype
                 join sample_type using (sample_type_id)
                 left outer join metadata using (metadata_id)

@@ -3,8 +3,8 @@
         <thead>
             <tr>
                 <th>{t}Nom de la rubrique{/t}</th>
+                <th>{t}Valeur{/t}</th>
                 <th>{t}Nom affiché{/t}</th>
-                <th>{t}Valeur correspondante{/t}</th>
                 <th>{t}Filtre{/t}</th>
             </tr>
         </thead>
@@ -12,8 +12,8 @@
             {foreach $choices as $choice}
             <tr>
                 <td>{$choice.list_name}</td>
-                <td>{$choice.choice_label}</td>
                 <td>{$choice.choice_name}</td>
+                <td>{$choice.choice_label}</td>
                 <td>{$choice.choice_filter}</td>
             </tr>
             {/foreach}

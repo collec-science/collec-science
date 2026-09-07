@@ -24,7 +24,7 @@ class Odk extends PpciController
     function write()
     {
         if ($this->lib->write()) {
-            return $this->list();
+            return $this->display();
         } else {
             return $this->change();
         }

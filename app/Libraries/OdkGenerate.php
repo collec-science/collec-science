@@ -19,6 +19,7 @@ class OdkGenerate extends PpciLibrary
     private array $referents = [];
     private array $stations = [];
     private array $samples = [];
+    private array $dataOdk = [];
 
     public Odk $odk;
     public OdkLine $odkLine;
@@ -39,8 +40,8 @@ class OdkGenerate extends PpciLibrary
         $db = $this->odk->db;
         try {
             $db->transBegin();
-            $dataOdk = $this->odk->read($id);
-            if (empty($dataOdk)) {
+            $this->dataOdk = $this->odk->read($id);
+            if (empty($this->dataOdk)) {
                 throw new PpciException(_("Le modèle de formulaire n'existe pas"));
             }
             $this->reset($id);
@@ -125,7 +126,7 @@ class OdkGenerate extends PpciLibrary
         $this->lines[] = $line;
     }
 
-    function addChoice(string $listName, string $name, string $label, string $filter = "")
+    function addChoice(string $listName, string $name, string $label, ?string $filter = "")
     {
         $choice = [
             "list_name" => $listName,
@@ -161,6 +162,18 @@ class OdkGenerate extends PpciLibrary
         $this->openGroup("sampling", _("Échantillonnage"));
         $this->addLine("begin repeat", "samples", _("Échantillons"));
         $this->addLine("select one sample", "sample_type_id", "Type d'échantillon", "", "field-list");
+        /**
+         * subsampling
+         */
+        if ($this->dataOdk["with_subsampling"] == 1) {
+            $this->addLine("select-one is-subsampling", "is_subsampling", _("Sous-échantillon ?"), _("Sous-échantillon de l'échantillon récolté précédemment qui n'est pas un sous-échantillon"), "columns-pack",0);
+            $this->addChoice("is-subsampling", 0, _("non"));
+            $this->addChoice("is-subsampling", 1, _("oui"));
+        }
+        /**
+         * identifier
+         */
+        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name("'.'${sample_type_id}", "identifier_prefix")');
         $unit = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_unit')";
         $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
         $relevant = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_type_id') = 1";
@@ -172,7 +185,15 @@ class OdkGenerate extends PpciLibrary
          * Add list of sample types in choice
          */
         foreach ($this->samples as $sample) {
-            $this->addChoice("sample_type_id", $sample["sample_type_name"], $sample["sample_type_id"]);
+            $this->addChoice("sample_type_id", $sample["sample_type_id"], $sample["sample_type_name"]);
+        }
+        /**
+         * Add list of default identifiers in choice
+         */
+        foreach ($this->samples as $sample) {
+            if (strlen($sample["identifier_prefix"])> 0) {
+            $this->addChoice("identifier_prefix", $sample["sample_type_id"], $sample["identifier_prefix"]);
+            }
         }
         /**
          * add if necessary quantity and metadata

@@ -43,6 +43,10 @@ class Odk extends PpciModel
                 "type" => 0,
                 "defaultValue" => "1.0",
                 "requis" => 1
+            ),
+            "with_subsampling" => array (
+                "type" => 1,
+                "defaultValue" => 0
             )
         );
         parent::__construct();
@@ -51,7 +55,7 @@ class Odk extends PpciModel
     function getList(string $order = ""): array
     {
         $sql = "SELECT odk_id, collection_id, campaign_id, odk_project, odk_name, odk_author, odk_description, odk_version,
-        collection_name, campaign_name
+        collection_name, campaign_name, with_subsampling
         from odk
         join collection using (collection_id)
         left outer join campaign using (campaign_id)";
@@ -174,7 +178,7 @@ class Odk extends PpciModel
     function getDetail(int $id)
     {
         $sql = "SELECT odk_id, odk_name, collection_id, collection_name,
-        campaign_id, campaign_name, odk_description, odk_version, odk_author
+        campaign_id, campaign_name, odk_description, odk_version, odk_author, with_subsampling
         from odk 
         join collection using (collection_id)
         left outer join campaign using (campaign_id)

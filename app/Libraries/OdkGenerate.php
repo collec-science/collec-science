@@ -166,14 +166,14 @@ class OdkGenerate extends PpciLibrary
          * subsampling
          */
         if ($this->dataOdk["with_subsampling"] == 1) {
-            $this->addLine("select-one is-subsampling", "is_subsampling", _("Sous-échantillon ?"), _("Sous-échantillon de l'échantillon récolté précédemment qui n'est pas un sous-échantillon"), "columns-pack",0);
+            $this->addLine("select-one is-subsampling", "is_subsampling", _("Sous-échantillon ?"), _("Sous-échantillon de l'échantillon récolté précédemment qui n'est pas un sous-échantillon"), "columns-pack", 0);
             $this->addChoice("is-subsampling", 0, _("non"));
             $this->addChoice("is-subsampling", 1, _("oui"));
         }
         /**
          * identifier
          */
-        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name("'.'${sample_type_id}", "identifier_prefix")');
+        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name("' . '${sample_type_id}", "identifier_prefix")');
         $unit = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_unit')";
         $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
         $relevant = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_type_id') = 1";
@@ -191,8 +191,8 @@ class OdkGenerate extends PpciLibrary
          * Add list of default identifiers in choice
          */
         foreach ($this->samples as $sample) {
-            if (strlen($sample["identifier_prefix"])> 0) {
-            $this->addChoice("identifier_prefix", $sample["sample_type_id"], $sample["identifier_prefix"]);
+            if (strlen($sample["identifier_prefix"]) > 0) {
+                $this->addChoice("identifier_prefix", $sample["sample_type_id"], $sample["identifier_prefix"]);
             }
         }
         /**
@@ -285,8 +285,42 @@ class OdkGenerate extends PpciLibrary
         /**
          * media records
          */
-        
+        $medias = [
+            "picture" => ["type" => "image", "label" => _("Photos"), "label2" => _("Ajoutez une photo")],
+            "sound" => ["type" => "audio", "label" => _("Enregistrements sonores"), "label2" => _("Ajoutez un enregistrement sonore")],
+            "video" => ["type" => "video", "label" => _("Vidéos"), "label2" => _("Ajoutez une vidéo")]
+        ];
+        $mediaRelevant = [];
+        foreach ($this->samples as $sample) {
+            foreach ($medias as $k => $media) {
+                if ($sample["with_$k"] == 1) {
+                    $mediaRelevant[$k][]  = $sample["sample_type_id"];
+                }
+            }
+        }
+        foreach ($mediaRelevant as $k => $r) {
+            $this->addLine("blank");
+            $media = $medias[$k];
+            $rel = "";
+            /**
+             * calculate relevant
+             */
+            $i = 0;
 
+            foreach ($r as $val) {
+                if ($i > 0) {
+                    $rel .= " or ";
+                }
+                $rel .= '${sample_type_id} = "' . $val . '"';
+                $i++;
+            }
+            $this->addLine("begin repeat", "$k" . "s", $media["label"],"","","",$rel);
+            $this->addLine($media["type"], $k, $media["label2"]);
+            $this->addLine("end repeat");
+        }
+        /**
+         * End of the treatment of the samples
+         */
         $this->addLine("end repeat");
         $this->closeGroup();
     }

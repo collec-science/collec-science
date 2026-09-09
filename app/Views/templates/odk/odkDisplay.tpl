@@ -121,7 +121,6 @@
                 <!--sample and event types-->
                 <div class="tab-pane fade" id="navsampletypes" role="tabpanel" aria-labelledby="tabsampletypes">
                     {include file="odk/odkSampleList.tpl"}
-                    {include file="odk/odkSampleChange.tpl"}
                 </div>
                 <div class="tab-pane fade" id="navcomp" role="tabpanel" aria-labelledby="tabcomp">
                     <div class="row">

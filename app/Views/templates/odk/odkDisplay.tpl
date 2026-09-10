@@ -22,7 +22,7 @@
                 event.preventDefault();
             }
         });
-        $("#odkCalculate").submit(function(event) {
+        $("#odkCalculate").submit(function (event) {
             if (!confirm("{t}Le contenu des lignes de formulaires et des choix va être réinitialisé{/t}")) {
                 event.preventDefault();
             }
@@ -40,7 +40,18 @@
         <div class="col-auto">
             <form id="odkCalculate" method="post" action="odkCalculate">
                 <input type="hidden" name="odk_id" value="{$data.odk_id}">
-                <button id="btn-calculate" type="submit" class="btn btn-danger">{t}Calculer le formulaire{/t}</button>
+                <button id="btn-calculate" type="submit" class="btn btn-danger">
+                    {t}Calculer le formulaire{/t}
+                </button>
+                {$csrf}
+            </form>
+        </div>
+        <div class="col-auto">
+            <form id="odkSpreadsheet" method="get" action="odkSpreadsheet">
+                <input type="hidden" name="odk_id" value="{$data.odk_id}">
+                <button id="btn-spreadsheet" type="submit" class="btn btn-warning" {if count($lines)==0}disabled{/if}>
+                    {t}Générer la feuille de calcul{/t}
+                </button>
                 {$csrf}
             </form>
         </div>
@@ -65,12 +76,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tabsurvey" href="#navsurvey" data-bs-toggle="tab" role="tab" aria-controls="navsurvey" aria-selected="false" {if count($lines)==0}disabled{/if}>
+                    <a class="nav-link" id="tabsurvey" href="#navsurvey" data-bs-toggle="tab" role="tab" aria-controls="navsurvey" aria-selected="false" {if count($lines)==0}hidden{/if}>
                         {t}Lignes du formulaire{/t}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="tabchoice" href="#navchoice" data-bs-toggle="tab" role="tab" aria-controls="navchoice" aria-selected="false" {if count($lines)==0}disabled{/if}>
+                    <a class="nav-link" id="tabchoice" href="#navchoice" data-bs-toggle="tab" role="tab" aria-controls="navchoice" aria-selected="false" {if count($lines)==0}hidden{/if}>
                         {t}Choix{/t}
                     </a>
                 </li>
@@ -87,6 +98,10 @@
                     <div class="row">
 
                         <div class="form-display">
+                            <dl class="dl-horizontal">
+                                <dt>{t}Identifiant unique :{/t}</dt>
+                                <dd>{$data.odk_form_id}</dd>
+                            </dl>
                             <dl class="dl-horizontal">
                                 <dt>{t}Projet ODK :{/t}</dt>
                                 <dd>{$data.odk_project}</dd>

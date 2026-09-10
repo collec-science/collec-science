@@ -41,7 +41,8 @@ class Odk extends PpciController
     {
         return $this->lib->display();
     }
-    function writeComp() {
+    function writeComp()
+    {
         $this->lib->writeComp();
         return $this->display();
     }
@@ -51,14 +52,23 @@ class Odk extends PpciController
         $odkSampletype->write();
         return $this->display();
     }
-    function sampletypeDelete() {
+    function sampletypeDelete()
+    {
         $odkSampletype = new OdkSampletype;
         $odkSampletype->delete();
         return $this->display();
     }
 
-    function calculate() {
-        $this->lib->calculate() ;
+    function calculate()
+    {
+        $this->lib->calculate();
         return $this->display();
-            }
+    }
+
+    function spreadsheet()
+    {
+        if (!$this->lib->createSpreadsheet()) {
+            return $this->display();
+        }
+    }
 }

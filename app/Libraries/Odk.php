@@ -10,6 +10,7 @@ use App\Models\OdkSampletype;
 use App\Models\SampleType;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
+use Ppci\Libraries\Views\FileView;
 use Ppci\Models\PpciModel;
 
 class Odk extends PpciLibrary
@@ -64,7 +65,7 @@ class Odk extends PpciLibrary
         /**
          * tables nn
          */
-        $this->vue->set( $this->dataclass->getAllIdentifiers($this->id), "identifiers");
+        $this->vue->set($this->dataclass->getAllIdentifiers($this->id), "identifiers");
         $this->vue->set($this->dataclass->getAllStations($this->id, $data["collection_id"]), "stations");
         $this->vue->set($this->dataclass->getAllReferents($this->id), "referents");
         /**
@@ -93,7 +94,7 @@ class Odk extends PpciLibrary
             return false;
         }
     }
-    
+
     /**
      * Method writeComp
      * write tables nn
@@ -120,8 +121,25 @@ class Odk extends PpciLibrary
             return false;
         }
     }
-    function calculate() {
+    function calculate()
+    {
         $odkGenerate = new OdkGenerate;
         $odkGenerate->calculate($this->id);
+    }
+    function createSpreadsheet()
+    {
+        $odkGenerate = new OdkGenerate;
+        try {
+            $realfilename = $odkGenerate->createSpreadsheet($this->id);
+            $this->vue = new FileView;
+            $dataOdk = $this->dataclass->read($this->id);
+            $filename = $dataOdk["odk_name"].".ods";
+            $this->vue->setParam(["tmp_name" =>$realfilename, "filename"=>$filename]);
+            return $this->vue->send();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+            return false;
+        }
+        
     }
 }

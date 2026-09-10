@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th>{t}Nom{/t}</th>
+                    <th>{t}Identifiant unique{/t}</th>
                     <th>{t}Collection{/t}</th>
                     <th>{t}Campagne{/t}</th>
                     <th>{t}Sous-échantillonnage autorisé{/t}</th>
@@ -29,6 +30,7 @@
                     <td>
                         <a href="odkDisplay?odk_id={$row.odk_id}"> {$row.odk_name} </a>
                     </td>
+                    <td>{$row.odk_form_id}</td>
                     <td> {$row.collection_name} </td>
                     <td> {$row.campaign_name} </td>
                     <td class="center">{if $row.with_subsampling == 1}{t}oui{/t}{else}{t}non{/t}{/if}</td>

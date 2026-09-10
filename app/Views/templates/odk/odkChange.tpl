@@ -42,6 +42,12 @@
                 </div>
             </div>
             <div class="row">
+                <label for="odk_form_id" class="form-label col-4"><span class="red">*</span> {t}Identifiant unique :{/t}</label>
+                <div class="col-8">
+                    <input id="odk_name" type="text" class="form-control" name="odk_form_id" value="{$data.odk_form_id}" autofocus required>
+                </div>
+            </div>
+            <div class="row">
                 <label for="odk_project" class="form-label col-4">{t}Projet ODK :{/t}</label>
                 <div class="col-8">
                     <input id="odk_project" type="text" class="form-control" name="odk_project" value="{$data.odk_project}">

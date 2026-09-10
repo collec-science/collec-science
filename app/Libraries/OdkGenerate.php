@@ -6,7 +6,9 @@ use App\Models\Odk;
 use App\Models\OdkChoice;
 use App\Models\OdkLine;
 use App\Models\OdkSampletype;
-use Override;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Writer\Ods;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Libraries\PpciException;
 
@@ -314,7 +316,7 @@ class OdkGenerate extends PpciLibrary
                 $rel .= '${sample_type_id} = "' . $val . '"';
                 $i++;
             }
-            $this->addLine("begin repeat", "$k" . "s", $media["label"],"","","",$rel);
+            $this->addLine("begin repeat", "$k" . "s", $media["label"], "", "", "", $rel);
             $this->addLine($media["type"], $k, $media["label2"]);
             $this->addLine("end repeat");
         }
@@ -334,5 +336,106 @@ class OdkGenerate extends PpciLibrary
     {
         $this->addLine("end group");
         $this->addLine("blank");
+    }
+
+    function createSpreadsheet(int $id)
+    {
+        $this->dataOdk = $this->odk->read($id);
+        if (empty($this->dataOdk)) {
+            throw new PpciException(_("Le modèle de formulaire n'existe pas"));
+        }
+        $this->lines = $this->odkLine->getListFromParent($id, "line_order asc");
+        if (empty($this->lines)) {
+            throw new PpciException(_("Le formulaire n'a pas été calculé"));
+        }
+        $this->choices = $this->odkChoice->getListFromParent($id, "odk_choice_id asc");
+        $spreadsheet = new Spreadsheet;
+        $survey = new Worksheet($spreadsheet, "survey");
+        $choices = new Worksheet($spreadsheet, "choices");
+        $settings = new Worksheet($spreadsheet, "settings");
+        /**
+         * set the survey tab
+         */
+        $r = 1;
+        foreach ($this->lines as $line) {
+            if ($r == 1) {
+                $c = 1;
+                foreach ($line as $k => $v) {
+                    /**
+                     * add title if it's the first row
+                     */
+                    if (substr($k, 0, 5) == "line_" && $k != "line_order") {
+                        $survey->setCellValue([$c, $r], substr($k, 5));
+                        $c++;
+                    }
+                }
+            }
+            $r++;
+            /**
+             * treatment of each line
+             */
+            if ( $line["line_type"] != "blank") {
+                $c = 1;
+                foreach ($line as $k => $v) {
+
+                    if (substr($k, 0, 5) == "line_" && $k != "line_order") {
+                        if (strlen($v) > 0) {
+                            $survey->setCellValue([$c, $r], $v);
+                        }
+                        $c++;
+                    }
+                }
+            }
+        }
+        /**
+         * set the choice tab
+         */
+        $r = 1;
+        $colsTitle = ["list_name", "name", "label", "filter"];
+        $cols = ["list_name", "choice_name", "choice_label", "choice_filter"];
+        $c = 1;
+        /**
+         * Title line
+         */
+        foreach ($colsTitle as $col) {
+            $choices->setCellValue([$c, $r], $col);
+            $c++;
+        }
+
+        foreach ($this->choices as $row) {
+            $r++;
+            $c = 1;
+            foreach ($cols as $col) {
+                $choices->setCellValue([$c, $r], $row[$col]);
+                $c++;
+            }
+        }
+        /**
+         * set the settings tab
+         */
+        $colsTitle = ["form_title", "form_id", "version", "instance_name", "allow_choice_duplicates"];
+$c = 1;
+        /**
+         * Title line
+         */
+        foreach ($colsTitle as $col) {
+            $settings->setCellValue([$c, 1], $col);
+            $c++;
+        }
+        $settings->setCellValue([1, 2], $this->dataOdk["odk_name"]);
+$settings->setCellValue([2, 2], $this->dataOdk["odk_name"]."-".$this->dataOdk["odk_version"]);
+$settings->setCellValue([3, 2], $this->dataOdk["odk_version"]);
+
+        /**
+         * write the ods file
+         */
+        $spreadsheet->addSheet($survey);
+        $spreadsheet->addSheet($choices);
+        $spreadsheet->addSheet($settings);
+        $spreadsheet->removeSheetByIndex(0);
+        $writer = new Ods($spreadsheet);
+        $filename = tempnam($this->appConfig->APP_temp, "ODK");
+        $writer->save($filename);
+        return $filename;
     }
 }

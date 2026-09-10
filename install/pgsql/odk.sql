@@ -31,6 +31,7 @@ CREATE TABLE col.odk (
 	odk_version varchar NOT NULL DEFAULT 1.0,
 	odk_author varchar NOT NULL,
 	with_subsample smallint DEFAULT 0,
+	odk_form_id varchar NOT NULL,
 	CONSTRAINT odk_pk PRIMARY KEY (odk_id)
 );
 -- ddl-end --

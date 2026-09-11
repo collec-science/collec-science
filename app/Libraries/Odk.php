@@ -133,7 +133,7 @@ class Odk extends PpciLibrary
             $realfilename = $odkGenerate->createSpreadsheet($this->id);
             $this->vue = new FileView;
             $dataOdk = $this->dataclass->read($this->id);
-            $filename = $dataOdk["odk_name"].".ods";
+            $filename = $dataOdk["odk_name"].".xlsx";
             $this->vue->setParam(["tmp_name" =>$realfilename, "filename"=>$filename]);
             return $this->vue->send();
         } catch (PpciException $e) {

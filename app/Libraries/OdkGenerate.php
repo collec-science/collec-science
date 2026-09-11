@@ -9,6 +9,7 @@ use App\Models\OdkSampletype;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Ods;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Ppci\Libraries\PpciLibrary;
 use Ppci\Libraries\PpciException;
 
@@ -161,24 +162,25 @@ class OdkGenerate extends PpciLibrary
 
     function generateSamples()
     {
-        $this->openGroup("sampling", _("Échantillonnage"));
         $this->addLine("begin repeat", "samples", _("Échantillons"));
-        $this->addLine("select one sample", "sample_type_id", "Type d'échantillon", "", "field-list");
+        $this->openGroup("sampling", _("Détail de l'échantillon \${identifier}"));
+
+        $this->addLine("select one sample_type_id", "sample_type_id", "Type d'échantillon");
         /**
          * subsampling
          */
         if ($this->dataOdk["with_subsampling"] == 1) {
-            $this->addLine("select-one is-subsampling", "is_subsampling", _("Sous-échantillon ?"), _("Sous-échantillon de l'échantillon récolté précédemment qui n'est pas un sous-échantillon"), "columns-pack", 0);
+            $this->addLine("select one is-subsampling", "is_subsampling", _("Sous-échantillon ?"), _("Sous-échantillon de l'échantillon récolté précédemment qui n'est pas un sous-échantillon"), "columns-pack", 0);
             $this->addChoice("is-subsampling", 0, _("non"));
             $this->addChoice("is-subsampling", 1, _("oui"));
         }
         /**
          * identifier
          */
-        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name("' . '${sample_type_id}", "identifier_prefix")');
-        $unit = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_unit')";
+        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name(${sample_type_id}, "identifier_prefix")');
+        $unit = 'jr:choice-name(${sample_type_id}, "multiple_unit")';
         $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
-        $relevant = "jr:choice-name('" . '${sample_type_id}' . "', 'multiple_type_id') = 1";
+        $relevant = 'jr:choice-name(${sample_type_id}, "multiple_type_id") = 1';
         $this->addLine("decimal", "multiple_value", _("Quantité"), '${hint-quantity}', "", "", $relevant);
         $prefix = [];
         $md_list = [];
@@ -226,63 +228,67 @@ class OdkGenerate extends PpciLibrary
         /**
          * generate lines for metadata
          */
-        $mdPerformed = [];
-        foreach ($md_list as $name => $md) {
-            if (!in_array($name, $mdPerformed)) {
-                $mdline = [];
-                if ($md["type"] == "string" || $md["type"] == "textarea" || $md["type"] == "url") {
-                    $mdline["type"] = "text";
-                } else if ($md["type"] == "number") {
-                    $mdline["type"] = "decimal";
-                } else if ($md["type"] == "date") {
-                    $mdline["type"] = "date";
-                    $mdline["appearance"] = "no-calendar";
-                } else {
-                    /**
-                     * list of values
-                     */
-                    if ($md["multiple"] == "yes") {
-                        $mdline["type"] = "select_multiple md_$name";
+        if (!empty($md_list)) {
+            $this->openGroup("metadata", _("Métadonnées"));
+            $mdPerformed = [];
+            foreach ($md_list as $name => $md) {
+                if (!in_array($name, $mdPerformed)) {
+                    $mdline = [];
+                    if ($md["type"] == "string" || $md["type"] == "textarea" || $md["type"] == "url") {
+                        $mdline["type"] = "text";
+                    } else if ($md["type"] == "number") {
+                        $mdline["type"] = "decimal";
+                    } else if ($md["type"] == "date") {
+                        $mdline["type"] = "date";
+                        $mdline["appearance"] = "no-calendar";
                     } else {
-                        $mdline["type"] = "select_one md_$name";
-                    }
-                    /**
-                     * create the list choice
-                     */
-                    foreach ($md["choiceList"] as $val) {
-                        if (strlen($val) > 0) {
-                            $this->addChoice("md_$name", $val, $val);
+                        /**
+                         * list of values
+                         */
+                        if ($md["multiple"] == "yes") {
+                            $mdline["type"] = "select_multiple md_$name";
+                        } else {
+                            $mdline["type"] = "select_one md_$name";
+                        }
+                        /**
+                         * create the list choice
+                         */
+                        foreach ($md["choiceList"] as $val) {
+                            if (strlen($val) > 0) {
+                                $this->addChoice("md_$name", $val, $val);
+                            }
                         }
                     }
-                }
-                /**
-                 * add relevant
-                 */
-                $i = 0;
-                $rel = '';
-                foreach ($md_list_relevant[$name] as $val) {
-                    if ($i > 0) {
-                        $rel .= " or ";
+                    /**
+                     * add relevant
+                     */
+                    $i = 0;
+                    $rel = '';
+                    foreach ($md_list_relevant[$name] as $val) {
+                        if ($i > 0) {
+                            $rel .= " or ";
+                        }
+                        $rel .= '${sample_type_id} = "' . $val . '"';
+                        $i++;
                     }
-                    $rel .= '${sample_type_id} = "' . $val . '"';
-                    $i++;
+                    $mdline["relevant"] = $rel;
+                    $mdPerformed[] = $name;
+                    /**
+                     * add line
+                     */
+                    $this->addLine(
+                        $mdline["type"],
+                        "md_$name",
+                        $name,
+                        $md["helper"],
+                        $mdline["appearance"],
+                        $md["default"],
+                        $mdline["relevant"],
+                        ["required" => $md["required"]]
+                    );
                 }
-                $mdline["relevant"] = $rel;
-                $mdPerformed[] = $name;
-                /**
-                 * add line
-                 */
-                $this->addLine(
-                    $mdline["type"],
-                    "md_$name",
-                    $name,
-                    $md["helper"],
-                    $mdline["appearance"],
-                    $md["default"],
-                    $mdline["relevant"],
-                    ["required" => $md["required"]]
-                );
             }
+            $this->closeGroup();
         }
         /**
          * media records
@@ -323,13 +329,13 @@ class OdkGenerate extends PpciLibrary
         /**
          * End of the treatment of the samples
          */
-        $this->addLine("end repeat");
         $this->closeGroup();
+        $this->addLine("end repeat");
     }
 
     function openGroup(string $name, string $label)
     {
-        $this->addLine("begin group", $name, $label, "", "field-list");
+        $this->addLine("begin group", $name, $label);
     }
 
     function closeGroup()
@@ -374,7 +380,7 @@ class OdkGenerate extends PpciLibrary
             /**
              * treatment of each line
              */
-            if ( $line["line_type"] != "blank") {
+            if ($line["line_type"] != "blank") {
                 $c = 1;
                 foreach ($line as $k => $v) {
 
@@ -414,7 +420,7 @@ class OdkGenerate extends PpciLibrary
          * set the settings tab
          */
         $colsTitle = ["form_title", "form_id", "version", "instance_name", "allow_choice_duplicates"];
-$c = 1;
+        $c = 1;
         /**
          * Title line
          */
@@ -423,8 +429,8 @@ $c = 1;
             $c++;
         }
         $settings->setCellValue([1, 2], $this->dataOdk["odk_name"]);
-$settings->setCellValue([2, 2], $this->dataOdk["odk_name"]."-".$this->dataOdk["odk_version"]);
-$settings->setCellValue([3, 2], $this->dataOdk["odk_version"]);
+        $settings->setCellValue([2, 2], $this->dataOdk["odk_name"] . "-" . $this->dataOdk["odk_version"]);
+        $settings->setCellValue([3, 2], $this->dataOdk["odk_version"]);
 
         /**
          * write the ods file
@@ -433,7 +439,7 @@ $settings->setCellValue([3, 2], $this->dataOdk["odk_version"]);
         $spreadsheet->addSheet($choices);
         $spreadsheet->addSheet($settings);
         $spreadsheet->removeSheetByIndex(0);
-        $writer = new Ods($spreadsheet);
+        $writer = new Xlsx($spreadsheet);
         $filename = tempnam($this->appConfig->APP_temp, "ODK");
         $writer->save($filename);
         return $filename;

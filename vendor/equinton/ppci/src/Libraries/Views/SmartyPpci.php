@@ -86,6 +86,7 @@ class SmartyPpci
         $this->app = config("App");
         $this->set($this->app->copyright, "copyright");
         $this->set($this->app->APP_help_address, "APP_help_address");
+        $this->set($this->app->locales, "locales");
         /**
          * Assign variables from dbparam table
          */

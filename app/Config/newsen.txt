@@ -2,6 +2,12 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.2.1 of 15/9/2026
+-----------------------------
+Bug fixes:
+- the date selection component was no longer working
+- when updating a user stored in the database, a button was not displayed correctly
+
 Version v26.2.0 of 21/08/2026
 -----------------------------
 Bug fixes:

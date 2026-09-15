@@ -185,13 +185,13 @@ class App extends BaseConfig
      * Number of version
      * @var string
      */
-    public string $version = "v26.2.0";
+    public string $version = "v26.2.1";
     /**
      * Date of version
      *
      * @var string
      */
-    public string $versionDate = "21/08/2026";
+    public string $versionDate = "15/09/2026";
     /**
      * Number of the database version
      *
@@ -231,7 +231,9 @@ class App extends BaseConfig
             "formatdatecourt" => "dd/mm/yy",
             "maskdatelong" => "d/m/Y H:i:s",
             "maskdate" => "d/m/Y",
-            "maskdateexport" => 'd-m-Y'
+            "maskdateexport" => 'd-m-Y',
+            "tempusdominusDatetime" => "dd/MM/yyyy HH:mm:ss",
+            "tempusdominusDate" => "dd/MM/yyyy",
         ],
         "en" => [
             "formatdate" => "DD/MM/YYYY",

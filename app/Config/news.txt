@@ -1,5 +1,11 @@
 Nouveautés
 ============
+Version v26.2.1 du 15/9/2026
+-----------------------------
+Corrections de bugs :
+- le composant utilisé pour sélectionner les dates ne fonctionnait plus
+- lors de la saisie d'un utilisateur déclaré dans la base de données, un bouton n'était pas correctement formaté
+
 Version v26.2.0 du 21/8/2026
 -----------------------------
 Corrections de bugs :

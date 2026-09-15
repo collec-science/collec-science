@@ -231,7 +231,9 @@ class App extends BaseConfig
             "formatdatecourt" => "dd/mm/yy",
             "maskdatelong" => "d/m/Y H:i:s",
             "maskdate" => "d/m/Y",
-            "maskdateexport" => 'd-m-Y'
+            "maskdateexport" => 'd-m-Y',
+            "tempusdominusDatetime" => "dd/MM/yyyy HH:mm:ss",
+            "tempusdominusDate" => "dd/MM/yyyy",
         ],
         "en" => [
             "formatdate" => "DD/MM/YYYY",

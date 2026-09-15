@@ -43,15 +43,14 @@
 
 <!-- Add sort on date/time -->
 <script type="text/javascript" src="display/node_modules/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="display/node_modules/moment/min/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
 
 <!-- Date component-->
-<script type="text/javascript" src="display/node_modules/moment/min/moment-with-locales.min.js"></script>
-<script type="text/javascript" src="display/node_modules/datetime-moment/datetime-moment.js"></script>
-<script type="text/javascript"
-    src="display/node_modules/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-<link rel="stylesheet" type="text/css"
-    href="display/node_modules/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="display/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+<script type="text/javascript" src="display/node_modules/@eonasdan/tempus-dominus/dist/js/tempus-dominus.min.js"></script>
+<link rel="stylesheet" type="text/css" href="display/node_modules/@eonasdan/tempus-dominus/dist/css/tempus-dominus.min.css"  rel="stylesheet">
+<script type="text/javascript" src="display/node_modules/@eonasdan/tempus-dominus/dist/plugins/bi-one.js"></script>
 
 <!-- Display pictures -->
 <link rel="stylesheet" href="display/node_modules/magnific-popup/dist/magnific-popup.css">
@@ -261,68 +260,89 @@
             'maxlength': "36"
         });
         {/literal}
-
-            $('.datepicker').datetimepicker({
+        /**
+         * Date component
+         */ 
+        tempusDominus.extend(window.tempusDominus.plugins.bi_one.load);
+        const datetimeElements = document.getElementsByClassName('datetimepicker');
+        for (let i = 0; i < datetimeElements.length; i++) {
+            new tempusDominus.TempusDominus(datetimeElements[i], {
+                localization: {
                 locale: locale,
-                format: '{$LANG["date"]["formatdate"]}'
+                format: "{$locales[$LANG['date']['locale']]['tempusdominusDatetime']}",
+                },
+                display: {
+                    components: {
+                        seconds: true,
+                        useTwentyfourHour: true
+                    }
+                }
             });
-            $('.datetimepicker').datetimepicker({
+        }
+        const dateElements = document.getElementsByClassName('datepicker');
+        for (let i = 0; i < dateElements.length; i++) {
+            new tempusDominus.TempusDominus(dateElements[i], {
+                localization: {
                 locale: locale,
-                format: '{$LANG["date"]["formatdate"]} HH:mm:ss'
+                format: "{$locales[$LANG['date']['locale']]['tempusdominusDate']}",
+                },
+                display: {
+                    components: {
+                        clock: false,
+                        useTwentyfourHour: true
+                    }
+                }
             });
-            $('.timepicker').datetimepicker({
-                locale: locale,
-                format: 'HH:mm:ss'
-            });
-            $('.date, .datepicker, .timepicker, .datetimepicker').attr('autocomplete', 'off');
-            /**
-             * Legacy
-             */
-            function deleteLegacyFields(form) {
-                $(form).find("input[name='moduleBase']").remove();
-                $(form).find("input[name='module']").remove();
-                $(form).find("input[name='action']").remove();
+        }
+        $('.date, .datepicker, .timepicker, .datetimepicker').attr('autocomplete', 'off');
+        /**
+         * Legacy
+         */
+        function deleteLegacyFields(form) {
+            $(form).find("input[name='moduleBase']").remove();
+            $(form).find("input[name='module']").remove();
+            $(form).find("input[name='action']").remove();
+        }
+        $(".button-valid").on("keyup click", function () {
+            var module = $(this.form).find("input[name='moduleBase']").val();
+            var action = $(this.form).find("input[name='action']").val();
+            if (module && action) {
+                $(this.form).attr("action", module + action);
+                deleteLegacyFields($(this.form));
             }
-            $(".button-valid").on("keyup click", function () {
+        });
+        $(".button-delete").on("keyup click", function (e) {
+            if (confirm("{t}Confirmez-vous la suppression ?{/t}")) {
                 var module = $(this.form).find("input[name='moduleBase']").val();
-                var action = $(this.form).find("input[name='action']").val();
-                if (module && action) {
-                    $(this.form).attr("action", module + action);
+                if (module) {
+                    $(this.form).attr("action", module + "Delete");
                     deleteLegacyFields($(this.form));
                 }
-            });
-            $(".button-delete").on("keyup click", function (e) {
-                if (confirm("{t}Confirmez-vous la suppression ?{/t}")) {
-                    var module = $(this.form).find("input[name='moduleBase']").val();
-                    if (module) {
-                        $(this.form).attr("action", module + "Delete");
-                        deleteLegacyFields($(this.form));
-                    }
-                    $(this.form).submit();
-                } else {
-                    e.preventDefault();
-                }
-            });
-            /**
-             * Get a confirmation
-             */
-            $(".confirm").on("click keydown", function (event) {
-                if (!confirm("{t}Confirmez-vous cette opération ?{/t}")) {
-                    event.preventDefault();
-                }
-            });
-            /**
-             * Add support of tabulation in textarea
-             */
-            $(".textarea-edit").keydown(function (event) {
-                if (event.keyCode === 9) {
-                    var v = this.value, s = this.selectionStart, e = this.selectionEnd;
-                    this.value = v.substring(0, s) + '\t' + v.substring(e);
-                    this.selectionStart = this.selectionEnd = s + 1;
-                    return false;
-                }
-            });
+                $(this.form).submit();
+            } else {
+                e.preventDefault();
+            }
         });
+        /**
+         * Get a confirmation
+         */
+        $(".confirm").on("click keydown", function (event) {
+            if (!confirm("{t}Confirmez-vous cette opération ?{/t}")) {
+                event.preventDefault();
+            }
+        });
+        /**
+         * Add support of tabulation in textarea
+         */
+        $(".textarea-edit").keydown(function (event) {
+            if (event.keyCode === 9) {
+                var v = this.value, s = this.selectionStart, e = this.selectionEnd;
+                this.value = v.substring(0, s) + '\t' + v.substring(e);
+                this.selectionStart = this.selectionEnd = s + 1;
+                return false;
+            }
+        });
+    });
     function encodeHtml(rawStr) {
         if (rawStr && rawStr.length > 0) {
             try {

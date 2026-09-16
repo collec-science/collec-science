@@ -303,7 +303,7 @@ class Login
             "https://" . $_SERVER["HTTP_HOST"],
             false
         );
-        \phpCAS::setFixedCallbackURL($_SERVER["app.baseURL"] . "/cas");
+
         if (!empty($CAS["CApath"])) {
             \phpCAS::setCasServerCACert($CAS["CApath"]);
         } else {

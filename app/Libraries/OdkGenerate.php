@@ -142,8 +142,12 @@ class OdkGenerate extends PpciLibrary
 
     function generateSampling()
     {
-        $this->openGroup("general", _("Point de prélèvement"));
-        $this->addLine("date", "sampling_date", "Date de prélèvement", "", "no-calendar", "today()");
+        /**
+         * ODK metadata
+         */
+        $this->addline("username", "username");
+        $this->openGroup("general", _("Point de prélèvement"), "field-list");
+        $this->addLine("date", "sampling_date", "Date de prélèvement", "", "no-calendar", "today()", "", ["required" => "true"]);
         if (!empty($this->referents)) {
             $this->addLine("select one referent", "referent_id", _("Référent des échantillons"));
             foreach ($this->referents as $referent) {
@@ -159,13 +163,23 @@ class OdkGenerate extends PpciLibrary
         $this->addLine("geopoint", "geopoint", "GPS", "", "quick maps");
         $this->closeGroup();
     }
-
+    function generateIfThenElse(array $content, $i = 0) {
+        if ($i < count($content)) {
+        for($j = $i ;count($content); $j++) {
+        $test = 'if(${sample_type_id}='.$content["id"].",". $content["label"].",".$this->generateIfThenElse($content, $j);
+        }
+        } else {
+            $test = '""';
+        }
+        return $test;
+    }
     function generateSamples()
     {
         $this->addLine("begin repeat", "samples", _("Échantillons"));
         $this->openGroup("sampling", _("Détail de l'échantillon \${identifier}"));
 
-        $this->addLine("select one sample_type_id", "sample_type_id", "Type d'échantillon");
+        $this->openGroup("sampling-general", _("Données générales"), "field-list");
+        $this->addLine("select one sample_type_id", "sample_type_id", "Type d'échantillon", "", "", "", "", ["required" => "true"]);
         /**
          * subsampling
          */
@@ -175,12 +189,51 @@ class OdkGenerate extends PpciLibrary
             $this->addChoice("is-subsampling", 1, _("oui"));
         }
         /**
+         * generate relevant for quantity and default identifier
+         */
+        $qtyRelevant = [];
+        $defaultId = [];
+        foreach ($this->samples as $sample) {
+            if (!empty($sample["multiple_type_id"])) {
+                $qtyRelevant[$sample["sample_type_id"]] = $sample["multiple_unit"];
+            }
+            if (strlen($sample["identifier_prefix"]) > 0) {
+                $defaultId[$sample["sample_type_id"]] = $sample["identifier_prefix"];
+            }
+        }
+        $defaultLabel = "";
+        foreach ($defaultId as $id => $label) {
+            $current = "if(";
+
+        }
+        /**
          * identifier
          */
-        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", 'jr:choice-name(${sample_type_id}, "identifier_prefix")');
-        $unit = 'jr:choice-name(${sample_type_id}, "multiple_unit")';
+        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", "jr:choice-name(" . '${sample_type_id}' . ", 'identifier_prefix')");
+        /**
+         * quantity
+         */
+        $unitA = [];
+        $qtyRel = "";
+        $i = 0; $j = 0;
+        foreach($qtyRelevant as $id=>$mu) {
+            if ($i == 1) {
+                $qtyRel .= " or ";
+            } else {
+                $i = 1;
+            }
+            $qtyRel .= '${sample_type_id} = '.$id;
+            if (strlen($mu) > 0) {
+                if ($j == 0) {
+                $unitA[$j] = ["then"=> '${sample_type_id} = '.$id, "else" => ""];
+                } else {
+                    $unitA[$j-1]["else"] = ["then"=> '${sample_type_id} = '.$id, "else" => ""];
+                }
+            }
+        }
+        
         $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
-        $relevant = 'jr:choice-name(${sample_type_id}, "multiple_type_id") = 1';
+        $relevant = "jr:choice-name(" . '${sample_type_id}' . ", 'multiple_type_id') = 1";
         $this->addLine("decimal", "multiple_value", _("Quantité"), '${hint-quantity}', "", "", $relevant);
         $prefix = [];
         $md_list = [];
@@ -191,22 +244,11 @@ class OdkGenerate extends PpciLibrary
         foreach ($this->samples as $sample) {
             $this->addChoice("sample_type_id", $sample["sample_type_id"], $sample["sample_type_name"]);
         }
-        /**
-         * Add list of default identifiers in choice
-         */
-        foreach ($this->samples as $sample) {
-            if (strlen($sample["identifier_prefix"]) > 0) {
-                $this->addChoice("identifier_prefix", $sample["sample_type_id"], $sample["identifier_prefix"]);
-            }
-        }
+
         /**
          * add if necessary quantity and metadata
          */
         foreach ($this->samples as $sample) {
-            if (!empty($sample["multiple_unit"])) {
-                $this->addChoice("multiple_unit", $sample["sample_type_id"], $sample["multiple_unit"]);
-            }
-            $this->addChoice("quantity", $sample["sample_type_id"], $sample["multiple_type_id"] > 0 ? 1 : 0);
             /**
              * get metadata
              */
@@ -225,11 +267,12 @@ class OdkGenerate extends PpciLibrary
                 $md_list_relevant[$metadata["name"]][] = $sample["sample_type_id"];
             }
         }
+        $this->closeGroup();
         /**
          * generate lines for metadata
          */
         if (!empty($md_list)) {
-            $this->openGroup("metadata", _("Métadonnées"));
+            $this->openGroup("metadata", _("Métadonnées"), "field-list");
             $mdPerformed = [];
             foreach ($md_list as $name => $md) {
                 if (!in_array($name, $mdPerformed)) {
@@ -258,6 +301,12 @@ class OdkGenerate extends PpciLibrary
                                 $this->addChoice("md_$name", $val, $val);
                             }
                         }
+                    }
+                    /**
+                     * add mandatory
+                     */
+                    if ($md["required"]) {
+                        $mdline["required"] = "true";
                     }
                     /**
                      * add relevant
@@ -306,25 +355,29 @@ class OdkGenerate extends PpciLibrary
                 }
             }
         }
-        foreach ($mediaRelevant as $k => $r) {
-            $this->addLine("blank");
-            $media = $medias[$k];
-            $rel = "";
-            /**
-             * calculate relevant
-             */
-            $i = 0;
+        if (!empty($mediaRelevant)) {
+            $this->openGroup("medias", _("Médias"));
+            foreach ($mediaRelevant as $k => $r) {
+                $this->addLine("blank");
+                $media = $medias[$k];
+                $rel = "";
+                /**
+                 * calculate relevant
+                 */
+                $i = 0;
 
-            foreach ($r as $val) {
-                if ($i > 0) {
-                    $rel .= " or ";
+                foreach ($r as $val) {
+                    if ($i > 0) {
+                        $rel .= " or ";
+                    }
+                    $rel .= '${sample_type_id} = "' . $val . '"';
+                    $i++;
                 }
-                $rel .= '${sample_type_id} = "' . $val . '"';
-                $i++;
+                $this->addLine("begin repeat", "$k" . "s", $media["label"], "", "", "", $rel);
+                $this->addLine($media["type"], $k, $media["label2"]);
+                $this->addLine("end repeat");
             }
-            $this->addLine("begin repeat", "$k" . "s", $media["label"], "", "", "", $rel);
-            $this->addLine($media["type"], $k, $media["label2"]);
-            $this->addLine("end repeat");
+            $this->closeGroup();
         }
         /**
          * End of the treatment of the samples
@@ -333,9 +386,9 @@ class OdkGenerate extends PpciLibrary
         $this->addLine("end repeat");
     }
 
-    function openGroup(string $name, string $label)
+    function openGroup(string $name, string $label, $appearance = "")
     {
-        $this->addLine("begin group", $name, $label);
+        $this->addLine("begin group", $name, $label, "", $appearance);
     }
 
     function closeGroup()

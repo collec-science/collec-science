@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Ppci\Controllers\PpciController;
 use App\Libraries\Odk as LibrariesOdk;
+use App\Libraries\OdkLine;
 use App\Libraries\OdkSampletype;
 
 class Odk extends PpciController
@@ -70,5 +71,11 @@ class Odk extends PpciController
         if (!$this->lib->createSpreadsheet()) {
             return $this->display();
         }
+    }
+
+    function linesWrite() {
+        $odkLine = new OdkLine;
+        $odkLine->writeLines();
+        return $this->display();
     }
 }

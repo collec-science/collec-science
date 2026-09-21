@@ -600,3 +600,22 @@ input:read-only {
 .form-check-input:not(:checked) {
 	background-color: white !important;
 }
+
+/*table td {
+  position: relative;
+}
+*/
+table td input,
+table td textarea {
+  /*position: absolute;*/
+  display: block;
+  top:0;
+  left:0;
+  margin: 0;
+  height: 100%;
+  white-space: pre-wrap;
+  /*width: 100%;*/
+  border: none;
+  /*padding: 10px;*/
+  /*box-sizing: border-box;*/
+}

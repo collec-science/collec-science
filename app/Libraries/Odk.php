@@ -72,7 +72,7 @@ class Odk extends PpciLibrary
          * tables used to create ods file
          */
         $odkline = new OdkLine;
-        $this->vue->set($odkline->getListFromParent($this->id), "lines");
+        $this->vue->set($odkline->getListFromParent($this->id, "line_order"), "lines");
         $odkchoice = new OdkChoice;
         $this->vue->set($odkchoice->getListFromParent($this->id), "choices");
         /**

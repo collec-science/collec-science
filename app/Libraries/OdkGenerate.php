@@ -165,13 +165,10 @@ class OdkGenerate extends PpciLibrary
     }
     function generateIfThenElse(array $content, $i = 0) {
         if ($i < count($content)) {
-        for($j = $i ;count($content); $j++) {
-        $test = 'if(${sample_type_id}='.$content["id"].",". $content["label"].",".$this->generateIfThenElse($content, $j);
-        }
+        return  'if(${sample_type_id}="'.$content[$i]["id"].'","'. $content[$i]["label"].'",'.$this->generateIfThenElse($content, $i + 1).")";
         } else {
-            $test = '""';
+            return '""';
         }
-        return $test;
     }
     function generateSamples()
     {
@@ -195,47 +192,35 @@ class OdkGenerate extends PpciLibrary
         $defaultId = [];
         foreach ($this->samples as $sample) {
             if (!empty($sample["multiple_type_id"])) {
-                $qtyRelevant[$sample["sample_type_id"]] = $sample["multiple_unit"];
+                $qtyRelevant[] = ["id"=> $sample["sample_type_id"], "label"=>$sample["multiple_unit"]];
             }
             if (strlen($sample["identifier_prefix"]) > 0) {
-                $defaultId[$sample["sample_type_id"]] = $sample["identifier_prefix"];
+                $defaultId[] = ["id"=>$sample["sample_type_id"], "label"=>$sample["identifier_prefix"]];
             }
         }
-        $defaultLabel = "";
-        foreach ($defaultId as $id => $label) {
-            $current = "if(";
 
-        }
         /**
          * identifier
          */
-        $this->addLine("text", "identifier", _("Identifiant métier"), "", "", "jr:choice-name(" . '${sample_type_id}' . ", 'identifier_prefix')");
+        $this->addline("calculate", "root-identifier", "", "", "", "", "", ["calculation"=>$this->generateIfThenElse($defaultId)]);
+        $this->addLine("text", "identifier", _("Identifiant métier"), '${root-identifier}');
         /**
          * quantity
          */
-        $unitA = [];
         $qtyRel = "";
-        $i = 0; $j = 0;
-        foreach($qtyRelevant as $id=>$mu) {
+        $i = 0; 
+        foreach($qtyRelevant as $qr) {
             if ($i == 1) {
                 $qtyRel .= " or ";
             } else {
                 $i = 1;
             }
-            $qtyRel .= '${sample_type_id} = '.$id;
-            if (strlen($mu) > 0) {
-                if ($j == 0) {
-                $unitA[$j] = ["then"=> '${sample_type_id} = '.$id, "else" => ""];
-                } else {
-                    $unitA[$j-1]["else"] = ["then"=> '${sample_type_id} = '.$id, "else" => ""];
-                }
-            }
+            $qtyRel .= '${sample_type_id} = "'.$qr["id"].'"';
+            
         }
         
-        $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" => $unit]);
-        $relevant = "jr:choice-name(" . '${sample_type_id}' . ", 'multiple_type_id') = 1";
-        $this->addLine("decimal", "multiple_value", _("Quantité"), '${hint-quantity}', "", "", $relevant);
-        $prefix = [];
+        $this->addLine("calculate", "hint-quantity", "", "", "", "", "", ["calculation" =>$this->generateIfThenElse($qtyRelevant)]);
+        $this->addLine("decimal", "multiple_value", _("Quantité"), '${hint-quantity}', "", "", $qtyRel);
         $md_list = [];
         $md_list_relevant = [];
         /**
@@ -343,7 +328,7 @@ class OdkGenerate extends PpciLibrary
          * media records
          */
         $medias = [
-            "picture" => ["type" => "image", "label" => _("Photos"), "label2" => _("Ajoutez une photo")],
+            "picture" => ["type" => "image", "label" => _("Photos"), "label2" => _("Ajoutez une photo"), "parameters"=>"max-pixels=4096"],
             "sound" => ["type" => "audio", "label" => _("Enregistrements sonores"), "label2" => _("Ajoutez un enregistrement sonore")],
             "video" => ["type" => "video", "label" => _("Vidéos"), "label2" => _("Ajoutez une vidéo")]
         ];
@@ -374,7 +359,7 @@ class OdkGenerate extends PpciLibrary
                     $i++;
                 }
                 $this->addLine("begin repeat", "$k" . "s", $media["label"], "", "", "", $rel);
-                $this->addLine($media["type"], $k, $media["label2"]);
+                $this->addLine($media["type"], $k, $media["label2"], "", "", "", "",["parameters"=>$media["parameters"]]);
                 $this->addLine("end repeat");
             }
             $this->closeGroup();

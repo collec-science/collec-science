@@ -21,6 +21,7 @@
                     <th>{t}Auteur{/t}</th>
                     {if $rights.collection == 1}
                     <th>{t}Modifier{/t}</th>
+                    <th>{t}Dupliquer{/t}</th>
                     {/if}
                 </tr>
             </thead>
@@ -42,6 +43,11 @@
                     <td class="center">
                         <a href="odkChange?odk_id={$row.odk_id}">
                             <img src="display/images/edit.gif" height="25">
+                        </a>
+                    </td>
+                    <td class="center">
+                        <a href="odkDuplicate?odk_id={$row.odk_id}" onclick="return confirm('{t}Confirmez-vous la duplication ?{/t}')">
+                            <img src="display/images/files.png" height="25">
                         </a>
                     </td>
                     {/if}

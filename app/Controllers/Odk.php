@@ -78,4 +78,9 @@ class Odk extends PpciController
         $odkLine->writeLines();
         return $this->display();
     }
+
+    function duplicate() {
+        $this->lib->duplicate();
+        return $this->list();
+    }
 }

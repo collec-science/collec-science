@@ -93,7 +93,7 @@ class Odk extends PpciModel
 
     function supprimer($id)
     {
-        $db = $this->container->db;
+        $db = $this->db;
         try {
             $db->transBegin();
             $tables = ["odk_referent", "odk_station", "odk_sampletype", "odk_line", "odk_choice"];

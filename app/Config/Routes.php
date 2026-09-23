@@ -372,6 +372,7 @@ $routes->post("odkWriteComp", "Odk::writeComp");
 $routes->post("odkCalculate", "Odk::calculate");
 $routes->get("odkSpreadsheet", "Odk::spreadsheet");
 $routes->post("odkLinesWrite", "Odk::linesWrite");
+$routes->get("odkDuplicate", "Odk::duplicate");
 /**
  * Documentation
  */

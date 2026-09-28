@@ -279,16 +279,20 @@ class Movement extends PpciModel
     {
 
         $data = array();
-        $sql = "select s.login, s.uid, identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number, movement_comment,
+        $sql = "SELECT s.login, s.uid, o.identifier, movement_date, movement_type_id, movement_type_name, storage_location, line_number, column_number, movement_comment,
         case when sample_type_name is not null then sample_type_name else container_type_name end as type_name,
-        case when sample_type_name is not null then 'sample' else 'container' end as object_type_name
+        case when sample_type_name is not null then 'sample' else 'container' end as object_type_name,
+        co.identifier as container_identifier, co.uid as container_uid
         from movement s
         join object o on (o.uid = s.uid)
         join movement_type using (movement_type_id)
         left outer join sample sp on (o.uid = sp.uid)
         left outer join sample_type using (sample_type_id)
         left outer join container c on (c.uid = s.uid)
-        left outer join container_type ct on (ct.container_type_id = c.container_type_id) where ";
+        left outer join container_type ct on (ct.container_type_id = c.container_type_id)
+        left outer join container cc on (s.container_id = cc.container_id)
+        left outer join object co on (cc.uid = co.uid)
+        where ";
         if (!empty($values["login"])) {
             $login = "%" . strtolower($values["login"]) . "%";
             $sql .= "login like :login: and ";

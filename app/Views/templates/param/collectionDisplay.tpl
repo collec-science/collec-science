@@ -113,6 +113,10 @@
                                 <dd>{if $data.no_localization=='t'}{t}oui{/t}{else}{t}non{/t}{/if}</dd>
                             </dl>
                             <dl class="dl-horizontal">
+                                <dt>{t}Seuls les utilisateurs autorisés peuvent visualiser les contenants ?{/t}</dt>
+                                <dd>{if $data.container_showable==1}{t}non{/t}{else}{t}oui{/t}{/if}</dd>
+                            </dl>
+                            <dl class="dl-horizontal">
                                 <dt>{t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}</dt>
                                 <dd>{if $data.external_storage_enabled=='t'}{t}oui{/t}{else}{t}non{/t}{/if}</dd>
                             </dl>

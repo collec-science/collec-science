@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-592,969" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-107,232" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -992,7 +992,7 @@ Autre]]>
 	</constraint>
 </table>
 
-<table name="collection" layers="0" collapse-mode="1" max-obj-count="21" z-value="0">
+<table name="collection" layers="0" collapse-mode="1" max-obj-count="22" z-value="0">
 	<schema name="col"/>
 	<comment> <![CDATA[List of all collections into the database]]> </comment>
 	<tag name="collection"/>
@@ -1061,6 +1061,10 @@ Autre]]>
 	<column name="collection_description">
 		<type name="varchar" length="0"/>
 		<comment> <![CDATA[Description of the collection]]> </comment>
+	</column>
+	<column name="container_showable" default-value="1">
+		<type name="smallint" length="0"/>
+		<comment> <![CDATA[if 0, only granted users can show the containers of the samples]]> </comment>
 	</column>
 	<constraint name="project_pk" type="pk-constr" table="col.collection">
 		<columns names="collection_id" ref-type="src-columns"/>

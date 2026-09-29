@@ -238,6 +238,24 @@
                     </div>
                 </div>
                 <div class="row">
+                    <label for="container_showable" class="form-label col-4">
+                        {t}Seuls les utilisateurs autorisés peuvent visualiser les contenants ?{/t}
+                    </label>
+                    <div class="col-8">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="container_showable" id="container_showable1" value="1" {if $data.container_showable =='1' }checked{/if}>
+                                {t}non{/t}
+                            </label>
+                            <label>
+                                <input type="radio" name="container_showable" id="container_showable0" value="0" {if $data.container_showable=='0' }checked{/if}>
+                                {t}oui{/t}
+                            </label>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <label for="external_storage_enabled" class="form-label col-4">
                         {t}Le stockage de documents attachés aux échantillons est-il possible hors base de données ?{/t}
                     </label>

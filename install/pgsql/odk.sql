@@ -276,4 +276,7 @@ REFERENCES col.identifier_type (identifier_type_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
+-- modify collection
+alter table col.collection add column container_showable smallint DEFAULT 1;
+COMMENT ON COLUMN col.collection.container_showable IS E'if 0, only granted users can show the containers of the samples';
 

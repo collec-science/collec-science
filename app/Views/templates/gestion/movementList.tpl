@@ -43,6 +43,7 @@
                         <th>{t}UID{/t}</th>
                         <th>{t}Identifiant métier{/t}</th>
                         <th>{t}Type{/t}</th>
+                        <th>{t}Contenant{/t}</th>
                         <th>{t}Emplacement{/t}</th>
                         <th>{t}Raison{/t}</th>
                         <th>{t}Commentaire{/t}</th>
@@ -69,6 +70,11 @@
                         </td>
                         <td>{$row.identifier}</td>
                         <td>{$row.type_name}</td>
+                        <td>
+                            <a href="containerDisplay?uid={$row.container_uid}">
+                                {$row.container_uid} {$row.container_identifier}
+                            </a>
+                        </td>
                         <td>{if $row.movement_type_id == 1}
                             {if strlen($row.storage_location) > 0}
                             {$row.storage_location}&nbsp;

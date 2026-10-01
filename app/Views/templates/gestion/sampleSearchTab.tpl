@@ -6,6 +6,7 @@
     var appli_code = "{$APPLI_code}";
     var razRequired = false;
     $(document).ready(function () {
+        document.body.style.cursor = "default";
         var isGestion = "{$rights.manage}";
         var consultSeesAll = "{$consultSeesAll}";
         /**
@@ -25,83 +26,6 @@
             $("#sample_search").attr("action", action);
             $("#sample_search").submit();
         });
-        /*
-         * Verification que des criteres de selection soient saisis
-         */
-        /*$("#sample_search").submit(function (event) {
-            var ok = false;
-            if ($("#name").val().length > 0) {
-                ok = true;
-                try {
-                    obj = JSON.parse($("#name").val());
-                    if (obj.db.length > 0) {
-                        if (obj.db == appli_code) {
-                            $("#uidsearch").val(obj.uid);
-                            $("#name").val("");
-                        } else {
-                            $("#name").val(obj.db + ":" + obj.uid);
-                        }
-                    }
-                } catch (error) { }
-            }
-            if ($("#collection_id").val() > 0) ok = true;
-            if ($("#uidsearch").val() > 0) {
-                ok = true;
-            }
-            if ($("#uid_min").val() > 0) ok = true;
-            if ($("#uid_max").val() > 0) ok = true;
-            if ($("#sample_type_id").val() > 0) ok = true;
-            if ($("#sampling_place_id").val() > 0) ok = true;
-            if ($("#object_status_id").val() > 1) ok = true;
-            if ($("#select_date").val().length > 0) ok = true;
-            if ($("#referent_id").val() > 0) ok = true;
-            if ($("#movement_reason_id").val() > 0) ok = true;
-            if ($("#campaign_id").val() > 0) ok = true;
-            if ($("#trashed").val() == 1) ok = true;
-            if ($("#samplesearch_id").val() > 0) ok = true;
-            if ($("#country_id_search").val() > 0) ok = true;
-            if ($("#country_origin_id_search").val() > 0) ok = true;
-            if ($("#authorization_number").val().length > 0) ok = true;
-            if ($("#event_type_id").val() > 0) ok = true;
-            if ($("#subsample_quantity_min").val() > 0) ok = true;
-            if ($("#subsample_quantity_max").val().length > 0) ok = true;
-            if ($("#booking_type").val() != 0) ok = true;
-            if ($("#without_container").is(':checked')) ok = true;
-            if ($("#collections").val() > 0) ok = true;
-            if ($("#metadatafilter").val().length > 0) ok = true;
-            if ($("#operation_id").val() > 0) ok = true;
-            var mf = $("#metadata_field").val();
-
-            if (mf != null) {
-                if (mf.length > 0 && $("#metadata_value").val().length > 2) {
-                    ok = true;
-                }
-            }
-            var points = ["SouthWest", "NorthEast"];
-            var coordNames = ["lon", "lat"];
-            var coordsOk = true;
-            points.forEach(function (point) {
-                coordNames.forEach(function (coordName) {
-                    if (position) {
-                        try {
-                            $("#" + point + coordName).val(getCoord(point, coordName));
-                        } catch (error) {
-                            $("#" + point + coordName).val("");
-                            coordsOk = false;
-                        }
-                    }
-                    if ($("#" + point + coordName).val().length == 0) {
-                        coordsOk = false;
-                    }
-                });
-            });
-            if (coordsOk) {
-                ok = true;
-            }
-            if (!ok) {
-                event.preventDefault();
-            }
-        });*/
         var lastSampletypeId = "{$sampleSearch.sample_type_id}";
         var datamd1 = "{$sampleSearch.metadata_value.1}";
         var datamd2 = "{$sampleSearch.metadata_value.2}";

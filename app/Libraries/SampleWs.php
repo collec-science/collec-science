@@ -67,10 +67,10 @@ class SampleWs extends PpciLibrary
         $searchOrder = "";
         $retour = [];
         $uids = [];
+        $this->container = new Container();
         $db = $this->container->db;
         try {
             $dataSent = $_POST;
-            $this->container = new Container();
             $dataset = [];
             if (!empty($_POST["template_name"])) {
                 /**

@@ -314,10 +314,11 @@
 		 */
 		function verifyRequired() {
 			$(".tab-pane").each(function () {
+				console.log(this);
 				var ok = true;
 				var id = $(this).attr("id");
-				$("#" + id + " :input").each(function () {
-					if ($(this).prop('required') && $(this).val().length == 0) {
+				$("#" + id + " :input").each(function (i, obj) {
+					if ($(obj).prop('required') && $(obj).val().length == 0) {
 						ok = false;
 					}
 				});
@@ -855,7 +856,7 @@
 						</fieldset>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location">
+				<div class="tab-pane fade" id="nav-location" role="tabpanel" aria-labelledby="tab-location" data-error="location-error">
 					<div class="row">
 						<div class="col-md-6 form-horizontal">
 							<div class="row ">

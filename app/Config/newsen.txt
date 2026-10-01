@@ -2,6 +2,14 @@ News
 ====================
 Translated with DeepL.com (free version)
 
+Version v26.2.2 of 1/10/2026
+-----------------------------
+Bug fixes:
+- in the list of movements, the container name was not displayed
+- when entering samples, the ‘required field’ indicator remained displayed for the tab relating to location
+- connection failure messages were not displayed correctly
+- the update API was no longer working
+
 Version v26.2.1 of 15/9/2026
 -----------------------------
 Bug fixes:

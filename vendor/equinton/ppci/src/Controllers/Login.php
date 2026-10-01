@@ -169,7 +169,11 @@ class Login extends PpciController
         if (empty($retour)) {
             return defaultPage();
         } else {
-            return redirect($retour, "refresh");
+            if (method_exists($this, $retour)) {
+                return $this->$retour();
+            } else {
+                return redirect($retour, "refresh");
+            }  
         }
     }
 }

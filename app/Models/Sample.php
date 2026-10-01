@@ -869,7 +869,9 @@ class Sample extends PpciModel
          * explode metadata
          */
         foreach ($list as $k => $v) {
-            if (!empty($v["metadata"]) && ($this->verifyCollection($v) || $_SESSION["dbparams"]["consultSeesAll"] == 1)) {
+            $this->verifyCollection($v) ? $modifiable = 1 : $modifiable = 0;
+            $list[$k]["modifiable"] = $modifiable;
+            if (!empty($v["metadata"]) && ($modifiable == 1 || $_SESSION["dbparams"]["consultSeesAll"] == 1)) {
                 $metadata_array = json_decode($v["metadata"], true);
                 if (empty($metadatafilter)) {
                     $list[$k]["metadata_array"] = $metadata_array;

@@ -16,6 +16,9 @@
             </a>
         </div>
         {/if}
+        <div class="col-auto">
+            {$help}
+        </div>
 
         <form class="form-horizontal " id="odkForm" method="post" action="odkWrite">
             <input type="hidden" name="moduleBase" value="odk">

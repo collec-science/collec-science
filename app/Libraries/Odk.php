@@ -34,6 +34,7 @@ class Odk extends PpciLibrary
         $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getList(), "data");
         $this->vue->set("odk/odkList.tpl", "corps");
+        $this->vue->help(_("odk/utiliser-odk-pour-importer-des-échantillons.html"));
         return $this->vue->send();
     }
     function change()
@@ -43,6 +44,7 @@ class Odk extends PpciLibrary
         $this->vue->set($_SESSION["collections"], "collections");
         $campaign = new Campaign;
         $this->vue->set($campaign->getList("campaign_name"), "campaigns");
+        $this->vue->help(_("odk/générer-le-formulaire-odk.html"));
         return $this->vue->send();
     }
     function display()
@@ -57,7 +59,7 @@ class Odk extends PpciLibrary
             $_REQUEST["odk_sampletype_id"] = 0;
         }
         $odksampletype = new OdkSampletype;
-        $this->vue->set($odksampletype->read($_REQUEST["odk_sampletype_id"]), "odksampletype");
+        $this->vue->set($odksampletype->read($_REQUEST["odk_sampletype_id"], true, $this->id), "odksampletype");
         $this->vue->set($odksampletype->getListFromOdk($this->id), "odksampletypes");
         $this->vue->set($_REQUEST["odk_sampletype_id"], "sampletypeCurrent");
         $sampletype = new SampleType;
@@ -78,6 +80,7 @@ class Odk extends PpciLibrary
         /**
          * end
          */
+        $this->vue->help(_("odk/générer-le-formulaire-odk.html"));
         return $this->vue->send();
     }
     function write()

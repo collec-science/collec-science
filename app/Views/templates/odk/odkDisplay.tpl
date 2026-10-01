@@ -38,6 +38,9 @@
             </a>
         </div>
         <div class="col-auto">
+            {$help}
+        </div>
+        <div class="col-auto">
             <form id="odkCalculate" method="post" action="odkCalculate">
                 <input type="hidden" name="odk_id" value="{$data.odk_id}">
                 <button id="btn-calculate" type="submit" class="btn btn-danger">

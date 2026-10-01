@@ -1,5 +1,13 @@
 Nouveautés
 ============
+Version v26.2.2 du 1/10/2026
+-----------------------------
+Corrections de bugs :
+- dans la liste des mouvements, le nom du contenant n'apparaissait pas
+- en saisie des échantillons, l'indicateur de champ obligatoire restait affiché pour l'onglet traitant de la localisation
+- les messages d'échec de connexion n'étaient pas affichés correctement
+- l'api de mise à jour ne fonctionnait plus
+
 Version v26.2.1 du 15/9/2026
 -----------------------------
 Corrections de bugs :

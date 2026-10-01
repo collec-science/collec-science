@@ -14,20 +14,8 @@
 			}
 		} catch (Exception) {
 		}
-		/*var pageLength = 10;
-		try {
-			pageLength = myStorageSample.getItem("samplePageLength");
-			if (pageLength == -1) {
-				pageLength = 10;
-			}
-		} catch (Exception) {
-		}*/
-		//var scrolly = "2000pt";
 		var isGestion = "{$rights.manage}";
 		var maxcol = 21;
-		/*if (limit < 5 && limit > 0 || totalNumber < 5 && totalNumber > 0) {
-			scrolly = "20vh";
-		}*/
 		try {
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
@@ -179,22 +167,18 @@
 		 * Actions on the list, for export and print
 		 */
 		$('#samplecsvfile').on('keypress click', function () {
-			//$( this.form ).find( "input[name='module']" ).val( "sampleExportCSV" );
 			$(this.form).attr("action", "sampleExportCSV");
 			$(this.form).prop('target', '_self').submit();
 		});
 		$("#samplelabels").on("keypress click", function () {
-			//$( "#samplemodule" ).val( "samplePrintLabel" );
 			$(this.form).attr("action", "samplePrintLabel");
 			$(this.form).prop('target', 'labels').submit();
 		});
 		$("#sampledirect").on("keypress click", function () {
-			//$( "#samplemodule" ).val( "samplePrintDirect" );
 			$(this.form).attr("action", "samplePrintDirect");
 			$(this.form).prop('target', '_self').submit();
 		});
 		$("#sampleExport").on("keypress click", function () {
-			//$( "#samplemodule" ).val( "sampleExport" );
 			$(this.form).attr("action", "sampleExport");
 			$(this.form).prop('target', '_self').submit();
 		});
@@ -215,6 +199,7 @@
 					if (ok) {
 						var conf = confirm("{t}Attention : cette opération est définitive. Est-ce bien ce que vous voulez faire ?{/t}");
 						if (conf == true) {
+							document.body.style.cursor = "progress";
 							$(this.form).find("input[name='module']").val(action);
 							$(this.form).prop('target', '_self').submit();
 						} else {
@@ -801,7 +786,8 @@
 						</td>
 						{/if}
 						<td class="text-center">
-							<a class="sample tooltiplink" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="empty">
+							
+							<a class="sample {if $samples[lst].modifiable == 1}tooltiplink{/if}" data-bs-toggle="tooltip" data-bs-html="true" data-uid="{$samples[lst].uid}" id="uid-{$samples[lst].uid}" href="sampleDisplay?uid={$samples[lst].uid}" title="empty">
 								{$samples[lst].uid}
 							</a>
 							{if $samples[lst].nb_derivated_sample > -1}

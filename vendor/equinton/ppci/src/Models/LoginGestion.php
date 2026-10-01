@@ -138,6 +138,7 @@ class LoginGestion extends PpciModel
         }
         if (!$passwordok) {
             $log->setLog($login, "connection-db", "ko");
+            $this->message->set(_("Le login ou le mot de passe est incorrect"), true);
         }
         return $passwordok;
     }

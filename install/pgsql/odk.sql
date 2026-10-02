@@ -171,8 +171,6 @@ CREATE TABLE col.odk_choice (
 );
 -- ddl-end --
 
-
-
 -- ** [ Created foreign keys ]
 
 -- object: collection_fk | type: CONSTRAINT --
@@ -280,3 +278,4 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 alter table col.collection add column container_showable smallint DEFAULT 1;
 COMMENT ON COLUMN col.collection.container_showable IS E'if 0, only granted users can show the containers of the samples';
 
+insert into col.dbversion (dbversion_number, dbversion_date) values ('27.0', '2026-10-02');

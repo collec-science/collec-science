@@ -633,6 +633,11 @@
 							row += '</td>';
 							row += '<td class="nowrap">' + samples[lst].storage_condition_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].referent_name + ' ' + samples[lst].referent_firstname + '</td>';
+							row += '<td class="nowrap">';
+								if (samples[lst].operation_id > 0) {
+									row += samples[lst].protocol_name + '-' + samples[lst].protocol_version+ '/'+ samples[lst].operation_name + '-' + samples[lst].operation_version;
+								}
+							row	+= '</td>';
 							row += '<td class="nowrap" title="' + samples[lst].campaign_description + '">' + samples[lst].campaign_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].sampling_place_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].sampling_date + '</td>';
@@ -667,6 +672,7 @@
 							row += '<td class="textareaDisplay">' + samples[lst].object_comment + '</td>';
 							row += '<td>' + id + '-' + (9000000 + parseFloat(samples[lst].uid)) + '</td>';
 							var jRow = $('<tr>').append(row);
+								console.log(row);
 							table.row.add(jRow);
 							$(document).on("click", "#" + id + '-' + localId.toString(), function () {
 								addChildren($(this));

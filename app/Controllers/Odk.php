@@ -6,6 +6,8 @@ use \Ppci\Controllers\PpciController;
 use App\Libraries\Odk as LibrariesOdk;
 use App\Libraries\OdkLine;
 use App\Libraries\OdkSampletype;
+use App\Libraries\PpciExtends;
+use Ppci\Libraries\PpciException;
 
 class Odk extends PpciController
 {
@@ -73,14 +75,48 @@ class Odk extends PpciController
         }
     }
 
-    function linesWrite() {
+    function linesWrite()
+    {
         $odkLine = new OdkLine;
         $odkLine->writeLines();
         return $this->display();
     }
 
-    function duplicate() {
+    function duplicate()
+    {
         $this->lib->duplicate();
         return $this->list();
+    }
+
+    function import() {
+
+    }
+    function importExec()
+    {
+        try {
+            $zipfolder = $this->extractZip();
+        } catch (PpciException $e) {
+            $this->message->set($e->getMessage());
+        }
+    }
+
+    /**
+     * Extract the uploaded zip file
+     */
+    function extractZip(string $formname = "odkfile")
+    {
+        $file = $this->request->getFile($formname);
+        if (! $file->isValid()) {
+            throw new PpciException($file->getErrorString() . '(' . $file->getError() . ')');
+        }
+        $zip = new \ZipArchive;
+        if ($zip->open($file->getTempName())) {
+            $target = WRITEPATH . "/" . uniqid("odk");
+            $zip->extractTo($target);
+            $zip->close();
+        } else {
+            throw new PpciException(_("Le fichier zip n'a pas pu être décompressé"));
+        }
+        return $target;
     }
 }

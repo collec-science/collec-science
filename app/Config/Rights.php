@@ -378,5 +378,7 @@ class Rights extends RightsPpci
         "odkSpreadsheet" => ["collection"],
         "odkLinesWrite" => ["collection"],
         "odkDuplicate" => ["collection"],
+        "odkImport" => ["import"],
+        "odkImportExec" => ["import"],
     ];
 }

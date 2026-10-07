@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="-107,232" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="888,952" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -398,7 +398,7 @@ Congélateur;2]]>
 	</constraint>
 	<initial-data>
 <![CDATA["dbversion_number";"dbversion_date"
-"26.2";"2026-06-18"
+"27.0";"2026-10-01"
 ]]>
 	</initial-data>
 </table>
@@ -767,26 +767,28 @@ Prélèvement pour analyse;true;false
 		<columns names="mime_type_id" ref-type="src-columns"/>
 	</constraint>
 	<initial-data>
-<![CDATA[extension;content_type
-pdf;application/pdf
-zip;application/zip
-mp3;audio/mpeg
-jpg;image/jpeg
-jpeg;image/jpeg
-png;image/png
-tiff;image/tiff
-csv;text/csv
-odt;application/vnd.oasis.opendocument.text
-ods;application/vnd.oasis.opendocument.spreadsheet
-xls;application/vnd.ms-excel
-xlsx;application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
-doc;application/msword
-docx;application/vnd.openxmlformats-officedocument.wordprocessingml.document
-ab1;application/octet-stream
-seq;application/octet-stream
-fa;application/octet-stream
-fsa;application/octet-stream
-xml;application/xml]]>
+<![CDATA["extension";"content_type"
+"pdf";"application/pdf"
+"zip";"application/zip"
+"mp3";"audio/mpeg"
+"jpg";"image/jpeg"
+"jpeg";"image/jpeg"
+"png";"image/png"
+"tiff";"image/tiff"
+"csv";"text/csv"
+"odt";"application/vnd.oasis.opendocument.text"
+"ods";"application/vnd.oasis.opendocument.spreadsheet"
+"xls";"application/vnd.ms-excel"
+"xlsx";"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+"doc";"application/msword"
+"docx";"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+"ab1";"application/octet-stream"
+"seq";"application/octet-stream"
+"fa";"application/octet-stream"
+"fsa";"application/octet-stream"
+"xml";"application/xml"
+"m4a";"audio/x-m4a"
+]]>
 	</initial-data>
 </table>
 

@@ -15,7 +15,7 @@
 		} catch (Exception) {
 		}
 		var isGestion = "{$rights.manage}";
-		var maxcol = 21;
+		var maxcol = 22;
 		try {
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
@@ -23,7 +23,7 @@
 					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 				} else {
 					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-					maxcol = 20;
+					maxcol = 21;
 				}
 			}
 		} catch {
@@ -31,7 +31,7 @@
 				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 			} else {
 				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-				maxcol = 20;
+				maxcol = 21;
 			}
 		}
 		//var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];

@@ -11,6 +11,9 @@ use Ppci\Libraries\PpciException;
 
 class Odk extends PpciController
 {
+    /**
+     * @var LibrariesOdk
+     */
     protected $lib;
     function __construct()
     {
@@ -88,13 +91,15 @@ class Odk extends PpciController
         return $this->list();
     }
 
-    function import() {
-
+    function import()
+    {
+        return $this->lib->import();
     }
     function importExec()
     {
         try {
-            $zipfolder = $this->extractZip();
+            $zipinfo = $this->extractZip();
+            $this->lib->importExec($_POST["odk_id"], $zipinfo["folder"], $zipinfo["filename"]);
         } catch (PpciException $e) {
             $this->message->set($e->getMessage());
         }
@@ -110,13 +115,15 @@ class Odk extends PpciController
             throw new PpciException($file->getErrorString() . '(' . $file->getError() . ')');
         }
         $zip = new \ZipArchive;
+        $app = service("AppConfig");
         if ($zip->open($file->getTempName())) {
-            $target = WRITEPATH . "/" . uniqid("odk");
+            $target = $app->APP_temp . "/" . uniqid("odk");
             $zip->extractTo($target);
+            $filename = $file->getBasename(".zip");
             $zip->close();
         } else {
             throw new PpciException(_("Le fichier zip n'a pas pu être décompressé"));
         }
-        return $target;
+        return ["filename"=>$filename, "folder"=>$target];
     }
 }

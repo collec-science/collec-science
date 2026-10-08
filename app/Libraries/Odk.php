@@ -235,7 +235,6 @@ class Odk extends PpciLibrary
                 $odkchoice->write($row);
             }
             $db->transCommit();
-
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);
             if ($db->transEnabled) {
@@ -243,7 +242,14 @@ class Odk extends PpciLibrary
             }
         }
     }
-    function extractZip(string $formfilename) {
-        
+    function import()
+    {
+        $this->vue = service('Smarty');
+        $this->vue->set($this->dataclass->getList(), "odks");
+        $this->vue->set("odk/odkImport.tpl", "corps");
+        $this->vue->help(_("odk/utiliser-odk-pour-importer-des-échantillons.html"));
+        return $this->vue->send();
     }
+    function importExec(int $odkId, string $folder, string $filename) {}
 }
+

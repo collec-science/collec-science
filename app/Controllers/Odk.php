@@ -119,7 +119,7 @@ class Odk extends PpciController
         if ($zip->open($file->getTempName())) {
             $target = $app->APP_temp . "/" . uniqid("odk");
             $zip->extractTo($target);
-            $filename = $file->getBasename(".zip");
+            $filename = $file->getname();
             $zip->close();
         } else {
             throw new PpciException(_("Le fichier zip n'a pas pu être décompressé"));

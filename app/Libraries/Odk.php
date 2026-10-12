@@ -250,6 +250,130 @@ class Odk extends PpciLibrary
         $this->vue->help(_("odk/utiliser-odk-pour-importer-des-échantillons.html"));
         return $this->vue->send();
     }
-    function importExec(int $odkId, string $folder, string $filename) {}
-}
+    function importExec(int $odkId, string $folder, string $filename)
+    {
+        /**
+         * get the content of odk 
+         */
+        $odk = $this->dataclass->read($odkId);
+        /**
+         * verify rights
+         */
+        if (empty($_SESSION["collections"][$odk["collection_id"]])) {
+            throw new PpciException(_("Vous ne disposez pas des droits suffisants pour importer dans cette collection"));
+        }
+        /**
+         * extract the root of the filename
+         */
+        $rootname = substr($filename, 0, strrpos($filename, "."));
+        /**
+         * Read the content of csv files
+         */
+        $csv = new Csv;
+        $csvnames = [
+            "stations" => $folder . "/" . $rootname . ".csv",
+            "samples" => $folder . "/" . $rootname . "-samples.csv",
+            "pictures" => $folder . "/" . $rootname . "-pictures.csv",
+            "videos" => $folder . "/" . $rootname . "-videos.csv",
+            "sounds" => $folder . "/" . $rootname . "-sounds.csv",
+        ];
+        $zipdata = [];
+        foreach ($csvnames as $name => $content) {
+            $csv->openfile($content);
+            $zipdata[$name] = $csv->getContentAsArray();
+        }
+        /**
+         * prepare structured data
+         */
+        $data = [];
+        /**
+         * stations
+         */
+        foreach ($zipdata["stations"]as $station) {
+            $dstation = [
+                "sampling_date" => $station["sampling_date"],
+                "referent_id" =>$station["referent_id"],
+                "sampling_place_id" =>$station["sampling_place_id"],
+                "wgs84_x" => $station["geopoint-Longitude"],
+                "wgs84_y" => $station["geopoint-Latitude"]
+            ];
+            $data [$station["KEY"]] = $dstation;
+        }
+        /**
+         * samples
+         */
+        $keyArr = ["PARENT_KEY", "KEY"];
+        foreach ($zipdata["samples"] as $sample) {
+            $dsample = [];
+            foreach ($sample as $k=>$v) {
+                if (!in_array($k, $keyArr)) {
+                    $dsample[$k] = $v;
+                }
+            }
+            $data[$dsample["PARENT_KEY"]]["samples"][$dsample["KEY"]] = $dsample;
+        }
+        /**
+         * pictures
+         */
+        foreach ($zipdata["pictures"] as $media) {
+            if (!empty($picture["picture"])) {
+            /**
+             * extract station key
+             */
+            $stationKey = explode("/",$media["PARENT_KEY"])[0];
+            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["picture"];
+            }
+        }
+        /**
+         * videos
+         */
+        foreach ($zipdata["videos"] as $media) {
+            if (!empty($picture["video"])) {
+            /**
+             * extract station key
+             */
+            $stationKey = explode("/",$media["PARENT_KEY"])[0];
+            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["video"];
+            }
+        }
+        /**
+         * sounds
+         */
+        foreach ($zipdata["sounds"] as $media) {
+            if (!empty($picture["sound"])) {
+            /**
+             * extract station key
+             */
+            $stationKey = explode("/",$media["PARENT_KEY"])[0];
+            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["sound"];
+            }
+        }
+        /**
+         * Treatment of each sample
+         */
+        foreach ($data as $station) {
+            $object = [
+                "uid" =>0,
 
+            ];
+        }
+
+        /**
+         * delete the folder
+         */
+        $this->recurseRmdir($folder);
+    }
+
+    // Source - https://stackoverflow.com/a/18838141
+    // Posted by Liko, modified by community. See post 'Timeline' for change history
+    // Retrieved 2026-10-08, License - CC BY-SA 4.0
+
+    function recurseRmdir(string $dir)
+    {
+        $files = array_diff(scandir($dir), array('.', '..'));
+        foreach ($files as $file) {
+            (is_dir("$dir/$file") && !is_link("$dir/$file")) ? $this->recurseRmdir("$dir/$file") : unlink("$dir/$file");
+        }
+        return rmdir($dir);
+    }
+}

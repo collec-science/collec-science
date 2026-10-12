@@ -3,10 +3,12 @@
 namespace App\Libraries;
 
 use App\Models\Campaign;
+use App\Models\Document;
 use App\Models\Odk as ModelsOdk;
 use App\Models\OdkChoice;
 use App\Models\OdkLine;
 use App\Models\OdkSampletype;
+use App\Models\Sample;
 use App\Models\SampleType;
 use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
@@ -263,6 +265,11 @@ class Odk extends PpciLibrary
             throw new PpciException(_("Vous ne disposez pas des droits suffisants pour importer dans cette collection"));
         }
         /**
+         * initialize classes
+         */
+        $sampleModel = new Sample;
+        $document = new Document;
+        /**
          * extract the root of the filename
          */
         $rootname = substr($filename, 0, strrpos($filename, "."));
@@ -289,15 +296,15 @@ class Odk extends PpciLibrary
         /**
          * stations
          */
-        foreach ($zipdata["stations"]as $station) {
+        foreach ($zipdata["stations"] as $station) {
             $dstation = [
                 "sampling_date" => $station["sampling_date"],
-                "referent_id" =>$station["referent_id"],
-                "sampling_place_id" =>$station["sampling_place_id"],
+                "referent_id" => $station["referent_id"],
+                "sampling_place_id" => $station["sampling_place_id"],
                 "wgs84_x" => $station["geopoint-Longitude"],
                 "wgs84_y" => $station["geopoint-Latitude"]
             ];
-            $data [$station["KEY"]] = $dstation;
+            $data[$station["KEY"]] = $dstation;
         }
         /**
          * samples
@@ -305,7 +312,7 @@ class Odk extends PpciLibrary
         $keyArr = ["PARENT_KEY", "KEY"];
         foreach ($zipdata["samples"] as $sample) {
             $dsample = [];
-            foreach ($sample as $k=>$v) {
+            foreach ($sample as $k => $v) {
                 if (!in_array($k, $keyArr)) {
                     $dsample[$k] = $v;
                 }
@@ -317,11 +324,11 @@ class Odk extends PpciLibrary
          */
         foreach ($zipdata["pictures"] as $media) {
             if (!empty($picture["picture"])) {
-            /**
-             * extract station key
-             */
-            $stationKey = explode("/",$media["PARENT_KEY"])[0];
-            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["picture"];
+                /**
+                 * extract station key
+                 */
+                $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["picture"];
             }
         }
         /**
@@ -329,11 +336,11 @@ class Odk extends PpciLibrary
          */
         foreach ($zipdata["videos"] as $media) {
             if (!empty($picture["video"])) {
-            /**
-             * extract station key
-             */
-            $stationKey = explode("/",$media["PARENT_KEY"])[0];
-            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["video"];
+                /**
+                 * extract station key
+                 */
+                $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["video"];
             }
         }
         /**
@@ -341,21 +348,93 @@ class Odk extends PpciLibrary
          */
         foreach ($zipdata["sounds"] as $media) {
             if (!empty($picture["sound"])) {
-            /**
-             * extract station key
-             */
-            $stationKey = explode("/",$media["PARENT_KEY"])[0];
-            $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media ["sound"];
+                /**
+                 * extract station key
+                 */
+                $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["sound"];
             }
         }
         /**
          * Treatment of each sample
          */
+        $sampleKeyExclude = ["PARENT_KEY", "KEY", "medias"];
         foreach ($data as $station) {
             $object = [
-                "uid" =>0,
-
+                "uid" => 0,
+                "collection_id" => $odk["collection_id"],
+                "sampling_date" => $station["sampling_date"],
+                "wgs84_x" => $station["wgs84_x"],
+                "wgs84_y" => $station["wgs84_y"],
+                "referent_id" => $station["referent_id"],
+                "sampling_place_id" => $station["sampling_place_id"]
             ];
+            $parentId = 0;
+            foreach ($station["samples"] as $sample) {
+                $identifier = $sample["root-identifier"] . $sample["identifier"];
+                $dsample = $object;
+                /**
+                 * Search if exists the sample
+                 */
+                $uid = $sampleModel->getUid("identifier", $identifier, $odk["collection_id"]);
+                if ($uid > 0) {
+                    $isNew = false;
+                    $dsample["uid"] = $uid;
+                } else {
+                    $isNew = true;
+                }
+                /**
+                 * add values
+                 */
+                $metadata = [];
+                foreach ($sample as $k => $v) {
+                    if (!in_array($k, $sampleKeyExclude)) {
+                        /**
+                         * Treatment of metadata
+                         */
+                        if (substr($k, 0, 3) == "md_") {
+                            $metadata[substr($k, 3)] = $v;
+                        } else {
+                            $dsample[$k] = $v;
+                        }
+                    }
+                    $dsample["metadata"] = $metadata;
+                }
+                /**
+                 * Treatment of the parent
+                 */
+                if ($sample["is_subsampling"] == 1 && $parentId > 0) {
+                    /**
+                     * add reference to the parent
+                     */
+                    $dsample["parent_sample_id"] = $parentId;
+                }
+                /**
+                 * write sample
+                 */
+                $uid = $sampleModel->write($dsample);
+                if ($sample["is_subsampling"] == 0) {
+                    $parentId = $sampleModel->getIdFromUid($uid);
+                }
+                /**
+                 * Treatment of medias
+                 */
+                if ($isNew) {
+                    foreach ($sample["medias"] as $mediaName) {
+                        /**
+                         * prepare file array
+                         */
+                        $filepath = $folder . "/media/" . $mediaName;
+                        $filestat = stat($filepath);
+                        $fileInfo = [
+                            "name" => $mediaName,
+                            "size" => $filestat["size"],
+                            "tmp_name" => $filepath
+                        ];
+                        $document->documentWrite($fileInfo, "uid", $uid);
+                    }
+                }
+            }
         }
 
         /**

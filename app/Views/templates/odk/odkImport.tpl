@@ -1,3 +1,16 @@
+<script>
+    $(document).ready(function () {
+        var myStorage = window.localStorage;
+        try {
+            var odkId = myStorage.getItem("odkImportId");
+            document.getElementById("odk_id").value = odkId;
+        } catch (Exception) {
+        }
+        $("#odk_id").change(function() {
+            myStorage.setItem("odkImportId", $(this).val());
+        });
+    });
+</script>
 <div class="container">
     <div class="row">
         <div class="col-auto">

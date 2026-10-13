@@ -102,7 +102,8 @@ class Document extends PpciModel
             //$isExternal ? $external = "true" : $external = "false";
             $sql = "select document_id, d.uid, campaign_id, mime_type_id, collection_id,
           document_import_date, document_name, document_description, size, document_creation_date, d.uuid
-          ,external_storage, external_storage_path, event_id, event_date, event_type_name, due_date
+          ,external_storage, external_storage_path, event_id, event_date, event_type_name, due_date,
+          case when length(thumbnail) > 0 then 1 else 0 end as with_thumbnail
           from document d
           left outer join event using (event_id)
           left outer join event_type using (event_type_id)
@@ -189,8 +190,11 @@ class Document extends PpciModel
                     $image->readImageBlob($dataBinaire);
                     $image->setiteratorindex(0);
                     $image->resizeimage(200, 200, \imagick::FILTER_LANCZOS, 1, true);
-                    $image->setformat("png");
-                    $dataDoc["thumbnail"] = pg_escape_bytea($this->db->connID, $image->getimageblob());
+                    $image->setimageformat("png");
+                    try {
+                        $dataDoc["thumbnail"] = pg_escape_bytea($this->db->connID, $image->getimageblob());
+                    } catch (\ImagickException) {
+                    }
                 }
                 /**
                  *  suppression du stockage temporaire
@@ -206,7 +210,7 @@ class Document extends PpciModel
                 }
                 return $id;
             } else {
-                throw new PpciException (_("Le type de fichier n'est pas autorisé"));
+                throw new PpciException(_("Le type de fichier n'est pas autorisé"));
             }
         } else {
             throw new PpciException(_("L'ajout du document a échoué pour une raison inconnue"));
@@ -224,7 +228,8 @@ class Document extends PpciModel
         if ($id > 0) {
             $sql = "select document_id, document_name, content_type, mime_type_id, extension,
 					document_import_date, document_creation_date, uuid
-          ,external_storage, external_storage_path
+          ,external_storage, external_storage_path,
+          case when length(thumbnail) > 0 then 1 else 0 end as with_thumbnail
 				from document
 				join mime_type using (mime_type_id)
 				where document_id = :document_id:";
@@ -424,7 +429,6 @@ class Document extends PpciModel
     function getDocument(string $id)
     {
         $filename = $this->prepareDocument($id);
-
     }
 
     /**
@@ -439,7 +443,8 @@ class Document extends PpciModel
         $sql = "SELECT d.document_id, d.uid, d.uuid as document_uuid, d.uuid,
             document_name, identifier, content_type, extension, size, document_creation_date
             ,o.uuid as sample_uuid
-            ,external_storage_path, external_storage
+            ,external_storage_path, external_storage,
+          case when length(thumbnail) > 0 then 1 else 0 end as with_thumbnail
             FROM col.document d
             join object o using (uid)
             join mime_type using (mime_type_id)
@@ -465,7 +470,8 @@ class Document extends PpciModel
     {
         if (in_array($field, array("uuid", "uid", "campaign_id", "document_id"))) {
             $sql = "SELECT document_id, d.uuid, content_type, size, d.collection_id, document_name
-            ,external_storage, external_storage_path
+            ,external_storage, external_storage_path,
+          case when length(thumbnail) > 0 then 1 else 0 end as with_thumbnail
             from document d
             left outer join mime_type using (mime_type_id)
             left outer join sample using (uid)
@@ -495,7 +501,7 @@ class Document extends PpciModel
             /**
              * @var App
              */
-            $app = service ("AppConfig");
+            $app = service("AppConfig");
             $path = $app->external_document_path . "/" . $collection["external_storage_root"] . "/" . $data["external_storage_path"];
             /**
              * Search for the file to associate
@@ -543,12 +549,14 @@ class Document extends PpciModel
      * @param int $uid
      * @return array
      */
-    function getListFromUid ($uid) :array {
-         $sql = "select uuid, document_name, document_import_date, document_creation_date, document_description
-         ,size, content_type, extension
+    function getListFromUid($uid): array
+    {
+        $sql = "select uuid, document_name, document_import_date, document_creation_date, document_description
+         ,size, content_type, extension,
+          case when length(thumbnail) > 0 then 1 else 0 end as with_thumbnail
           from document d
           left outer join mime_type using (mime_type_id)
           where uid = :id:";
-          return $this->getListParam($sql, ["id"=>$uid]);
+        return $this->getListParam($sql, ["id" => $uid]);
     }
 }

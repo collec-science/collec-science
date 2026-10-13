@@ -103,6 +103,7 @@ class Odk extends PpciController
         } catch (PpciException $e) {
             $this->message->set($e->getMessage());
         }
+        return ($this->import());
     }
 
     /**

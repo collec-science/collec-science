@@ -254,193 +254,232 @@ class Odk extends PpciLibrary
     }
     function importExec(int $odkId, string $folder, string $filename)
     {
-        /**
-         * get the content of odk 
-         */
-        $odk = $this->dataclass->read($odkId);
-        /**
-         * verify rights
-         */
-        if (empty($_SESSION["collections"][$odk["collection_id"]])) {
-            throw new PpciException(_("Vous ne disposez pas des droits suffisants pour importer dans cette collection"));
-        }
-        /**
-         * initialize classes
-         */
-        $sampleModel = new Sample;
-        $document = new Document;
-        /**
-         * extract the root of the filename
-         */
-        $rootname = substr($filename, 0, strrpos($filename, "."));
-        /**
-         * Read the content of csv files
-         */
-        $csv = new Csv;
-        $csvnames = [
-            "stations" => $folder . "/" . $rootname . ".csv",
-            "samples" => $folder . "/" . $rootname . "-samples.csv",
-            "pictures" => $folder . "/" . $rootname . "-pictures.csv",
-            "videos" => $folder . "/" . $rootname . "-videos.csv",
-            "sounds" => $folder . "/" . $rootname . "-sounds.csv",
-        ];
-        $zipdata = [];
-        foreach ($csvnames as $name => $content) {
-            $csv->openfile($content);
-            $zipdata[$name] = $csv->getContentAsArray();
-        }
-        /**
-         * prepare structured data
-         */
-        $data = [];
-        /**
-         * stations
-         */
-        foreach ($zipdata["stations"] as $station) {
-            $dstation = [
-                "sampling_date" => $station["sampling_date"],
-                "referent_id" => $station["referent_id"],
-                "sampling_place_id" => $station["sampling_place_id"],
-                "wgs84_x" => $station["geopoint-Longitude"],
-                "wgs84_y" => $station["geopoint-Latitude"]
-            ];
-            $data[$station["KEY"]] = $dstation;
-        }
-        /**
-         * samples
-         */
-        $keyArr = ["PARENT_KEY", "KEY"];
-        foreach ($zipdata["samples"] as $sample) {
-            $dsample = [];
-            foreach ($sample as $k => $v) {
-                if (!in_array($k, $keyArr)) {
-                    $dsample[$k] = $v;
-                }
-            }
-            $data[$dsample["PARENT_KEY"]]["samples"][$dsample["KEY"]] = $dsample;
-        }
-        /**
-         * pictures
-         */
-        foreach ($zipdata["pictures"] as $media) {
-            if (!empty($picture["picture"])) {
-                /**
-                 * extract station key
-                 */
-                $stationKey = explode("/", $media["PARENT_KEY"])[0];
-                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["picture"];
-            }
-        }
-        /**
-         * videos
-         */
-        foreach ($zipdata["videos"] as $media) {
-            if (!empty($picture["video"])) {
-                /**
-                 * extract station key
-                 */
-                $stationKey = explode("/", $media["PARENT_KEY"])[0];
-                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["video"];
-            }
-        }
-        /**
-         * sounds
-         */
-        foreach ($zipdata["sounds"] as $media) {
-            if (!empty($picture["sound"])) {
-                /**
-                 * extract station key
-                 */
-                $stationKey = explode("/", $media["PARENT_KEY"])[0];
-                $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["sound"];
-            }
-        }
-        /**
-         * Treatment of each sample
-         */
-        $sampleKeyExclude = ["PARENT_KEY", "KEY", "medias"];
-        foreach ($data as $station) {
-            $object = [
-                "uid" => 0,
-                "collection_id" => $odk["collection_id"],
-                "sampling_date" => $station["sampling_date"],
-                "wgs84_x" => $station["wgs84_x"],
-                "wgs84_y" => $station["wgs84_y"],
-                "referent_id" => $station["referent_id"],
-                "sampling_place_id" => $station["sampling_place_id"]
-            ];
-            $parentId = 0;
-            foreach ($station["samples"] as $sample) {
-                $identifier = $sample["root-identifier"] . $sample["identifier"];
-                $dsample = $object;
-                /**
-                 * Search if exists the sample
-                 */
-                $uid = $sampleModel->getUid("identifier", $identifier, $odk["collection_id"]);
-                if ($uid > 0) {
-                    $isNew = false;
-                    $dsample["uid"] = $uid;
-                } else {
-                    $isNew = true;
-                }
-                /**
-                 * add values
-                 */
-                $metadata = [];
-                foreach ($sample as $k => $v) {
-                    if (!in_array($k, $sampleKeyExclude)) {
-                        /**
-                         * Treatment of metadata
-                         */
-                        if (substr($k, 0, 3) == "md_") {
-                            $metadata[substr($k, 3)] = $v;
-                        } else {
-                            $dsample[$k] = $v;
-                        }
-                    }
-                    $dsample["metadata"] = $metadata;
-                }
-                /**
-                 * Treatment of the parent
-                 */
-                if ($sample["is_subsampling"] == 1 && $parentId > 0) {
-                    /**
-                     * add reference to the parent
-                     */
-                    $dsample["parent_sample_id"] = $parentId;
-                }
-                /**
-                 * write sample
-                 */
-                $uid = $sampleModel->write($dsample);
-                if ($sample["is_subsampling"] == 0) {
-                    $parentId = $sampleModel->getIdFromUid($uid);
-                }
-                /**
-                 * Treatment of medias
-                 */
-                if ($isNew) {
-                    foreach ($sample["medias"] as $mediaName) {
-                        /**
-                         * prepare file array
-                         */
-                        $filepath = $folder . "/media/" . $mediaName;
-                        $filestat = stat($filepath);
-                        $fileInfo = [
-                            "name" => $mediaName,
-                            "size" => $filestat["size"],
-                            "tmp_name" => $filepath
-                        ];
-                        $document->documentWrite($fileInfo, "uid", $uid);
-                    }
-                }
-            }
-        }
+        $db = $this->dataclass->db;
+        try {
 
-        /**
-         * delete the folder
-         */
-        $this->recurseRmdir($folder);
+            $db->transBegin();
+            /**
+             * get the content of odk 
+             */
+            $odk = $this->dataclass->read($odkId);
+            /**
+             * verify rights
+             */
+            if (empty($_SESSION["collections"][$odk["collection_id"]])) {
+                throw new PpciException(_("Vous ne disposez pas des droits suffisants pour importer dans cette collection"));
+            }
+            /**
+             * counters
+             */
+            $nbCreate = 0;
+            $nbChange = 0;
+            $nbMedia = 0;
+            $uidMin = 99999999;
+            $uidMax = 0;
+            /**
+             * initialize classes
+             */
+            $sampleModel = new Sample;
+            $document = new Document;
+            /**
+             * extract the root of the filename
+             */
+            $rootname = substr($filename, 0, strrpos($filename, "."));
+            /**
+             * Read the content of csv files
+             */
+            $csv = new Csv;
+            $csvnames = [
+                "stations" => $folder . "/" . $rootname . ".csv",
+                "samples" => $folder . "/" . $rootname . "-samples.csv",
+                "pictures" => $folder . "/" . $rootname . "-pictures.csv",
+                "videos" => $folder . "/" . $rootname . "-videos.csv",
+                "sounds" => $folder . "/" . $rootname . "-sounds.csv",
+            ];
+            $zipdata = [];
+            foreach ($csvnames as $name => $content) {
+                $csv->openfile($content);
+                $zipdata[$name] = $csv->getContentAsArray();
+            }
+            /**
+             * prepare structured data
+             */
+            $data = [];
+            /**
+             * stations
+             */
+            foreach ($zipdata["stations"] as $station) {
+                $dstation = [
+                    "sampling_date" => $station["sampling_date"],
+                    "referent_id" => $station["referent_id"],
+                    "sampling_place_id" => $station["sampling_place_id"],
+                    "wgs84_x" => $station["geopoint-Longitude"],
+                    "wgs84_y" => $station["geopoint-Latitude"]
+                ];
+                $data[$station["KEY"]] = $dstation;
+            }
+            /**
+             * samples
+             */
+            $keyArr = ["PARENT_KEY", "KEY"];
+            foreach ($zipdata["samples"] as $sample) {
+                $dsample = [];
+                foreach ($sample as $k => $v) {
+                    if (!in_array($k, $keyArr)) {
+                        $dsample[$k] = $v;
+                    }
+                }
+                $data[$sample["PARENT_KEY"]]["samples"][$sample["KEY"]] = $dsample;
+            }
+            /**
+             * pictures
+             */
+            foreach ($zipdata["pictures"] as $media) {
+                if (!empty($media["picture"])) {
+                    /**
+                     * extract station key
+                     */
+                    $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                    $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["picture"];
+                }
+            }
+            /**
+             * videos
+             */
+            foreach ($zipdata["videos"] as $media) {
+                if (!empty($media["video"])) {
+                    /**
+                     * extract station key
+                     */
+                    $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                    $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["video"];
+                }
+            }
+            /**
+             * sounds
+             */
+            foreach ($zipdata["sounds"] as $media) {
+                if (!empty($media["sound"])) {
+                    /**
+                     * extract station key
+                     */
+                    $stationKey = explode("/", $media["PARENT_KEY"])[0];
+                    $data[$stationKey]["samples"][$media["PARENT_KEY"]]["medias"][] = $media["sound"];
+                }
+            }
+            /**
+             * Treatment of each sample
+             */
+            $sampleKeyExclude = ["PARENT_KEY", "KEY", "medias"];
+            foreach ($data as $station) {
+                $object = [
+                    "uid" => 0,
+                    "collection_id" => $odk["collection_id"],
+                    "sampling_date" => $station["sampling_date"],
+                    "wgs84_x" => $station["wgs84_x"],
+                    "wgs84_y" => $station["wgs84_y"],
+                    "referent_id" => $station["referent_id"],
+                    "sampling_place_id" => $station["sampling_place_id"],
+                    "sample_creation_date" => date($_SESSION["date"]["maskdatelong"]),
+                    "object_status_id" => 1
+                ];
+                $parentId = 0;
+                foreach ($station["samples"] as $sample) {
+                    $identifier = $sample["root-identifier"] . $sample["identifier"];
+                    $dsample = $object;
+                    /**
+                     * Search if exists the sample
+                     */
+                    $uid = $sampleModel->getUid("identifier", $identifier, $odk["collection_id"]);
+                    if ($uid > 0) {
+                        $isNew = false;
+                        $dsample = $sampleModel->read($uid);
+                        if ($dsample["collection_id"] != $odk["collection_id"]) {
+                            throw new PpciException(_("La collection de l'échantillon à mettre à jour n'est pas la même que celle déclarée dans le modèle ODK"));
+                        }
+                    } else {
+                        $isNew = true;
+                    }
+                    /**
+                     * add values
+                     */
+                    $metadata = [];
+                    foreach ($sample as $k => $v) {
+                        if (!in_array($k, $sampleKeyExclude)) {
+                            /**
+                             * Treatment of metadata
+                             */
+                            if (substr($k, 0, 3) == "md_" && strlen($v) > 0) {
+                                $metadata[substr($k, 3)] = $v;
+                            } else {
+                                $dsample[$k] = $v;
+                            }
+                        }
+                        $dsample["metadata"] = json_encode($metadata);
+                    }
+                    /**
+                     * Treatment of the parent
+                     */
+                    if ($sample["is_subsampling"] == 1 && $parentId > 0) {
+                        /**
+                         * add reference to the parent
+                         */
+                        $dsample["parent_sample_id"] = $parentId;
+                    }
+                    /**
+                     * write sample
+                     */
+                    $dsample["identifier"] = $identifier;
+                    $uid = $sampleModel->write($dsample);
+                    if ($uid > $uidMax) {
+                        $uidMax = $uid;
+                    }
+                    if ($uid < $uidMin) {
+                        $uidMin = $uid;
+                    }
+                    if ($sample["is_subsampling"] == 0) {
+                        $parentId = $sampleModel->getIdFromUid($uid);
+                    }
+                    /**
+                     * Treatment of medias
+                     */
+                    if ($isNew) {
+                        $nbCreate++;
+                        foreach ($sample["medias"] as $mediaName) {
+                            /**
+                             * prepare file array
+                             */
+                            $filepath = $folder . "/media/" . $mediaName;
+                            $filestat = stat($filepath);
+                            $fileInfo = [
+                                "name" => $mediaName,
+                                "size" => $filestat["size"],
+                                "tmp_name" => $filepath
+                            ];
+                            $document->documentWrite($fileInfo, "uid", $uid);
+                            $nbMedia++;
+                        }
+                    } else {
+                        $nbChange++;
+                    }
+                }
+            }
+            $this->message->set(_("Import effectué"));
+            $this->message->set(sprintf(_("Nombre d'échantillons créés : %s"), $nbCreate));
+            $this->message->set(sprintf(_("Nombre d'échantillons modifiés : %s"), $nbChange));
+            $this->message->set(sprintf(_("Nombre de documents rajoutés : %s"), $nbMedia));
+            $this->message->set(sprintf(_("UID traités entre %1s et %2s"), $uidMin, $uidMax));
+            $this->message->setSyslog(sprintf(_("Import ODK : UID traités entre %1s et %2s"), $uidMin, $uidMax));
+            $db->transCommit();
+        } catch (PpciException $e) {
+            $db->transRollback();
+            throw new PpciException($e->getMessage());
+        } finally {
+            /**
+             * delete the folder
+             */
+            $this->recurseRmdir($folder);
+        }
     }
 
     // Source - https://stackoverflow.com/a/18838141

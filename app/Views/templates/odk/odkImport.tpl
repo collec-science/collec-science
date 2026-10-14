@@ -30,7 +30,7 @@
                     <select id="odk_id" name="odk_id" class="form-select" autofocus>
                         {foreach $odks as $odk}
                         <option value="{$odk.odk_id}">
-                            {$odk.odk_name} {$odk.odk_version}
+                            {$odk.odk_name} {$odk.odk_version} ({t}collection{/t} {$odk.collection_name})
                         </option>
                         {/foreach}
                     </select>

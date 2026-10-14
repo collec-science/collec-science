@@ -249,7 +249,7 @@ class Odk extends PpciLibrary
         $this->vue = service('Smarty');
         $this->vue->set($this->dataclass->getList(), "odks");
         $this->vue->set("odk/odkImport.tpl", "corps");
-        $this->vue->help(_("odk/utiliser-odk-pour-importer-des-échantillons.html"));
+        $this->vue->help(_("odk/importer-les-données-saisies-avec-odk-collect.html"));
         return $this->vue->send();
     }
     function importExec(int $odkId, string $folder, string $filename)
@@ -470,6 +470,7 @@ class Odk extends PpciLibrary
             $this->message->set(sprintf(_("Nombre de documents rajoutés : %s"), $nbMedia));
             $this->message->set(sprintf(_("UID traités entre %1s et %2s"), $uidMin, $uidMax));
             $this->message->setSyslog(sprintf(_("Import ODK : UID traités entre %1s et %2s"), $uidMin, $uidMax));
+            $this->log->setLog($_SESSION["login"], "odkImportExec", sprintf(_("UID traités entre %1s et %2s"), $uidMin, $uidMax));
             $db->transCommit();
         } catch (PpciException $e) {
             $db->transRollback();

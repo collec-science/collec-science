@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="888,952" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="374,-8" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -788,6 +788,7 @@ Prélèvement pour analyse;true;false
 "fsa";"application/octet-stream"
 "xml";"application/xml"
 "m4a";"audio/x-m4a"
+"mp4";"application/mp4"
 ]]>
 	</initial-data>
 </table>

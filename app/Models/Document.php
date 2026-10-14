@@ -138,6 +138,18 @@ class Document extends PpciModel
      *            string description : description du contenu du document
      * @return int
      */
+    
+    /**
+     * Method documentWrite - create a new document
+     *
+     * @param array $file array contains name of file and location
+     * @param string $parentKeyName field used to link the document (uid, etc.)
+     * @param string $parentKeyValue
+     * @param string $description description of the document
+     * @param string $document_creation_date date of creation of the document
+     *
+     * @return void
+     */
     function documentWrite($file, $parentKeyName, $parentKeyValue, $description = NULL, $document_creation_date = NULL)
     {
         if ($file["error"] == 0 && $file["size"] > 0 && is_numeric($parentKeyValue) && $parentKeyValue > 0) {
@@ -188,8 +200,9 @@ class Document extends PpciModel
                 if ($extension == "pdf" || $extension == "png" || $extension == "jpg") {
                     $image = new \Imagick();
                     $image->readImageBlob($dataBinaire);
+                    $image->stripImage();
                     $image->setiteratorindex(0);
-                    $image->resizeimage(200, 200, \imagick::FILTER_LANCZOS, 1, true);
+                    $image->cropThumbnailImage(200, 200);
                     $image->setimageformat("png");
                     try {
                         $dataDoc["thumbnail"] = pg_escape_bytea($this->db->connID, $image->getimageblob());
@@ -273,7 +286,7 @@ class Document extends PpciModel
      * @param int $id
      * @param int $phototype
      *            : type de la photo - 0 : original, 1 : photo reduite, 2 : vignette
-     * @param number $resolution
+     * @param int $resolution
      * @return string
      */
     function generateFileName($id, $phototype = 0, $resolution = 800)

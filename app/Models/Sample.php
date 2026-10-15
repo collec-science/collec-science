@@ -15,12 +15,14 @@ use Ppci\Models\PpciModel;
 class Sample extends PpciModel
 {
 
-    private $sql = "select distinct on (s.uid) s.sample_id, s.uid,
-					s.collection_id, collection_name, collection_description, no_localization, s.sample_type_id, s.dbuid_origin,
-                    sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
-                    s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
-                    s.parent_sample_id, s.history,
-					st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
+    private $sql = "SELECT distinct on (s.uid) 
+          s.sample_id, s.uid,
+          s.collection_id, collection_name, collection_description, no_localization, container_showable,
+          s.sample_type_id, s.dbuid_origin,
+          sample_type_name, s.sample_creation_date, s.sampling_date, s.metadata, s.expiration_date,
+          s.campaign_id, campaign_name,camp.uuid as campaign_uuid, campaign_description,
+          s.parent_sample_id, s.history,
+          st.multiple_type_id, s.multiple_value, st.multiple_unit, mt.multiple_type_name,
           so.identifier,
           case when so.wgs84_x is not null then so.wgs84_x else sp.sampling_place_x end as wgs84_x,
           case when so.wgs84_y is not null then so.wgs84_y else sp.sampling_place_y end as wgs84_y,
@@ -33,11 +35,11 @@ class Sample extends PpciModel
           so.object_login,
           pso.uid as parent_uid, pso.identifier as parent_identifier, pso.uuid as parent_uuid,
           voip.identifiers as parent_identifiers,
-					ct.container_type_name, product_name,risk_name,
-					s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,operation_code,
-					document_id, voi.identifiers,
-					movement_date, movement_type_name, movement_type_id,
-					sp.sampling_place_id, sp.sampling_place_name,
+          ct.container_type_name, product_name,risk_name,
+          s.operation_id, protocol_name, protocol_year, protocol_version, operation_name, operation_order,operation_version,operation_code,
+          document_id, voi.identifiers,
+          movement_date, movement_type_name, movement_type_id,
+          sp.sampling_place_id, sp.sampling_place_name,
           lm.line_number, lm.column_number,
           container_uid, oc.identifier as container_identifier, oc.uuid as container_uuid, lmct.container_type_name as storage_type_name,
           case when ro.referent_name is not null then ro.referent_id else cr.referent_id end as real_referent_id,
@@ -880,6 +882,15 @@ class Sample extends PpciModel
                 }
             } else {
                 $list[$k]["metadata"] = "";
+            }
+            /**
+             * delete the location of the sample
+             */
+            if ($v["container_showable"] == 0 && $modifiable == 0) {
+                $list[$k]["container_identifier"] = "";
+                $list[$k]["container_uuid"] = "";
+                $list[$k]["storage_type_name"] = "";
+                $list[$k]["container_uid"] = "";
             }
         }
         /**

@@ -205,15 +205,27 @@ class Sample extends PpciLibrary
                 $this->vue->set($metadata, "metadata");
             }
             /**
+             * Recuperation des mouvements
+             */
+            $movement = new Movement();
+            $container = new Container();
+            
+            if ($data["container_showable"] == 1 || $is_modifiable) {
+                /**
+                 * Recuperation de la hiérarchie des contenants
+                 */
+                $this->vue->set($container->getAllParents($data["uid"]), "parents");
+                $withDetail = true;
+            } else {
+                $withDetail = false;
+            }
+            $this->vue->set($movements = $movement->getAllMovements($this->id, $withDetail), "movements");
+            /**
              * Recuperation des identifiants associes
              */
             $oi = new ObjectIdentifier();
             $this->vue->set($oi->getListFromUid($data["uid"]), "objectIdentifiers");
-            /**
-             * Recuperation des contenants parents
-             */
-            $container = new Container();
-            $this->vue->set($container->getAllParents($data["uid"]), "parents");
+
             /**
              * Recuperation des evenements
              */
@@ -221,11 +233,7 @@ class Sample extends PpciLibrary
             $this->vue->set($events = $event->getListeFromUid($data["uid"]), "events");
             $eventType = new EventType();
             $this->vue->set($eventType->getListeFromCategory("sample", $data["collection_id"]), "eventType");
-            /**
-             * Recuperation des mouvements
-             */
-            $movement = new Movement();
-            $this->vue->set($movements = $movement->getAllMovements($this->id), "movements");
+
             /**
              * Recuperation des echantillons associes
              */

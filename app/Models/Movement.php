@@ -18,18 +18,22 @@ class Movement extends PpciModel
 {
 
 
-    private $sql = "select s.uid, container_id, movement_type_id, movement_type_name,
+    private $sql = "SELECT m.uid, container_id, movement_type_id, movement_type_name,
 					movement_date, storage_location, login, movement_comment,
-					identifier, o.uid as parent_uid, o.identifier as parent_identifier,
+					o.identifier, o.uid as parent_uid, o.identifier as parent_identifier,
 					container_type_id, container_type_name,
 					movement_reason_id, movement_reason_name,
-                    column_number, line_number
-					from movement s
+                    column_number, line_number,
+                    col.collection_id, container_showable
+					from movement m
 					join movement_type using (movement_type_id)
 					left outer join container c using (container_id)
 					left outer join object o on (c.uid = o.uid)
 					left outer join container_type using (container_type_id)
 					left outer join movement_reason using (movement_reason_id)
+                    left outer join object so on (so.uid = m.uid)
+                    left outer join sample s on (so.uid = s.uid)
+                    left outer join collection col on (col.collection_id = s.collection_id)
 					";
 
     private $order = " order by movement_date desc";
@@ -100,15 +104,15 @@ class Movement extends PpciModel
      * @param int $id
      * @return array
      */
-    function getLastPosition($uid)
+    function getLastPosition(int $uid)
     {
-        if (is_numeric($uid) && $uid > 0) {
-            return $this->getListeParamAsPrepared(
-                $this->sql . $this->where . $this->order . " limit 1",
-                array(
-                    "uid" => $uid
-                )
-            );
+        if ($uid > 0) {
+            $res = $this->getListeParamAsPrepared($this->sql . $this->where . $this->order . " limit 1", ["uid" => $uid]);
+            if ($res["container_showable"] == 0 && !array_key_exists($res["collection_id"], $_SESSION["collections"])) {
+                return [];
+            } else {
+                return $res;
+            }
         }
     }
 
@@ -123,7 +127,12 @@ class Movement extends PpciModel
         if (is_numeric($id) && $id > 0) {
             $data["uid"] = $id;
             $where = $this->where . " and movement_type_id = 1";
-            return $this->getListeParamAsPrepared($this->sql . $where . $this->order . " limit 1", $data);
+            $res = $this->getListeParamAsPrepared($this->sql . $where . $this->order . " limit 1", $data);
+            if ($res["container_showable"] == 0 && !array_key_exists($res["collection_id"], $_SESSION["collections"])) {
+                return [];
+            } else {
+                return $res;
+            }
         }
     }
 
@@ -133,11 +142,23 @@ class Movement extends PpciModel
      * @param int $uid
      * @return array
      */
-    function getAllMovements($uid)
+    function getAllMovements(int $uid, $withDetail = true)
     {
-        if (is_numeric($uid) && $uid > 0) {
-            $data["uid"] = $uid;
-            return $this->getListeParamAsPrepared($this->sql . $this->where . $this->order, $data);
+        if ($uid > 0) {
+            
+            $res = $this->getListeParamAsPrepared($this->sql . $this->where . $this->order, ["uid" => $uid]);
+            if (!$withDetail) {
+                foreach ($res as $k => $v) {
+                    $res[$k]["parent_uid"] = "";
+                    $res[$k]["container_id"] = "";
+                    $res[$k]["identifier"] = "";
+                    $res[$k]["parent_identifier"] = "";
+                    $res[$k]["storage_location"] = "";
+                    $res[$k]["column_number"] = "";
+                    $res[$k]["line_number"] = "";
+                }
+            }
+            return $res;
         }
     }
 
@@ -145,7 +166,7 @@ class Movement extends PpciModel
      * Fonction generique permettant de rajouter des mouvements
      *
      * @param int $uid
-     * @param DateTime $date
+     * @param string $date
      * @param int $type: 1:entry, 2:exit
      * @param int $container_uid
      * @param string $login
@@ -321,7 +342,7 @@ class Movement extends PpciModel
             throw new PpciException(sprintf(_("La suppression des mouvements associés au container %s a échoué"), $container_id));
         }
     }
-    
+
     /**
      * Method verifyCyclic
      * 
@@ -331,7 +352,7 @@ class Movement extends PpciModel
      *
      * @return bool
      */
-    function verifyCyclic(int $uid, int $container_uid):bool
+    function verifyCyclic(int $uid, int $container_uid): bool
     {
         $verify = false;
         $sql = "WITH recursive containers as (

@@ -15,7 +15,7 @@
 		} catch (Exception) {
 		}
 		var isGestion = "{$rights.manage}";
-		var maxcol = 21;
+		var maxcol = 22;
 		try {
 			var hb = JSON.parse(myStorageSample.getItem("sampleSearchColumns"));
 			if (hb.length == 0) {
@@ -23,7 +23,7 @@
 					hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 				} else {
 					hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-					maxcol = 20;
+					maxcol = 21;
 				}
 			}
 		} catch {
@@ -31,7 +31,7 @@
 				var hb = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
 			} else {
 				var hb = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
-				maxcol = 20;
+				maxcol = 21;
 			}
 		}
 		//var lengthMenu = [10, 25, 50, 100, 500, { label:'all',value: -1}];
@@ -633,6 +633,11 @@
 							row += '</td>';
 							row += '<td class="nowrap">' + samples[lst].storage_condition_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].referent_name + ' ' + samples[lst].referent_firstname + '</td>';
+							row += '<td class="nowrap">';
+								if (samples[lst].operation_id > 0) {
+									row += samples[lst].protocol_name + '-' + samples[lst].protocol_version+ '/'+ samples[lst].operation_name + '-' + samples[lst].operation_version;
+								}
+							row	+= '</td>';
 							row += '<td class="nowrap" title="' + samples[lst].campaign_description + '">' + samples[lst].campaign_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].sampling_place_name + '</td>';
 							row += '<td class="nowrap">' + samples[lst].sampling_date + '</td>';
@@ -667,6 +672,7 @@
 							row += '<td class="textareaDisplay">' + samples[lst].object_comment + '</td>';
 							row += '<td>' + id + '-' + (9000000 + parseFloat(samples[lst].uid)) + '</td>';
 							var jRow = $('<tr>').append(row);
+								console.log(row);
 							table.row.add(jRow);
 							$(document).on("click", "#" + id + '-' + localId.toString(), function () {
 								addChildren($(this));

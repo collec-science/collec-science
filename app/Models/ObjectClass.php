@@ -993,7 +993,7 @@ class ObjectClass extends PpciModel
     /**
      * Supprime les fichiers png apres generation
      *
-     * @param unknown $path
+     * @param string $path
      */
     function eraseQrcode($path)
     {

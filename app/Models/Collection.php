@@ -67,7 +67,8 @@ class Collection extends PpciModel
             "notification_mails" => array("type" => 0),
             "expiration_delay" => array("type" => 1),
             "event_due_delay" => array("type" => 1),
-            "collection_description" => ["type" => 0]
+            "collection_description" => ["type" => 0],
+            "container_showable" => ["type"=>1, "defaultValue" => 1]
         );
         parent::__construct();
     }
@@ -93,6 +94,7 @@ class Collection extends PpciModel
                 ,notification_enabled, notification_mails, expiration_delay, event_due_delay
                 ,sample_name_unique
                 ,collection_description
+                ,container_showable
 				    from collection
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
@@ -110,6 +112,7 @@ class Collection extends PpciModel
                 ,notification_enabled, notification_mails, expiration_delay, event_due_delay
                 ,sample_name_unique
                 ,collection_description
+                ,container_showable
                 from collection
                 left outer join referent using (referent_id)
                 left outer join license using (license_id)
@@ -410,7 +413,7 @@ class Collection extends PpciModel
             address_name,address_line2,address_line3,address_city,address_country,referent_phone
             ,referent_firstname,academical_directory,academical_link
             ,collection_keywords,collection_displayname
-            ,license_name,license_url,collection_description
+            ,license_name,license_url,collection_description,container_showable
             from collection
             left outer join referent using (referent_id)
             left outer join license using (license_id)

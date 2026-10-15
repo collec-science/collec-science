@@ -365,6 +365,20 @@ class Rights extends RightsPpci
         "administration" => ["admin"],
         "importTemplateChange" => ["import"],
         "importTemplateGenerate" => ["import"],
-        "collectionsSendMail" => ["param"]
+        "collectionsSendMail" => ["param"],
+        "odkList" => ["collection"],
+        "odkChange" => ["collection"],
+        "odkWrite" => ["collection"],
+        "odkDelete" => ["collection"],
+        "odkDisplay" => ["collection"],
+        "odkSampletypeWrite" => ["collection"],
+        "odkSampletypeDelete" => ["collection"],
+        "odkWriteComp" => ["collection"],
+        "odkCalculate" => ["collection"],
+        "odkSpreadsheet" => ["collection"],
+        "odkLinesWrite" => ["collection"],
+        "odkDuplicate" => ["collection"],
+        "odkImport" => ["import"],
+        "odkImportExec" => ["import"],
     ];
 }

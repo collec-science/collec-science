@@ -189,7 +189,7 @@ class Sample extends PpciModel
         return $retour;
     }
 
-    public function readFromId($sample_id)
+    public function readFromId(int $sample_id)
     {
         $sql = $this->sql . $this->from . " where s.sample_id = :sample_id:";
         $data["sample_id"] = $sample_id;
@@ -1964,5 +1964,30 @@ class Sample extends PpciModel
             }
         }
         return $back;
+    }
+    function getUid(string $typeIdentifier, string $value, int $collection_id = 0)
+    {
+        $sql = "SELECT uid from object
+                join sample using (uid)";
+        $param = ["value" => $value];
+        if ($typeIdentifier == "identifier" || $typeIdentifier == "uuid") {
+            $sql .= " where $typeIdentifier = :value:";
+        } else {
+            $sql .= " join object_identifier using (uid)
+                    join identifier_type using (identifier_type_id)
+                    where identifier_type_code = :type:
+                    and object_identifier_value = :value:";
+            $param["type"] = $typeIdentifier;
+        }
+        if ($collection_id > 0) {
+            $sql .= " and collection_id = :colid:";
+            $param["colid"] = $collection_id;
+        }
+        $res = $this->readParam($sql, $param);
+        if ($res["uid"] > 0) {
+            return $res["uid"];
+        } else {
+            return 0;
+        }
     }
 }

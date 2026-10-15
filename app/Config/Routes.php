@@ -359,6 +359,23 @@ $routes->add('apiv1sampleList', 'SampleWs::getList');
 $routes->add('importTemplateChange', 'ImportTemplate::change');
 $routes->post('importTemplateGenerate', 'ImportTemplate::generate');
 /**
+ * ODK
+ */
+$routes->add("odkList", "Odk::list");
+$routes->add("odkChange", "Odk::change");
+$routes->post("odkWrite", "Odk::write");
+$routes->post("odkDelete", "Odk::delete");
+$routes->add("odkDisplay", "Odk::display");
+$routes->post("odkSampletypeWrite", "Odk::sampletypeWrite");
+$routes->post("odkSampletypeDelete", "Odk::sampletypeDelete");
+$routes->post("odkWriteComp", "Odk::writeComp");
+$routes->post("odkCalculate", "Odk::calculate");
+$routes->get("odkSpreadsheet", "Odk::spreadsheet");
+$routes->post("odkLinesWrite", "Odk::linesWrite");
+$routes->get("odkDuplicate", "Odk::duplicate");
+$routes->get("odkImport", "Odk::import");
+$routes->post("odkImportExec", "Odk::importExec");
+/**
  * Documentation
  */
 $routes->add('metadatafield_fr', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_fr.md');

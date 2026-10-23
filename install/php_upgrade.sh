@@ -1,6 +1,6 @@
 #!/bin/bash
 PHPOLDVERSION=`ls /etc/apache2/mods-enabled/|grep php.*load|cut -c 4-6`
-PHPVER=8.3
+PHPVER=8.5
 if [ $PHPOLDVERSION = $PHPVER ]
 then
 	echo "Your web server works with the version $PHPOLDVERSION of PHP."

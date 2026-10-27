@@ -34,6 +34,8 @@
 		<item divider="1" droits="collection"/>
 		<item module="odkList" label="Formulaires ODK" tooltip="Préparation de formulaires de saisie pour ODK Collect" droits="collection"/>
 		<item module="odkImport" label="Importer les échantillons" tooltip="Importer les échantillons saisis avec ODK" droits="import"/>
+		<item divider="1" droits="collection"/>
+		<item module="elabDisplay" label="Import depuis ElabFTW" tooltip="Importation d'échantillons générés depuis ElabFTW" droits="collection"/>
 	</item>
 	<item module="parametre" label="Paramètres" tooltip="Paramètres" droits="consult">
 		<item module="collections" droits="consult" label="Collections" tooltip="Liste des collections">

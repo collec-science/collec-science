@@ -376,6 +376,11 @@ $routes->get("odkDuplicate", "Odk::duplicate");
 $routes->get("odkImport", "Odk::import");
 $routes->post("odkImportExec", "Odk::importExec");
 /**
+ * Elab
+ */
+$routes->add("elabDisplay", "Elab::display");
+$routes->post("elabModel", "Elab::generateModel");
+/**
  * Documentation
  */
 $routes->add('metadatafield_fr', '\Ppci\Controllers\Utils::markdown/documentation/metadata_field/metadatafield_fr.md');

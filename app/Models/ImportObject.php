@@ -493,7 +493,7 @@ class ImportObject
                 }
                 $dataContainer["uuid"] = $values["container_uuid"];
                 try {
-                    $container_uid = $this->container->ecrire($dataContainer);
+                    $container_uid = $this->container->write($dataContainer);
                     /**
                      * Traitement des identifiants complementaires
                      */

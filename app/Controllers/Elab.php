@@ -18,5 +18,7 @@ class Elab extends PpciController
     function display() {
         return $this->lib->display();
     }
-    function generateModel() {}
+    function generateModel() {
+        return $this->lib->generateModel();
+    }
 }

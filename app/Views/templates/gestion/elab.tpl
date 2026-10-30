@@ -44,7 +44,20 @@
                 });
         }
         getSampletype();
+        const result = document.getElementById("result");
+        if ("{$model}".length == 0) {
+            result.style.display = 'none';
+        }
 
+        const sampleType = document.getElementById('sample_type_id');
+        sampleType.addEventListener("change", (event) => {
+            var sampleTypeId = sampleType.value;
+            if (sampleTypeId != sample_type_origin) {
+                result.style.display = 'none';
+            } else {
+                result.style.display = '';
+            }
+        });
         /**
          * copy to clipboard function
          */
@@ -55,16 +68,14 @@
         function copyModel() {
             navigator.clipboard.writeText(document.getElementById('model').value).then(() => {
                 copyBtn.innerHTML = copied;
-                copyBtn.setAttribute('data-bs-original-title', copied);
                 setTimeout(() => {
-                    copyBtn.setAttribute('data-bs-original-title', copy);
+                    copyBtn.innerHTML = copy;
                 }, 2000);
             });
         }
         copyBtn.addEventListener("click", (event) => {
             copyModel();
-        }
-        );
+        });
     });
 </script>
 <div class="container-fluid">
@@ -115,18 +126,21 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
+                <fieldset id="result">
+                    <legend>{t}À insérer dans le template de ressource d'ElabFTW{/t}</legend>
+                    <div class="row" id="modelRow">
                     <label for="model" class="form-label col-4">
-                        {t}Code à insérer dans le modèle de resssource ElabFTW :{/t}
+                        {t}Champ metadata :{/t}
                     </label>
                     <div class="col-6">
-                        <textarea id="model" class="form-control" rows="10">{$model}</textarea>
+                        <textarea id="model" class="form-control" rows="10" readonly>{$model}</textarea>
                     </div>
                     <div class="col-2">
                         <button class="btn btn-outline-secondary" type="button" id="copyBtn">{t}Copier...{/t}</button>
                     </div>
                 </div>
-
+                </fieldset>
+                
                 <div class="row">
                     <div class="row d-flex justify-content-center">
                         <div class="col-auto">

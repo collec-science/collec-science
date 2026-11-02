@@ -139,6 +139,7 @@ class ObjectLib extends PpciLibrary
         if ($this->uids) {
             $data = $this->dataclass->getForPrint($this->uids);
             if (count($data) > 0) {
+                $data = $this->flattenLineBreaks($data);
                 $this->vue = service("CsvView");
                 $this->vue->set($data);
                 $this->vue->regenerateHeader();
@@ -154,6 +155,26 @@ class ObjectLib extends PpciLibrary
             return false;
         }
     }
+
+    private function flattenLineBreaks(array $data): array
+    {
+        array_walk_recursive($data, function (&$value) {
+            if (!is_string($value)) {
+                return;
+            }
+
+            $containsLineBreak = strpbrk($value, "\r\n") !== false;
+            if (!$containsLineBreak) {
+                return;
+            }
+
+            $flattened = preg_replace('/\s*\R\s*/', ' ', $value);
+            $value = trim($flattened ?? $value);
+        });
+
+        return $data;
+    }
+    
     function setTrashed()
     {
         $trashed = $_POST["settrashed"];

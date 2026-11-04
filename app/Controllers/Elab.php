@@ -21,4 +21,14 @@ class Elab extends PpciController
     function generateModel() {
         return $this->lib->generateModel();
     }
+    function import() {
+        $file = $this->request->getFile("csvfile");
+        if (! $file->isValid()) {
+            $this->message->set($file->getErrorString() . '(' . $file->getError() . ')', true);
+            
+        } else {
+            $this->lib->import($file->gettempName());
+        }
+        return $this->display();
+    }
 }

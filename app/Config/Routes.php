@@ -380,6 +380,7 @@ $routes->post("odkImportExec", "Odk::importExec");
  */
 $routes->add("elabDisplay", "Elab::display");
 $routes->post("elabModel", "Elab::generateModel");
+$routes->post("elabImport", "Elab::import");
 /**
  * Documentation
  */

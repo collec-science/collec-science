@@ -4,6 +4,7 @@ namespace App\Libraries;
 
 use App\Models\Collection;
 use App\Models\SampleType;
+use Ppci\Libraries\PpciException;
 use Ppci\Libraries\PpciLibrary;
 
 class Elab extends PpciLibrary
@@ -71,5 +72,12 @@ class Elab extends PpciLibrary
             $this->vue->set($model, "model");
         }
         return $this->display();
+    }
+    function import($file) {
+        try {
+
+        }catch (PpciException $e) {
+            $this->message->set($e->getMessage(), true);
+        }
     }
 }

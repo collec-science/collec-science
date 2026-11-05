@@ -139,7 +139,9 @@ class ObjectLib extends PpciLibrary
         if ($this->uids) {
             $data = $this->dataclass->getForPrint($this->uids);
             if (count($data) > 0) {
-                $data = $this->flattenLineBreaks($data);
+                if ($_SESSION["dbparams"]["csvPrintWithoutLineBreak"] == 1) {
+                    $data = $this->flattenLineBreaks($data);
+                }
                 $this->vue = service("CsvView");
                 $this->vue->set($data);
                 $this->vue->regenerateHeader();

@@ -249,6 +249,8 @@ INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbpar
 -- ddl-end --
 INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'notificationDelay', E'7', E'Nombre de jours entre deux envois de notifications. 0 : pas de notifications', E'Number of days between two notifications. 0: no notification');
 -- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'csvPrintWithoutLineBreak', E'0', E'Si positionné à 1, les fichiers CSV d''impression sont générés sans sauts de ligne', E'If set to 1, CSV print files are generated without line breaks');
+-- ddl-end --
 
 -- object: col.dbversion_dbversion_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.dbversion_dbversion_id_seq CASCADE;

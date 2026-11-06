@@ -660,6 +660,7 @@ class Sample extends PpciModel
                 }
                 if (!empty($param["select_date"])) {
                     $tablefield = "s";
+                    $field = "";
                     switch ($param["select_date"]) {
                         case "cd":
                             $field = "sample_creation_date";

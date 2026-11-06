@@ -278,7 +278,7 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 alter table col.collection add column container_showable smallint DEFAULT 1;
 COMMENT ON COLUMN col.collection.container_showable IS E'if 0, only granted users can show the containers of the samples';
 
-insert into col.dbversion (dbversion_number, dbversion_date) values ('27.0', '2026-10-02');
-
 insert into col.mime_type (extension, content_type) values ('m4a', 'audio/x-m4a');
 insert into col.mime_type (extension, content_type) values ('mp4', 'application/mp4');
+
+insert into col.dbversion (dbversion_number, dbversion_date) values ('27.0', '2026-10-02');

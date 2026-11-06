@@ -415,7 +415,7 @@ class Odk extends PpciLibrary
                                 $dsample[$k] = $v;
                             }
                         }
-                        $dsample["metadata"] = json_encode($metadata);
+                        $dsample["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
                     }
                     /**
                      * Treatment of the parent

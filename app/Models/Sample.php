@@ -332,7 +332,7 @@ class Sample extends PpciModel
                         throw new PpciException(sprintf(_("La métadonnée %s est obligatoire, mais n'a pas été renseignée"), $mfield["name"]));
                     }
                 }
-                $data["metadata"] = json_encode($metadata);
+                $data["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
                 if (parent::write($data) > 0) {
                     if (!empty($data["metadata"])) {
                         /**
@@ -346,7 +346,7 @@ class Sample extends PpciModel
                             foreach ($md as $k => $v) {
                                 $cmd[$k] = $v;
                             }
-                            $child["metadata"] = json_encode($cmd);
+                            $child["metadata"] = json_encode($cmd, JSON_UNESCAPED_UNICODE);
                             $this->write($child);
                         }
                     }

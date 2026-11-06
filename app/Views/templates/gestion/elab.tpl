@@ -193,7 +193,7 @@
                         {t}Type d'échantillon par défaut, si la catégorie n'a pas été précisée dans ElabFTW ou est inconnue :{/t}
                     </label>
                     <div class="col-8">
-                        <select id="Isample_type_id" name="Isample_type_id" class="form-select">
+                        <select id="Isample_type_id" name="sample_type_id" class="form-select">
 
                         </select>
                     </div>

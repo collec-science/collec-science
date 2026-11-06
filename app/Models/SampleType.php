@@ -199,6 +199,23 @@ class SampleType extends PpciModel
         } else {
             return (null);
         }
+    }    
+    /**
+     * Method getListReverse
+     * return an array where the key is the name of the sample_type, and the content the id
+     *
+     * @return array
+     */
+    function getListReverse(): array
+    {
+        $sql = "SELECT sample_type_id, sample_type_name
+                from sample_type";
+        $data = $this->getListParam($sql);
+        $content = [];
+        foreach ($data as $row) {
+            $content[$row["sample_type_name"]] = $row["sample_type_id"];
+        }
+        return $content;
     }
     function getIdFromCode(string $code): ?int
     {
@@ -213,7 +230,8 @@ class SampleType extends PpciModel
         }
     }
 
-    function read(int $id, bool $getDefault = true, $parentKey = 0): array {
-        return $this->readParam($this->sql." where sample_type_id = :id:", ["id"=> $id]);
+    function read(int $id, bool $getDefault = true, $parentKey = 0): array
+    {
+        return $this->readParam($this->sql . " where sample_type_id = :id:", ["id" => $id]);
     }
 }

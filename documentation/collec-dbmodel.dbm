@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="374,-8" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="1030,1192" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -370,6 +370,7 @@ Congélateur;2]]>
 "consultSeesAll";"0";"Si positionné à 1, les utilisateurs avec le droit de consultation peuvent visualiser toutes les métadonnées de tous les échantillons";"If set to 1, users with consultation rights can view all the metadata for all the samples"
 "containerNameUnique";"0";"Si positionné à 1, le logiciel interdira la création de deux contenants avec le même nom";"If set to 1, the software will prohibit the creation of two containers with the same name"
 "notificationDelay";"7";"Nombre de jours entre deux envois de notifications. 0 : pas de notifications";"Number of days between two notifications. 0: no notification"
+"csvPrintWithoutLineBreak";"0";"Si positionné à 1, les fichiers CSV d'impression sont générés sans sauts de ligne";"If set to 1, CSV print files are generated without line breaks"
 ]]>
 	</initial-data>
 </table>

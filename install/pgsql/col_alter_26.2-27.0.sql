@@ -281,4 +281,7 @@ COMMENT ON COLUMN col.collection.container_showable IS E'if 0, only granted user
 insert into col.mime_type (extension, content_type) values ('m4a', 'audio/x-m4a');
 insert into col.mime_type (extension, content_type) values ('mp4', 'application/mp4');
 
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) 
+VALUES (E'csvPrintWithoutLineBreak', E'0', E'Si positionné à 1, les fichiers CSV d''impression sont générés sans sauts de ligne', E'If set to 1, CSV print files are generated without line breaks');
+
 insert into col.dbversion (dbversion_number, dbversion_date) values ('27.0', '2026-10-02');

@@ -1311,7 +1311,7 @@ class ImportObject
                 }
             }
             if (count($metadata) > 0) {
-                $dataSample["metadata"] = json_encode($metadata);
+                $dataSample["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
             }
             /**
              * Treatment of history

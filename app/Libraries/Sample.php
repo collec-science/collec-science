@@ -448,7 +448,7 @@ class Sample extends PpciLibrary
                     }
                 }
             }
-            $_REQUEST["metadata"] = json_encode($metadata);
+            $_REQUEST["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
             $this->id = $this->dataWrite($_REQUEST);
             $db->transCommit();
             $_REQUEST[$this->keyName] = $this->id;

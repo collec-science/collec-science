@@ -95,7 +95,7 @@ class Sample extends PpciLibrary
             if ($_REQUEST["samplesearch_collection"] == 1) {
                 $dsamplesearch["collection_id"] = $_REQUEST["collection_id"];
             }
-            $samplesearch_id = $samplesearch->ecrire($dsamplesearch, $dsamplesearch["collection_id"]);
+            $samplesearch_id = $samplesearch->write($dsamplesearch, $dsamplesearch["collection_id"]);
         }
         /**
          * Delete a request
@@ -663,7 +663,7 @@ class Sample extends PpciLibrary
                 $db->transBegin();
                 foreach ($_POST["uids"] as $uid) {
                     if ($_POST["container_uid"] == $uid) {
-                        throw new PpciException(sprintf(_("L'objet %s ne peut être stocké dans lui-même", $uid)));
+                        throw new PpciException(sprintf(_("L'objet %s ne peut être stocké dans lui-même"), $uid));
                     }
                     $movement->addMovement($uid, null, 1, $_POST["container_uid"], $_SESSION["login"], $_POST["storage_location"], null, null, $_POST["column_number"], $_POST["line_number"]);
                 }
@@ -988,7 +988,14 @@ class Sample extends PpciLibrary
         $this->vue->set($this->dataclass->getChildren($_REQUEST["uid"]));
         return $this->vue->send();
     }
-
+    
+    /**
+     * Method setRelatedTablesToView
+     *
+     * @param mixed $vue [explicite description]
+     *
+     * @return void
+     */
     function setRelatedTablesToView($vue)
     {
         $vue->set($_SESSION["collections"], "collections");

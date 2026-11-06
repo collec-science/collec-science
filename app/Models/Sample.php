@@ -101,7 +101,7 @@ class Sample extends PpciModel
     private $paramSearch = array();
     private $data = array();
     public ObjectClass $object;
-    public $container, $event, $country, $collection;
+    public mixed $container, $event, $country, $collection;
     public Subsample $subsample;
     public Campaign $campaign;
     public Samplehisto $samplehisto;
@@ -1159,7 +1159,7 @@ class Sample extends PpciModel
      * Verifie que l'echantillon peut etre importe
      *
      * @param array $row
-     * @throws SampleException
+     * @throws PpciException
      * @return boolean
      */
     public function verifyBeforeImport($row)
@@ -1393,7 +1393,6 @@ class Sample extends PpciModel
      * Recherche l'uid a partir du dbuid_origin
      *
      * @param string $dbuidorigin
-     * @return number
      */
     public function getUidFromDbuidOrigin($dbuidorigin)
     {
@@ -1941,7 +1940,15 @@ class Sample extends PpciModel
     {
         $sql = "reindex table sample";
         $this->executeQuery($sql, null, true);
-    }
+    }    
+    /**
+     * Method renameMetadataFieldGlobal
+     *
+     * @param string $old [explicite description]
+     * @param string $new [explicite description]
+     *
+     * @return void
+     */
     function renameMetadataFieldGlobal($old, $new)
     {
         $old = addslashes($old);

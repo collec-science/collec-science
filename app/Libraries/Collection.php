@@ -206,14 +206,14 @@ class Collection extends PpciLibrary
                  * Update the date of the last mail send
                  */
                 $dbparam->setParameter("notificationLastDate", date('Y-m-d'));
-                log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Notification for $sampleNumber samples and $eventNumber events");
+                log_message("error", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Notification for $sampleNumber samples and $eventNumber events");
                 return sprintf(_("Traitement de %1s échantillons et %2s événements"), $sampleNumber, $eventNumber);
             } else {
-                log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "No notification today");
+                log_message("error", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "No notification today");
                 return (_("Pas de notification prévue ce jour"));
             }
         } else {
-            log_message("info", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Emails not enabled in .env file");
+            log_message("error", $_SESSION["dbparams"]["APP_code"] .  " CollectionsGenerateMail --> " . "Emails not enabled in .env file");
             return _("Emails non activés");
         }
     }

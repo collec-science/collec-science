@@ -19,7 +19,8 @@ class SampleType extends PpciModel
 					multiple_type_id, multiple_unit, multiple_type_name,
                     metadata_id, metadata_name,
                     identifier_generator_js,
-                    product_name,risk_name
+                    product_name,risk_name,
+                    metadata_schema
 					from sample_type s
 					left outer join container_type using (container_type_id)
 					left outer join multiple_type using (multiple_type_id)
@@ -198,6 +199,23 @@ class SampleType extends PpciModel
         } else {
             return (null);
         }
+    }    
+    /**
+     * Method getListReverse
+     * return an array where the key is the name of the sample_type, and the content the id
+     *
+     * @return array
+     */
+    function getListReverse(): array
+    {
+        $sql = "SELECT sample_type_id, sample_type_name
+                from sample_type";
+        $data = $this->getListParam($sql);
+        $content = [];
+        foreach ($data as $row) {
+            $content[$row["sample_type_name"]] = $row["sample_type_id"];
+        }
+        return $content;
     }
     function getIdFromCode(string $code): ?int
     {
@@ -210,5 +228,10 @@ class SampleType extends PpciModel
         } else {
             return (null);
         }
+    }
+
+    function read(int $id, bool $getDefault = true, $parentKey = 0): array
+    {
+        return $this->readParam($this->sql . " where sample_type_id = :id:", ["id" => $id]);
     }
 }

@@ -169,7 +169,7 @@ class Label extends PpciLibrary
             $vue->set($_REQUEST["label_id"], "label_id");
         }
         $vue->set($this->dataclass->getListe(2), "labels");
-        $directPrintEnabled = $this->appConfig->print_direct_command;
+        $directPrintEnabled = $this->appConfig->print_direct_enabled;
         $vue->set($directPrintEnabled, "directPrintEnabled");
         if ($directPrintEnabled) {
             $printer = new Printer;

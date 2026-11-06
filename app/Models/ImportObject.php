@@ -493,7 +493,7 @@ class ImportObject
                 }
                 $dataContainer["uuid"] = $values["container_uuid"];
                 try {
-                    $container_uid = $this->container->ecrire($dataContainer);
+                    $container_uid = $this->container->write($dataContainer);
                     /**
                      * Traitement des identifiants complementaires
                      */
@@ -1311,7 +1311,7 @@ class ImportObject
                 }
             }
             if (count($metadata) > 0) {
-                $dataSample["metadata"] = json_encode($metadata);
+                $dataSample["metadata"] = json_encode($metadata, JSON_UNESCAPED_UNICODE);
             }
             /**
              * Treatment of history

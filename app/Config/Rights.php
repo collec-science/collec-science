@@ -380,5 +380,8 @@ class Rights extends RightsPpci
         "odkDuplicate" => ["collection"],
         "odkImport" => ["import"],
         "odkImportExec" => ["import"],
+        "elabDisplay" => ["collection"],
+        "elabModel" => ["collection"],
+        "elabImport" => ["import"],
     ];
 }

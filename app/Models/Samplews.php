@@ -272,7 +272,7 @@ class Samplews
                 "sampling_date" => $dataSent["sampling_date"],
                 "multiple_value" => $dataSent["multiple_value"],
                 "sampling_place_id" => $dataSent["sampling_place_id"],
-                "metadata" => json_encode($metadata),
+                "metadata" => json_encode($metadata, JSON_UNESCAPED_UNICODE),
                 "expiration_date" => $dataSent["expiration_date"],
                 "country_id" => $dataSent["country_id"],
                 "campaign_id" => $dataSent["campaign_id"],

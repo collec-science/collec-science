@@ -334,7 +334,7 @@ class App extends BaseConfig
     /**
      * Enable direct print - 1 to enable it
      */
-    public $sprint_direct_enabled = 0;
+    public $print_direct_enabled = 0;
     /**
      * Linux command used to print directly to a printer
      *

@@ -992,19 +992,13 @@ class Container extends PpciModel
     }
     function is_unique(int $uid, string $identifier): bool
     {
-        if ($_SESSION["containerNameUnique"] == 1) {
+        if ($_SESSION["dbparams"]["containerNameUnique"] == 1) {
             $sql = "select count(*) as nb 
-    from object
-    join container using (uid)
-    where identifier = :identifier:
-    and uid <> :uid:";
-            $res = $this->lireParamAsPrepared(
-                $sql,
-                array(
-                    "uid" => $uid,
-                    "identifier" => $identifier
-                )
-            );
+                    from object
+                    join container using (uid)
+                    where identifier = :identifier:
+                    and uid <> :uid:";
+            $res = $this->readParam($sql, ["uid" => $uid, "identifier" => $identifier]);
             if ($res["nb"] >= 1) {
                 return false;
             } else {

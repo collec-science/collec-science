@@ -38,8 +38,9 @@ class Logger extends BaseConfig
      *
      * @var array|int
      */
-    public $threshold = (ENVIRONMENT === 'production') ? 4 : 9;
+    //public $threshold = (ENVIRONMENT === 'production') ? [4,7] : 9;
 
+    public $threshold = [3, 4];
     /**
      * --------------------------------------------------------------------------
      * Date Format for Logs
@@ -137,7 +138,7 @@ class Logger extends BaseConfig
         'CodeIgniter\Log\Handlers\ErrorlogHandler' => [
             /* The log levels this handler can handle. */
             'handles' => ['critical', 'alert', 'emergency', 'debug', 'error', 'info', 'notice', 'warning'],
-        
+
             /*
             * The message type where the error should go. Can be 0 or 4, or use the
             * class constants: `ErrorlogHandler::TYPE_OS` (0) or `ErrorlogHandler::TYPE_SAPI` (4)

@@ -32,12 +32,18 @@ class Elab extends PpciLibrary
             $sampleType = new SampleType;
             $d = $sampleType->read($sampleTypeId);
             if (!empty($d["multiple_value"])) {
-                $metadata[_("quantité")] = [
+                $metadata["quantity"] = [
                     "type" => "number",
                     "unit" => $d["multiple_unit"],
-                    "value" => $d["multiple_value"]
+                    "value" => "",
+                    "description" => _("Quantité présente dans l'échantillon")
                 ];
             }
+            $metadata["parent_identifier"] = [
+                "type" => "string",
+                "value" => "",
+                "description" => _("Identifiant métier de l'échantillon parent")
+            ];
             $mdschema = json_decode($d["metadata_schema"], true);
             if (!empty($mdschema)) {
 

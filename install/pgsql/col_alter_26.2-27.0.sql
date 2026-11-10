@@ -9,7 +9,7 @@
 -- ** Dropped objects: 0
 -- ** Created objects: 17
 -- ** Changed objects: 0
-
+begin;
 SET check_function_bodies = false;
 -- ddl-end --
 
@@ -285,3 +285,4 @@ INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbpar
 VALUES (E'csvPrintWithoutLineBreak', E'0', E'Si positionné à 1, les fichiers CSV d''impression sont générés sans sauts de ligne', E'If set to 1, CSV print files are generated without line breaks');
 
 insert into col.dbversion (dbversion_number, dbversion_date) values ('27.0', '2026-10-02');
+commit;

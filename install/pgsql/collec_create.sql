@@ -1,6 +1,8 @@
--- ** Database generated with pgModeler (PostgreSQL Database Modeler).
--- ** pgModeler version: 2.0.0-beta
--- ** PostgreSQL version: 18.0
+-- Prepended SQL commands --
+begin;
+-- ddl-end ---- ** Database generated with pgModeler (PostgreSQL Database Modeler).
+-- ** pgModeler version: 1.2.3
+-- ** PostgreSQL version: 17.0
 -- ** Project Site: pgmodeler.io
 -- ** Model Author: Éric Quinton
 
@@ -249,6 +251,8 @@ INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbpar
 -- ddl-end --
 INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'notificationDelay', E'7', E'Nombre de jours entre deux envois de notifications. 0 : pas de notifications', E'Number of days between two notifications. 0: no notification');
 -- ddl-end --
+INSERT INTO col.dbparam (dbparam_name, dbparam_value, dbparam_description, dbparam_description_en) VALUES (E'csvPrintWithoutLineBreak', E'0', E'Si positionné à 1, les fichiers CSV d''impression sont générés sans sauts de ligne', E'If set to 1, CSV print files are generated without line breaks');
+-- ddl-end --
 
 -- object: col.dbversion_dbversion_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.dbversion_dbversion_id_seq CASCADE;
@@ -279,7 +283,7 @@ COMMENT ON COLUMN col.dbversion.dbversion_number IS E'Number of the version';
 COMMENT ON COLUMN col.dbversion.dbversion_date IS E'Date of the version';
 -- ddl-end --
 
-INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'26.2', E'2026-08-21');
+INSERT INTO col.dbversion (dbversion_number, dbversion_date) VALUES (E'27.0', E'2026-10-01');
 -- ddl-end --
 
 -- object: col.document_document_id_seq | type: SEQUENCE --
@@ -614,6 +618,10 @@ INSERT INTO col.mime_type (extension, content_type) VALUES (E'fsa', E'applicatio
 -- ddl-end --
 INSERT INTO col.mime_type (extension, content_type) VALUES (E'xml', E'application/xml');
 -- ddl-end --
+INSERT INTO col.mime_type (extension, content_type) VALUES (E'm4a', E'audio/x-m4a');
+-- ddl-end --
+INSERT INTO col.mime_type (extension, content_type) VALUES (E'mp4', E'application/mp4');
+-- ddl-end --
 
 -- object: col.storage_reason_storage_reason_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.storage_reason_storage_reason_id_seq CASCADE;
@@ -866,6 +874,7 @@ CREATE TABLE col.collection (
 	expiration_delay smallint DEFAULT 0,
 	event_due_delay smallint DEFAULT 0,
 	collection_description varchar,
+	container_showable smallint DEFAULT 1,
 	CONSTRAINT project_pk PRIMARY KEY (collection_id)
 );
 -- ddl-end --
@@ -898,6 +907,8 @@ COMMENT ON COLUMN col.collection.expiration_delay IS E'Number of days before exp
 COMMENT ON COLUMN col.collection.event_due_delay IS E'Number of days before the due date of an event to notify this due date. 0: no notification';
 -- ddl-end --
 COMMENT ON COLUMN col.collection.collection_description IS E'Description of the collection';
+-- ddl-end --
+COMMENT ON COLUMN col.collection.container_showable IS E'if 0, only granted users can show the containers of the samples';
 -- ddl-end --
 
 -- object: col.protocol_protocol_id_seq | type: SEQUENCE --
@@ -1907,9 +1918,9 @@ COMMENT ON COLUMN col.request.login IS E'Login of the creator of the request';
 COMMENT ON COLUMN col.request.datefields IS E'List of the date fields used in the request, separated by a comma, for format it';
 -- ddl-end --
 
-/* Failed to create initial data commands!
+/* Failed to create initial data commands! 
 
-Malformed CSV document detected! The number of columns is `6' but row `1' has `4' columns! */
+ Malformed CSV document detected! The number of columns is `6' but the row `1' has `4' columns! */
 
 -- object: col.export_model_export_model_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE IF EXISTS col.export_model_export_model_id_seq CASCADE;
@@ -3633,6 +3644,255 @@ USING btree
 );
 -- ddl-end --
 
+-- object: col.odk | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk CASCADE;
+CREATE TABLE col.odk (
+	odk_id serial NOT NULL,
+	collection_id integer NOT NULL,
+	campaign_id integer,
+	odk_project varchar,
+	odk_name varchar NOT NULL,
+	odk_description varchar,
+	odk_version varchar NOT NULL DEFAULT 1.0,
+	odk_author varchar NOT NULL,
+	with_subsampling smallint DEFAULT 0,
+	odk_form_id varchar NOT NULL,
+	CONSTRAINT odk_pk PRIMARY KEY (odk_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk IS E'List of odk projects';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_project IS E'Name of the project in the ODK platform';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_name IS E'Name of the form';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_description IS E'Description of the form';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_version IS E'Version of the odk form';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_author IS E'Login of the author of the form';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.with_subsampling IS E'if 1, it is possible to declare a sample subsample of the last sample which is not subsample';
+-- ddl-end --
+COMMENT ON COLUMN col.odk.odk_form_id IS E'Id of the form in ODK Central';
+-- ddl-end --
+
+-- object: collection_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk DROP CONSTRAINT IF EXISTS collection_fk CASCADE;
+ALTER TABLE col.odk ADD CONSTRAINT collection_fk FOREIGN KEY (collection_id)
+REFERENCES col.collection (collection_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: campaign_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk DROP CONSTRAINT IF EXISTS campaign_fk CASCADE;
+ALTER TABLE col.odk ADD CONSTRAINT campaign_fk FOREIGN KEY (campaign_id)
+REFERENCES col.campaign (campaign_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_referent | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_referent CASCADE;
+CREATE TABLE col.odk_referent (
+	odk_id integer NOT NULL,
+	referent_id integer NOT NULL,
+	CONSTRAINT odk_referent_pk PRIMARY KEY (odk_id,referent_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_referent IS E'List of referents attached to an odk project';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_referent DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_referent ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: referent_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_referent DROP CONSTRAINT IF EXISTS referent_fk CASCADE;
+ALTER TABLE col.odk_referent ADD CONSTRAINT referent_fk FOREIGN KEY (referent_id)
+REFERENCES col.referent (referent_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_station | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_station CASCADE;
+CREATE TABLE col.odk_station (
+	odk_id integer NOT NULL,
+	sampling_place_id integer NOT NULL,
+	CONSTRAINT odk_station_pk PRIMARY KEY (odk_id,sampling_place_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_station IS E'List of stations attached to an odk project';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_station DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_station ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: sampling_place_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_station DROP CONSTRAINT IF EXISTS sampling_place_fk CASCADE;
+ALTER TABLE col.odk_station ADD CONSTRAINT sampling_place_fk FOREIGN KEY (sampling_place_id)
+REFERENCES col.sampling_place (sampling_place_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_sampletype | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_sampletype CASCADE;
+CREATE TABLE col.odk_sampletype (
+	odk_sampletype_id serial NOT NULL,
+	odk_id integer NOT NULL,
+	sample_type_id integer NOT NULL,
+	sampletype_order smallint NOT NULL DEFAULT 1,
+	identifier_prefix varchar,
+	with_picture smallint DEFAULT 0,
+	with_video smallint DEFAULT 0,
+	with_sound smallint DEFAULT 0,
+	CONSTRAINT odk_sampletype_pk PRIMARY KEY (odk_sampletype_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_sampletype IS E'List of types of samples usable in the odk form';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.sampletype_order IS E'Sort order of the sample types';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.identifier_prefix IS E'Prefix used to create a new business identifier';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.with_picture IS E'1 if pictures can be added';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.with_video IS E'1 if videos can be added';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_sampletype.with_sound IS E'1 if recordings of sound can be added';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_sampletype DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_sampletype ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: sample_type_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_sampletype DROP CONSTRAINT IF EXISTS sample_type_fk CASCADE;
+ALTER TABLE col.odk_sampletype ADD CONSTRAINT sample_type_fk FOREIGN KEY (sample_type_id)
+REFERENCES col.sample_type (sample_type_id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_line | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_line CASCADE;
+CREATE TABLE col.odk_line (
+	odk_line_id serial NOT NULL,
+	odk_id integer,
+	line_order smallint NOT NULL DEFAULT 1,
+	line_type varchar NOT NULL,
+	line_name varchar,
+	line_label varchar,
+	line_default varchar,
+	line_required varchar,
+	line_relevant varchar,
+	line_constraint varchar,
+	line_constraint_message varchar,
+	line_appearance varchar,
+	line_calculation varchar,
+	line_hint varchar,
+	line_read_only varchar,
+	line_choice_filter varchar,
+	line_repeat_count varchar,
+	line_parameters varchar,
+	CONSTRAINT odk_line_pk PRIMARY KEY (odk_line_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_line IS E'Lines corresponding to the ods file';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_type IS E'Type of information';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_name IS E'column name';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_label IS E'Displayed label';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_default IS E'Default value';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_required IS E'Specify if information is mandatory';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_relevant IS E'condition of display of this line';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_constraint IS E'Constraint of data entry';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_constraint_message IS E'Message associated to the contraint';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_appearance IS E'Apperance of the field';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_calculation IS E'Formula of calculation';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_hint IS E'Online help on the field';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_read_only IS E'Specify if the field is readonly';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_choice_filter IS E'filter on the choice';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_repeat_count IS E'Number of loops in the same group';
+-- ddl-end --
+COMMENT ON COLUMN col.odk_line.line_parameters IS E'Others parameters';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_line DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_line ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_choice | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_choice CASCADE;
+CREATE TABLE col.odk_choice (
+	odk_choice_id serial NOT NULL,
+	odk_id integer,
+	list_name varchar NOT NULL,
+	choice_name varchar NOT NULL,
+	choice_label varchar NOT NULL,
+	choice_filter varchar,
+	CONSTRAINT odk_choice_pk PRIMARY KEY (odk_choice_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_choice IS E'List of choice entries';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_choice DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_choice ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE SET NULL ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: col.odk_identifier | type: TABLE --
+-- DROP TABLE IF EXISTS col.odk_identifier CASCADE;
+CREATE TABLE col.odk_identifier (
+	odk_id integer NOT NULL,
+	identifier_type_id integer NOT NULL,
+	CONSTRAINT odk_identifier_pk PRIMARY KEY (odk_id,identifier_type_id)
+);
+-- ddl-end --
+COMMENT ON TABLE col.odk_identifier IS E'List of secundary identifiers used in the form';
+-- ddl-end --
+
+-- object: odk_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_identifier DROP CONSTRAINT IF EXISTS odk_fk CASCADE;
+ALTER TABLE col.odk_identifier ADD CONSTRAINT odk_fk FOREIGN KEY (odk_id)
+REFERENCES col.odk (odk_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+-- object: identifier_type_fk | type: CONSTRAINT --
+-- ALTER TABLE col.odk_identifier DROP CONSTRAINT IF EXISTS identifier_type_fk CASCADE;
+ALTER TABLE col.odk_identifier ADD CONSTRAINT identifier_type_fk FOREIGN KEY (identifier_type_id)
+REFERENCES col.identifier_type (identifier_type_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
 -- object: object_booking_fk | type: CONSTRAINT --
 -- ALTER TABLE col.booking DROP CONSTRAINT IF EXISTS object_booking_fk CASCADE;
 ALTER TABLE col.booking ADD CONSTRAINT object_booking_fk FOREIGN KEY (uid)
@@ -3984,3 +4244,6 @@ ON DELETE NO ACTION ON UPDATE CASCADE;
 -- ddl-end --
 
 
+-- Appended SQL commands --
+commit;
+-- ddl-end --

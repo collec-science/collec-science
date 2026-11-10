@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.3" use-changelog="false" author="Éric Quinton" max-obj-count="90"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="false"
-	 last-position="1030,1192" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
+	 last-position="-592,1072" last-zoom="0.8" scene-rect="-740,-10,4303.12,2932.52"
 	 default-schema="col"
 	 layers="col,gacl"
 	 active-layers="0,1"
@@ -22,9 +22,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
  sql-disabled="true">
 </role>
 
-<database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true" sql-disabled="true">
+<database name="collec" encoding="UTF8" lc-collate="fr_FR.UTF-8" lc-ctype="fr_FR.UTF-8" is-template="false" allow-conns="true" sql-disabled="true" append-at-eod="true" prepend-at-bod="true">
 	<tablespace name="pg_default"/>
 	<comment> <![CDATA[Version v26.2]]> </comment>
+	<appended-sql> <![CDATA[commit;]]> </appended-sql>
+	<prepended-sql> <![CDATA[begin;
+]]> </prepended-sql>
 </database>
 
 <schema name="public" layers="0" rect-visible="true" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">

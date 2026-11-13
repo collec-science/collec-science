@@ -27,6 +27,7 @@ and the doc (only in French currently): <a href="https://collec-science.github.i
 <li>Oton Copi (University of Grenoble-Alpes)</li>
 <li>Sylvie Damy (University of Franche-Comté)</li>
 <li>Doriane Delanghe (CEREGE)</li>
+<li>François Ehrenmannn (INRAE)</li>
 <li>Ghislain Gassier (CEREGE)</li>
 <li>Mathieu Gauthier-Lafaye (EPOC - University of Bordeaux)</li>
 <li>Nathalie Guilloux (INRAE)</li>

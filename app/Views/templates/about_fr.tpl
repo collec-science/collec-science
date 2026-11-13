@@ -27,6 +27,7 @@ et la documentation : <a href="https://collec-science.github.io/userdocs/" targe
 <li>Oton Copi (Université de Grenoble-Alpes)</li>
 <li>Sylvie Damy (Université de Franche-Comté)</li>
 <li>Doriane Delanghe (CEREGE)</li>
+<li>François Ehrenmannn (INRAE)</li>
 <li>Ghislain Gassier (CEREGE)</li>
 <li>Mathieu Gauthier-Lafaye (EPOC - Université de Bordeaux)</li>
 <li>Nathalie Guilloux (INRAE)</li>

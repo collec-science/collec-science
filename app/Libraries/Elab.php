@@ -21,6 +21,7 @@ class Elab extends PpciLibrary
         $collection = new Collection;
         $this->vue->set($collection->getCollectionsFromLogin(), "collections");
         $this->vue->set("gestion/elab.tpl", "corps");
+        $this->vue->help(_("gestion/importer-des-échantillons-créés-avec-elabftw.html"));
         return $this->vue->send();
     }
 
@@ -106,7 +107,10 @@ class Elab extends PpciLibrary
                 $dsample["identifier"] = $row["title"];
                 $dsample["collection_id"] = $_POST["collection_id"];
                 $dsample["object_status_id"] = 1;
-                $dsample["uid"] = 0;
+                /**
+                 * Search if sample exists
+                 */
+                $dsample["uid"] = $sample->getUid("identifier", $row["title"], $_POST["collection_id"]);
                 $dsample["sampling_date"] = $sample->formatDateDBtoLocal($row["date"]);
                 $dsample["sample_creation_date"] = $dsample["sampling_date"];
                 $dsample["object_comment"] = $row["body"];
@@ -114,6 +118,9 @@ class Elab extends PpciLibrary
                     $dsample["sample_type_id"] = $sampleTypes[$row["category_title"]];
                 } else {
                     $dsample["sample_type_id"] = $_POST["sample_type_id"];
+                }
+                if (strlen($row["quantity"]) > 0) {
+                    $dsample["multiple_value"] = $row["quantity"];
                 }
                 /**
                  * Treatment of metadata

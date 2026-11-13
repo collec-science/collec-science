@@ -1,5 +1,14 @@
 <div class="container">
-    <h2>{t}Import de containers et d'échantillons inclus provenant d'une base externe à partir d'un fichier JSON{/t}</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h2>
+                {t}Import de containers et d'échantillons inclus provenant d'une base externe à partir d'un fichier JSON{/t}
+            </h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="row">
         <form class="form-horizontal " id="containerStage1" method="post" action="containerImportStage2" enctype="multipart/form-data">
             <div class="row">

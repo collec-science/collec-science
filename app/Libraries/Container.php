@@ -341,6 +341,7 @@ class Container extends PpciLibrary
         $this->vue = service('Smarty');
         $this->vue->set("gestion/containerImport.tpl", "corps");
         $this->vue->set(0, "utf8_encode");
+        $this->vue->help(_("gestion/importer-des-contenants-avec-leur-contenu-à-partir-d'un-fichier-json.html"));
         return $this->vue->send();
     }
     function importStage2()
@@ -348,6 +349,7 @@ class Container extends PpciLibrary
         unset($_SESSION["filename"]);
         $this->vue = service('Smarty');
         $this->vue->set("gestion/containerImport.tpl", "corps");
+        $this->vue->help(_("gestion/importer-des-contenants-avec-leur-contenu-à-partir-d'un-fichier-json.html"));
         if (file_exists($_FILES['upfile']['tmp_name'])) {
             /*
              * Deplacement du fichier dans le dossier temporaire
@@ -404,6 +406,7 @@ class Container extends PpciLibrary
         $realfilename = $_SESSION["realfilename"];
 
         if (file_exists($realfilename)) {
+            $db = $this->dataclass->db;
             try {
                 /**
                  * Open the file
@@ -416,7 +419,7 @@ class Container extends PpciLibrary
 
                 $data = json_decode($jdata, true);
                 $sic = new SampleInitClass();
-                $db = $this->dataclass->db;
+
                 $db->transBegin();
                 $this->dataclass->importExternal($data, $sic, $_POST);
                 $result = $this->dataclass->getUidMinMax();
@@ -424,12 +427,11 @@ class Container extends PpciLibrary
                 $this->message->set(sprintf(_("Import effectué. %s objets traités"), $result["number"]));
                 $this->message->set(sprintf(_("Premier UID généré : %s"), $result["min"]));
                 $this->message->set(sprintf(_("Dernier UID généré : %s"), $result["max"]));
-            } catch (PpciException) {
+            } catch (PpciException $e) {
+                $this->message->set($e->getMessage(), true);
                 if ($db->transEnabled) {
                     $db->transRollback();
                 }
-            } catch (\Exception $e1) {
-                $this->message->set($e1->getMessage(), true);
             }
         }
         return $this->importStage1();
@@ -695,7 +697,8 @@ class Container extends PpciLibrary
         return $this->vue->send();
     }
 
-    function eventMulti() {
+    function eventMulti()
+    {
         if (count($_POST["uids"]) > 0) {
             is_array($_POST["uids"]) ? $uids = $_POST["uids"] : $uids = array($_POST["uids"]);
             $event = new Event;

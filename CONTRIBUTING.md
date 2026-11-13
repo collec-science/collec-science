@@ -41,9 +41,9 @@ If you then still feel the need to ask a question and need clarification, we rec
 
 We will then take care of the issue as soon as possible.
 
-
-
 ## I Want To Contribute
+
+If you wish to modify or add code, you must work from the *develop* branch or create a branch derived from *develop*. Never work from the *main* branch.
 
 > ### Legal Notice <!-- omit in toc -->
 > When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project licence.

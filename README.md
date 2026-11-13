@@ -1,11 +1,20 @@
 # COLLEC-SCIENCE  
 
-© INRAE, 2016-2025 - All rights reserved  
+© INRAE, 2016-2027 - All rights reserved  
 Published under AGPL license
 
 **WARNING**: Collec-Science is now hosted here: [https://github.com/collec-science/collec-science](https://github.com/collec-science/collec-science)
 
 Collec-Science is written with PHP, use the CodeIgniter framework and the complementary module [equinton/ppci](https://github.com/equinton/ppci). The documentation of *ppci* is available here: [https://equinton.github.io/ppcidocs](https://equinton.github.io/ppcidocs).
+
+User documentation is available here (currently only in French): [https://collec-science.github.io/userdocs/](https://collec-science.github.io/userdocs/).
+
+## Prerequisites
+
+- linux server. The installation script work with Ubuntu or Debian, but you can install the software with other OS like Arch
+- web server like apache
+- Postgresql 16 or later
+- PHP 8.3 or later
 
 ## Install
 
@@ -16,6 +25,8 @@ wget https://github.com/collec-science/collec-science/raw/main/install/deploy_ne
 sudo -s
 ./deploy_new_instance.sh
 ```
+
+If you want to install an unique server with multiple instances (one database and one url by instance), you can consult this repository: [https://github.com/collec-science/multi-instances](https://github.com/collec-science/multi-instances).
 
 ## Upgrade
 
@@ -76,3 +87,18 @@ Version 1.0 has been recorded with the French Agence de Protection des Programme
 # Online documentation
 
 Technical documentation is available here : [https://collec-science.github.io/docs/](https://collec-science.github.io/docs/)
+
+User documentation is available here (currently only in French): [https://collec-science.github.io/userdocs/](https://collec-science.github.io/userdocs/)
+
+## Maintenance
+
+The development of the application is managed by INRAE - GEDEOP. A consortium comprising INRAE and the CNRS is currently being set up.
+
+In 2026, the lead developer is Eric Quinton.
+
+## Support and contribution
+
+If you want to contribute, read this page: https://github.com/collec-science/collec-science/blob/main/CONTRIBUTING.md.
+
+To declare an issue: https://github.com/collec-science/collec-science/issues/new/choose
+

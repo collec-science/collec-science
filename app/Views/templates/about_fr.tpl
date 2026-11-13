@@ -9,31 +9,37 @@ D'un point de vue technique, les échantillons et les contenants sont, informati
 Les objets sont porteurs de plusieurs informations :
 <ul>
 <li>les mouvements d'entrée ou de sortie (ils ne peuvent pas être effacés)</li>
-<li>les événements.
+<li>les événements.</li>
 </ul>
 
 D'autres informations sont spécifiques soit des échantillons, soit des contenants.
 Pour ces derniers, les conditions de stockage (produit utilisé, risque associé normalisé) peuvent être décrits.
 <br>
 Consultez le site du projet : <a href="https://www.collec-science.org" target="_blank">https://www.collec-science.org</a>
+et la documentation : <a href="https://collec-science.github.io/userdocs/" target="_blank">https://collec-science.github.io/userdocs/</a>
 
 <h3>Liste (non exhaustive ?) des contributeurs au projet (ordre alphabétique)</h3>
 <ul>
 <li>Julien Ancelin (INRAE)</li>
 <li>Isabelle Billy (Université Bordeaux 1)</li>
+<li>Christopher Bilodeau (Natural resources Canada)</li>
 <li>Arnaud Caillo (OASU - UMS 2567 POREA / EPOC)</li>
 <li>Oton Copi (Université de Grenoble-Alpes)</li>
 <li>Sylvie Damy (Université de Franche-Comté)</li>
+<li>Doriane Delanghe (CEREGE)</li>
+<li>Ghislain Gassier (CEREGE)</li>
 <li>Mathieu Gauthier-Lafaye (EPOC - Université de Bordeaux)</li>
+<li>Nathalie Guilloux (INRAE)</li>
 <li>Hector Linyer (Université de La Rochelle)</li>
 <li>Alexandre Maindron (Université de Franche-Comté)</li>
 <li>Cécile Pignol (Université Savoie Mont-Blanc)
 <li>Christine Plumejeaud (Université de La Rochelle)</li>
 <li>Marie-Claude Quidoz (CEFE - CNRS Montpellier)</li>
 <li>Éric Quinton (INRAE)</li>
+<li>Wilfried Heintz (INRAE)</li>
 </ul>
 
-    <h3>Copyright © 2016-2026 - INRAE - Éric Quinton</h3>
+    <h3>Copyright © 2016-2027 - INRAE - Éric Quinton</h3>
 <p>
 La version 1.0 du logiciel a été déposée auprès de l'Agence pour la Protection des Programmes sous le numéro IDDN.FR.001.470013.000.S.C.2016.000.31500
 <br>

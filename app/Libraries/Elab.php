@@ -32,7 +32,7 @@ class Elab extends PpciLibrary
         if (!empty($sampleTypeId)) {
             $sampleType = new SampleType;
             $d = $sampleType->read($sampleTypeId);
-            if (!empty($d["multiple_value"])) {
+            if (!empty($d["multiple_type_id"])) {
                 $metadata["quantity"] = [
                     "type" => "number",
                     "unit" => $d["multiple_unit"],

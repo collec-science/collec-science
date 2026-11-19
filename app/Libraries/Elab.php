@@ -84,6 +84,7 @@ class Elab extends PpciLibrary
     function import(string $file)
     {
         $sample = new Sample;
+        $sample->autoFormatDate = false;
         $csv = new Csv;
         $sampleType = new SampleType;
         $sampleTypes = $sampleType->getListReverse();
@@ -111,7 +112,7 @@ class Elab extends PpciLibrary
                  * Search if sample exists
                  */
                 $dsample["uid"] = $sample->getUid("identifier", $row["title"], $_POST["collection_id"]);
-                $dsample["sampling_date"] = $sample->formatDateDBtoLocal($row["date"]);
+                $dsample["sampling_date"] = $row["date"];
                 $dsample["sample_creation_date"] = $dsample["sampling_date"];
                 $dsample["object_comment"] = $row["body"];
                 if (!empty($row["category_title"])) {

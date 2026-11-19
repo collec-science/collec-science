@@ -458,10 +458,11 @@ class DatasetTemplate extends PpciModel
                 "value" => $d["collection_name"]
             ];
             if (!empty($d["multiple_value"])) {
-                $metadata[_("quantité")] = [
+                $metadata["quantity"] = [
                     "type" => "number",
                     "unit" => $d["multiple_unit"],
-                    "value" => $d["multiple_value"]
+                    "value" => $d["multiple_value"],
+                    "description" => _("Quantité présente dans l'échantillon")
                 ];
             }
             $md = json_decode($d["metadata"], true);

@@ -1,5 +1,13 @@
 <div class="container">
-	<h2>{t}Liste des groupes de logins{/t}</h2>
+	<div class="row align-items-center">
+		<div class="col-auto">
+			<h2>{t}Liste des groupes de logins{/t}</h2>
+		</div>
+		<div class="col-auto">
+			{$help}
+		</div>
+	</div>
+
 	<div class="row">
 		<a href="groupChange?aclgroup_id=0">
 			<img src="display/images/new.png" height="25">
@@ -17,8 +25,7 @@
 				{section name=lst loop=$data}
 				<tr>
 					<td>
-						<a
-							href="groupChange?aclgroup_id={$data[lst].aclgroup_id}&aclgroup_id_parent={$data[lst].aclgroup_id_parent}">
+						<a href="groupChange?aclgroup_id={$data[lst].aclgroup_id}&aclgroup_id_parent={$data[lst].aclgroup_id_parent}">
 							{for $boucle = 1 to $data[lst].level}
 							&nbsp;&nbsp;&nbsp;
 							{/for}

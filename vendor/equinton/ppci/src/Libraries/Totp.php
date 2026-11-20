@@ -30,6 +30,7 @@ class Totp extends PpciLibrary
     {
         $vue = service("Smarty");
         $vue->set('ppci/ident/totp.tpl', 'corps');
+        $vue->helpPpci("totp");
         return $vue->send();
     }
     function create()
@@ -46,6 +47,7 @@ class Totp extends PpciLibrary
         $vue->set($_SESSION["dbparams"]["otp_issuer"], "issuer");
         $vue->set($_SESSION["login"], "label");
         $vue->set("ppci/droits/otpCreate.tpl", "corps");
+        $vue->helpPpci("totp");
         return $vue->Send();
     }
 
@@ -162,6 +164,7 @@ class Totp extends PpciLibrary
                 }
             }
             $this->vue->set("ppci/ident/totpShowCode.tpl", "corps");
+            $vue->helpPpci("totp");
             return $this->vue->send();
         } catch (PpciException $e) {
             $this->message->set($e->getMessage(), true);

@@ -22,7 +22,7 @@
 		});
 	});
 </script>
-<div class="container">
+<div class="container">{$help}
 	<h2>{t}Liste des logins déclarés dans la base de données{/t}</h2>
 
 	<a href="loginChange?id=0">

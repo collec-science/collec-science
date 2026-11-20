@@ -195,7 +195,7 @@ class SmartyPpci
     function fetch(string $template)
     {
         return $this->smarty->fetch($template);
-    }    
+    }
     /**
      * Method help: add a link to open inline help
      *
@@ -217,6 +217,17 @@ class SmartyPpci
 
             $this->htmlVars[] = $varname;
             $this->smarty->assign($varname, $link);
+        }
+    }
+    function helpPpci(string $key, $varname = "help")
+    {
+        /**
+         * @var HelpPpci
+         */
+        $helpPpci = service("HelpPpci");
+        $address = $helpPpci->get($key);
+        if ($address) {
+            $this->help( $address, $varname);
         }
     }
 }

@@ -14,6 +14,7 @@ use Ppci\Models\Dbparam;
 use Ppci\Libraries\Views\BinaryView;
 use Ppci\Libraries\Views\FileView;
 use Ppci\Config\IdentificationConfig;
+use Config\HelpPpci;
 use Ppci\Libraries\Views\AjaxView;
 use Ppci\Libraries\Views\CsvView;
 use Ppci\Libraries\Views\JsonFileView;
@@ -123,5 +124,8 @@ class Services extends BaseService
     public static function DisplayView($getShared = true)
     {
         return ($getShared === true ? static::getSharedInstance('DisplayView') : new DisplayView());
+    }
+    public static function HelpPpci($getShared = true) {
+        return ($getShared === true ? static::getSharedInstance('HelpPpci') : new HelpPpci());
     }
 }

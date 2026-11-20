@@ -1,5 +1,12 @@
 <div class="container">
-    <h2>{t}Affichage de la clé TOTP{/t}</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h2>{t}Affichage de la clé TOTP{/t}</h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="row">
         <div class="bg-info ">
             {t}Ce module vous permet de visualiser les paramètres de votre clé TOTP, pour pouvoir configurer un autre appareil le cas échéant{/t}

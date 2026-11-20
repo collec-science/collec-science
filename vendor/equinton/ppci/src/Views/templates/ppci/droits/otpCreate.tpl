@@ -7,7 +7,14 @@
     });
 </script>
 <div class="container">
-    <h2>{t}Activation de la double authentification{/t}</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">
+            <h2>{t}Activation de la double authentification{/t}</h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="row">
         <div class="bg-info ">
             {t}La double identification limite les risques d'usurpation de votre compte.{/t}

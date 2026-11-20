@@ -1,5 +1,14 @@
 <div class="container">
-    <h2>{t}Vérification du compte avec la double authentification{/t}</h2>
+    <div class="row align-items-center">
+        <div class="col-auto">"
+            <h2>
+                {t}Vérification du compte avec la double authentification{/t}
+            </h2>
+        </div>
+        <div class="col-auto">
+            {$help}
+        </div>
+    </div>
     <div class="bg-info">
         {t}Pour vérifier votre identification, veuillez taper le code TOTP que vous avez configuré dans votre smartphone{/t}
     </div>

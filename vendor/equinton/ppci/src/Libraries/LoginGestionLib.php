@@ -15,10 +15,14 @@ class LoginGestionLib extends PpciLibrary
 
     function list()
     {
+        /**
+         * @var SmartyPpci
+         */
         $vue = service("Smarty");
         $data = $this->dataclass->getlist();
         $vue->set($data, "data");
         $vue->set("ppci/ident/loginliste.tpl", "corps");
+        $vue->helpPpci("test");
         return $vue->send();
     }
     function change()
